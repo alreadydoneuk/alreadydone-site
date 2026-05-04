@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edinburgh Waste Management | Rubbish Removal in Bonnington, Edinburgh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #1e3a5f;
+      --accent: #16a34a;
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --white: #ffffff;
+      --light-grey: #e8f0f7;
+      --mid-grey: #64748b;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      color: var(--primary);
+      line-height: 1.25;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    img { display: block; width: 100%; border-radius: 8px; }
+
+    /* UTILITIES */
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--accent);
+      color: var(--white);
+      padding: 14px 30px;
+      border-radius: 6px;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.4px;
+      transition: background 0.2s ease, transform 0.15s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn:hover { background-color: #15803d; transform: translateY(-1px); }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--white);
+      color: var(--white);
+    }
+
+    .btn-outline:hover { background: var(--white); color: var(--primary); }
+
+    .section-label {
+      display: inline-block;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    /* NAV */
+    nav {
+      background-color: var(--primary);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--white);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .nav-brand span {
+      color: #4ade80;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-phone {
+      color: #cbd5e1;
+      font-size: 0.92rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .nav-phone a { color: inherit; }
+    .nav-phone a:hover { color: #4ade80; }
+
+    .nav-cta {
+      padding: 10px 22px;
+      font-size: 0.9rem;
+    }
+
+    /* HERO */
+    #hero {
+      background-color: var(--primary);
+      padding: 80px 0 0 0;
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: end;
+    }
+
+    .hero-content {
+      padding-bottom: 80px;
+    }
+
+    .hero-label {
+      display: inline-block;
+      background: rgba(22, 163, 74, 0.18);
+      color: #4ade80;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    .hero-content h1 {
+      color: var(--white);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      margin-bottom: 20px;
+    }
+
+    .hero-content h1 em {
+      font-style: normal;
+      color: #4ade80;
+    }
+
+    .hero-content p {
+      color: #94a3b8;
+      font-size: 1.08rem;
+      margin-bottom: 32px;
+      max-width: 440px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .hero-phone {
+      color: #cbd5e1;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .hero-phone a { color: #4ade80; }
+
+    .hero-img {
+      align-self: stretch;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .hero-img img {
+      border-radius: 12px 12px 0 0;
+      height: 480px;
+      object-fit: cover;
+    }
+
+    /* SERVICES */
+    #services {
+      padding: 88px 0;
+      background: var(--white);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      margin-bottom: 14px;
+    }
+
+    .section-header p {
+      color: var(--mid-grey);
+      max-width: 540px;
+      margin: 0 auto;
+      font-size: 1.02rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+    }
+
+    .service-card {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 32px 24px;
+      border-top: 4px solid var(--accent);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .service-card:hover {
+      box-shadow: 0 8px 28px rgba(30, 58, 95, 0.12);
+      transform: translateY(-3px);
+    }
+
+    .service-icon {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+    }
+
+    .service-card h3 {
+      font-size: 1.18rem;
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      color: var(--mid-grey);
+      font-size: 0.94rem;
+      line-height: 1.6;
+    }
+
+    /* ABOUT */
+    #about {
+      padding: 88px 0;
+      background: var(--bg);
+    }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .about-img img {
+      height: 460px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(30, 58, 95, 0.14);
+    }
+
+    .about-content h2 {
+      font-size: clamp(1.7rem, 2.8vw, 2.2rem);
+      margin-bottom: 20px;
+    }
+
+    .about-content p {
+      color: var(--mid-grey);
+      margin-bottom: 18px;
+      font-size: 1.02rem;
+    }
+
+    .about-content p strong { color: var(--text); }
+
+    .about-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--white);
+      border: 1px solid #d1fae5;
+      border-radius: 8px;
+      padding: 12px 20px;
+      margin-top: 8px;
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    /* WHY CHOOSE US */
+    #why {
+      padding: 88px 0;
+      background: var(--primary);
+    }
+
+    #why .section-header h2 { color: var(--white); }
+    #why .section-header p { color: #94a3b8; }
+    #why .section-label { color: #4ade80; }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px;
+    }
+
+    .trust-card {
+      background: rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 40px 32px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: background 0.2s;
+    }
+
+    .trust-card:hover { background: rgba(255,255,255,0.1); }
+
+    .trust-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(22, 163, 74, 0.18);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 1.8rem;
+    }
+
+    .trust-card h3 {
+      color: var(--white);
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+    }
+
+    .trust-card p {
+      color: #94a3b8;
+      font-size: 0.96rem;
+      line-height: 1.65;
+    }
+
+    /* TESTIMONIALS */
+    #testimonials {
+      padding: 88px 0;
+      background: var(--white);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .testimonial-card {
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 32px 28px;
+      position: relative;
+      border-left: 4px solid var(--accent);
+    }
+
+    .stars {
+      color: #f59e0b;
+      font-size: 1.1rem;
+      margin-bottom: 14px;
+      letter-spacing: 2px;
+    }
+
+    .testimonial-card p {
+      color: var(--text);
+      font-size: 0.98rem;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--primary);
+    }
+
+    .testimonial-area {
+      color: var(--mid-grey);
+      font-size: 0.82rem;
+    }
+
+    .quote-mark {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-size: 4rem;
+      color: #d1fae5;
+      font-family: 'Playfair Display', serif;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    /* CONTACT */
+    #contact {
+      padding: 88px 0;
+      background: var(--bg);
+    }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .contact-info h2 {
+      font-size: clamp(1.7rem, 2.8vw, 2.2rem);
+      margin-bottom: 16px;
+    }
+
+    .contact-info p {
+      color: var(--mid-grey);
+      margin-bottom: 30px;
+      font-size: 1.02rem;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .contact-detail-icon {
+      width: 44px;
+      height: 44px;
+      background: #d1fae5;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .contact-detail-text strong {
+      display: block;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 2px;
+    }
+
+    .contact-detail-text span {
+      color: var(--mid-grey);
+      font-size: 0.95rem;
+    }
+
+    .contact-detail-text a { color: var(--accent); font-weight: 700; }
+    .contact-detail-text a:hover { text-decoration: underline; }
+
+    .closing-line {
+      margin-top: 28px;
+      background: var(--primary);
+      color: var(--white);
+      padding: 18px 22px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .closing-line span { color: #4ade80; }
+
+    /* FORM */
+    .contact-form {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 40px 36px;
+      box-shadow: 0 4px 24px rgba(30, 58, 95, 0.1);
+    }
+
+    .contact-form h3 {
+      font-size: 1.4rem;
+      margin-bottom: 22px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.96rem;
+      color: var(--text);
+      background: var(--bg);
+      transition: border 0.2s;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--accent);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    .form-submit { width: 100%; padding: 15px; font-size: 1rem; margin-top: 6px; }
+
+    /* FOOTER */
+    footer {
+      background: #0f1e33;
+      padding: 36px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      color: var(--white);
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .footer-brand span { color: #4ade80; }
+
+    .footer-insured {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(22, 163, 74, 0.15);
+      color: #4ade80;
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-copy {
+      color: #475569;
+      font-size: 0.82rem;
+      text-align: right;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 14px 0; }
+
+      .nav-brand { font-size: 1rem; }
+
+      .nav-phone { display: none; }
+
+      .nav-cta { padding: 9px 16px; font-size: 0.82rem; }
+
+      #hero { padding: 52px 0 0 0; }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .hero-content { padding-bottom: 0; }
+
+      .hero-img img { height: 260px; border-radius: 10px; }
+
+      .services-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+
+      .about-inner {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .about-img img { height: 280px; }
+
+      .trust-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .contact-form { padding: 28px 22px; }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer-copy { text-align: left; }
+
+      #services, #about, #why, #testimonials, #contact { padding: 60px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <div class="nav-brand">Edinburgh <span>Waste</span> Management</div>
+        <div class="nav-right">
+          <div class="nav-phone"><a href="tel:01316034621">📞 0131 603 4621</a></div>
+          <a href="#contact" class="btn nav-cta">Get in touch</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-label">Serving Bonnington &amp; All Edinburgh</div>
+          <h1>Reliable rubbish removal in <em>Bonnington, Edinburgh</em> — trusted by local families</h1>
+          <p>From a single bag to a full house clearance, we make clearing your waste straightforward, affordable, and stress-free. Your neighbours have trusted us for years — let us help you too.</p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn">Get in touch</a>
+            <div class="hero-phone">Call us: <a href="tel:01316034621">0131 603 4621</a></div>
+          </div>
+        </div>
+        <div class="hero-img">
+          <img src="https://placehold.co/580x480/1e3a5f/4ade80?text=Edinburgh+Waste+Management" alt="Edinburgh Waste Management team at work in Bonnington" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">What We Do</span>
+        <h2>Our Rubbish Removal Services</h2>
+        <p>We handle all kinds of waste across Edinburgh. Whatever needs clearing, we've got the van, the team, and the know-how to get the job done right.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🏠</div>
+          <h3>House Clearances</h3>
+          <p>Moving home, downsizing, or clearing a loved one's property? We handle full house clearances with care, discretion, and a friendly face — however big the job.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🛋️</div>
+          <h3>Furniture &amp; Bulky Item Removal</h3>
+          <p>Old sofas, mattresses, white goods, and oversized items collected promptly. No awkward negotiations with the council — just a quick, clean lift from your door.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🏗️</div>
+          <h3>Garden &amp; Building Waste</h3>
+          <p>Hedge trimmings, soil, rubble, old fencing — we take it all. Perfect after a landscaping project or renovation, so you're left with a tidy, clutter-free space.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🏢</div>
+          <h3>Commercial &amp; Office Clearances</h3>
+          <p>Refitting your office or clearing out a commercial premises? We work efficiently around your schedule to remove furniture, equipment, and general waste with minimal fuss.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-img">
+          <img src="https://placehold.co/580x460/e8f0f7/1e3a5f?text=Local+Edinburgh+Team" alt="Edinburgh Waste Management local team Bonnington" />
+        </div>
+        <div class="about-content">
+          <span class="section-label">About Us</span>
+          <h2>Proudly local, genuinely reliable</h2>
+          <p>Edinburgh Waste Management was born right here in Bonnington. Based at Bonnington Bond on Anderson Place, we've been serving households and businesses across Edinburgh for years — and the people who call us aren't just customers, they're our neighbours.</p>
+          <p>We started out with a simple belief: <strong>rubbish removal should be easy, honest, and fairly priced.</strong> No hidden charges, no last-minute let-downs. You call us, we turn up, we sort it. That's the deal.</p>
+          <p>Our team knows Edinburgh inside out — from Leith to Stockbridge, Portobello to Gorgie. We understand what local families and businesses need, and we take real pride in leaving every property cleaner than we found it. <strong>Recycling and responsible disposal</strong> are at the heart of everything we do, because this is our city too.</p>
+          <div class="about-badge">
+            ✅ &nbsp;Fully licensed waste carrier — registered with the Scottish Environment Protection Agency
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section id="why">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Why Choose Us</span>
+        <h2>The Edinburgh Waste Management difference</h2>
+        <p>We're not a faceless national company. We're your local team, and these are the principles we built our business on.</p>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-card">
+          <div class="trust-icon">🛡️</div>
+          <h3>Fully Insured &amp; Licensed</h3>
+          <p>We hold full public liability insurance and are a licensed waste carrier registered with SEPA. You're in safe, professional hands from first call to final clearance — every single time.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">📍</div>
+          <h3>Locally Based in Bonnington</h3>
+          <p>Our base on Anderson Place means we can be with you fast. We're not dispatching from miles away — we're right here in your community, which means quicker response times and someone who actually knows your area.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">⭐</div>
+          <h3>Consistent, Dependable Service</h3>
+          <p>We show up when we say we will. No vague time windows, no unexplained no-shows. Our customers come back to us because they know exactly what to expect — and we always deliver on that promise.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Customer Reviews</span>
+        <h2>What Edinburgh locals say about us</h2>
+        <p>Don't just take our word for it — here's what some of our customers across Edinburgh have to say.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <div class="stars">★★★★★</div>
+          <p>Absolutely brilliant service from start to finish. Booked a full house clearance in Leith and the lads arrived on time, worked quickly, and were genuinely pleasant to have around. The price was exactly as quoted — no nasty surprises. Couldn't recommend them more highly.</p>
+          <div class="testimonial-author">Margaret T.</div>
+          <div class="testimonial-area">Leith, Edinburgh</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <div class="stars">★★★★★</div>
+          <p>I called on a Tuesday and they were with me by Thursday morning. Had a mountain of garden waste and some old furniture to shift after a big renovation — cleared the lot in under two hours. Really hardworking team and great value for money. Will definitely use again.</p>
+          <div class="testimonial-author">David S.</div>
+          <div class="testimonial-area">Stockbridge, Edinburgh</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <div class="stars">★★★★★</div>
+          <p>Used Edinburgh Waste Management to clear out my late mother's flat in Pilrig. They were sensitive, respectful, and efficient — exactly what you need at a difficult time. They even sorted the items for recycling and donation, which meant a lot. Genuinely lovely people to deal with.</p>
+          <div class="testimonial-author">Susan R.</div>
+          <div class="testimonial-area">Pilrig, Edinburgh</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-inner">
+        <div class="contact-info">
+          <span class="section-label">Get In Touch</span>
+          <h2>Ready to clear the clutter?</h2>
+          <p>Whether you've got a quick question or you're ready to book, we'd love to hear from you. We're happy to give you a free, no-obligation quote — just drop us a message or pick up the phone.</p>
+
+          <div class="contact-detail">
+            <div class="contact-detail-icon">📞</div>
+            <div class="contact-detail-text">
+              <strong>Phone</strong>
+              <span><a href="tel:01316034621">0131 603 4621</a></span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">📍</div>
+            <div class="contact-detail-text">
+              <strong>Our Address</strong>
+              <span>Bonnington Bond, 2 Anderson Pl, Edinburgh EH6 5NP</span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">🗺️</div>
+            <div class="contact-detail-text">
+              <strong>Service Area</strong>
+              <span>All Edinburgh postcodes — Bonnington, Leith, Stockbridge, Morningside, Portobello, Gorgie, Newington &amp; beyond</span>
+            </div>
+          </div>
+
+          <div class="closing-line">
+            No job too small — <span>just get in touch</span> and we'll have it sorted. 🙌
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <h3>Send us a message</h3>
+          <form action="#" method="POST">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="e.g. John Smith" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="
