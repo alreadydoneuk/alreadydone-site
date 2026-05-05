@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page4Designs — Graphic Designer, Edinburgh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --primary: #292524;
+    --accent: #f59e0b;
+    --bg: #fafaf9;
+    --text: #1c1917;
+    --light-border: #e7e5e4;
+    --muted: #78716c;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.03em;
+    line-height: 1.1;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* ========================
+     NAVIGATION
+  ======================== */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: var(--primary);
+    padding: 0 40px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.05em;
+    color: #fff;
+  }
+
+  .nav-logo span {
+    color: var(--accent);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links li a {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #d6d3d1;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: color 0.2s;
+  }
+
+  .nav-links li a:hover {
+    color: var(--accent);
+  }
+
+  .nav-cta {
+    background-color: var(--accent);
+    color: var(--primary) !important;
+    padding: 8px 20px;
+    font-weight: 700 !important;
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  .nav-cta:hover {
+    background-color: #d97706 !important;
+    color: #fff !important;
+  }
+
+  /* ========================
+     HERO
+  ======================== */
+  .hero {
+    margin-top: 64px;
+    background-color: var(--primary);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: calc(100vh - 64px);
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px 80px 80px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 7vw, 7rem);
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .hero-title span {
+    color: var(--accent);
+  }
+
+  .hero-descriptor {
+    font-size: 1.1rem;
+    color: #a8a29e;
+    font-weight: 300;
+    max-width: 380px;
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background-color: var(--accent);
+    color: var(--primary);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.1em;
+    padding: 16px 44px;
+    transition: background-color 0.2s, transform 0.2s;
+    align-self: flex-start;
+  }
+
+  .btn-primary:hover {
+    background-color: #d97706;
+    transform: translateY(-2px);
+  }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.85) contrast(1.05);
+  }
+
+  .hero-right::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(41,37,36,0.25) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* ========================
+     SECTION SHARED
+  ======================== */
+  section {
+    padding: 100px 80px;
+  }
+
+  .section-label {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    color: var(--primary);
+    margin-bottom: 20px;
+  }
+
+  .section-title--light {
+    color: #fff;
+  }
+
+  /* ========================
+     SELECTED WORK
+  ======================== */
+  .work {
+    background-color: var(--bg);
+  }
+
+  .work-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .work-header-text {
+    max-width: 500px;
+  }
+
+  .work-header p {
+    color: var(--muted);
+    font-size: 1rem;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .work-card {
+    background-color: #fff;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid var(--light-border);
+  }
+
+  .work-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(41,37,36,0.12);
+  }
+
+  .work-card-img {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .work-card-img img {
+    transition: transform 0.5s;
+  }
+
+  .work-card:hover .work-card-img img {
+    transform: scale(1.04);
+  }
+
+  .work-card-tag {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background-color: var(--accent);
+    color: var(--primary);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+  }
+
+  .work-card-body {
+    padding: 24px;
+  }
+
+  .work-card-body h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: var(--primary);
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  .work-card-body p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ========================
+     ABOUT
+  ======================== */
+  .about {
+    background-color: var(--primary);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    padding: 100px 80px;
+  }
+
+  .about-img {
+    position: relative;
+  }
+
+  .about-img img {
+    width: 100%;
+    height: 560px;
+    object-fit: cover;
+  }
+
+  .about-img::before {
+    content: '';
+    position: absolute;
+    top: -16px;
+    left: -16px;
+    right: 16px;
+    bottom: 16px;
+    border: 2px solid var(--accent);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .about-img img {
+    position: relative;
+    z-index: 1;
+  }
+
+  .about-content .section-title {
+    color: #fff;
+  }
+
+  .about-content p {
+    color: #a8a29e;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .about-content p:last-of-type {
+    margin-bottom: 36px;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+    border-top: 1px solid #44403c;
+    padding-top: 36px;
+  }
+
+  .stat-item h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+  }
+
+  .stat-item p {
+    font-size: 0.8rem;
+    color: #78716c;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0;
+  }
+
+  /* ========================
+     SERVICES
+  ======================== */
+  .services {
+    background-color: var(--bg);
+  }
+
+  .services-header {
+    max-width: 600px;
+    margin-bottom: 60px;
+  }
+
+  .services-header p {
+    color: var(--muted);
+    font-size: 1rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background-color: var(--light-border);
+    border: 1px solid var(--light-border);
+  }
+
+  .service-item {
+    background-color: #fff;
+    padding: 48px 40px;
+    transition: background-color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-item::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background-color: var(--accent);
+    transition: width 0.4s;
+  }
+
+  .service-item:hover::before {
+    width: 100%;
+  }
+
+  .service-item:hover {
+    background-color: #fef9ee;
+  }
+
+  .service-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    color: var(--light-border);
+    line-height: 1;
+    margin-bottom: 16px;
+    transition: color 0.3s;
+  }
+
+  .service-item:hover .service-number {
+    color: #fde68a;
+  }
+
+  .service-item h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin-bottom: 12px;
+    letter-spacing: 0.04em;
+  }
+
+  .service-item p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ========================
+     TESTIMONIALS
+  ======================== */
+  .testimonials {
+    background-color: var(--primary);
+  }
+
+  .testimonials-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 64px;
+  }
+
+  .testimonials-header p {
+    color: #a8a29e;
+    font-size: 1rem;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .testimonial-card {
+    background-color: #1c1917;
+    padding: 40px 32px;
+    border-top: 3px solid var(--accent);
+    position: relative;
+  }
+
+  .stars {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 20px;
+  }
+
+  .star {
+    color: var(--accent);
+    font-size: 1rem;
+  }
+
+  .testimonial-card p {
+    color: #a8a29e;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    font-style: italic;
+    margin-bottom: 28px;
+  }
+
+  .testimonial-author {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+  }
+
+  .quote-mark {
+    font-family: Georgia, serif;
+    font-size: 5rem;
+    color: #292524;
+    position: absolute;
+    top: 10px;
+    right: 24px;
+    line-height: 1;
+  }
+
+  /* ========================
+     CONTACT
+  ======================== */
+  .contact {
+    background-color: var(--bg);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    padding: 100px 80px;
+  }
+
+  .contact-info .section-title {
+    margin-bottom: 16px;
+  }
+
+  .contact-info > p {
+    color: var(--muted);
+    font-size: 1rem;
+    margin-bottom: 40px;
+    max-width: 380px;
+    line-height: 1.7;
+  }
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .contact-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    background-color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact-icon svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--primary);
+  }
+
+  .contact-detail-item span {
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .response-note {
+    background-color: #fef9ee;
+    border-left: 3px solid var(--accent);
+    padding: 16px 20px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  .contact-form {
+    background-color: #fff;
+    padding: 48px 40px;
+    border: 1px solid var(--light-border);
+  }
+
+  .form-group {
+    margin-bottom: 24px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid var(--light-border);
+    background-color: var(--bg);
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--accent);
+    background-color: #fff;
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 140px;
+  }
+
+  .form-submit {
+    width: 100%;
+    background-color: var(--accent);
+    color: var(--primary);
+    border: none;
+    padding: 18px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+
+  .form-submit:hover {
+    background-color: #d97706;
+    transform: translateY(-2px);
+  }
+
+  /* ========================
+     FOOTER
+  ======================== */
+  footer {
+    background-color: var(--primary);
+    padding: 48px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-top: 3px solid var(--accent);
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: #fff;
+    letter-spacing: 0.05em;
+  }
+
+  .footer-logo span {
+    color: var(--accent);
+  }
+
+  .footer-copy {
+    font-size: 0.82rem;
+    color: #78716c;
+    text-align: center;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .footer-links a {
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #a8a29e;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover {
+    color: var(--accent);
+  }
+
+  /* ========================
+     MID-PAGE CTA STRIP
+  ======================== */
+  .cta-strip {
+    background-color: var(--accent);
+    padding: 60px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  .cta-strip h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    color: var(--primary);
+    line-height: 1.1;
+  }
+
+  .cta-strip p {
+    color: #78350f;
+    font-size: 0.95rem;
+    max-width: 400px;
+    margin-top: 8px;
+  }
+
+  .btn-dark {
+    display: inline-block;
+    background-color: var(--primary);
+    color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.1em;
+    padding: 16px 44px;
+    flex-shrink: 0;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+
+  .btn-dark:hover {
+    background-color: #1c1917;
+    transform: translateY(-2px);
+  }
+
+  /* ========================
+     RESPONSIVE — 768px
+  ======================== */
+  @media (max-width: 768px) {
+    nav {
+      padding: 0 20px;
+    }
+
+    .nav-links {
+      display: none;
+    }
+
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .hero-left {
+      padding: 60px 24px 48px;
+      order: 2;
+    }
+
+    .hero-right {
+      order: 1;
+      height: 300px;
+    }
+
+    .hero-title {
+      font-size: 3.6rem;
+    }
+
+    .hero-descriptor {
+      font-size: 1rem;
+    }
+
+    section {
+      padding: 64px 24px;
+    }
+
+    .work-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .work-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .about {
+      grid-template-columns: 1fr;
+      gap: 48px;
+      padding: 64px 24px;
+    }
+
+    .about-img::before {
+      display: none;
+    }
+
+    .about-img img {
+      height: 300px;
+    }
+
+    .about-stats {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .stat-item h4 {
+      font-size: 1.8rem;
+    }
+
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .service-item {
+      padding: 36px 24px;
+    }
+
+    .testimonials {
+      padding: 64px 24px;
+    }
+
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .contact {
+      grid-template-columns: 1fr;
+      gap: 48px;
+      padding: 64px 24px;
+    }
+
+    .contact-form {
+      padding: 32px 24px;
+    }
+
+    .cta-strip {
+      flex-direction: column;
+      padding: 48px 24px;
+      align-items: flex-start;
+    }
+
+    footer {
+      padding: 40px 24px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .footer-copy {
+      text-align: left;
+    }
+  }
+</style>
+</head>
+<body>
+<!-- Already Done claim banner -->
+<style>
+  #ad-claim-banner { position:fixed;top:0;left:0;right:0;z-index:99999;background:#1e3a5f;color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:Arial,sans-serif;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.25); }
+  #ad-claim-banner span { line-height:1.4; }
+  #ad-claim-expiry { color:#93c5fd;font-size:12px;display:block;margin-top:2px; }
+  #ad-claim-btn { background:#f59e0b;color:#1e3a5f;padding:9px 20px;border-radius:5px;text-decoration:none;font-weight:700;white-space:nowrap;font-size:14px;flex-shrink:0; }
+  #ad-claim-btn:hover { background:#fbbf24; }
+  #ad-banner-spacer { height:52px; }
+  @media(max-width:600px){ #ad-claim-banner{flex-direction:column;text-align:center;padding:12px 16px;} #ad-banner-spacer{height:100px;} }
+</style>
+<div id="ad-claim-banner">
+  <span>
+    👋 Free preview site built for <strong>Page4Designs</strong> by Already Done
+    <small id="ad-claim-expiry">Preview available until 19 May — reply to claim it</small>
+  </span>
+  <a id="ad-claim-btn" href="mailto:dean@alreadydone.uk?subject=I%20want%20my%20website%20%E2%80%94%20Page4Designs&body=Hi%20Dean%2C%0A%0AI've%20seen%20the%20preview%20site%20you%20built%20for%20us%20and%20I'd%20like%20to%20claim%20it.%0A%0ACan%20you%20let%20me%20know%20the%20next%20steps%3F%0A%0AThanks">Claim it for £99 →</a>
+</div>
+<div id="ad-banner-spacer"></div>
+
+<!-- ========================
+     NAVIGATION
+======================== -->
+<nav>
+  <a href="#" class="nav-logo">Page<span>4</span>Designs</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact" class="nav-cta">Get in touch</a></li>
+  </ul>
+</nav>
+
+<!-- ========================
+     HERO
+======================== -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Graphic Designer — Edinburgh</p>
+    <h1 class="hero-title">Design That <span>Means</span> Something</h1>
+    <p class="hero-descriptor">Page4Designs creates bold, considered visual work for independent businesses, local brands, and anyone who knows that great design isn't optional.</p>
+    <a href="#contact" class="btn-primary">Start a project</a>
+  </div>
+  <div class="hero-right">
+    <img src="https://placeholder.co/1200x600/292524/f59e0b?text=Page4Designs" alt="Page4Designs portfolio showcase">
+  </div>
+</section>
+
+<!-- ========================
+     SELECTED WORK
+======================== -->
+<section class="work" id="work">
+  <div class="work-header">
+    <div class="work-header-text">
+      <p class="section-label">Selected Work</p>
+      <h2 class="section-title">Projects That Delivered</h2>
+    </div>
+    <p>A cross-section of recent work spanning branding, print, and digital — built for clients who care about the detail.</p>
+  </div>
+
+  <div class="work-grid">
+    <div class="work-card">
+      <div class="work-card-img">
+        <img src="https://placeholder.co/600x400/292524/f59e0b?text=Branding+Project" alt="Brand identity project">
+        <span class="work-card-tag">Branding</span>
+      </div>
+      <div class="work-card-body">
+        <h3>Northview Coffee Co.</h3>
+        <p>Full brand identity for an independent Edinburgh coffee shop — from logo and colour system through to packaging and menu design that felt warm, modern, and unmistakably local.</p>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-card-img">
+        <img src="https://placeholder.co/600x400/1c1917/f59e0b?text=Print+Design" alt="Print design project">
+        <span class="work-card-tag">Print</span>
+      </div>
+      <div class="work-card-body">
+        <h3>Forth Festival Print Suite</h3>
+        <p>Posters, programmes, and promotional materials for a grassroots arts festival — a system of print collateral that unified the event's identity across every touchpoint.</p>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-card-img">
+        <img src="https://placeholder.co/600x400/44403c/f59e0b?text=Digital+Design" alt="Digital design project">
+        <span class="work-card-tag">Digital</span>
+      </div>
+      <div class="work-card-body">
+        <h3>Leith Trading Co. Digital Rebrand</h3>
+        <p>Social media templates, email headers, and a refreshed visual language for a Leith-based retailer expanding its online presence — consistent, flexible, and scroll-stopping.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================
+     CTA STRIP
+======================== -->
+<div class="cta-strip">
+  <div>
+    <h2>Ready to see what your brand could look like?</h2>
+    <p>Every project starts with a conversation. No pressure, no jargon — just a straight-talking chat about what you need.</p>
+  </div>
+  <a href="#contact" class="btn-dark">Start a project</a>
+</div>
+
+<!-- ========================
+     ABOUT
+======================== -->
+<section class="about" id="about">
+  <div class="about-img">
+    <img src="https://placeholder.co/600x700/1c1917/f59e0b?text=About+Page4Designs" alt="Designer at work, Pilton Edinburgh">
+  </div>
+  <div class="about-content">
+    <p class="section-label">About</p>
+    <h2 class="section-title">Rooted in Pilton. Working Across Scotland.</h2>
+    <p>I'm a freelance graphic designer based in Pilton, Edinburgh, working with small businesses, sole traders, and creatives who want design that actually reflects who they are — not a generic template or a corporate compromise.</p>
+    <p>My approach is direct and collaborative: I ask the right questions, listen properly, and then build visual identities and printed materials that feel true to the business behind them.</p>
+    <p>Page4Designs is deliberately small — which means you get my full attention on your project, not a junior account manager and a revolving door of designers.</p>
+
+    <div class="about-stats">
+      <div class="stat-item">
+        <h4>8+</h4>
+        <p>Years active</p>
+      </div>
+      <div class="stat-item">
+        <h4>60+</h4>
+        <p>Projects completed</p>
+      </div>
+      <div class="stat-item">
+        <h4>100%</h4>
+        <p>Independent clients</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================
+     SERVICES
+======================== -->
+<section class="services" id="services">
+  <div class="services-header">
+    <p class="section-label">What I Do</p>
+    <h2 class="section-title">Services</h2>
+    <p>Whether you're starting from scratch or refreshing something that's not quite working, here's where I can help.</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-item">
+      <div class

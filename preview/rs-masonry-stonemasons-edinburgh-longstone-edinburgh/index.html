@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RS Masonry – Stonemasons Edinburgh | Longstone</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #1e3a5f;
+      --accent: #16a34a;
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --white: #ffffff;
+      --shadow: 0 4px 18px rgba(30,58,95,0.10);
+      --radius: 10px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      color: var(--primary);
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--white);
+      box-shadow: 0 2px 10px rgba(30,58,95,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+
+    .nav-logo span {
+      color: var(--accent);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-phone {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+
+    .btn {
+      background: var(--accent);
+      color: var(--white);
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      white-space: nowrap;
+      display: inline-block;
+    }
+
+    .btn:hover { background: #15803d; transform: translateY(-1px); }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--white);
+      color: var(--white);
+    }
+
+    .btn-outline:hover { background: var(--white); color: var(--primary); }
+
+    /* ── HERO ── */
+    .hero-banner {
+      background: var(--primary);
+      padding: 56px 24px 52px;
+      text-align: center;
+    }
+
+    .hero-banner h1 {
+      color: var(--white);
+      font-size: 2.6rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .hero-banner h1 span { color: #7dd3ac; }
+
+    .hero-banner p.subheading {
+      color: #c8daea;
+      font-size: 1.15rem;
+      max-width: 600px;
+      margin: 0 auto 28px;
+    }
+
+    .hero-phone {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 28px;
+      display: block;
+      letter-spacing: 1px;
+    }
+
+    .hero-phone a { color: inherit; }
+
+    .trust-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 30px;
+      padding: 8px 20px;
+      color: var(--white);
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    .trust-badge .stars { color: #facc15; font-size: 1.05rem; }
+
+    /* ── SECTION WRAPPER ── */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 70px 24px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .section-underline {
+      width: 56px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin: 0 auto 40px;
+    }
+
+    /* ── ABOUT ── */
+    .about-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 40px 44px;
+      max-width: 820px;
+      margin: 0 auto;
+      border-left: 5px solid var(--accent);
+    }
+
+    .about-card p {
+      color: #334155;
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+    }
+
+    .about-card p:last-child { margin-bottom: 0; }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 30px 24px;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(30,58,95,0.15);
+    }
+
+    .service-icon {
+      width: 58px;
+      height: 58px;
+      background: #e8f5ee;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      font-size: 1.6rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      color: #475569;
+      font-size: 0.93rem;
+      line-height: 1.6;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-section {
+      background: var(--primary);
+      padding: 70px 24px;
+    }
+
+    .testimonials-section .section-title { color: var(--white); }
+
+    .testimonials-section .section-underline { background: #7dd3ac; }
+
+    .testimonials-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .testimonial-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px 26px;
+    }
+
+    .testimonial-stars { color: #facc15; font-size: 1.1rem; margin-bottom: 12px; }
+
+    .testimonial-body {
+      color: #334155;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 16px;
+    }
+
+    .testimonial-author {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.9rem;
+    }
+
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: start;
+    }
+
+    .contact-form-card, .contact-info-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 36px 32px;
+    }
+
+    .contact-form-card h3, .contact-info-card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 22px;
+    }
+
+    .form-group { margin-bottom: 18px; }
+
+    .form-group label {
+      display: block;
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--primary);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.97rem;
+      color: var(--text);
+      background: #f8fafc;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 130px; }
+
+    .contact-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .contact-info-icon {
+      width: 42px;
+      height: 42px;
+      background: #e8f5ee;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-info-text strong {
+      display: block;
+      color: var(--primary);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .contact-info-text span, .contact-info-text a {
+      color: #334155;
+      font-size: 0.97rem;
+    }
+
+    .contact-info-text a:hover { color: var(--accent); }
+
+    .map-placeholder {
+      width: 100%;
+      border-radius: var(--radius);
+      margin-top: 6px;
+      display: block;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--text);
+      color: #94a3b8;
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 0.88rem;
+    }
+
+    footer strong { color: var(--white); }
+
+    /* ── CTA STRIP ── */
+    .cta-strip {
+      background: var(--accent);
+      padding: 44px 24px;
+      text-align: center;
+    }
+
+    .cta-strip h2 {
+      color: var(--white);
+      font-size: 1.7rem;
+      margin-bottom: 10px;
+    }
+
+    .cta-strip p {
+      color: #dcfce7;
+      margin-bottom: 24px;
+      font-size: 1rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-phone { display: none; }
+
+      .hero-banner h1 { font-size: 1.75rem; }
+      .hero-phone { font-size: 1.5rem; }
+
+      .services-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-card {
+        padding: 28px 22px;
+      }
+
+      .section { padding: 50px 18px; }
+      .testimonials-section { padding: 50px 18px; }
+
+      .nav-logo { font-size: 1.05rem; }
+    }
+
+    @media (max-width: 480px) {
+      .services-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<!-- Already Done claim banner -->
+<style>
+  #ad-claim-banner { position:fixed;top:0;left:0;right:0;z-index:99999;background:#1e3a5f;color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:Arial,sans-serif;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.25); }
+  #ad-claim-banner span { line-height:1.4; }
+  #ad-claim-expiry { color:#93c5fd;font-size:12px;display:block;margin-top:2px; }
+  #ad-claim-btn { background:#f59e0b;color:#1e3a5f;padding:9px 20px;border-radius:5px;text-decoration:none;font-weight:700;white-space:nowrap;font-size:14px;flex-shrink:0; }
+  #ad-claim-btn:hover { background:#fbbf24; }
+  #ad-banner-spacer { height:52px; }
+  @media(max-width:600px){ #ad-claim-banner{flex-direction:column;text-align:center;padding:12px 16px;} #ad-banner-spacer{height:100px;} }
+</style>
+<div id="ad-claim-banner">
+  <span>
+    👋 Free preview site built for <strong>RS Masonry (stonemasons Edinburgh)</strong> by Already Done
+    <small id="ad-claim-expiry">Preview available until 19 May — reply to claim it</small>
+  </span>
+  <a id="ad-claim-btn" href="mailto:dean@alreadydone.uk?subject=I%20want%20my%20website%20%E2%80%94%20RS%20Masonry%20(stonemasons%20Edinburgh)&body=Hi%20Dean%2C%0A%0AI've%20seen%20the%20preview%20site%20you%20built%20for%20us%20and%20I'd%20like%20to%20claim%20it.%0A%0ACan%20you%20let%20me%20know%20the%20next%20steps%3F%0A%0AThanks">Claim it for £99 →</a>
+</div>
+<div id="ad-banner-spacer"></div>
+
+  <!-- ══ 1. NAVIGATION ══ -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-logo">RS <span>Masonry</span></div>
+      <div class="nav-right">
+        <span class="nav-phone">📞 07568 079997</span>
+        <a href="#contact" class="btn">Get in touch</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══ 2. HERO ══ -->
+  <section class="hero-banner">
+    <h1>Expert <span>Stonemasons</span><br>in Longstone, Edinburgh</h1>
+    <p class="subheading">Skilled, reliable stonework for Edinburgh homes and heritage properties — done properly, the first time.</p>
+    <div class="trust-badge">
+      <span class="stars">★★★★½</span>
+      <span>4.5/5 · 8 Google Reviews</span>
+    </div>
+    <br>
+    <a class="hero-phone" href="tel:07568079997">07568 079997</a>
+    <a href="#contact" class="btn btn-outline">Get in touch</a>
+  </section>
+
+  <!-- ══ 3. ABOUT ══ -->
+  <div class="section">
+    <h2 class="section-title">About RS Masonry</h2>
+    <div class="section-underline"></div>
+    <div class="about-card">
+      <p>RS Masonry is an Edinburgh-based stonework specialist with years of hands-on experience restoring, repairing, and building with natural stone across the city and surrounding areas.</p>
+      <p>What sets us apart is our commitment to traditional craft methods combined with a thorough understanding of Edinburgh's sandstone and limestone buildings — we treat every job with the care it deserves, from pointing a garden wall to restoring a period façade.</p>
+      <p>Proudly serving Longstone and all Edinburgh neighbourhoods, we're local tradespeople who take genuine pride in the quality of work we leave behind.</p>
+    </div>
+  </div>
+
+  <!-- ══ 4. SERVICES ══ -->
+  <div style="background: #f1f5f9; padding: 4px 0;">
+    <div class="section">
+      <h2 class="section-title">Our Services</h2>
+      <div class="section-underline"></div>
+      <div class="services-grid">
+
+        <div class="service-card">
+          <div class="service-icon">🪨</div>
+          <h3>Stone Pointing &amp; Repointing</h3>
+          <p>We remove deteriorated mortar and replace it with a carefully matched mix that protects your masonry from Edinburgh's weather and extends its life for decades.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🏚️</div>
+          <h3>Stone Restoration &amp; Repair</h3>
+          <p>Cracked, eroded, or spalling stonework carefully restored using traditional techniques — ideal for period tenements, boundary walls, and listed buildings.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🧱</div>
+          <h3>Dry Stone Walling</h3>
+          <p>Authentic dry stone walls built or repaired to last — perfect for gardens, driveways, and rural boundaries across Edinburgh and the Lothians.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🏗️</div>
+          <h3>New Stone Build &amp; Extensions</h3>
+          <p>From stone garden features and steps to new builds and extensions, we work with architects and homeowners to achieve results that genuinely complement the local character.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 5. TESTIMONIALS ══ -->
+  <section class="testimonials-section">
+    <h2 class="section-title">What Our Customers Say</h2>
+    <div class="section-underline"></div>
+    <p style="color:#c8daea; text-align:center; margin-top:-28px; margin-bottom:36px; font-size:0.95rem;">★★★★½ &nbsp;·&nbsp; 4.5/5 on Google &nbsp;·&nbsp; 8 Reviews</p>
+    <div class="testimonials-grid">
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-body">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."</p>
+        <div class="testimonial-author">D. F. — Longstone, Edinburgh</div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-body">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."</p>
+        <div class="testimonial-author">M. T. — Slateford, Edinburgh</div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★½</div>
+        <p class="testimonial-body">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+        <div class="testimonial-author">C. B. — Colinton, Edinburgh</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ CTA STRIP ══ -->
+  <section class="cta-strip">
+    <h2>Need a Reliable Stonemason in Edinburgh?</h2>
+    <p>We're happy to give honest advice and a free, no-obligation quote for your project.</p>
+    <a href="#contact" class="btn" style="background:var(--white); color:var(--accent); font-size:1rem; padding:13px 32px;">Get in touch</a>
+  </section>
+
+  <!-- ══ 6. CONTACT ══ -->
+  <div class="section" id="contact">
+    <h2 class="section-title">Get in Touch</h2>
+    <div class="section-underline"></div>
+    <div class="contact-grid">
+
+      <div class="contact-form-card">
+        <h3>Send Us a Message</h3>
+        <form action="mailto:dean@alreadydone.uk" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="e.g. John Smith" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" placeholder="Tell us about your project — location, type of stonework, and any relevant details..." required></textarea>
+          </div>
+          <button type="submit" class="btn" style="width:100%; font-size:1rem; padding:13px;">Get in touch</button>
+        </form>
+      </div>
+
+      <div>
+        <div class="contact-info-card" style="margin-bottom:24px;">
+          <h3>Contact Details</h3>
+
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📞</div>
+            <div class="contact-info-text">
+              <strong>Phone</strong>
+              <a href="tel:07568079997">07568 079997</a>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📍</div>
+            <div class="contact-info-text">
+              <strong>Address</strong>
+              <span>154 Northfield Farm Ave,<br>Edinburgh EH8 7QZ</span>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-info-icon">🕐</div>
+            <div class="contact-info-text">
+              <strong>Hours</strong>
+              <span>Mon–Fri: 8am–5:30pm<br>Sat: 9am–1pm</span>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📍</div>
+            <div class="contact-info-text">
+              <strong>Coverage Area</strong>
+              <span>Edinburgh, Longstone, Colinton, Slateford, Sighthill &amp; surrounding Lothians</span>
+            </div>
+          </div>
+        </div>
+
+        <img
+          src="https://placeholder.co/600x300/1e3a5f/ffffff?text=RS+Masonry+–+Longstone%2C+Edinburgh"
+          alt="Map showing RS Masonry location in Longstone, Edinburgh"
+          class="map-placeholder"
+        />
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ 7. FOOTER ══ -->
+  <footer>
+    <p><strong>RS Masonry</strong> &nbsp;|&nbsp; Stonemasons Edinburgh &nbsp;|&nbsp; Longstone, Edinburgh</p>
+    <p style="margin-top:6px;">&copy; 2025 RS Masonry. All rights reserved. &nbsp;|&nbsp; <a href="tel:07568079997" style="color:#94a3b8;">07568 079997</a></p>
+  </footer>
+
+</body>
+</html>

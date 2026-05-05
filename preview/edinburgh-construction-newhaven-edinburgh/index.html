@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edinburgh Construction | Builder in Newhaven Edinburgh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #1c1917;
+      --accent: #dc2626;
+      --bg: #fafaf9;
+      --text: #1c1917;
+      --light: #f5f5f4;
+      --mid: #78716c;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Merriweather', serif;
+      line-height: 1.25;
+    }
+
+    img { display: block; max-width: 100%; }
+
+    a { text-decoration: none; color: inherit; }
+
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--primary);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    .nav-logo {
+      font-family: 'Merriweather', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.01em;
+    }
+
+    .nav-logo span {
+      color: var(--accent);
+    }
+
+    .nav-cta {
+      background: var(--accent);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+      padding: 10px 22px;
+      border-radius: 4px;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-cta:hover { background: #b91c1c; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--primary);
+      clip-path: polygon(0 0, 100% 0, 100% 82%, 0 100%);
+      padding: 100px 24px 160px;
+      text-align: center;
+      color: var(--white);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(220,38,38,0.15);
+      border: 1px solid rgba(220,38,38,0.4);
+      color: #fca5a5;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+
+    .hero-badge .star { color: #fbbf24; }
+
+    .hero h1 {
+      font-size: clamp(1.9rem, 4.5vw, 3rem);
+      font-weight: 900;
+      color: var(--white);
+      max-width: 820px;
+      margin: 0 auto 20px;
+    }
+
+    .hero h1 span { color: var(--accent); }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: #d6d3d1;
+      max-width: 600px;
+      margin: 0 auto 36px;
+      font-weight: 400;
+    }
+
+    .hero-sub strong {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 15px 34px;
+      border-radius: 4px;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: #b91c1c; transform: translateY(-2px); }
+
+    .hero-secondary {
+      color: #d6d3d1;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(214,211,209,0.5);
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+
+    .hero-secondary:hover { color: var(--white); }
+
+    /* ── GOOGLE BADGE ── */
+    .google-trust {
+      background: var(--white);
+      border-radius: 8px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 24px;
+      margin: -50px auto 0;
+      position: relative;
+      z-index: 10;
+    }
+
+    .google-trust-wrap {
+      text-align: center;
+      padding-bottom: 8px;
+    }
+
+    .google-g {
+      width: 32px;
+      height: 32px;
+      background: #4285f4;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1rem;
+      color: white;
+      font-family: 'Inter', sans-serif;
+      flex-shrink: 0;
+    }
+
+    .google-text strong {
+      display: block;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--primary);
+    }
+
+    .google-text span {
+      font-size: 0.78rem;
+      color: var(--mid);
+    }
+
+    .stars-gold { color: #f59e0b; font-size: 1rem; letter-spacing: 1px; }
+
+    /* ── SERVICES ── */
+    .services {
+      padding: 90px 24px 80px;
+    }
+
+    .section-label {
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.1rem);
+      font-weight: 900;
+      margin-bottom: 48px;
+      max-width: 560px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    /* 4 cards — last row spans if needed */
+    .service-card {
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+
+    .service-card img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+    }
+
+    .service-card-body {
+      padding: 24px 24px 28px;
+      flex: 1;
+    }
+
+    .service-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(220,38,38,0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .service-icon svg { width: 22px; height: 22px; fill: var(--accent); }
+
+    .service-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--mid);
+      line-height: 1.55;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      background: var(--primary);
+      padding: 80px 24px;
+      color: var(--white);
+    }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    .about img {
+      border-radius: 8px;
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+    }
+
+    .about .section-label { color: #fca5a5; }
+
+    .about .section-title {
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .about p {
+      color: #d6d3d1;
+      font-size: 0.97rem;
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+
+    .about-stat-row {
+      display: flex;
+      gap: 32px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .about-stat strong {
+      display: block;
+      font-size: 1.9rem;
+      font-family: 'Merriweather', serif;
+      font-weight: 900;
+      color: var(--accent);
+    }
+
+    .about-stat span {
+      font-size: 0.82rem;
+      color: #a8a29e;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── WHY CHOOSE ── */
+    .why {
+      padding: 80px 24px;
+      background: var(--light);
+    }
+
+    .why-inner { max-width: 1140px; margin: 0 auto; }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 48px;
+    }
+
+    .why-card {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 32px 28px;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.06);
+      border-top: 4px solid var(--accent);
+    }
+
+    .why-icon {
+      width: 52px;
+      height: 52px;
+      background: rgba(220,38,38,0.08);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .why-icon svg { width: 26px; height: 26px; fill: var(--accent); }
+
+    .why-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .why-card p {
+      font-size: 0.875rem;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      padding: 80px 24px;
+      background: var(--bg);
+    }
+
+    .testimonials-inner { max-width: 1140px; margin: 0 auto; }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 48px;
+    }
+
+    .testi-card {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 30px 26px;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.07);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .testi-stars { color: #f59e0b; font-size: 1.05rem; margin-bottom: 14px; }
+
+    .testi-body {
+      font-size: 0.9rem;
+      color: #44403c;
+      line-height: 1.65;
+      flex: 1;
+      font-style: italic;
+    }
+
+    .testi-author {
+      margin-top: 18px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--mid);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── CONTACT ── */
+    .contact {
+      background: var(--primary);
+      padding: 80px 24px;
+      color: var(--white);
+    }
+
+    .contact-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .contact .section-label { color: #fca5a5; }
+    .contact .section-title { color: var(--white); margin-bottom: 18px; }
+
+    .contact-info p {
+      color: #d6d3d1;
+      font-size: 0.95rem;
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .contact-detail-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(220,38,38,0.15);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-detail-icon svg { width: 18px; height: 18px; fill: var(--accent); }
+
+    .contact-detail strong {
+      display: block;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #a8a29e;
+      margin-bottom: 2px;
+    }
+
+    .contact-detail span { font-size: 0.95rem; color: #e7e5e4; }
+
+    /* Form */
+    .contact-form {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 36px 32px;
+    }
+
+    .contact-form h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 22px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--mid);
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 5px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: #fafaf9;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--accent); }
+
+    .form-group textarea { resize: vertical; min-height: 110px; }
+
+    .form-submit {
+      width: 100%;
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 6px;
+    }
+
+    .form-submit:hover { background: #b91c1c; }
+
+    /* ── CTA STRIP ── */
+    .cta-strip {
+      background: var(--accent);
+      padding: 60px 24px;
+      text-align: center;
+    }
+
+    .cta-strip h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .cta-strip p {
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 28px;
+      font-size: 1rem;
+    }
+
+    .btn-white {
+      background: var(--white);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px 34px;
+      border-radius: 4px;
+      display: inline-block;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0c0a09;
+      padding: 36px 24px;
+      color: #78716c;
+      text-align: center;
+    }
+
+    .footer-inner { max-width: 1140px; margin: 0 auto; }
+
+    .footer-name {
+      font-family: 'Merriweather', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .footer-name span { color: var(--accent); }
+
+    footer p { font-size: 0.82rem; line-height: 1.7; }
+
+    footer a { color: #a8a29e; transition: color 0.2s; }
+    footer a:hover { color: var(--white); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-logo { font-size: 0.95rem; }
+      .nav-cta { padding: 8px 16px; font-size: 0.8rem; }
+
+      .hero { padding: 72px 20px 130px; clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%); }
+      .hero h1 { font-size: 1.65rem; }
+      .hero-sub { font-size: 0.95rem; }
+      .hero-actions { flex-direction: column; gap: 16px; }
+
+      .services { padding: 70px 20px 60px; }
+      .services-grid { grid-template-columns: 1fr; }
+
+      .about-inner { grid-template-columns: 1fr; gap: 32px; }
+      .about img { height: 240px; }
+      .about-stat-row { gap: 24px; }
+
+      .why-grid { grid-template-columns: 1fr; }
+
+      .testi-grid { grid-template-columns: 1fr; }
+
+      .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+      .contact-form { padding: 26px 20px; }
+
+      .google-trust { padding: 10px 16px; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+<!-- Already Done claim banner -->
+<style>
+  #ad-claim-banner { position:fixed;top:0;left:0;right:0;z-index:99999;background:#1e3a5f;color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:Arial,sans-serif;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.25); }
+  #ad-claim-banner span { line-height:1.4; }
+  #ad-claim-expiry { color:#93c5fd;font-size:12px;display:block;margin-top:2px; }
+  #ad-claim-btn { background:#f59e0b;color:#1e3a5f;padding:9px 20px;border-radius:5px;text-decoration:none;font-weight:700;white-space:nowrap;font-size:14px;flex-shrink:0; }
+  #ad-claim-btn:hover { background:#fbbf24; }
+  #ad-banner-spacer { height:52px; }
+  @media(max-width:600px){ #ad-claim-banner{flex-direction:column;text-align:center;padding:12px 16px;} #ad-banner-spacer{height:100px;} }
+</style>
+<div id="ad-claim-banner">
+  <span>
+    👋 Free preview site built for <strong>Edinburgh Construction</strong> by Already Done
+    <small id="ad-claim-expiry">Preview available until 19 May — reply to claim it</small>
+  </span>
+  <a id="ad-claim-btn" href="mailto:dean@alreadydone.uk?subject=I%20want%20my%20website%20%E2%80%94%20Edinburgh%20Construction&body=Hi%20Dean%2C%0A%0AI've%20seen%20the%20preview%20site%20you%20built%20for%20us%20and%20I'd%20like%20to%20claim%20it.%0A%0ACan%20you%20let%20me%20know%20the%20next%20steps%3F%0A%0AThanks">Claim it for £99 →</a>
+</div>
+<div id="ad-banner-spacer"></div>
+
+  <!-- ── 1. NAVIGATION ── -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-logo">Edinburgh<span>Construction</span></div>
+      <a href="#contact" class="nav-cta">Get a free quote</a>
+    </div>
+  </nav>
+
+  <!-- ── 2. HERO ── -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">
+        <span class="star">★★★★★</span> 5/5 · 5 Google Reviews
+      </div>
+      <h1>Quality <span>builder work</span> in Newhaven Edinburgh and surrounding areas</h1>
+      <p class="hero-sub">
+        <strong>Experienced tradespeople. Honest pricing.</strong> From extensions and renovations to brickwork and groundworks — built to last, delivered on time.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Get a free quote</a>
+        <a href="#contact" class="hero-secondary">Enquire online →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Google Trust Badge -->
+  <div class="google-trust-wrap">
+    <div class="google-trust">
+      <div class="google-g">G</div>
+      <div class="google-text">
+        <strong><span class="stars-gold">★★★★★</span> 5/5 · Google Reviews</strong>
+        <span>5 verified reviews · Edinburgh Construction</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3. SERVICES ── -->
+  <section class="services" id="services">
+    <div class="container">
+      <p class="section-label">What we do</p>
+      <h2 class="section-title">Building services you can rely on</h2>
+      <div class="services-grid">
+
+        <div class="service-card">
+          <img src="https://placehold.co/600x300/1c1917/fafaf9?text=Extensions+%26+Conversions" alt="Extensions and Conversions" />
+          <div class="service-card-body">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            </div>
+            <h3>Extensions &amp; Conversions</h3>
+            <p>We design and build high-quality single and double-storey extensions across Newhaven, Leith, and greater Edinburgh — expanding your home without the upheaval.</p>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <img src="https://placehold.co/600x300/1c1917/fafaf9?text=Renovations+%26+Refurbishments" alt="Renovations and Refurbishments" />
+          <div class="service-card-body">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+            </div>
+            <h3>Renovations &amp; Refurbishments</h3>
+            <p>Full property refurbishments, internal structural alterations, and room transformations — breathing new life into Edinburgh's traditional and modern homes alike.</p>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <img src="https://placehold.co/600x300/1c1917/fafaf9?text=Brickwork+%26+Stonework" alt="Brickwork and Stonework" />
+          <div class="service-card-body">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3h5v3h-5V6zm0 5h5v3h-5v-3zM5 6h5v3H5V6zm0 5h5v3H5v-3zm0 5h14v3H5v-3z"/></svg>
+            </div>
+            <h3>Brickwork &amp; Stonework</h3>
+            <p>Skilled bricklaying, repointing, and stone repairs carried out with care for Edinburgh's distinctive architectural character — matching materials to your existing build.</p>
+          </div>
+        </div>
+
+        <div class="service-card" style="grid-column: 1 / -1; max-width: 380px;">
+          <img src="https://placehold.co/600x300/1c1917/fafaf9?text=Groundworks+%26+Driveways" alt="Groundworks and Driveways" />
+          <div class="service-card-body">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+            </div>
+            <h3>Groundworks &amp; Driveways</h3>
+            <p>From drainage and foundations to block-paved driveways and patios — we provide solid, properly engineered groundworks that form the backbone of every successful build.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4. ABOUT ── -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <img src="https://placehold.co/620x400/2c2926/d6d3d1?text=Edinburgh+Construction+Team" alt="Edinburgh Construction team at work" />
+      <div>
+        <p class="section-label">About us</p>
+        <h2 class="section-title">Proudly building in Edinburgh for over a decade</h2>
+        <p>Edinburgh Construction is a family-run building company based in Newhaven, Edinburgh, with more than ten years of hands-on experience delivering quality construction and renovation work across the city and surrounding communities.</p>
+        <p>We cover Newhaven, Leith, Stockbridge, Trinity, Granton, and the wider Edinburgh area — working on everything from modest home improvements to full residential extensions, with the same attention to detail regardless of project size.</p>
+        <p>What sets us apart is straightforward: we turn up when we say we will, we communicate clearly throughout every job, and we never cut corners. Our repeat customers and word-of-mouth reputation across North Edinburgh speak for themselves.</p>
+        <div class="about-stat-row">
+          <div class="about-stat">
+            <strong>10+</strong>
+            <span>Years experience</span>
+          </div>
+          <div class="about-stat">
+            <strong>5★</strong>
+            <span>Google rating</span>
+          </div>
+          <div class="about-stat">
+            <strong>100%</strong>
+            <span>Local &amp; trusted</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 5. WHY CHOOSE US ── -->
+  <section class="why" id="why">
+    <div class="why-inner">
+      <p class="section-label">Why choose us</p>
+      <h2 class="section-title">Built on trust, backed by experience</h2>
+      <div class="why-grid">
+
+        <div class="why-card">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          </div>
+          <h3>Federation of Master Builders Members</h3>
+          <p>As an FMB member, we're vetted, assessed, and held to the highest professional standards in the UK building industry — giving you real peace of mind before work begins.</p>
+        </div>
+
+        <div class="why-card">
+          <div class="why
