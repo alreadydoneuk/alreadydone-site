@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pentland Building & Joinery | Joiner in Newhaven, Edinburgh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #1e3a5f;
+      --accent: #16a34a;
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --white: #ffffff;
+      --light-grey: #e2e8f0;
+      --mid-grey: #64748b;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: var(--text);
+      background-color: var(--bg);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── NAVIGATION ─── */
+    nav {
+      background-color: var(--white);
+      border-bottom: 2px solid var(--light-grey);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      color: var(--primary);
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      line-height: 1.1;
+    }
+
+    .nav-logo span {
+      color: var(--accent);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-phone {
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .nav-phone:hover {
+      color: var(--accent);
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--accent);
+      color: var(--white);
+      padding: 10px 22px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.15s ease;
+      letter-spacing: 0.02em;
+    }
+
+    .btn:hover {
+      background-color: #15803d;
+      transform: translateY(-1px);
+    }
+
+    .btn-lg {
+      padding: 14px 32px;
+      font-size: 1.05rem;
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border: 2px solid var(--white);
+      color: var(--white);
+      margin-left: 12px;
+    }
+
+    .btn-outline:hover {
+      background-color: rgba(255,255,255,0.15);
+      transform: translateY(-1px);
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background-color: var(--primary);
+      clip-path: polygon(0 0, 100% 0, 100% 82%, 0 100%);
+      padding: 100px 24px 160px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -80px;
+      width: 420px;
+      height: 420px;
+      background: rgba(22, 163, 74, 0.12);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 60px;
+      left: -100px;
+      width: 320px;
+      height: 320px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 820px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fde68a;
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: 0.03em;
+    }
+
+    .hero h1 {
+      font-size: 4.2rem;
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 span {
+      color: #4ade80;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 600px;
+      margin: 0 auto 36px;
+      font-weight: 300;
+    }
+
+    /* ─── TRUST BADGE ─── */
+    .trust-strip {
+      background-color: var(--white);
+      padding: 28px 24px;
+      margin-top: -40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .trust-strip-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .trust-google {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--bg);
+      border: 2px solid var(--light-grey);
+      border-radius: 8px;
+      padding: 14px 24px;
+    }
+
+    .trust-google .stars {
+      color: #f59e0b;
+      font-size: 1.4rem;
+      letter-spacing: 2px;
+    }
+
+    .trust-google .rating-text {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--primary);
+    }
+
+    .trust-google .rating-sub {
+      font-size: 0.82rem;
+      color: var(--mid-grey);
+      margin-top: 1px;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--mid-grey);
+      font-weight: 500;
+    }
+
+    .trust-item .icon {
+      width: 36px;
+      height: 36px;
+      background-color: #dcfce7;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    /* ─── ABOUT ─── */
+    .about {
+      padding: 80px 24px;
+      background-color: var(--bg);
+    }
+
+    .about-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .section-label {
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+      line-height: 1.05;
+    }
+
+    .about-text p {
+      color: var(--mid-grey);
+      font-size: 1rem;
+      margin-bottom: 14px;
+      line-height: 1.75;
+    }
+
+    .about-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .about-image img {
+      width: 100%;
+      border-radius: 8px;
+      display: block;
+      box-shadow: 0 12px 40px rgba(30,58,95,0.15);
+    }
+
+    /* ─── SERVICES ─── */
+    .services {
+      padding: 80px 24px;
+      background-color: var(--primary);
+      clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
+      margin: -2px 0;
+    }
+
+    .services-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+
+    .services-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .services-header .section-label {
+      color: #4ade80;
+    }
+
+    .services-header .section-title {
+      color: var(--white);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background-color: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 36px 28px;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .service-card:hover {
+      background-color: rgba(255,255,255,0.1);
+      transform: translateY(-4px);
+    }
+
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .service-card h3 {
+      font-size: 1.6rem;
+      color: #4ade80;
+      margin-bottom: 12px;
+    }
+
+    .service-card p {
+      color: rgba(255,255,255,0.75);
+      font-size: 0.94rem;
+      line-height: 1.7;
+    }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonials {
+      padding: 90px 24px;
+      background-color: var(--bg);
+    }
+
+    .testimonials-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .testimonial-card {
+      background-color: var(--white);
+      border-radius: 8px;
+      padding: 32px 28px;
+      border-left: 4px solid var(--accent);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: '\201C';
+      font-size: 5rem;
+      color: var(--light-grey);
+      font-family: Georgia, serif;
+      position: absolute;
+      top: 8px;
+      right: 20px;
+      line-height: 1;
+    }
+
+    .testimonial-stars {
+      color: #f59e0b;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+
+    .testimonial-card p {
+      color: var(--mid-grey);
+      font-size: 0.95rem;
+      line-height: 1.75;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--primary);
+    }
+
+    /* ─── CONTACT ─── */
+    .contact {
+      padding: 80px 24px;
+      background-color: var(--white);
+    }
+
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .contact-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .contact-form-wrap h3 {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      letter-spacing: 0.03em;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--light-grey);
+      border-radius: 4px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      background-color: var(--bg);
+      transition: border-color 0.2s ease;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+
+    .contact-details h3 {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 24px;
+    }
+
+    .contact-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .contact-info-item .ci-icon {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      background-color: #dcfce7;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .contact-info-item .ci-text strong {
+      display: block;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid-grey);
+      margin-bottom: 2px;
+    }
+
+    .contact-info-item .ci-text a,
+    .contact-info-item .ci-text span {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.98rem;
+    }
+
+    .contact-info-item .ci-text a:hover {
+      color: var(--accent);
+    }
+
+    .map-placeholder {
+      margin-top: 28px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 2px solid var(--light-grey);
+    }
+
+    .map-placeholder img {
+      width: 100%;
+      display: block;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background-color: var(--primary);
+      padding: 30px 24px;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    footer .footer-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--white);
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+
+    footer .footer-name span {
+      color: #4ade80;
+    }
+
+    footer p {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.82rem;
+    }
+
+    /* ─── MEDIA QUERIES ─── */
+    @media (max-width: 768px) {
+      .hero {
+        clip-path: polygon(0 0, 100% 0, 100% 94%, 0 100%);
+        padding: 70px 20px 120px;
+      }
+
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .trust-strip {
+        margin-top: -20px;
+      }
+
+      .trust-strip-inner {
+        flex-direction: column;
+        gap: 16px;
+        align-items: stretch;
+      }
+
+      .trust-google {
+        justify-content: center;
+      }
+
+      .trust-item {
+        justify-content: center;
+      }
+
+      .about-inner {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .about-image {
+        order: -1;
+      }
+
+      .section-title {
+        font-size: 2.3rem;
+      }
+
+      .services {
+        clip-path: polygon(0 2%, 100% 0, 100% 98%, 0 100%);
+        padding: 70px 20px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .nav-phone {
+        display: none;
+      }
+
+      .nav-inner {
+        padding: 0 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- Already Done claim banner -->
+<style>
+  #ad-claim-banner { position:fixed;top:0;left:0;right:0;z-index:99999;background:#1e3a5f;color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:Arial,sans-serif;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.25); }
+  #ad-claim-banner span { line-height:1.4; }
+  #ad-claim-expiry { color:#93c5fd;font-size:12px;display:block;margin-top:2px; }
+  #ad-claim-btn { background:#f59e0b;color:#1e3a5f;padding:9px 20px;border-radius:5px;text-decoration:none;font-weight:700;white-space:nowrap;font-size:14px;flex-shrink:0; }
+  #ad-claim-btn:hover { background:#fbbf24; }
+  #ad-banner-spacer { height:52px; }
+  @media(max-width:600px){ #ad-claim-banner{flex-direction:column;text-align:center;padding:12px 16px;} #ad-banner-spacer{height:100px;} }
+</style>
+<div id="ad-claim-banner">
+  <span>
+    👋 Free preview site built for <strong>Pentland Building & Joinery</strong> by Already Done
+    <small id="ad-claim-expiry">Preview available until 19 May — reply to claim it</small>
+  </span>
+  <a id="ad-claim-btn" href="mailto:dean@alreadydone.uk?subject=I%20want%20my%20website%20%E2%80%94%20Pentland%20Building%20%26%20Joinery&body=Hi%20Dean%2C%0A%0AI've%20seen%20the%20preview%20site%20you%20built%20for%20us%20and%20I'd%20like%20to%20claim%20it.%0A%0ACan%20you%20let%20me%20know%20the%20next%20steps%3F%0A%0AThanks">Claim it for £99 →</a>
+</div>
+<div id="ad-banner-spacer"></div>
+
+  <!-- ─── NAVIGATION ─── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Pentland Building <span>&</span> Joinery</a>
+      <div class="nav-right">
+        <a href="tel:07376612345" class="nav-phone">📞 07376 612345</a>
+        <a href="#contact" class="btn">Get in touch</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">★ 5/5 · 31 Google Reviews</div>
+      <h1>Your Trusted <span>Joiner</span> in Newhaven, Edinburgh</h1>
+      <p>From bespoke fitted furniture to full building works — Pentland Building & Joinery delivers quality craftsmanship you can rely on, right here in Edinburgh.</p>
+      <a href="#contact" class="btn btn-lg">Get in touch</a>
+      <a href="#services" class="btn btn-lg btn-outline">See our services</a>
+    </div>
+  </section>
+
+  <!-- ─── TRUST STRIP ─── -->
+  <div class="trust-strip">
+    <div class="trust-strip-inner">
+      <div class="trust-google">
+        <div>
+          <div class="stars">★★★★★</div>
+          <div class="rating-text">5/5 Rating</div>
+          <div class="rating-sub">31 Google Reviews</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="icon">🔨</div>
+        <span>Expert joinery & building works</span>
+      </div>
+      <div class="trust-item">
+        <div class="icon">📍</div>
+        <span>Based in Newhaven, Edinburgh</span>
+      </div>
+      <div class="trust-item">
+        <div class="icon">✅</div>
+        <span>Fully insured & professional</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── ABOUT ─── -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-text">
+        <p class="section-label">About Us</p>
+        <h2 class="section-title">Craftsmanship at the heart of Edinburgh</h2>
+        <p>Pentland Building & Joinery is a family-run business based in Newhaven, Edinburgh, with years of hands-on experience delivering high-quality joinery and building services across the city and surrounding areas.</p>
+        <p>What sets us apart is our commitment to doing the job properly — no shortcuts, no substandard materials, and no vague timescales. Every project we take on gets the same care and attention we'd bring to our own homes.</p>
+        <p>We're proud to be part of the Newhaven community, and a significant share of our work comes through local recommendations — which tells you everything you need to know about how we operate.</p>
+        <br>
+        <a href="#contact" class="btn">Get in touch</a>
+      </div>
+      <div class="about-image">
+        <img src="https://placehold.co/580x420/1e3a5f/ffffff?text=Pentland+Building+%26+Joinery" alt="Pentland Building & Joinery craftsman at work in Edinburgh">
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SERVICES ─── -->
+  <section class="services" id="services">
+    <div class="services-inner">
+      <div class="services-header">
+        <p class="section-label">What We Do</p>
+        <h2 class="section-title">Our Services</h2>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <span class="service-icon">🚪</span>
+          <h3>Doors, Frames & Staircases</h3>
+          <p>Supply and fit of internal and external doors, new door frames, and bespoke staircase work — crafted to fit your home precisely and finished to a high standard.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">🪑</span>
+          <h3>Fitted Furniture & Storage</h3>
+          <p>Made-to-measure wardrobes, shelving units, alcove cupboards, and home office solutions — designed around your space and built to last for years.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">🪟</span>
+          <h3>Windows & Sash Repairs</h3>
+          <p>From draught-proofing and sash window restoration to full timber window replacement — we work sensitively with Edinburgh's traditional stone properties.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">🏗️</span>
+          <h3>General Building Works</h3>
+          <p>Partition walls, stud walling, flooring, and first-fix through to second-fix carpentry — whether you need a single trade or a full build-out, we cover it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TESTIMONIALS ─── -->
+  <section class="testimonials" id="testimonials">
+    <div class="testimonials-inner">
+      <div class="testimonials-header">
+        <p class="section-label">What Customers Say</p>
+        <h2 class="section-title">★ 5/5 · 31 Google Reviews</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+          <div class="testimonial-author">S. M. — Newhaven, Edinburgh</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.</p>
+          <div class="testimonial-author">R. T. — Leith, Edinburgh</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione.</p>
+          <div class="testimonial-author">A. K. — Stockbridge, Edinburgh</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONTACT ─── -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="contact-header">
+        <p class="section-label">Contact Us</p>
+        <h2 class="section-title">Get in touch today</h2>
+        <p style="color: var(--mid-grey); font-size: 0.98rem; max-width: 540px; margin: 0 auto;">Whether you have a small repair or a full project in mind, we're happy to chat. Drop us a message and we'll get back to you promptly.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-form-wrap">
+          <h3>Send us a message</h3>
+          <form action="mailto:dean@alreadydone.uk" method="post" enctype="text/plain">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="e.g. James Robertson" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Your Message</label>
+              <textarea id="message" name="message" placeholder="Tell us about your project or what you need help with..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-lg" style="width:100%; text-align:center;">Get in touch</button>
+          </form>
+        </div>
+        <div class="contact-details">
+          <h3>Find us</h3>
+          <div class="contact-info-item">
+            <div class="ci-icon">📞</div>
+            <div class="ci-text">
+              <strong>Phone</strong>
+              <a href="tel:07376612345">07376 612345</a>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="ci-icon">📍</div>
+            <div class="ci-text">
+              <strong>Address</strong>
+              <span>5 S Charlotte St, Edinburgh EH2 4AN</span>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="ci-icon">⏰</div>
+            <div class="ci-text">
+              <strong>Hours</strong>
+              <span>Mon–Fri: 8am–6pm · Sat: 9am–1pm</span>
+            </div>
+          </div>
+          <div class="map-placeholder">
+            <img src="https://placehold.co/600x300/e2e8f0/64748b?text=Newhaven%2C+Edinburgh+Map" alt="Map showing Pentland Building & Joinery location in Newhaven, Edinburgh">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-name">Pentland Building <span>&</span> Joinery</div>
+      <p>5 S Charlotte St, Edinburgh EH2 4AN &nbsp;|&nbsp; 07376 612345</p>
+      <p style="margin-top: 6px;">&copy; 2025 Pentland Building & Joinery. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
