@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARJ Builders Edinburgh | Extension Specialists in Bonnington</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #334155;
+    --accent: #ea580c;
+    --bg: #f8fafc;
+    --text: #1e293b;
+    --white: #ffffff;
+    --light: #e2e8f0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Raleway', sans-serif;
+    line-height: 1.2;
+  }
+
+  a { text-decoration: none; color: inherit; }
+
+  img { display: block; max-width: 100%; }
+
+  .container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--primary);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+
+  .nav-logo {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: var(--white);
+    letter-spacing: -0.5px;
+  }
+
+  .nav-logo span {
+    color: var(--accent);
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .nav-phone {
+    color: var(--light);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 12px 26px;
+    border-radius: 4px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    border: none;
+    letter-spacing: 0.3px;
+  }
+
+  .btn-accent {
+    background: var(--accent);
+    color: var(--white);
+  }
+
+  .btn-accent:hover {
+    background: #c2440a;
+    transform: translateY(-1px);
+  }
+
+  .btn-large {
+    padding: 16px 36px;
+    font-size: 1.05rem;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--primary);
+    clip-path: polygon(0 0, 100% 0, 100% 82%, 0 100%);
+    padding: 100px 24px 180px;
+    text-align: center;
+    position: relative;
+  }
+
+  .hero-inner {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(234,88,12,0.18);
+    color: #fdba74;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-size: 2.8rem;
+    color: var(--white);
+    font-weight: 800;
+    margin-bottom: 20px;
+  }
+
+  .hero-sub {
+    color: #cbd5e1;
+    font-size: 1.1rem;
+    margin-bottom: 38px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+
+  .hero-call-link {
+    color: #fdba74;
+    font-weight: 700;
+    font-size: 1rem;
+    font-family: 'Raleway', sans-serif;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .hero-call-link:hover { color: var(--white); }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 80px 0; }
+
+  .section-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 14px;
+  }
+
+  .section-intro {
+    color: #475569;
+    max-width: 560px;
+    font-size: 1rem;
+  }
+
+  /* ── SERVICES ── */
+  #services {
+    background: var(--white);
+    padding-top: 40px;
+  }
+
+  .services-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .services-header .section-intro {
+    margin: 0 auto;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .service-card {
+    background: var(--bg);
+    border: 1px solid var(--light);
+    border-radius: 8px;
+    padding: 34px 28px;
+    position: relative;
+    transition: box-shadow 0.2s, transform 0.2s;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin-bottom: 18px;
+  }
+
+  .service-card:hover {
+    box-shadow: 0 8px 30px rgba(51,65,85,0.12);
+    transform: translateY(-4px);
+  }
+
+  .service-icon {
+    font-size: 2.2rem;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .service-card h3 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 10px;
+  }
+
+  .service-card p {
+    color: #475569;
+    font-size: 0.95rem;
+  }
+
+  /* 4th card spans full in grid — handled via nth-child later */
+  .services-grid .service-card:nth-child(4) {
+    grid-column: 2 / 3;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--bg);
+  }
+
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .about-img {
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .about-img img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .about-img-badge {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: var(--accent);
+    color: var(--white);
+    padding: 10px 18px;
+    border-radius: 4px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    font-size: 0.9rem;
+  }
+
+  .about-text p {
+    color: #475569;
+    margin-bottom: 16px;
+    font-size: 1rem;
+  }
+
+  .about-text p:last-child { margin-bottom: 0; }
+
+  /* ── WHY CHOOSE US ── */
+  #why {
+    background: var(--primary);
+    padding: 70px 0;
+  }
+
+  #why .section-title { color: var(--white); }
+  #why .section-label { color: #fdba74; }
+
+  .why-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .why-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 36px 28px;
+    text-align: center;
+    transition: background 0.2s;
+  }
+
+  .why-card:hover {
+    background: rgba(255,255,255,0.1);
+  }
+
+  .why-icon {
+    font-size: 2.4rem;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .why-card h3 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .why-card p {
+    color: #94a3b8;
+    font-size: 0.93rem;
+  }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials {
+    background: var(--white);
+  }
+
+  .testimonials-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .review-card {
+    background: var(--bg);
+    border: 1px solid var(--light);
+    border-radius: 8px;
+    padding: 32px 26px;
+    position: relative;
+  }
+
+  .stars {
+    color: #f59e0b;
+    font-size: 1.05rem;
+    margin-bottom: 14px;
+    letter-spacing: 2px;
+  }
+
+  .review-card blockquote {
+    color: #475569;
+    font-size: 0.95rem;
+    font-style: italic;
+    margin-bottom: 18px;
+    line-height: 1.7;
+  }
+
+  .reviewer {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 0.88rem;
+    font-family: 'Raleway', sans-serif;
+  }
+
+  .review-card::after {
+    content: '\201C';
+    position: absolute;
+    top: 16px;
+    right: 22px;
+    font-size: 5rem;
+    color: var(--light);
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--bg);
+  }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .contact-info h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 18px;
+  }
+
+  .contact-info p {
+    color: #475569;
+    margin-bottom: 12px;
+    font-size: 0.97rem;
+  }
+
+  .contact-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 18px;
+    color: var(--text);
+  }
+
+  .contact-detail-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .contact-detail strong {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 2px;
+    color: var(--primary);
+  }
+
+  .contact-detail span {
+    color: #475569;
+    font-size: 0.93rem;
+  }
+
+  .contact-phone-link {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  form {
+    background: var(--white);
+    border: 1px solid var(--light);
+    border-radius: 8px;
+    padding: 36px 32px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--primary);
+    margin-bottom: 6px;
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: 0.3px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--light);
+    border-radius: 4px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.97rem;
+    color: var(--text);
+    background: var(--bg);
+    transition: border 0.2s;
+    outline: none;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--accent);
+    background: var(--white);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 110px;
+  }
+
+  form .btn {
+    width: 100%;
+    text-align: center;
+    padding: 14px;
+    font-size: 1rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #1e293b;
+    padding: 38px 24px;
+    text-align: center;
+  }
+
+  .footer-inner {
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+
+  .footer-name {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .footer-name span { color: var(--accent); }
+
+  .footer-accred {
+    color: #94a3b8;
+    font-size: 0.87rem;
+    margin-bottom: 12px;
+  }
+
+  .footer-copy {
+    color: #64748b;
+    font-size: 0.82rem;
+  }
+
+  /* ── MID-PAGE CTA STRIP ── */
+  .cta-strip {
+    background: var(--accent);
+    padding: 50px 24px;
+    text-align: center;
+  }
+
+  .cta-strip h2 {
+    color: var(--white);
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+  }
+
+  .cta-strip p {
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 26px;
+    font-size: 1rem;
+  }
+
+  .btn-white {
+    background: var(--white);
+    color: var(--accent);
+  }
+
+  .btn-white:hover {
+    background: #f1f5f9;
+    transform: translateY(-1px);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-phone { display: none; }
+
+    .nav-logo { font-size: 1.05rem; }
+
+    .btn { padding: 10px 18px; font-size: 0.85rem; }
+
+    .hero {
+      clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+      padding: 70px 20px 140px;
+    }
+
+    .hero h1 { font-size: 1.8rem; }
+
+    .hero-sub { font-size: 0.97rem; }
+
+    .hero-cta-group { flex-direction: column; gap: 16px; }
+
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .services-grid .service-card:nth-child(4) {
+      grid-column: auto;
+    }
+
+    .about-inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .about-img img { height: 260px; }
+
+    .why-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-inner {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+
+    form {
+      padding: 24px 20px;
+    }
+
+    .section-title { font-size: 1.55rem; }
+
+    .cta-strip h2 { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+<!-- Already Done claim banner -->
+<style>
+  #ad-claim-banner { position:fixed;top:0;left:0;right:0;z-index:99999;background:#1e3a5f;color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:Arial,sans-serif;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.25); }
+  #ad-claim-banner span { line-height:1.3; }
+  #ad-claim-btn { background:#f59e0b;color:#1e3a5f;padding:9px 20px;border-radius:5px;text-decoration:none;font-weight:700;white-space:nowrap;font-size:14px;flex-shrink:0; }
+  #ad-claim-btn:hover { background:#fbbf24; }
+  #ad-banner-spacer { height:52px; }
+  @media(max-width:600px){ #ad-claim-banner{flex-direction:column;text-align:center;padding:12px 16px;} #ad-banner-spacer{height:90px;} }
+</style>
+<div id="ad-claim-banner">
+  <span>👋 Free preview — built for <strong>ARJ Builders Edinburgh</strong> by <strong>Already Done</strong></span>
+  <a id="ad-claim-btn" href="mailto:dean@alreadydone.uk?subject=I%20want%20my%20website%20%E2%80%94%20ARJ%20Builders%20Edinburgh&body=Hi%20Dean%2C%0A%0AI've%20seen%20the%20preview%20site%20you%20built%20for%20us%20and%20I'd%20like%20to%20claim%20it.%0A%0ACan%20you%20let%20me%20know%20the%20next%20steps%3F%0A%0AThanks">Claim it for £99 →</a>
+</div>
+<div id="ad-banner-spacer"></div>
+
+<!-- ── 1. NAVIGATION ── -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">ARJ <span>Builders</span> Edinburgh</div>
+    <div class="nav-right">
+      <a href="tel:01316037943" class="nav-phone">📞 0131 603 7943</a>
+      <a href="#contact" class="btn btn-accent">Get a free quote</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── 2. HERO ── -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-tag">Edinburgh's Trusted Extension Specialists</span>
+    <h1>Quality Extension Builder Work in Bonnington Edinburgh and Surrounding Areas</h1>
+    <p class="hero-sub">Over 15 years of local experience · Fully insured and vetted · Transparent pricing with no hidden costs</p>
+    <div class="hero-cta-group">
+      <a href="#contact" class="btn btn-accent btn-large">Get a free quote</a>
+      <a href="tel:01316037943" class="hero-call-link">📞 Call us: 0131 603 7943</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── 3. SERVICES ── -->
+<section id="services">
+  <div class="container">
+    <div class="services-header">
+      <span class="section-label">What We Build</span>
+      <h2 class="section-title">Extension &amp; Building Services</h2>
+      <p class="section-intro">From single-storey kitchen extensions to full double-storey builds, we deliver quality craftsmanship on every project across Edinburgh.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">🏠</span>
+        <h3>Single-Storey Extensions</h3>
+        <p>Open up your ground floor with a well-crafted single-storey rear or side extension, perfectly matched to your existing property.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🏗️</span>
+        <h3>Double-Storey Extensions</h3>
+        <p>Add substantial living space above and below with a structurally sound double-storey extension, designed to maximise value and comfort.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🪟</span>
+        <h3>Kitchen &amp; Dining Extensions</h3>
+        <p>Create the spacious, light-filled kitchen and dining area you've always wanted with a bespoke extension tailored to your lifestyle.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🔧</span>
+        <h3>Loft Conversions &amp; Structural Work</h3>
+        <p>Transform your unused roof space into a functional bedroom, office, or studio with full structural support and building warrant compliance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 4. ABOUT ── -->
+<section id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-img">
+        <img src="https://placehold.co/600x380/334155/ffffff?text=ARJ+Builders+Edinburgh" alt="ARJ Builders Edinburgh team at work on an extension project">
+        <div class="about-img-badge">Est. 2008 · Edinburgh</div>
+      </div>
+      <div class="about-text">
+        <span class="section-label">About Us</span>
+        <h2 class="section-title">Built on Skill, Honesty, and Local Know-How</h2>
+        <p>ARJ Builders Edinburgh is a family-run building company based at Russell Road Industrial Estate in Bonnington, and we've been delivering high-quality extensions and structural work across Edinburgh and the Lothians for over 15 years.</p>
+        <p>We cover Bonnington, Leith, Stockbridge, Morningside, Portobello, and all surrounding Edinburgh neighbourhoods — our deep familiarity with local planning requirements and Edinburgh's traditional tenement and sandstone properties means fewer surprises and smoother projects for you.</p>
+        <p>What sets us apart is our hands-on approach: our experienced tradespeople manage every stage from initial design and building warrant applications through to the final clean finish, so you always deal with someone who genuinely cares about the quality of your home.</p>
+        <br>
+        <a href="#contact" class="btn btn-accent">Get a free quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 5. WHY CHOOSE US ── -->
+<section id="why">
+  <div class="container">
+    <div class="why-header">
+      <span class="section-label">Why ARJ Builders</span>
+      <h2 class="section-title">You're in Safe, Experienced Hands</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-icon">🏅</span>
+        <h3>Federation of Master Builders Member</h3>
+        <p>We operate to the high standards required by the Federation of Master Builders, giving you confidence in the quality and professionalism of every project we undertake.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">🛡️</span>
+        <h3>Fully Insured &amp; Compliant</h3>
+        <p>ARJ Builders carries full public liability and employer's liability insurance. All work meets Scottish building regulations and we handle all necessary building warrant applications on your behalf.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">📋</span>
+        <h3>Free, Detailed Quotations</h3>
+        <p>We provide thorough, no-obligation written quotations so you know exactly what you're getting before any work begins — no vague estimates, no unexpected costs along the way.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MID-PAGE CTA STRIP -->
+<div class="cta-strip">
+  <div class="container">
+    <h2>Ready to Start Your Extension Project?</h2>
+    <p>Get in touch today and we'll arrange a free site visit and detailed quotation at a time that suits you.</p>
+    <a href="#contact" class="btn btn-white btn-large">Get a free quote</a>
+  </div>
+</div>
+
+<!-- ── 6. TESTIMONIALS ── -->
+<section id="testimonials">
+  <div class="container">
+    <div class="testimonials-header">
+      <span class="section-label">What Our Clients Say</span>
+      <h2 class="section-title">Trusted by Edinburgh Homeowners</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. The quality of the extension was genuinely outstanding — exactly what we hoped for."</blockquote>
+        <span class="reviewer">S. M. — Stockbridge, Edinburgh</span>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation. The team were professional from the first visit right through to the final handover — we couldn't have asked for more."</blockquote>
+        <span class="reviewer">D. R. — Morningside, Edinburgh</span>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★☆</div>
+        <blockquote>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum. Fair pricing, no nasty surprises, and a really tidy finish on our kitchen extension."</blockquote>
+        <span class="reviewer">F. T. — Leith, Edinburgh</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 7. CONTACT ── -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-info">
+        <span class="section-label">Get in Touch</span>
+        <h2 class="section-title">Request Your Free Quote</h2>
+        <p>Fill in the form and we'll be in touch within one working day to arrange a free site visit. Prefer to talk? Give us a call directly.</p>
+
+        <div class="contact-detail">
+          <span class="contact-detail-icon">📞</span>
+          <div>
+            <strong>Phone</strong>
+            <a href="tel:01316037943" class="contact-phone-link">0131 603 7943</a>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <span class="contact-detail-icon">📍</span>
+          <div>
+            <strong>Address</strong>
+            <span>Russell Road Industrial Estate<br>4 Sauchiebank<br>Edinburgh EH11 2NN</span>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <span class="contact-detail-icon">🕐</span>
+          <div>
+            <strong>Hours</strong>
+            <span>Monday – Friday: 7:30am – 5:30pm<br>Saturday: 8:00am – 1:00pm</span>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <span class="contact-detail-icon">🗺️</span>
+          <div>
+            <strong>Areas Covered</strong>
+            <span>Edinburgh &amp; the Lothians, including Bonnington, Leith, Stockbridge, Morningside, Portobello, Corstorphine and surrounding areas.</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <form action="mailto:dean@alreadydone.uk" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="Name" placeholder="e.g. James Robertson" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="Email" placeholder="e.g. james@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="Phone" placeholder="e.g. 0131 000 0000">
+          </div>
+          <div class="form-group">
+            <label for="job">Brief Job Description</label>
+            <textarea id="job" name="Job Description" placeholder="Tell us a little about your project — e.g. single-storey rear extension, approx. size, location, any planning already in place..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-accent">Get a free quote →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 8. FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-name">ARJ <span>Builders</span> Edinburgh</div>
+    <p class="footer-accred">Federation of Master Builders Member · Fully Insured · Edinburgh &amp; the Lothians</p>
+    <p class="footer-accred">Russell Road Industrial Estate

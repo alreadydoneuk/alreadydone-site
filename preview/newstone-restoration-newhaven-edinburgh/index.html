@@ -3,298 +3,398 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Newstone Restoration | Flood Damage Restoration in Newhaven, Edinburgh</title>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700;900&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+  <title>Newstone Restoration | Flood Damage Restoration in Newhaven Edinburgh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700;900&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     :root {
       --primary: #0f766e;
       --accent: #0ea5e9;
       --bg: #f0fdfa;
       --text: #134e4a;
-      --rule: #99f6e4;
-      --light-text: #2d6a65;
-      --white: #ffffff;
+      --light-rule: #b2f0e8;
+      --card-bg: #ffffff;
+      --muted: #5f9ea0;
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       background-color: var(--bg);
       color: var(--text);
       font-family: 'Nunito Sans', sans-serif;
-      font-weight: 400;
-      font-size: 1rem;
-      line-height: 1.7;
+      font-size: 17px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
     }
 
-    h1, h2, h3, h4, nav .brand {
-      font-family: 'Raleway', sans-serif;
-    }
-
-    hr.rule {
+    /* ── UTILITY ── */
+    .rule {
       border: none;
-      border-top: 1px solid var(--rule);
+      border-top: 1px solid var(--light-rule);
       margin: 0;
     }
 
-    /* ── NAV ── */
-    nav {
-      background: var(--white);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      padding: 1rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    nav .brand {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--primary);
-      letter-spacing: 0.03em;
-      text-decoration: none;
-    }
-
-    nav .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    nav .nav-phone {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--light-text);
-      text-decoration: none;
-    }
-
-    nav .nav-phone:hover { color: var(--primary); }
-
-    nav .nav-cta {
-      background: var(--primary);
-      color: var(--white);
-      font-family: 'Raleway', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 0.55rem 1.25rem;
-      text-decoration: none;
-      border-radius: 2px;
-      transition: background 0.2s;
-    }
-
-    nav .nav-cta:hover { background: #0d6560; }
-
-    /* ── HERO ── */
-    .hero {
-      padding: 6rem 2rem 5rem;
-      max-width: 860px;
+    .container {
+      max-width: 1080px;
       margin: 0 auto;
-    }
-
-    .hero-eyebrow {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.2rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.6rem, 6vw, 4.2rem);
-      font-weight: 900;
-      line-height: 1.1;
-      color: var(--primary);
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-sub {
-      font-size: 1.15rem;
-      font-weight: 300;
-      color: var(--light-text);
-      max-width: 560px;
-      margin-bottom: 2.2rem;
-      line-height: 1.75;
-    }
-
-    .hero-cta {
-      font-family: 'Raleway', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--primary);
-      text-decoration: none;
-      border-bottom: 2px solid var(--accent);
-      padding-bottom: 3px;
-      transition: color 0.2s, border-color 0.2s;
-    }
-
-    .hero-cta:hover { color: var(--accent); border-color: var(--primary); }
-
-    .hero-rule {
-      border: none;
-      border-top: 1px solid var(--rule);
-      margin-top: 4rem;
-    }
-
-    /* ── SECTIONS SHARED ── */
-    section {
-      padding: 5rem 2rem;
-    }
-
-    .section-inner {
-      max-width: 860px;
-      margin: 0 auto;
+      padding: 0 28px;
     }
 
     .section-label {
       font-family: 'Raleway', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 700;
+      font-weight: 600;
+      font-size: 0.72rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 1rem;
+      margin-bottom: 14px;
+      display: block;
     }
 
-    .section-title {
-      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-      font-weight: 700;
+    /* ── NAV ── */
+    nav {
+      background-color: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--light-rule);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-logo {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900;
+      font-size: 1.15rem;
       color: var(--primary);
-      margin-bottom: 1.5rem;
+      text-decoration: none;
+      letter-spacing: 0.02em;
       line-height: 1.2;
     }
 
-    /* ── ABOUT ── */
-    .about-text {
-      font-size: 1.05rem;
-      color: var(--light-text);
-      max-width: 680px;
-      line-height: 1.85;
+    .nav-logo span {
+      display: block;
+      font-weight: 300;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
     }
 
-    .about-text p + p { margin-top: 1rem; }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-phone {
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-phone:hover {
+      color: var(--primary);
+    }
+
+    .btn-nav {
+      background-color: var(--primary);
+      color: #ffffff;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 10px 22px;
+      border-radius: 3px;
+      transition: background-color 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-nav:hover {
+      background-color: #0a5d57;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      padding: 110px 0 90px;
+    }
+
+    .hero-inner {
+      max-width: 820px;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 22px;
+      display: block;
+    }
+
+    .hero-headline {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.6rem, 6vw, 4.4rem);
+      line-height: 1.08;
+      color: var(--primary);
+      margin-bottom: 28px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--text);
+      font-weight: 400;
+      max-width: 560px;
+      margin-bottom: 40px;
+      line-height: 1.8;
+    }
+
+    .hero-cta {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 3px;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .hero-cta:hover {
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .hero-rule {
+      border: none;
+      border-top: 1px solid var(--light-rule);
+      margin-top: 70px;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      padding: 80px 0;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .about-heading {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+      color: var(--primary);
+      line-height: 1.15;
+    }
+
+    .about-body {
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 1.9;
+    }
+
+    .about-body p + p {
+      margin-top: 18px;
+    }
 
     /* ── SERVICES ── */
-    #services { background: var(--white); }
+    #services {
+      padding: 80px 0;
+      background-color: #ffffff;
+    }
+
+    .services-header {
+      margin-bottom: 52px;
+    }
+
+    .services-heading {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+      color: var(--primary);
+      line-height: 1.15;
+    }
 
     .services-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      margin-top: 2.5rem;
+      gap: 28px;
     }
 
     .service-card {
-      border: 1px solid var(--rule);
-      border-top: 3px solid var(--primary);
-      padding: 1.8rem;
-      background: var(--bg);
+      background-color: var(--bg);
+      border: 1px solid var(--light-rule);
+      border-radius: 6px;
+      padding: 36px 32px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .service-card h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 0.6rem;
-      letter-spacing: 0.02em;
-    }
-
-    .service-card p {
-      font-size: 0.92rem;
-      color: var(--light-text);
-      line-height: 1.7;
+    .service-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 6px 24px rgba(15, 118, 110, 0.08);
     }
 
     .service-icon {
-      font-size: 1.4rem;
-      margin-bottom: 0.75rem;
-      color: var(--accent);
+      width: 40px;
+      height: 40px;
+      margin-bottom: 20px;
+    }
+
+    .service-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .service-title {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .service-desc {
+      font-size: 0.95rem;
+      color: #2d6a65;
+      line-height: 1.75;
     }
 
     /* ── TESTIMONIALS ── */
+    #testimonials {
+      padding: 80px 0;
+    }
+
+    .testimonials-header {
+      margin-bottom: 52px;
+    }
+
+    .testimonials-heading {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+      color: var(--primary);
+      line-height: 1.15;
+    }
+
     .testimonials-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-top: 2.5rem;
+      gap: 28px;
     }
 
     .testimonial-card {
-      padding: 1.8rem;
-      border: 1px solid var(--rule);
-      background: var(--white);
+      border-top: 3px solid var(--primary);
+      padding: 30px 0 0;
     }
 
     .stars {
-      color: var(--accent);
-      font-size: 1rem;
-      margin-bottom: 0.8rem;
+      color: #f59e0b;
+      font-size: 1.1rem;
       letter-spacing: 0.05em;
+      margin-bottom: 14px;
+      display: block;
     }
 
-    .testimonial-card blockquote {
-      font-size: 0.93rem;
-      color: var(--light-text);
-      line-height: 1.75;
+    .testimonial-body {
+      font-size: 0.97rem;
+      color: var(--text);
+      line-height: 1.8;
       font-style: italic;
-      margin-bottom: 1rem;
+      margin-bottom: 20px;
     }
 
     .testimonial-author {
       font-family: 'Raleway', sans-serif;
-      font-size: 0.82rem;
       font-weight: 700;
+      font-size: 0.85rem;
       color: var(--primary);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
     }
 
     /* ── CONTACT ── */
-    #contact { background: var(--white); }
+    #contact {
+      padding: 80px 0;
+      background-color: #ffffff;
+    }
+
+    .contact-header {
+      margin-bottom: 52px;
+    }
+
+    .contact-heading {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+      color: var(--primary);
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .contact-sub {
+      font-size: 1rem;
+      color: var(--text);
+    }
 
     .contact-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      margin-top: 2.5rem;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 60px;
       align-items: start;
     }
 
     .contact-form label {
       display: block;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--primary);
-      letter-spacing: 0.06em;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-bottom: 0.4rem;
-      margin-top: 1.2rem;
+      color: var(--primary);
+      margin-bottom: 6px;
     }
-
-    .contact-form label:first-child { margin-top: 0; }
 
     .contact-form input,
     .contact-form textarea {
       width: 100%;
-      padding: 0.75rem 1rem;
-      border: 1px solid var(--rule);
-      background: var(--bg);
-      color: var(--text);
+      background-color: var(--bg);
+      border: 1px solid var(--light-rule);
+      border-radius: 4px;
+      padding: 12px 16px;
       font-family: 'Nunito Sans', sans-serif;
-      font-size: 0.95rem;
+      font-size: 0.97rem;
+      color: var(--text);
       outline: none;
-      border-radius: 2px;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s ease;
+      margin-bottom: 22px;
     }
 
     .contact-form input:focus,
@@ -303,265 +403,294 @@
     }
 
     .contact-form textarea {
-      height: 130px;
+      height: 140px;
       resize: vertical;
     }
 
-    .contact-form button {
-      margin-top: 1.4rem;
-      background: var(--primary);
-      color: var(--white);
+    .btn-submit {
+      background-color: var(--primary);
+      color: #ffffff;
       font-family: 'Raleway', sans-serif;
       font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      border: none;
-      padding: 0.75rem 2rem;
-      cursor: pointer;
-      border-radius: 2px;
-      transition: background 0.2s;
-    }
-
-    .contact-form button:hover { background: #0d6560; }
-
-    .contact-details {
-      padding-top: 0.25rem;
-    }
-
-    .contact-details h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 1.2rem;
-    }
-
-    .contact-detail-item {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 1.2rem;
-    }
-
-    .contact-detail-item span.detail-label {
-      font-size: 0.75rem;
-      font-weight: 700;
+      font-size: 0.9rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: #0a5d57;
+    }
+
+    .contact-details {
+      padding-top: 8px;
+    }
+
+    .contact-info-block {
+      margin-bottom: 30px;
+    }
+
+    .contact-info-label {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 0.2rem;
+      margin-bottom: 5px;
+      display: block;
     }
 
-    .contact-detail-item a,
-    .contact-detail-item address {
-      font-size: 0.97rem;
-      color: var(--light-text);
+    .contact-info-value {
+      font-size: 1rem;
+      color: var(--text);
+      font-weight: 600;
       text-decoration: none;
-      font-style: normal;
-      line-height: 1.6;
     }
 
-    .contact-detail-item a:hover { color: var(--primary); }
-
-    .map-placeholder {
-      margin-top: 1.5rem;
-      width: 100%;
+    .contact-info-value:hover {
+      color: var(--primary);
     }
 
-    .map-placeholder img {
+    .contact-map {
+      margin-top: 28px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--light-rule);
+    }
+
+    .contact-map img {
       width: 100%;
       display: block;
-      border: 1px solid var(--rule);
     }
 
     /* ── FOOTER ── */
     footer {
-      padding: 2rem;
-      text-align: center;
-      border-top: 1px solid var(--rule);
+      background-color: var(--primary);
+      color: #e0faf7;
+      padding: 40px 0;
     }
 
-    footer .footer-name {
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-name {
       font-family: 'Raleway', sans-serif;
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--primary);
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: #ffffff;
       letter-spacing: 0.04em;
     }
 
-    footer .footer-copy {
-      font-size: 0.8rem;
-      color: var(--light-text);
-      margin-top: 0.3rem;
+    .footer-copy {
+      font-size: 0.85rem;
+      color: #a7f0e8;
     }
 
-    /* ── MID-PAGE CTA STRIP ── */
-    .cta-strip {
-      background: var(--primary);
-      padding: 3.5rem 2rem;
-      text-align: center;
-    }
-
-    .cta-strip p {
-      color: rgba(255,255,255,0.85);
-      font-size: 1rem;
-      margin-bottom: 1.2rem;
-    }
-
-    .cta-strip h2 {
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.8rem;
-    }
-
-    .cta-strip a {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--primary);
-      background: var(--white);
-      padding: 0.7rem 1.8rem;
-      text-decoration: none;
-      border-radius: 2px;
-      display: inline-block;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .cta-strip a:hover {
-      background: var(--bg);
-      color: var(--primary);
-    }
-
-    /* ── RESPONSIVE ── */
+    /* ── MOBILE ── */
     @media (max-width: 768px) {
-      nav { padding: 1rem 1.2rem; }
-      nav .nav-phone { display: none; }
+      #hero {
+        padding: 70px 0 60px;
+      }
 
-      .hero { padding: 4rem 1.4rem 3.5rem; }
+      .nav-phone {
+        display: none;
+      }
 
-      section { padding: 3.5rem 1.4rem; }
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
 
       .services-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
       }
 
       .testimonials-grid {
         grid-template-columns: 1fr;
+        gap: 32px;
       }
 
       .contact-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 40px;
       }
 
-      .cta-strip { padding: 3rem 1.4rem; }
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+      }
+
+      .hero-headline {
+        font-size: 2.4rem;
+      }
     }
   </style>
 </head>
 <body>
+<!-- Already Done claim banner -->
+<style>
+  #ad-claim-banner { position:fixed;top:0;left:0;right:0;z-index:99999;background:#1e3a5f;color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:Arial,sans-serif;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.25); }
+  #ad-claim-banner span { line-height:1.3; }
+  #ad-claim-btn { background:#f59e0b;color:#1e3a5f;padding:9px 20px;border-radius:5px;text-decoration:none;font-weight:700;white-space:nowrap;font-size:14px;flex-shrink:0; }
+  #ad-claim-btn:hover { background:#fbbf24; }
+  #ad-banner-spacer { height:52px; }
+  @media(max-width:600px){ #ad-claim-banner{flex-direction:column;text-align:center;padding:12px 16px;} #ad-banner-spacer{height:90px;} }
+</style>
+<div id="ad-claim-banner">
+  <span>👋 Free preview — built for <strong>Newstone Restoration</strong> by <strong>Already Done</strong></span>
+  <a id="ad-claim-btn" href="mailto:dean@alreadydone.uk?subject=I%20want%20my%20website%20%E2%80%94%20Newstone%20Restoration&body=Hi%20Dean%2C%0A%0AI've%20seen%20the%20preview%20site%20you%20built%20for%20us%20and%20I'd%20like%20to%20claim%20it.%0A%0ACan%20you%20let%20me%20know%20the%20next%20steps%3F%0A%0AThanks">Claim it for £99 →</a>
+</div>
+<div id="ad-banner-spacer"></div>
 
-  <!-- ── 1. NAVIGATION ── -->
+  <!-- ── NAVIGATION ── -->
   <nav>
-    <a href="#" class="brand">Newstone Restoration</a>
-    <div class="nav-right">
-      <a href="tel:01875821179" class="nav-phone">01875 821179</a>
-      <a href="#contact" class="nav-cta">Get in touch</a>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo">
+          Newstone Restoration
+          <span>Flood Damage Specialists</span>
+        </a>
+        <div class="nav-right">
+          <a href="tel:01875821179" class="nav-phone">01875 821179</a>
+          <a href="#contact" class="btn-nav">Get in touch</a>
+        </div>
+      </div>
     </div>
   </nav>
 
-  <!-- ── 2. HERO ── -->
-  <div class="hero">
-    <p class="hero-eyebrow">Edinburgh & Newhaven</p>
-    <h1>Flood Damage Restoration in Newhaven, Edinburgh</h1>
-    <p class="hero-sub">When water damage strikes your home or business, you need a fast, dependable response. Newstone Restoration brings your property back to its best — with minimal disruption and lasting results.</p>
-    <a href="#contact" class="hero-cta">Get in touch</a>
-    <hr class="hero-rule" />
-  </div>
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <span class="hero-eyebrow">Newhaven, Edinburgh &amp; Surrounding Areas</span>
+        <h1 class="hero-headline">Flood damage restoration you can rely on.</h1>
+        <p class="hero-sub">When water finds its way in, we help you take your home or business back. Newstone Restoration provides fast, thorough flood damage recovery across Newhaven, Edinburgh and the wider Lothians.</p>
+        <a href="#contact" class="hero-cta">Get in touch &rarr;</a>
+      </div>
+      <hr class="hero-rule" />
+    </div>
+  </section>
 
   <hr class="rule" />
 
-  <!-- ── 3. ABOUT ── -->
+  <!-- ── ABOUT ── -->
   <section id="about">
-    <div class="section-inner">
-      <p class="section-label">Who we are</p>
-      <h2 class="section-title">Restoring Properties, Rebuilding Peace of Mind</h2>
-      <div class="about-text">
-        <p>Newstone Restoration is a specialist flood damage restoration company serving homeowners and businesses across Newhaven, Edinburgh and the surrounding areas — bringing expert care to some of the worst moments our clients have faced.</p>
-        <p>What sets us apart is our hands-on approach: every job is assessed and managed by experienced restorers who combine industry-leading drying technology with genuine attention to detail, ensuring your property is fully dried, treated and returned to its pre-loss condition.</p>
-        <p>Based on Forth Street in Edinburgh's EH1, we're part of this community — so when you call, you'll speak directly to someone who knows this area, understands local properties, and genuinely cares about getting you back to normal as quickly as possible.</p>
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <span class="section-label">About Us</span>
+          <h2 class="about-heading">Trusted local restorers.</h2>
+        </div>
+        <div class="about-body">
+          <p>Newstone Restoration is a specialist flood damage recovery company based at Forth Street in Edinburgh, with a long track record of returning properties to their pre-loss condition — quickly, carefully, and with minimal disruption to you.</p>
+          <p>What sets us apart is our thorough, methodical approach: we don't just dry out surfaces — we assess hidden moisture, treat for mould risk, and restore structural integrity before any cosmetic work begins, so problems don't return months later.</p>
+          <p>We know Newhaven and the surrounding Edinburgh communities well, and we're proud to be the team local residents and businesses call when they need someone they can trust in a stressful situation.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <hr class="rule" />
 
-  <!-- ── 4. SERVICES ── -->
+  <!-- ── SERVICES ── -->
   <section id="services">
-    <div class="section-inner">
-      <p class="section-label">What we do</p>
-      <h2 class="section-title">Our Restoration Services</h2>
+    <div class="container">
+      <div class="services-header">
+        <span class="section-label">What We Do</span>
+        <h2 class="services-heading">Our restoration services.</h2>
+      </div>
       <div class="services-grid">
 
         <div class="service-card">
-          <div class="service-icon">💧</div>
-          <h3>Emergency Water Extraction</h3>
-          <p>Fast-response water removal using high-capacity pumps and extraction equipment. We act quickly to limit further damage to floors, walls and belongings from the moment we arrive on site.</p>
+          <div class="service-icon">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="20" r="19" stroke="#0f766e" stroke-width="2"/>
+              <path d="M20 10 C20 10, 12 20, 12 25 a8 8 0 0 0 16 0 C28 20, 20 10, 20 10z" fill="#0ea5e9" opacity="0.3" stroke="#0f766e" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="service-title">Water Extraction &amp; Drying</div>
+          <p class="service-desc">Rapid removal of standing water using industrial-grade extraction equipment, followed by controlled drying using dehumidifiers and air movers to eliminate residual moisture from floors, walls and cavities.</p>
         </div>
 
         <div class="service-card">
-          <div class="service-icon">🌬️</div>
-          <h3>Structural Drying & Dehumidification</h3>
-          <p>Professional-grade drying systems are deployed to remove embedded moisture from walls, subfloors and timbers — preventing secondary damage such as mould growth and structural weakening.</p>
+          <div class="service-icon">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="36" height="36" rx="4" stroke="#0f766e" stroke-width="2"/>
+              <path d="M8 28 L14 20 L20 24 L26 16 L32 20" stroke="#0ea5e9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="8" cy="28" r="2" fill="#0f766e"/>
+              <circle cx="32" cy="20" r="2" fill="#0f766e"/>
+            </svg>
+          </div>
+          <div class="service-title">Structural Drying &amp; Assessment</div>
+          <p class="service-desc">Using thermal imaging and moisture mapping, we identify damage within walls, subfloors and joists that isn't visible to the naked eye — ensuring your property is genuinely dry before restoration work begins.</p>
         </div>
 
         <div class="service-card">
-          <div class="service-icon">🧪</div>
-          <h3>Mould Treatment & Prevention</h3>
-          <p>Flood water creates the perfect conditions for mould. We treat affected surfaces with proven antimicrobial solutions and provide tailored advice to keep your property protected long after we've left.</p>
+          <div class="service-icon">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 34 L6 16 L20 6 L34 16 L34 34 Z" stroke="#0f766e" stroke-width="2" stroke-linejoin="round"/>
+              <rect x="14" y="22" width="12" height="12" rx="1" stroke="#0ea5e9" stroke-width="1.8"/>
+              <path d="M20 22 L20 34" stroke="#0ea5e9" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="service-title">Mould Treatment &amp; Prevention</div>
+          <p class="service-desc">Flood water creates ideal conditions for mould growth. We carry out professional antimicrobial treatment and apply protective coatings to affected surfaces, protecting your home and your family's health long term.</p>
         </div>
 
         <div class="service-card">
-          <div class="service-icon">🏠</div>
-          <h3>Property Reinstatement</h3>
-          <p>From stripped and treated substrates through to full redecoration, we manage the full restoration journey — coordinating with your insurer where needed so you don't have to handle everything alone.</p>
+          <div class="service-icon">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 32 L8 20 M16 32 L16 14 M24 32 L24 18 M32 32 L32 10" stroke="#0ea5e9" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M5 32 L35 32" stroke="#0f766e" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="service-title">Reinstatement &amp; Finishing</div>
+          <p class="service-desc">Once drying is complete, we manage the full reinstatement of affected areas — from replacing damaged plasterwork and flooring to redecorating — restoring your property to the condition it was in before the flood.</p>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- ── MID-PAGE CTA STRIP ── -->
-  <div class="cta-strip">
-    <h2>Dealing with flood damage right now?</h2>
-    <p>Don't wait — the sooner we assess the damage, the better the outcome. Call us or send a message today.</p>
-    <a href="#contact">Get in touch</a>
-  </div>
+  <hr class="rule" />
 
-  <!-- ── 5. TESTIMONIALS ── -->
+  <!-- ── TESTIMONIALS ── -->
   <section id="testimonials">
-    <div class="section-inner">
-      <p class="section-label">What our clients say</p>
-      <h2 class="section-title">Trusted Across Edinburgh</h2>
+    <div class="container">
+      <div class="testimonials-header">
+        <span class="section-label">What Clients Say</span>
+        <h2 class="testimonials-heading">Trusted by Edinburgh homeowners.</h2>
+      </div>
       <div class="testimonials-grid">
 
         <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <blockquote>"Our kitchen was completely flooded after a burst pipe. Newstone were on site within hours and had everything dried out and treated within days. Absolutely professional from start to finish — I can't thank them enough."</blockquote>
-          <span class="testimonial-author">Margaret T. — Newhaven, Edinburgh</span>
+          <span class="stars">★★★★★</span>
+          <p class="testimonial-body">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."</p>
+          <span class="testimonial-author">S. M. — Newhaven, Edinburgh</span>
         </div>
 
         <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <blockquote>"We used Newstone after a flood damaged two rooms of our Victorian flat. They were honest, thorough and worked closely with our insurer. The restoration looks better than it did before. Exceptional service."</blockquote>
-          <span class="testimonial-author">James R. — Leith, Edinburgh</span>
+          <span class="stars">★★★★★</span>
+          <p class="testimonial-body">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint."</p>
+          <span class="testimonial-author">R. T. — Leith, Edinburgh</span>
         </div>
 
         <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <blockquote>"Really impressed with the whole team. They explained everything clearly, kept us updated throughout, and the drying equipment was silent enough that we could stay in the house. Would recommend without hesitation."</blockquote>
-          <span class="testimonial-author">Fiona M. — Trinity, Edinburgh</span>
+          <span class="stars">★★★★☆</span>
+          <p class="testimonial-body">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+          <span class="testimonial-author">C. B. — Portobello, Edinburgh</span>
         </div>
 
       </div>
@@ -570,47 +699,44 @@
 
   <hr class="rule" />
 
-  <!-- ── 6. CONTACT ── -->
+  <!-- ── CONTACT ── -->
   <section id="contact">
-    <div class="section-inner">
-      <p class="section-label">Get in touch</p>
-      <h2 class="section-title">Talk to Newstone Restoration</h2>
-
+    <div class="container">
+      <div class="contact-header">
+        <span class="section-label">Contact Us</span>
+        <h2 class="contact-heading">Get in touch.</h2>
+        <p class="contact-sub">Tell us about your situation and we'll respond promptly — usually the same day.</p>
+      </div>
       <div class="contact-grid">
 
-        <form class="contact-form" action="#" method="POST">
+        <form class="contact-form" action="mailto:dean@alreadydone.uk" method="post" enctype="text/plain">
           <label for="name">Your Name</label>
-          <input type="text" id="name" name="name" placeholder="e.g. Sarah MacLeod" required />
+          <input type="text" id="name" name="Name" placeholder="e.g. Margaret Thomson" required />
 
           <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="e.g. sarah@example.com" required />
+          <input type="email" id="email" name="Email" placeholder="e.g. margaret@example.co.uk" required />
 
           <label for="message">Your Message</label>
-          <textarea id="message" name="message" placeholder="Tell us briefly about the damage and your property location…" required></textarea>
+          <textarea id="message" name="Message" placeholder="Please describe the damage and the best time to reach you…" required></textarea>
 
-          <button type="submit">Get in touch</button>
+          <button type="submit" class="btn-submit">Send Message</button>
         </form>
 
         <div class="contact-details">
-          <h3>Our Contact Details</h3>
-
-          <div class="contact-detail-item">
-            <span class="detail-label">Phone</span>
-            <a href="tel:01875821179">01875 821179</a>
+          <div class="contact-info-block">
+            <span class="contact-info-label">Phone</span>
+            <a href="tel:01875821179" class="contact-info-value">01875 821179</a>
           </div>
-
-          <div class="contact-detail-item">
-            <span class="detail-label">Address</span>
-            <address>26 Forth St<br />Edinburgh<br />EH1 3LH</address>
+          <div class="contact-info-block">
+            <span class="contact-info-label">Address</span>
+            <span class="contact-info-value" style="font-weight:400; display:block;">26 Forth St,<br />Edinburgh EH1 3LH</span>
           </div>
-
-          <div class="contact-detail-item">
-            <span class="detail-label">Service Area</span>
-            <span style="font-size:0.97rem; color:var(--light-text);">Newhaven, Leith, Trinity, Inverleith and across Edinburgh</span>
+          <div class="contact-info-block">
+            <span class="contact-info-label">Service Area</span>
+            <span class="contact-info-value" style="font-weight:400;">Newhaven, Leith, Portobello, and across Edinburgh &amp; the Lothians.</span>
           </div>
-
-          <div class="map-placeholder">
-            <img src="https://placehold.co/600x300/e6faf7/0f766e?text=26+Forth+St,+Edinburgh+EH1+3LH" alt="Map showing Newstone Restoration location at 26 Forth St, Edinburgh" />
+          <div class="contact-map">
+            <img src="https://placehold.co/600x300/e0f2f1/0f766e?text=26+Forth+St%2C+Edinburgh+EH1+3LH" alt="Map showing Newstone Restoration at 26 Forth St, Edinburgh EH1 3LH" />
           </div>
         </div>
 
@@ -618,12 +744,14 @@
     </div>
   </section>
 
-  <hr class="rule" />
-
-  <!-- ── 7. FOOTER ── -->
+  <!-- ── FOOTER ── -->
   <footer>
-    <p class="footer-name">Newstone Restoration</p>
-    <p class="footer-copy">&copy; 2025 Newstone Restoration. 26 Forth St, Edinburgh EH1 3LH. All rights reserved.</p>
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-name">Newstone Restoration</span>
+        <span class="footer-copy">&copy; 2025 Newstone Restoration. 26 Forth St, Edinburgh EH1 3LH. All rights reserved.</span>
+      </div>
+    </div>
   </footer>
 
 </body>

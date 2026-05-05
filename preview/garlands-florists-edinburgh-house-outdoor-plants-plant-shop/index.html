@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Garlands Florists Edinburgh | Flowers, Plants & Event Floristry</title>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <title>Garlands Florists Edinburgh | House & Outdoor Plants | Pilton</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -14,7 +14,6 @@
       --bg: #fff1f2;
       --text: #1f2937;
       --white: #ffffff;
-      --hero-dark: #1a0a0f;
     }
 
     html { scroll-behavior: smooth; }
@@ -28,62 +27,88 @@
 
     h1, h2, h3, h4 {
       font-family: 'Oswald', sans-serif;
-      line-height: 1.2;
+      letter-spacing: 0.03em;
     }
 
-    /* ── NAV ── */
+    /* ─── NAV ─── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(26, 10, 15, 0.95);
-      backdrop-filter: blur(6px);
+      z-index: 999;
+      background: rgba(31, 41, 55, 0.97);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 2rem;
-      height: 68px;
+      height: 64px;
     }
 
     .nav-brand {
       font-family: 'Oswald', sans-serif;
+      font-size: 1.2rem;
       font-weight: 700;
-      font-size: 1.15rem;
       color: var(--accent);
       text-decoration: none;
-      letter-spacing: 0.5px;
-      max-width: 55%;
-      line-height: 1.3;
+      line-height: 1.2;
+      max-width: 60%;
+    }
+
+    .nav-brand span {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: #d1d5db;
+      font-family: 'Open Sans', sans-serif;
+      letter-spacing: 0;
     }
 
     .nav-cta {
       background: var(--primary);
       color: var(--white);
       border: none;
-      padding: 0.55rem 1.3rem;
+      padding: 0.55rem 1.25rem;
+      border-radius: 4px;
       font-family: 'Oswald', sans-serif;
       font-size: 0.95rem;
       font-weight: 600;
-      letter-spacing: 0.5px;
-      cursor: pointer;
       text-decoration: none;
-      border-radius: 3px;
+      letter-spacing: 0.04em;
       white-space: nowrap;
       transition: background 0.2s;
     }
 
-    .nav-cta:hover { background: #7c1040; }
+    .nav-cta:hover { background: #7f1239; }
 
-    /* ── HERO ── */
+    /* ─── GOOGLE BADGE ─── */
+    .google-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--white);
+      border: 2px solid var(--accent);
+      border-radius: 40px;
+      padding: 0.45rem 1.1rem;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--primary);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    }
+
+    .google-badge .stars { color: #fbbf24; font-size: 1rem; }
+    .google-badge .g-logo { font-weight: 700; color: #4285f4; }
+
+    /* ─── HERO ─── */
     .hero {
       position: relative;
-      width: 100%;
-      min-height: 100vh;
+      margin-top: 64px;
+      min-height: 560px;
       display: flex;
       align-items: center;
       justify-content: center;
+      text-align: center;
       overflow: hidden;
-      background: var(--hero-dark);
+      background: #1f2937;
     }
 
     .hero-img {
@@ -95,18 +120,12 @@
       opacity: 0.38;
     }
 
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(26,10,15,0.55) 0%, rgba(26,10,15,0.75) 100%);
-    }
-
     .hero-content {
       position: relative;
       z-index: 2;
-      text-align: center;
-      padding: 2rem 1.5rem;
-      max-width: 860px;
+      padding: 3rem 1.5rem;
+      max-width: 820px;
+      width: 100%;
     }
 
     .hero-eyebrow {
@@ -114,33 +133,40 @@
       background: var(--accent);
       color: var(--primary);
       font-family: 'Oswald', sans-serif;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 600;
-      letter-spacing: 2px;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       padding: 0.3rem 1rem;
-      border-radius: 20px;
-      margin-bottom: 1.4rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.4rem, 6vw, 4.2rem);
-      font-weight: 700;
-      color: var(--white);
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      border-radius: 3px;
       margin-bottom: 1.2rem;
     }
 
-    .hero h1 span { color: var(--accent); }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 1.1rem;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
 
     .hero-sub {
       font-size: 1.1rem;
-      color: rgba(255,255,255,0.85);
-      margin-bottom: 2.2rem;
-      max-width: 600px;
+      color: #e5e7eb;
+      margin-bottom: 2rem;
+      max-width: 560px;
       margin-left: auto;
       margin-right: auto;
+    }
+
+    .hero-badge-wrap {
+      margin-bottom: 2rem;
     }
 
     .hero-buttons {
@@ -154,399 +180,365 @@
       background: var(--primary);
       color: var(--white);
       padding: 0.85rem 2rem;
+      border-radius: 4px;
       font-family: 'Oswald', sans-serif;
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 600;
-      letter-spacing: 0.5px;
       text-decoration: none;
-      border-radius: 3px;
-      border: 2px solid var(--primary);
-      transition: all 0.2s;
-      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
     }
 
-    .btn-primary:hover { background: #7c1040; border-color: #7c1040; }
+    .btn-primary:hover { background: #7f1239; transform: translateY(-1px); }
 
     .btn-outline {
       background: transparent;
       color: var(--white);
       padding: 0.85rem 2rem;
+      border-radius: 4px;
+      border: 2px solid var(--white);
       font-family: 'Oswald', sans-serif;
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 600;
-      letter-spacing: 0.5px;
       text-decoration: none;
-      border-radius: 3px;
-      border: 2px solid rgba(255,255,255,0.7);
-      transition: all 0.2s;
+      letter-spacing: 0.05em;
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+      display: inline-block;
     }
 
     .btn-outline:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+      background: var(--white);
+      color: var(--primary);
+      transform: translateY(-1px);
     }
 
-    /* ── SECTIONS ── */
-    section { width: 100%; }
+    /* ─── SECTIONS ─── */
+    section {
+      padding: 5rem 1.5rem;
+    }
 
     .section-inner {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 5rem 1.5rem;
-    }
-
-    .section-label {
-      display: inline-block;
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      color: var(--primary);
-      margin-bottom: 0.6rem;
     }
 
     .section-title {
-      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
       font-weight: 700;
-      text-transform: uppercase;
-      color: var(--text);
-      margin-bottom: 0.8rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      text-align: center;
     }
 
-    .section-intro {
-      font-size: 1.05rem;
-      color: #4b5563;
-      max-width: 640px;
+    .section-sub {
+      text-align: center;
+      color: #6b7280;
+      font-size: 1.02rem;
       margin-bottom: 3rem;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    /* ── GALLERY ── */
-    .gallery-section { background: var(--bg); }
+    /* ─── GALLERY ─── */
+    .gallery-section {
+      background: var(--bg);
+    }
 
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
+      gap: 1.25rem;
     }
 
-    .gallery-item {
-      position: relative;
+    .gallery-card {
+      border-radius: 8px;
       overflow: hidden;
-      border-radius: 4px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+      position: relative;
+      background: #f3f4f6;
     }
 
-    .gallery-item img {
+    .gallery-card img {
       width: 100%;
-      height: 280px;
+      height: 260px;
       object-fit: cover;
       display: block;
-      transition: transform 0.4s ease;
+      transition: transform 0.4s;
     }
 
-    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-card:hover img { transform: scale(1.04); }
 
-    .gallery-caption {
+    .gallery-card-label {
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      background: linear-gradient(to top, rgba(26,10,15,0.85), transparent);
+      background: linear-gradient(0deg, rgba(157,23,77,0.88) 0%, transparent 100%);
       color: var(--white);
-      padding: 1.2rem 1rem 0.8rem;
       font-family: 'Oswald', sans-serif;
       font-size: 1rem;
       font-weight: 600;
-      letter-spacing: 0.5px;
+      padding: 1.2rem 1rem 0.8rem;
+      letter-spacing: 0.04em;
     }
 
-    /* ── SERVICES ── */
-    .services-section { background: var(--white); }
+    /* ─── SERVICES ─── */
+    .services-section {
+      background: var(--white);
+    }
 
     .services-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
+      gap: 1.75rem;
     }
 
     .service-card {
       background: var(--bg);
       border-left: 4px solid var(--accent);
-      padding: 2rem 1.8rem;
-      border-radius: 4px;
+      border-radius: 8px;
+      padding: 1.75rem 1.5rem;
       transition: box-shadow 0.2s;
     }
 
-    .service-card:hover { box-shadow: 0 6px 24px rgba(157,23,77,0.12); }
+    .service-card:hover {
+      box-shadow: 0 6px 24px rgba(157,23,77,0.13);
+    }
 
     .service-icon {
       font-size: 2rem;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.75rem;
     }
 
     .service-card h3 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      text-transform: uppercase;
+      font-size: 1.25rem;
       color: var(--primary);
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.5rem;
     }
 
     .service-card p {
       font-size: 0.95rem;
       color: #4b5563;
-      line-height: 1.7;
     }
 
-    .service-tag {
-      display: inline-block;
-      margin-top: 1rem;
-      background: var(--accent);
-      color: var(--primary);
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
+    /* ─── CTA STRIP ─── */
+    .cta-strip {
+      background: var(--primary);
+      padding: 3rem 1.5rem;
+      text-align: center;
     }
 
-    /* ── ABOUT ── */
-    .about-section { background: var(--hero-dark); }
+    .cta-strip h2 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: var(--white);
+      margin-bottom: 1.2rem;
+    }
+
+    /* ─── ABOUT ─── */
+    .about-section {
+      background: var(--bg);
+    }
 
     .about-inner {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 4rem;
+      gap: 3rem;
       align-items: center;
     }
 
-    .about-inner img {
+    .about-img {
+      border-radius: 10px;
       width: 100%;
-      height: 420px;
+      height: 380px;
       object-fit: cover;
-      border-radius: 4px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.13);
     }
 
-    .about-text .section-label { color: var(--accent); }
-
-    .about-text .section-title { color: var(--white); }
+    .about-text h2 {
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
 
     .about-text p {
-      color: rgba(255,255,255,0.82);
+      color: #374151;
       font-size: 1rem;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1rem;
     }
 
-    .about-text .btn-primary { display: inline-block; margin-top: 0.8rem; }
+    .about-detail {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--primary);
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-top: 0.5rem;
+    }
 
-    /* ── TESTIMONIALS ── */
-    .testimonials-section { background: var(--bg); }
+    /* ─── TESTIMONIALS ─── */
+    .testimonials-section {
+      background: var(--white);
+    }
 
     .testimonials-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.8rem;
+      gap: 1.5rem;
     }
 
     .testimonial-card {
-      background: var(--white);
-      border-radius: 4px;
-      padding: 2rem 1.8rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-      position: relative;
-    }
-
-    .stars {
-      color: var(--primary);
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-      letter-spacing: 2px;
-    }
-
-    .testimonial-card blockquote {
-      font-size: 0.97rem;
-      color: #374151;
-      line-height: 1.75;
-      margin-bottom: 1.4rem;
-      font-style: italic;
-    }
-
-    .testimonial-author {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 1.75rem 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
       display: flex;
-      align-items: center;
+      flex-direction: column;
       gap: 0.75rem;
     }
 
-    .author-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .testimonial-stars {
+      color: #fbbf24;
+      font-size: 1.1rem;
+    }
+
+    .testimonial-text {
+      font-size: 0.96rem;
+      color: #374151;
+      font-style: italic;
+      flex: 1;
+    }
+
+    .testimonial-author {
       font-family: 'Oswald', sans-serif;
-      font-weight: 700;
+      font-size: 0.92rem;
       color: var(--primary);
-      font-size: 1rem;
-      flex-shrink: 0;
-    }
-
-    .author-info strong {
-      display: block;
-      font-family: 'Oswald', sans-serif;
-      font-size: 1rem;
       font-weight: 600;
-      color: var(--text);
+      letter-spacing: 0.03em;
     }
 
-    .author-info span {
+    .testimonial-event {
+      font-family: 'Open Sans', sans-serif;
       font-size: 0.82rem;
       color: #9ca3af;
+      font-weight: 400;
     }
 
-    /* ── CONTACT ── */
-    .contact-section { background: var(--white); }
+    /* ─── CONTACT ─── */
+    .contact-section {
+      background: var(--bg);
+    }
 
     .contact-inner {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 3.5rem;
       align-items: start;
     }
 
-    .contact-form-col h2 {
-      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-      font-weight: 700;
-      text-transform: uppercase;
-      color: var(--text);
-      margin-bottom: 0.6rem;
+    .contact-form-wrap h2 {
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      color: var(--primary);
+      margin-bottom: 0.5rem;
     }
 
-    .contact-form-col .form-sub {
-      font-size: 1rem;
+    .contact-form-wrap p {
       color: #4b5563;
-      margin-bottom: 2rem;
+      margin-bottom: 1.75rem;
+      font-size: 0.98rem;
     }
 
-    .form-group {
-      margin-bottom: 1.2rem;
-    }
+    form { display: flex; flex-direction: column; gap: 1.1rem; }
 
-    .form-group label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 0.4rem;
-      font-family: 'Oswald', sans-serif;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    .form-group input,
-    .form-group textarea {
+    form input,
+    form textarea,
+    form select {
       width: 100%;
-      padding: 0.75rem 1rem;
+      padding: 0.8rem 1rem;
       border: 1.5px solid #e5e7eb;
-      border-radius: 3px;
+      border-radius: 6px;
       font-family: 'Open Sans', sans-serif;
-      font-size: 0.95rem;
+      font-size: 0.97rem;
       color: var(--text);
-      background: var(--bg);
+      background: var(--white);
       transition: border-color 0.2s;
       outline: none;
     }
 
-    .form-group input:focus,
-    .form-group textarea:focus {
+    form input:focus,
+    form textarea:focus {
       border-color: var(--primary);
     }
 
-    .form-group textarea { resize: vertical; min-height: 130px; }
+    form textarea { resize: vertical; min-height: 130px; }
 
-    .contact-info-col { padding-top: 1rem; }
-
-    .contact-info-col h3 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: var(--primary);
-      margin-bottom: 1.5rem;
-    }
-
-    .info-block {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1.8rem;
-      align-items: flex-start;
-    }
-
-    .info-icon {
-      width: 44px;
-      height: 44px;
-      background: var(--bg);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      flex-shrink: 0;
-    }
-
-    .info-block strong {
-      display: block;
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--text);
-      margin-bottom: 0.2rem;
-    }
-
-    .info-block a, .info-block p {
-      color: #4b5563;
-      font-size: 0.95rem;
-      text-decoration: none;
-    }
-
-    .info-block a:hover { color: var(--primary); }
-
-    .contact-strip {
+    form button[type="submit"] {
       background: var(--primary);
-      text-align: center;
-      padding: 1.5rem;
-    }
-
-    .contact-strip p {
       color: var(--white);
+      border: none;
+      padding: 0.9rem 2rem;
+      border-radius: 5px;
       font-family: 'Oswald', sans-serif;
       font-size: 1.1rem;
       font-weight: 600;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      align-self: flex-start;
     }
 
-    .contact-strip a {
-      color: var(--accent);
-      text-decoration: none;
+    form button[type="submit"]:hover {
+      background: #7f1239;
+      transform: translateY(-1px);
     }
 
-    /* ── FOOTER ── */
+    .contact-info h3 {
+      font-size: 1.35rem;
+      color: var(--primary);
+      margin-bottom: 1.2rem;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      margin-bottom: 1.2rem;
+      font-size: 0.97rem;
+      color: #374151;
+    }
+
+    .contact-detail-icon {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .contact-detail strong {
+      display: block;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      margin-bottom: 0.15rem;
+    }
+
+    .contact-badge-wrap {
+      margin-top: 2rem;
+    }
+
+    /* ─── FOOTER ─── */
     footer {
-      background: var(--hero-dark);
-      padding: 3rem 1.5rem;
+      background: #1f2937;
+      color: #9ca3af;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
     }
 
     .footer-inner {
-      max-width: 1100px;
+      max-width: 900px;
       margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
-      text-align: center;
     }
 
     .footer-brand {
@@ -554,245 +546,281 @@
       font-size: 1.3rem;
       font-weight: 700;
       color: var(--accent);
-    }
-
-    .footer-tagline {
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.55);
-      margin-top: 0.3rem;
+      margin-bottom: 0.5rem;
     }
 
     .footer-socials {
       display: flex;
       gap: 1rem;
-    }
-
-    .social-link {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(249,168,212,0.4);
-      display: flex;
-      align-items: center;
       justify-content: center;
-      color: var(--accent);
-      text-decoration: none;
-      font-size: 1rem;
-      transition: all 0.2s;
+      margin: 1.1rem 0;
+      flex-wrap: wrap;
     }
 
-    .social-link:hover {
-      background: var(--primary);
-      border-color: var(--primary);
+    .footer-socials a {
+      display: inline-block;
+      background: #374151;
+      color: var(--accent);
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 0.45rem 1.1rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background 0.2s;
     }
+
+    .footer-socials a:hover { background: var(--primary); }
 
     .footer-copy {
-      font-size: 0.82rem;
-      color: rgba(255,255,255,0.4);
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-top: 0.5rem;
     }
 
-    /* ── DIVIDER ── */
-    .pink-divider {
-      height: 4px;
-      background: linear-gradient(to right, var(--primary), var(--accent), var(--primary));
-    }
-
-    /* ── RESPONSIVE ── */
+    /* ─── MEDIA QUERY ─── */
     @media (max-width: 768px) {
       nav { padding: 0 1rem; }
-      .nav-brand { font-size: 0.9rem; }
+      .nav-brand { font-size: 0.95rem; }
 
-      .hero-content { padding: 2rem 1rem; }
+      .hero { min-height: 480px; }
+      .hero h1 { font-size: 2rem; }
+      .hero-sub { font-size: 0.97rem; }
 
       .gallery-grid { grid-template-columns: 1fr; }
-      .gallery-item img { height: 240px; }
+      .gallery-card img { height: 220px; }
 
       .services-grid { grid-template-columns: 1fr; }
 
-      .about-inner {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-      .about-inner img { height: 280px; }
+      .about-inner { grid-template-columns: 1fr; }
+      .about-img { height: 260px; }
 
       .testimonials-grid { grid-template-columns: 1fr; }
 
-      .contact-inner {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-      }
+      .contact-inner { grid-template-columns: 1fr; }
 
-      .section-inner { padding: 3.5rem 1.2rem; }
-
-      .hero-buttons { flex-direction: column; align-items: center; }
-      .btn-primary, .btn-outline { width: 100%; max-width: 300px; text-align: center; }
+      section { padding: 3.5rem 1.1rem; }
     }
   </style>
 </head>
 <body>
+<!-- Already Done claim banner -->
+<style>
+  #ad-claim-banner { position:fixed;top:0;left:0;right:0;z-index:99999;background:#1e3a5f;color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:Arial,sans-serif;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.25); }
+  #ad-claim-banner span { line-height:1.3; }
+  #ad-claim-btn { background:#f59e0b;color:#1e3a5f;padding:9px 20px;border-radius:5px;text-decoration:none;font-weight:700;white-space:nowrap;font-size:14px;flex-shrink:0; }
+  #ad-claim-btn:hover { background:#fbbf24; }
+  #ad-banner-spacer { height:52px; }
+  @media(max-width:600px){ #ad-claim-banner{flex-direction:column;text-align:center;padding:12px 16px;} #ad-banner-spacer{height:90px;} }
+</style>
+<div id="ad-claim-banner">
+  <span>👋 Free preview — built for <strong>Garlands Florists Edinburgh - House / Outdoor Plants -Plant Shop - Plant Accessories</strong> by <strong>Already Done</strong></span>
+  <a id="ad-claim-btn" href="mailto:dean@alreadydone.uk?subject=I%20want%20my%20website%20%E2%80%94%20Garlands%20Florists%20Edinburgh%20-%20House%20%2F%20Outdoor%20Plants%20-Plant%20Shop%20-%20Plant%20Accessories&body=Hi%20Dean%2C%0A%0AI've%20seen%20the%20preview%20site%20you%20built%20for%20us%20and%20I'd%20like%20to%20claim%20it.%0A%0ACan%20you%20let%20me%20know%20the%20next%20steps%3F%0A%0AThanks">Claim it for £99 →</a>
+</div>
+<div id="ad-banner-spacer"></div>
 
-<!-- ── NAVIGATION ── -->
-<nav>
-  <a href="#" class="nav-brand">Garlands Florists<br>Edinburgh</a>
-  <a href="#contact" class="nav-cta">Get in touch</a>
-</nav>
+  <!-- ─── 1. NAVIGATION ─── -->
+  <nav>
+    <a href="#" class="nav-brand">
+      Garlands Florists Edinburgh
+      <span>House &amp; Outdoor Plants · Pilton, Edinburgh</span>
+    </a>
+    <a href="#contact" class="nav-cta">Get in touch</a>
+  </nav>
 
-<!-- ── HERO ── -->
-<section class="hero" id="home">
-  <img
-    src="https://placeholder.co/1200x500/1a0a0f/f9a8d4?text=Garlands+Florists+Edinburgh"
-    alt="Beautiful floral arrangements by Garlands Florists Edinburgh"
-    class="hero-img"
-  />
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <span class="hero-eyebrow">Edinburgh's Floral Specialists · Est. in Pilton</span>
-    <h1>Every Bloom Tells<br><span>Your Story</span></h1>
-    <p class="hero-sub">From intimate gatherings to grand celebrations, Garlands Florists Edinburgh crafts breathtaking floral designs that turn your special occasion into something truly unforgettable.</p>
-    <div class="hero-buttons">
-      <a href="#contact" class="btn-primary">Tell me about your event</a>
-      <a href="#gallery" class="btn-outline">See our work</a>
-    </div>
-  </div>
-</section>
-
-<div class="pink-divider"></div>
-
-<!-- ── GALLERY ── -->
-<section class="gallery-section" id="gallery">
-  <div class="section-inner">
-    <span class="section-label">Portfolio</span>
-    <h2 class="section-title">Recent Work</h2>
-    <p class="section-intro">From romantic wedding arches to stunning corporate table centres and lush plant installations — here's a glimpse of what we've been creating for Edinburgh's most special occasions.</p>
-    <div class="gallery-grid">
-      <div class="gallery-item">
-        <img src="https://placeholder.co/600x400/9d174d/f9a8d4?text=Wedding+Floristry" alt="Wedding floristry by Garlands Edinburgh" />
-        <div class="gallery-caption">Wedding Ceremony Arch — Edinburgh</div>
+  <!-- ─── 2. HERO ─── -->
+  <section class="hero">
+    <img
+      class="hero-img"
+      src="https://placeholder.co/1200x500"
+      alt="Garlands Florists Edinburgh – Beautiful flowers and plants"
+    />
+    <div class="hero-content">
+      <div class="hero-eyebrow">Edinburgh's Favourite Plant Shop</div>
+      <h1>Flowers &amp; Plants That Make <em>Every Moment</em> Bloom</h1>
+      <p class="hero-sub">From intimate weddings to grand celebrations, Garlands brings Edinburgh's most beautiful blooms to life. Let us make your special event unforgettable.</p>
+      <div class="hero-badge-wrap">
+        <span class="google-badge">
+          <span class="g-logo">G</span>
+          <span class="stars">★★★★★</span>
+          <strong>5/5 · 5 Google Reviews</strong>
+        </span>
       </div>
-      <div class="gallery-item">
-        <img src="https://placeholder.co/600x400/7c1040/f9a8d4?text=Event+Centrepieces" alt="Event centrepieces by Garlands Edinburgh" />
-        <div class="gallery-caption">Gala Dinner Table Arrangements</div>
-      </div>
-      <div class="gallery-item">
-        <img src="https://placeholder.co/600x400/4a0a28/f9a8d4?text=Plant+Installations" alt="Indoor plant installation by Garlands Edinburgh" />
-        <div class="gallery-caption">Lush Plant Installation — Private Home</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── SERVICES ── -->
-<section class="services-section" id="services">
-  <div class="section-inner">
-    <span class="section-label">What We Offer</span>
-    <h2 class="section-title">Services &amp; Packages</h2>
-    <p class="section-intro">Whether you're planning a wedding, a milestone birthday, or simply transforming a space with beautiful greenery, Garlands has you covered from first bloom to last petal.</p>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">💐</div>
-        <h3>Wedding &amp; Ceremony Floristry</h3>
-        <p>Your wedding day deserves flowers as extraordinary as your love. We create everything from bridal bouquets and buttonholes to dramatic ceremony arches and lush reception table centrepieces — all tailored to your colour palette and theme. Full consultation included.</p>
-        <span class="service-tag">Most Popular</span>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🌿</div>
-        <h3>House &amp; Outdoor Plants</h3>
-        <p>Bring the outdoors in — or make your garden truly sing. Our plant shop in Pilton stocks a curated selection of indoor houseplants, hardy outdoor specimens, and seasonal statement plants, with expert advice on care and placement.</p>
-        <span class="service-tag">In Store &amp; Online</span>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🎉</div>
-        <h3>Events &amp; Corporate Styling</h3>
-        <p>From intimate private dinners to large-scale corporate events and seasonal installations, we create immersive floral environments that leave a lasting impression. We work with Edinburgh venues, hotels, and businesses to deliver breathtaking results.</p>
-        <span class="service-tag">Enquire for Quote</span>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🪴</div>
-        <h3>Plant Accessories &amp; Gifts</h3>
-        <p>Complete your plant collection with our gorgeous range of pots, planters, plant food, and botanical gifts. Perfect for a thoughtful present or treating yourself. Visit us at 29 Elm Row or call ahead to reserve something special.</p>
-        <span class="service-tag">In Store Daily</span>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn-primary">Tell me about your event</a>
+        <a href="#services" class="btn-outline">Explore our services</a>
       </div>
     </div>
-    <div style="text-align:center; margin-top:3rem;">
-      <a href="#contact" class="btn-primary">Get in touch</a>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- ── ABOUT ── -->
-<section class="about-section" id="about">
-  <div class="section-inner">
-    <div class="about-inner">
-      <img src="https://placeholder.co/600x420/2d0f1a/f9a8d4?text=Garlands+Florists+Edinburgh" alt="Inside Garlands Florists Edinburgh" />
-      <div class="about-text">
-        <span class="section-label">About Us</span>
-        <h2 class="section-title" style="color:#fff;">Rooted in Pilton,<br>Blooming Across Edinburgh</h2>
-        <p>We're Garlands Florists — a passionate, independent flower and plant shop nestled in the heart of Pilton, Edinburgh. Since opening our doors at 29 Elm Row, we've built our reputation one beautiful arrangement at a time, treating every customer's occasion as if it were our own.</p>
-        <p>We truly believe that flowers have the power to transform a moment — to say the things words sometimes can't. Whether you're planning the wedding of your dreams, celebrating a loved one, or simply want to fill your home with living colour, we pour genuine care into every stem we touch.</p>
-        <p>From our little corner of Edinburgh, we've had the privilege of being part of thousands of celebrations across the city and beyond. Come and visit us — we'd love to chat about what we can create for you.</p>
-        <a href="#contact" class="btn-primary" style="margin-top:1rem; display:inline-block;">Get in touch</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── TESTIMONIALS ── -->
-<section class="testimonials-section" id="testimonials">
-  <div class="section-inner">
-    <span class="section-label">Kind Words</span>
-    <h2 class="section-title">What Our Clients Say</h2>
-    <p class="section-intro">There's no greater compliment than hearing how our flowers helped make a moment magical. Here's what a few of our Edinburgh clients have shared with us.</p>
-    <div class="testimonials-grid">
-      <div class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <blockquote>"Garlands created the most stunning wedding flowers I could ever have imagined. Every arrangement was utterly perfect — from my bouquet to the ceremony arch. We had guests asking about the florist all night. They genuinely made our day."</blockquote>
-        <div class="testimonial-author">
-          <div class="author-avatar">S</div>
-          <div class="author-info">
-            <strong>Siobhán M.</strong>
-            <span>Wedding — September 2024</span>
-          </div>
+  <!-- ─── 3. GALLERY / PORTFOLIO ─── -->
+  <section class="gallery-section">
+    <div class="section-inner">
+      <h2 class="section-title">Recent Work</h2>
+      <p class="section-sub">A glimpse of the arrangements, installations, and living displays we've created for clients across Edinburgh and beyond.</p>
+      <div class="gallery-grid">
+        <div class="gallery-card">
+          <img src="https://placeholder.co/600x400" alt="Wedding floral arch – Garlands Edinburgh" />
+          <div class="gallery-card-label">Wedding Arch · Old Town Edinburgh</div>
+        </div>
+        <div class="gallery-card">
+          <img src="https://placeholder.co/600x400" alt="Lush indoor plant display – Garlands Edinburgh" />
+          <div class="gallery-card-label">Corporate Plant Display · New Town</div>
+        </div>
+        <div class="gallery-card">
+          <img src="https://placeholder.co/600x400" alt="Outdoor garden planting – Garlands Edinburgh" />
+          <div class="gallery-card-label">Garden Event Install · Leith</div>
         </div>
       </div>
-      <div class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <blockquote>"We commissioned Garlands to do the floral styling for our company's annual gala dinner in Edinburgh and the results were phenomenal. The table centres were jaw-dropping. Professional, creative, and so easy to work with. Highly recommended."</blockquote>
-        <div class="testimonial-author">
-          <div class="author-avatar">D</div>
-          <div class="author-info">
-            <strong>David R.</strong>
-            <span>Corporate Event — November 2024</span>
-          </div>
+    </div>
+  </section>
+
+  <!-- ─── 4. SERVICES / PACKAGES ─── -->
+  <section class="services-section" id="services">
+    <div class="section-inner">
+      <h2 class="section-title">What We Offer</h2>
+      <p class="section-sub">Whether you're planning a wedding, styling a venue, or simply want to fill your home with beautiful plants, we have something for you.</p>
+      <div class="services-grid">
+
+        <div class="service-card">
+          <div class="service-icon">💐</div>
+          <h3>Wedding &amp; Event Florals</h3>
+          <p>Bespoke bridal bouquets, ceremony arches, table centrepieces, and buttonholes. We work closely with couples to design arrangements that reflect their vision — from classic white elegance to wild, botanical abundance. Full consultation included.</p>
         </div>
+
+        <div class="service-card">
+          <div class="service-icon">🌿</div>
+          <h3>House &amp; Office Plants</h3>
+          <p>Transform your home or workplace with our curated selection of indoor plants. From trailing pothos to statement fiddle-leaf figs, we handpick healthy, thriving specimens and can advise on care, positioning, and styling for any space.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🪴</div>
+          <h3>Outdoor &amp; Garden Planting</h3>
+          <p>Seasonal outdoor containers, patio planting schemes, and garden border plants sourced fresh and ready to thrive in Edinburgh's climate. We'll help you choose plants that will look stunning all year round — even through a Scottish winter.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🎁</div>
+          <h3>Plant Accessories &amp; Gifts</h3>
+          <p>Our shop is stocked with beautiful pots, planters, tools, feeds, and plant-lover gifts. Whether you need a thoughtful birthday present or the perfect pot to complement your new plant, you'll find it at Garlands on Elm Row.</p>
+        </div>
+
       </div>
-      <div class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <blockquote>"I popped in for a birthday bouquet and left with the most gorgeous arrangement — the team really listened to what I wanted. The plants section is incredible too. Garlands is now my absolute go-to for anything floral in Edinburgh. A real gem of a shop."</blockquote>
-        <div class="testimonial-author">
-          <div class="author-avatar">F</div>
-          <div class="author-info">
-            <strong>Fiona T.</strong>
-            <span>Birthday Occasion — January 2025</span>
+    </div>
+  </section>
+
+  <!-- ─── CTA STRIP ─── -->
+  <div class="cta-strip">
+    <h2>Planning a wedding or special event? We'd love to be part of it.</h2>
+    <a href="#contact" class="btn-outline">Get in touch</a>
+  </div>
+
+  <!-- ─── 5. ABOUT ─── -->
+  <section class="about-section" id="about">
+    <div class="section-inner">
+      <div class="about-inner">
+        <img
+          class="about-img"
+          src="https://placeholder.co/600x400"
+          alt="The team at Garlands Florists Edinburgh"
+        />
+        <div class="about-text">
+          <h2>Rooted in Edinburgh, Passionate About Plants</h2>
+          <p>Garlands Florists has been bringing colour, life, and natural beauty to homes and events across Edinburgh for years. Based in the heart of Pilton and with our shop at 29 Elm Row, we're a real local business — friendly faces who genuinely love what we do.</p>
+          <p>From the moment a customer walks through our door or reaches out about a wedding, we treat every order as something deeply personal. We believe flowers and plants aren't just decoration — they're how we mark the moments that matter most.</p>
+          <p>Whether you're nurturing your first houseplant or trusting us with the florals for the biggest day of your life, we bring the same warmth, expertise, and Edinburgh pride to everything we grow and create.</p>
+          <div class="about-detail">
+            <span>📍</span> 29 Elm Row, Edinburgh EH7 4AH
+          </div>
+          <div class="about-detail" style="margin-top:0.4rem;">
+            <span>📞</span> 0131 556 6111
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ── CONTACT ── -->
-<section class="contact-section" id="contact">
-  <div class="section-inner">
-    <div class="contact-inner">
-      <div class="contact-form-col">
-        <span class="section-label">Enquire Now</span>
-        <h2>Let's Talk About<br>Your Event</h2>
-        <p class="form-sub">Tell us about your occasion and we'll get back to you quickly with ideas, availability, and a no-obligation quote. We can't wait to hear what you're planning.</p>
-        <form>
-          <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" placeholder="e.g. Sarah MacGregor" required />
+  <!-- ─── 6. TESTIMONIALS ─── -->
+  <section class="testimonials-section" id="testimonials">
+    <div class="section-inner">
+      <h2 class="section-title">What Our Clients Say</h2>
+      <p class="section-sub">We're proud to hold a 5/5 rating on Google — here's a taste of what people are saying about Garlands.</p>
+
+      <div style="text-align:center; margin-bottom:2.5rem;">
+        <span class="google-badge">
+          <span class="g-logo">G</span>
+          <span class="stars">★★★★★</span>
+          <strong>5/5 · 5 Google Reviews</strong>
+        </span>
+      </div>
+
+      <div class="testimonials-grid">
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Utterly breathtaking florals that made our whole day."</p>
+          <div>
+            <div class="testimonial-author">Sarah M.</div>
+            <div class="testimonial-event">Wedding — Edinburgh, June 2024</div>
           </div>
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="hello@youremail.co.uk" required />
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco. The indoor plants they chose for our office have completely transformed the space."</p>
+          <div>
+            <div class="testimonial-author">David R.</div>
+            <div class="testimonial-event">Corporate Install — Edinburgh, March 2024</div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit. Garlands made our anniversary celebration feel truly magical — stunning arrangements."</p>
+          <div>
+            <div class="testimonial-author">Claire &amp; Tom B.</div>
+            <div class="testimonial-event">Anniversary Event — Edinburgh, September 2023</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 7. CONTACT ─── -->
+  <section class="contact-section" id="contact">
+    <div class="section-inner">
+      <div class="contact-inner">
+
+        <div class="contact-form-wrap">
+          <h2>Let's Talk About Your Event</h2>
+          <p>Fill in a few details below and we'll get back to you as soon as possible. We love hearing about the celebrations you're planning — big or small.</p>
+
+          <form action="mailto:dean@alreadydone.uk" method="post" enctype="text/plain">
+            <input type="text" name="name" placeholder="Your full name" required />
+            <input type="email" name="email" placeholder="Your email address" required />
+            <input type="tel" name="phone" placeholder="Your phone number (optional)" />
+            <input type="text" name="event_date" placeholder="Event date or approximate timeframe" />
+            <textarea name="description" placeholder="Tell us about your event or what you're looking for — flowers, plants, styling ideas — anything you'd like us to know…"></textarea>
+            <button type="submit">Get in touch →</button>
+          </form>
+        </div>
+
+        <div class="contact-info">
+          <h3>Find Us</h3>
+
+          <div class="contact-detail">
+            <span class="contact-detail-icon">📍</span>
+            <div>
+              <strong>Address</strong>
+              29 Elm Row<br />Edinburgh EH7 4AH
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <span class="contact-detail-icon">📞</span>
+            <div>
+              <strong>Phone</strong>
+              <a href="tel:01315566111" style="color:#374151; text-decoration:none;">0131 556

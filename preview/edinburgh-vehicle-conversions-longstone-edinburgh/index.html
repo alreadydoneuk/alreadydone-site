@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edinburgh Vehicle Conversions | Garage Specialist | Longstone Edinburgh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #1c1917;
+      --bg-mid: #27231f;
+      --bg-card: #2e2925;
+      --accent: #ea580c;
+      --accent-hover: #c2410c;
+      --white: #fafaf9;
+      --muted: #a8a29e;
+      --border: #3d3530;
+      --text: #fafaf9;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    img { display: block; max-width: 100%; }
+
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-block;
+      padding: 14px 30px;
+      border-radius: 4px;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      border: 2px solid transparent;
+    }
+    .btn-accent {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .btn-accent:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border-color: var(--white);
+    }
+    .btn-outline:hover { background: rgba(250,250,249,0.1); }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(28,25,23,0.97);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+    .nav-logo {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+      color: var(--white);
+      line-height: 1.2;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .nav-phone {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--white);
+      white-space: nowrap;
+    }
+    .nav-phone:hover { color: var(--accent); }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, #111110 0%, #1c1917 50%, #261e18 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 100px 0 80px;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -80px;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(234,88,12,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -60px;
+      left: -60px;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(234,88,12,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(234,88,12,0.15);
+      border: 1px solid rgba(234,88,12,0.4);
+      border-radius: 30px;
+      padding: 6px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 24px;
+      letter-spacing: 0.02em;
+    }
+    .hero-badge .stars { color: #f59e0b; }
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 58px);
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub {
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      max-width: 600px;
+    }
+    .hero-phone-prominent {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 20px;
+      margin-bottom: 36px;
+      margin-top: 10px;
+    }
+    .hero-phone-prominent .phone-icon { font-size: 20px; }
+    .hero-phone-prominent a {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900;
+      font-size: 24px;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+    .hero-phone-prominent a:hover { color: var(--accent-hover); }
+    .hero-phone-label {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ─── SECTION SHARED ─── */
+    section { padding: 80px 0; }
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .section-heading {
+      font-size: clamp(26px, 3.5vw, 40px);
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+    .section-intro {
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 600px;
+      margin-bottom: 48px;
+    }
+
+    /* ─── SERVICES ─── */
+    .services { background: var(--bg-mid); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 28px 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .service-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+    .service-icon {
+      font-size: 32px;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .service-card h3 {
+      font-size: 18px;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .service-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ─── WHY US ─── */
+    .why-us { background: var(--bg); }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .why-card {
+      text-align: left;
+    }
+    .why-icon-wrap {
+      width: 56px;
+      height: 56px;
+      background: rgba(234,88,12,0.12);
+      border: 1px solid rgba(234,88,12,0.3);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin-bottom: 18px;
+    }
+    .why-card h3 {
+      font-size: 20px;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .why-card p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ─── ACCREDITATIONS ─── */
+    .accreditations {
+      background: var(--bg-mid);
+      padding: 60px 0;
+    }
+    .accred-text {
+      text-align: center;
+      margin-bottom: 44px;
+    }
+    .accred-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .accred-badge {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 22px 30px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 200px;
+      transition: border-color 0.2s;
+    }
+    .accred-badge:hover { border-color: var(--accent); }
+    .accred-badge-icon {
+      font-size: 30px;
+      flex-shrink: 0;
+    }
+    .accred-badge-text strong {
+      display: block;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--white);
+    }
+    .accred-badge-text span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonials { background: var(--bg); }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .testimonial-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 28px 24px;
+    }
+    .testimonial-stars { color: #f59e0b; font-size: 18px; margin-bottom: 14px; }
+    .testimonial-card blockquote {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 18px;
+      font-style: italic;
+    }
+    .testimonial-author {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--white);
+    }
+    .testimonial-source {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .google-badge-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .google-g { color: #ea4335; font-weight: 900; font-size: 14px; }
+
+    /* ─── LOCATION ─── */
+    .location { background: var(--bg-mid); }
+    .location-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .location-details h3 {
+      font-size: 22px;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .contact-item {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 18px;
+      align-items: flex-start;
+    }
+    .contact-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .contact-item p { color: var(--muted); font-size: 15px; }
+    .contact-item a { color: var(--accent); font-weight: 700; }
+    .contact-item a:hover { color: var(--accent-hover); }
+    .hours-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 24px;
+    }
+    .hours-table caption {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--white);
+      text-align: left;
+      margin-bottom: 12px;
+      caption-side: top;
+      padding-bottom: 10px;
+    }
+    .hours-table td {
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .hours-table td:first-child { color: var(--white); font-weight: 600; width: 130px; }
+    .hours-table td:last-child { color: var(--muted); }
+    .map-wrap {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .map-wrap img { width: 100%; display: block; }
+    .map-cta {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      padding: 14px 20px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .map-cta a { color: var(--accent); font-weight: 700; }
+    .map-cta a:hover { color: var(--accent-hover); }
+
+    /* ─── BOOKING CTA STRIP ─── */
+    .cta-strip {
+      background: linear-gradient(90deg, #ea580c 0%, #c2410c 100%);
+      padding: 60px 0;
+      text-align: center;
+    }
+    .cta-strip h2 {
+      font-size: clamp(24px, 3vw, 38px);
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .cta-strip p {
+      color: rgba(255,255,255,0.85);
+      font-size: 17px;
+      margin-bottom: 30px;
+    }
+    .cta-strip .btn {
+      background: #fff;
+      color: var(--accent);
+      border-color: #fff;
+      font-size: 16px;
+    }
+    .cta-strip .btn:hover { background: #f0f0f0; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #111110;
+      border-top: 1px solid var(--border);
+      padding: 36px 0;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-logo {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+      color: var(--white);
+    }
+    .footer-logo span { color: var(--accent); }
+    .footer-meta {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: right;
+    }
+    .footer-meta a { color: var(--muted); }
+
+    /* ─── TRUST STRIP ─── */
+    .trust-strip {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 0;
+    }
+    .trust-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .trust-item .icon { font-size: 18px; }
+    .trust-item strong { color: var(--white); }
+
+    /* ─── GOOGLE RATING HERO BADGE ─── */
+    .google-rating-block {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 20px;
+      margin-bottom: 28px;
+    }
+    .google-rating-block .g-logo {
+      font-weight: 900;
+      font-size: 20px;
+      color: #ea4335;
+    }
+    .rating-stars { color: #f59e0b; font-size: 18px; letter-spacing: 1px; }
+    .rating-text strong { display: block; font-size: 16px; color: var(--white); }
+    .rating-text span { font-size: 12px; color: var(--muted); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      section { padding: 56px 0; }
+
+      .nav-phone { display: none; }
+      .nav-logo { font-size: 15px; }
+
+      .hero { padding: 60px 0 56px; }
+      .hero h1 { font-size: 28px; }
+      .hero-sub { font-size: 16px; }
+      .hero-phone-prominent a { font-size: 20px; }
+      .hero-ctas { flex-direction: column; }
+      .hero-ctas .btn { text-align: center; }
+
+      .services-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .why-grid { grid-template-columns: 1fr; gap: 28px; }
+
+      .accred-grid { gap: 12px; }
+      .accred-badge { min-width: 160px; padding: 16px 20px; }
+
+      .testimonials-grid { grid-template-columns: 1fr; }
+
+      .location-grid { grid-template-columns: 1fr; gap: 36px; }
+      .location-grid > div:last-child { order: -1; }
+
+      .footer-inner { flex-direction: column; text-align: center; }
+      .footer-meta { text-align: center; }
+
+      .trust-inner { gap: 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .services-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<!-- Already Done claim banner -->
+<style>
+  #ad-claim-banner { position:fixed;top:0;left:0;right:0;z-index:99999;background:#1e3a5f;color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:Arial,sans-serif;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.25); }
+  #ad-claim-banner span { line-height:1.3; }
+  #ad-claim-btn { background:#f59e0b;color:#1e3a5f;padding:9px 20px;border-radius:5px;text-decoration:none;font-weight:700;white-space:nowrap;font-size:14px;flex-shrink:0; }
+  #ad-claim-btn:hover { background:#fbbf24; }
+  #ad-banner-spacer { height:52px; }
+  @media(max-width:600px){ #ad-claim-banner{flex-direction:column;text-align:center;padding:12px 16px;} #ad-banner-spacer{height:90px;} }
+</style>
+<div id="ad-claim-banner">
+  <span>👋 Free preview — built for <strong>Edinburgh Vehicle Conversions</strong> by <strong>Already Done</strong></span>
+  <a id="ad-claim-btn" href="mailto:dean@alreadydone.uk?subject=I%20want%20my%20website%20%E2%80%94%20Edinburgh%20Vehicle%20Conversions&body=Hi%20Dean%2C%0A%0AI've%20seen%20the%20preview%20site%20you%20built%20for%20us%20and%20I'd%20like%20to%20claim%20it.%0A%0ACan%20you%20let%20me%20know%20the%20next%20steps%3F%0A%0AThanks">Claim it for £99 →</a>
+</div>
+<div id="ad-banner-spacer"></div>
+
+  <!-- ─── NAVIGATION ─── -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-logo">Edinburgh Vehicle<span> Conversions</span></div>
+      <div class="nav-right">
+        <a class="nav-phone" href="tel:07875075513">📞 07875 075513</a>
+        <a href="#contact" class="btn btn-accent">Book Now</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="google-rating-block">
+          <span class="g-logo">G</span>
+          <div>
+            <div class="rating-stars">★★★★★</div>
+          </div>
+          <div class="rating-text">
+            <strong>4.6 / 5</strong>
+            <span>9 Google Reviews</span>
+          </div>
+        </div>
+        <h1>Honest, reliable <span>vehicle conversions</span> in Longstone, Edinburgh.</h1>
+        <p class="hero-sub">No hidden charges. No vague estimates. Just straight-talking garage work done properly the first time — right here in Edinburgh.</p>
+        <div class="hero-phone-prominent">
+          <span class="phone-icon">📞</span>
+          <div>
+            <div class="hero-phone-label">Call us direct</div>
+            <a href="tel:07875075513">07875 075513</a>
+          </div>
+        </div>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn-accent">Book your car in</a>
+          <a href="tel:07875075513" class="btn btn-outline">Call for a quote</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TRUST STRIP ─── -->
+  <div class="trust-strip">
+    <div class="trust-inner container">
+      <div class="trust-item"><span class="icon">✅</span> <span><strong>No hidden fees</strong> — ever</span></div>
+      <div class="trust-item"><span class="icon">🔧</span> <span><strong>Experienced technicians</strong> on every job</span></div>
+      <div class="trust-item"><span class="icon">📍</span> <span><strong>Longstone, Edinburgh</strong> — easy to reach</span></div>
+      <div class="trust-item"><span class="icon">⭐</span> <span><strong>4.6/5</strong> on Google</span></div>
+    </div>
+  </div>
+
+  <!-- ─── SERVICES ─── -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-label">What we do</div>
+      <h2 class="section-heading">Specialist services you can count on</h2>
+      <p class="section-intro">From a full vehicle conversion to a straightforward service, every job gets our full attention. We tell you what's needed — and only what's needed.</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <span class="service-icon">🚗</span>
+          <h3>Vehicle Conversions</h3>
+          <p>Our core speciality — professional conversions carried out to a high standard, tailored to your vehicle and requirements.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">📋</span>
+          <h3>MOT Testing</h3>
+          <p>Class 4, 5 and 7 MOTs carried out on-site. We'll give you a clear report and advise you honestly on any advisories.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">🔩</span>
+          <h3>Full & Interim Servicing</h3>
+          <p>Engine oil, filters, fluid checks, belts and more — serviced to manufacturer specification to keep your warranty intact.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">💡</span>
+          <h3>Diagnostic Checks</h3>
+          <p>Dashboard warning lights investigated with professional-grade diagnostic equipment. We identify the root cause, not just the symptom.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">🛞</span>
+          <h3>Tyres & Wheel Alignment</h3>
+          <p>Supply and fit of quality tyres across all budgets, plus laser wheel alignment to protect tyre life and fuel economy.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">🔴</span>
+          <h3>Brakes & Suspension</h3>
+          <p>Pads, discs, callipers and suspension components checked and replaced where necessary — your safety comes first.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── WHY US ─── -->
+  <section class="why-us" id="why-us">
+    <div class="container">
+      <div class="section-label">Why choose us</div>
+      <h2 class="section-heading">The garage that tells you the truth</h2>
+      <p class="section-intro">We know how stressful it can be handing your car over to strangers. Here's why customers in Edinburgh keep coming back to us.</p>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon-wrap">🏆</div>
+          <h3>Years of Edinburgh Experience</h3>
+          <p>We've been working on vehicles across Longstone and greater Edinburgh for years. Local knowledge, local accountability — we're not going anywhere.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon-wrap">🎓</div>
+          <h3>Qualified &amp; Accredited Technicians</h3>
+          <p>Our technicians hold recognised industry qualifications and stay current with manufacturer training. Every job is carried out to the correct standard — no shortcuts.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon-wrap">💷</div>
+          <h3>Transparent Pricing — Always</h3>
+          <p>You'll receive a clear written quote before any work begins. We will never add charges without your explicit approval. What we quote is what you pay.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ACCREDITATIONS ─── -->
+  <section class="accreditations" id="accreditations">
+    <div class="container">
+      <div class="accred-text">
+        <div class="section-label">Recognised &amp; trusted</div>
+        <h2 class="section-heading">Our accreditations</h2>
+        <p style="color: var(--muted); font-size: 16px; max-width: 520px; margin: 0 auto;">We operate to industry-recognised standards so you can book with confidence, knowing your vehicle is in capable hands.</p>
+      </div>
+      <div class="accred-grid">
+        <div class="accred-badge">
+          <div class="accred-badge-icon">🔶</div>
+          <div class="accred-badge-text">
+            <strong>AA Approved Garage</strong>
+            <span>Quality-assured workshop</span>
+          </div>
+        </div>
+        <div class="accred-badge">
+          <div class="accred-badge-icon">🛡️</div>
+          <div class="accred-badge-text">
+            <strong>RAC Approved</strong>
+            <span>Independently inspected</span>
+          </div>
+        </div>
+        <div class="accred-badge">
+          <div class="accred-badge-icon">🏅</div>
+          <div class="accred-badge-text">
+            <strong>IMI Accredited</strong>
+            <span>Institute of the Motor Industry</span>
+          </div>
+        </div>
+        <div class="accred-badge">
+          <div class="accred-badge-icon">🔧</div>
+          <div class="accred-badge-text">
+            <strong>DVSA Registered</strong>
+            <span>Authorised MOT testing station</span>
+          </div>
+        </div>
+        <div class="accred-badge">
+          <div class="accred-badge-icon">⭐</div>
+          <div class="accred-badge-text">
+            <strong>Google Rated 4.6/5</strong>
+            <span>9 verified customer reviews</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TESTIMONIALS ─── -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-label">Customer reviews</div>
+      <h2 class="section-heading">What our customers say</h2>
+      <p class="section-intro">Rated 4.6/5 across 9 Google reviews. Here's what a few of them had to say.</p>
+      <div class="testimonials-grid">
+        <div class="testimonial-card

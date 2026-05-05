@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A-Class Glass and Joinery | Joiner in Newhaven, Edinburgh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #1e3a5f;
+      --accent: #16a34a;
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --white: #ffffff;
+      --light-grey: #e2e8f0;
+      --card-bg: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--primary);
+      padding: 0 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+    }
+
+    .nav-logo span {
+      display: block;
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      font-size: 0.75rem;
+      color: #a5c9a1;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-phone {
+      color: #cbd5e1;
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 22px;
+      border-radius: 4px;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      border: none;
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: var(--white);
+    }
+
+    .btn-accent:hover {
+      background: #15803d;
+      transform: translateY(-1px);
+    }
+
+    .btn-accent-lg {
+      padding: 14px 34px;
+      font-size: 1rem;
+      border-radius: 5px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--primary);
+      clip-path: polygon(0 0, 100% 0, 100% 82%, 0 100%);
+      padding: 100px 5% 160px;
+      text-align: center;
+      color: var(--white);
+    }
+
+    .hero-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 30px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      color: #a5c9a1;
+      margin-bottom: 24px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .hero-badge .stars { color: #facc15; }
+
+    h1.hero-title {
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      color: var(--white);
+    }
+
+    h1.hero-title em {
+      color: #86efac;
+      font-style: normal;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: #cbd5e1;
+      margin-bottom: 36px;
+      font-weight: 300;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 80px 5%; }
+
+    .section-label {
+      display: inline-block;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 2.1rem;
+      color: var(--primary);
+      margin-bottom: 16px;
+      line-height: 1.25;
+    }
+
+    .section-intro {
+      color: #475569;
+      max-width: 620px;
+      margin-bottom: 48px;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      margin-top: -60px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .about-text { flex: 1 1 340px; }
+
+    .about-text p {
+      color: #334155;
+      margin-bottom: 16px;
+      font-size: 1.05rem;
+    }
+
+    .about-image {
+      flex: 1 1 300px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+
+    .about-image img { width: 100%; display: block; }
+
+    .trust-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #f0fdf4;
+      border: 2px solid #bbf7d0;
+      border-radius: 8px;
+      padding: 12px 20px;
+      margin-top: 10px;
+    }
+
+    .trust-badge .stars { color: #facc15; font-size: 1.1rem; }
+
+    .trust-badge .badge-text {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.95rem;
+    }
+
+    .trust-badge .badge-sub {
+      font-size: 0.78rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+
+    /* ── SERVICES ── */
+    .services {
+      background: var(--bg);
+      text-align: center;
+    }
+
+    .services .section-intro { margin-left: auto; margin-right: auto; text-align: center; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 36px 28px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      border-top: 4px solid var(--accent);
+      text-align: left;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+
+    .service-icon {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .service-card h3 {
+      font-size: 1.25rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      color: #475569;
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      background: var(--primary);
+      text-align: center;
+    }
+
+    .testimonials .section-label { color: #86efac; }
+    .testimonials .section-title { color: var(--white); }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .testimonial-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 32px 28px;
+      text-align: left;
+    }
+
+    .testimonial-stars { color: #facc15; font-size: 1.1rem; margin-bottom: 14px; }
+
+    .testimonial-body {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      font-style: italic;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .testimonial-author {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      color: #86efac;
+      font-size: 0.88rem;
+    }
+
+    /* ── CONTACT ── */
+    .contact {
+      background: var(--white);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    .contact-form {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--primary);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--light-grey);
+      border-radius: 5px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: var(--white);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--accent);
+    }
+
+    textarea { height: 140px; resize: vertical; }
+
+    .contact-details { padding-top: 8px; }
+
+    .contact-details h3 {
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin-bottom: 24px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .contact-item-icon {
+      font-size: 1.3rem;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .contact-item-text strong {
+      display: block;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 2px;
+    }
+
+    .contact-item-text span {
+      color: #334155;
+      font-size: 0.97rem;
+    }
+
+    .map-placeholder {
+      margin-top: 28px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+
+    .map-placeholder img { width: 100%; display: block; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0f172a;
+      color: #94a3b8;
+      text-align: center;
+      padding: 32px 5%;
+      font-size: 0.88rem;
+    }
+
+    footer strong {
+      color: var(--white);
+      font-family: 'Playfair Display', serif;
+    }
+
+    footer .footer-divider {
+      margin: 0 10px;
+      color: #475569;
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      width: 50px;
+      height: 3px;
+      background: var(--accent);
+      margin: 0 auto 40px;
+      border-radius: 2px;
+    }
+
+    .section-divider-left {
+      margin: 0 0 40px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      h1.hero-title { font-size: 2rem; }
+
+      .hero {
+        padding: 80px 6% 140px;
+        clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+      }
+
+      .about {
+        flex-direction: column;
+        gap: 36px;
+        margin-top: -40px;
+        padding: 60px 6%;
+      }
+
+      .about-image { order: -1; }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .contact-form { padding: 28px 22px; }
+
+      .nav-phone { display: none; }
+
+      .section-title { font-size: 1.7rem; }
+
+      section { padding: 60px 6%; }
+    }
+  </style>
+</head>
+<body>
+<!-- Already Done claim banner -->
+<style>
+  #ad-claim-banner { position:fixed;top:0;left:0;right:0;z-index:99999;background:#1e3a5f;color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:Arial,sans-serif;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.25); }
+  #ad-claim-banner span { line-height:1.3; }
+  #ad-claim-btn { background:#f59e0b;color:#1e3a5f;padding:9px 20px;border-radius:5px;text-decoration:none;font-weight:700;white-space:nowrap;font-size:14px;flex-shrink:0; }
+  #ad-claim-btn:hover { background:#fbbf24; }
+  #ad-banner-spacer { height:52px; }
+  @media(max-width:600px){ #ad-claim-banner{flex-direction:column;text-align:center;padding:12px 16px;} #ad-banner-spacer{height:90px;} }
+</style>
+<div id="ad-claim-banner">
+  <span>👋 Free preview — built for <strong>A-Class Glass and Joinery</strong> by <strong>Already Done</strong></span>
+  <a id="ad-claim-btn" href="mailto:dean@alreadydone.uk?subject=I%20want%20my%20website%20%E2%80%94%20A-Class%20Glass%20and%20Joinery&body=Hi%20Dean%2C%0A%0AI've%20seen%20the%20preview%20site%20you%20built%20for%20us%20and%20I'd%20like%20to%20claim%20it.%0A%0ACan%20you%20let%20me%20know%20the%20next%20steps%3F%0A%0AThanks">Claim it for £99 →</a>
+</div>
+<div id="ad-banner-spacer"></div>
+
+  <!-- ── 1. NAVIGATION ── -->
+  <nav>
+    <div class="nav-logo">
+      A-Class Glass and Joinery
+      <span>Newhaven, Edinburgh</span>
+    </div>
+    <div class="nav-right">
+      <a class="nav-phone" href="tel:01312352949">0131 235 2949</a>
+      <a class="btn btn-accent" href="#contact">Get in touch</a>
+    </div>
+  </nav>
+
+  <!-- ── 2. HERO ── -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="stars">★★★★★</span>
+        ★ 4.8/5 &nbsp;·&nbsp; 18 Google Reviews
+      </div>
+      <h1 class="hero-title">Edinburgh's Trusted <em>Joiner &amp; Glazier</em> in Newhaven</h1>
+      <p class="hero-sub">From bespoke joinery and window glazing to door repairs and fitted furniture — quality craftsmanship delivered on time and within budget.</p>
+      <a class="btn btn-accent btn-accent-lg" href="#contact">Get in touch</a>
+    </div>
+  </section>
+
+  <!-- ── 3. ABOUT ── -->
+  <section class="about" id="about">
+    <div class="about-text">
+      <span class="section-label">About Us</span>
+      <h2 class="section-title">Skilled Tradespeople You Can Rely On</h2>
+      <div class="section-divider section-divider-left"></div>
+      <p>A-Class Glass and Joinery is a professional joinery and glazing company proudly based in Newhaven, Edinburgh — with years of hands-on experience serving homeowners and businesses across the city and surrounding areas.</p>
+      <p>What sets us apart is our commitment to doing the job properly: we use quality materials, offer honest pricing, and never cut corners on the finish — because we know that good craftsmanship speaks for itself.</p>
+      <p>We're locals ourselves, and we understand what Edinburgh properties demand. From the tenement flats of Leith to the family homes of Trinity and Inverleith, we're your neighbourhood joiners who genuinely care about the outcome.</p>
+      <div class="trust-badge">
+        <span class="stars">★★★★★</span>
+        <div>
+          <div class="badge-text">★ 4.8 / 5 on Google</div>
+          <div class="badge-sub">Based on 18 verified customer reviews</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-image">
+      <img src="https://placehold.co/560x400/1e3a5f/ffffff?text=A-Class+Glass+%26+Joinery" alt="A-Class Glass and Joinery workshop" />
+    </div>
+  </section>
+
+  <!-- ── 4. SERVICES ── -->
+  <section class="services" id="services">
+    <span class="section-label">What We Do</span>
+    <h2 class="section-title">Our Services</h2>
+    <div class="section-divider"></div>
+    <p class="section-intro">We cover a broad range of joinery and glazing work for residential and commercial customers across Edinburgh. No job is too small, and every project gets the same high standard of care.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">🪟</span>
+        <h3>Window Glazing &amp; Repair</h3>
+        <p>Whether you need a single pane replaced, a full double-glazing unit fitted, or draught-proofing carried out, we handle all glazing work efficiently and neatly. We can also repair sash and case windows common across Edinburgh's older properties.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🚪</span>
+        <h3>Door Fitting &amp; Repair</h3>
+        <p>From internal doors and external hardwood doors to fire doors and composite front doors, we supply, fit, and repair all types of doors. We ensure everything hangs true, closes securely, and keeps your property safe and weather-tight.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🪵</span>
+        <h3>Bespoke Joinery &amp; Carpentry</h3>
+        <p>Need something made to measure? We craft bespoke staircases, skirting boards, architraves, shelving units, and fitted storage to suit your space perfectly. All work is finished to a high standard, ready to paint or stain as required.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🛠️</span>
+        <h3>General Property Maintenance</h3>
+        <p>From draughty loft hatches to damaged floorboards and loose bannisters, our experienced team handles a wide range of home maintenance tasks. If it's made of wood or glass, there's a good chance we can fix it for you quickly and affordably.</p>
+      </div>
+    </div>
+    <br /><br />
+    <a class="btn btn-accent btn-accent-lg" href="#contact">Get in touch</a>
+  </section>
+
+  <!-- ── 5. TESTIMONIALS ── -->
+  <section class="testimonials" id="testimonials">
+    <span class="section-label">Customer Reviews</span>
+    <h2 class="section-title">What Our Customers Say</h2>
+    <div class="section-divider"></div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-body">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."</p>
+        <div class="testimonial-author">S. M. — Leith, Edinburgh</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-body">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat."</p>
+        <div class="testimonial-author">P. T. — Trinity, Edinburgh</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★☆</div>
+        <p class="testimonial-body">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos ratione."</p>
+        <div class="testimonial-author">A. R. — Newhaven, Edinburgh</div>
+      </div>
+    </div>
+    <br /><br />
+    <p style="color:#94a3b8; font-size:0.85rem;">★ 4.8/5 average across 18 Google Reviews</p>
+  </section>
+
+  <!-- ── 6. CONTACT ── -->
+  <section class="contact" id="contact">
+    <div class="contact-grid">
+      <div class="contact-form">
+        <span class="section-label">Send a Message</span>
+        <h2 class="section-title" style="font-size:1.6rem; margin-bottom:24px;">Get in touch</h2>
+        <form action="mailto:dean@alreadydone.uk" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="Name" placeholder="e.g. John Smith" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="Email" placeholder="you@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="Phone" placeholder="07700 000 000" />
+          </div>
+          <div class="form-group">
+            <label for="message">Tell Us What You Need</label>
+            <textarea id="message" name="Message" placeholder="Briefly describe your project or the work you need done..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-accent" style="width:100%; padding:14px; font-size:1rem;">Send Message</button>
+        </form>
+      </div>
+      <div class="contact-details">
+        <span class="section-label">Contact Details</span>
+        <h3 class="section-title" style="font-size:1.6rem;">We're Based in Newhaven, Edinburgh</h3>
+        <div class="section-divider section-divider-left"></div>
+        <p style="color:#475569; margin-bottom:28px; font-size:0.97rem;">Give us a call for a free, no-obligation quote, or send us a message and we'll get back to you promptly. We're happy to discuss any size of project.</p>
+        <div class="contact-item">
+          <span class="contact-item-icon">📞</span>
+          <div class="contact-item-text">
+            <strong>Phone</strong>
+            <span><a href="tel:01312352949" style="color:#334155;">0131 235 2949</a></span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-icon">📍</span>
+          <div class="contact-item-text">
+            <strong>Address</strong>
+            <span>83 Princes St., Edinburgh EH2 2ER</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-icon">🕐</span>
+          <div class="contact-item-text">
+            <strong>Hours</strong>
+            <span>Mon–Fri: 8:00am – 5:30pm<br />Sat: 9:00am – 1:00pm</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-icon">⭐</span>
+          <div class="contact-item-text">
+            <strong>Google Rating</strong>
+            <span style="color:#facc15; font-weight:700;">★ 4.8 / 5</span>&nbsp;<span>· 18 Google Reviews</span>
+          </div>
+        </div>
+        <div class="map-placeholder">
+          <img src="https://placehold.co/600x300/1e3a5f/a5c9a1?text=Newhaven%2C+Edinburgh+—+Map" alt="Map showing location of A-Class Glass and Joinery in Newhaven Edinburgh" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 7. FOOTER ── -->
+  <footer>
+    <p>
+      <strong>A-Class Glass and Joinery</strong>
+      <span class="footer-divider">|</span>
+      83 Princes St., Edinburgh EH2 2ER
+      <span class="footer-divider">|</span>
+      <a href="tel:01312352949" style="color:#94a3b8;">0131 235 2949</a>
+    </p>
+    <p style="margin-top:10px;">© 2025 A-Class Glass and Joinery. All rights reserved. Joinery &amp; Glazing Services in Newhaven, Edinburgh.</p>
+  </footer>
+
+</body>
+</html>
