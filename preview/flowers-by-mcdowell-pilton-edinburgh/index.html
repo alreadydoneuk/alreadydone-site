@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flowers by McDowell | Edinburgh Florist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #9d174d;
+      --accent: #f9a8d4;
+      --bg: #fff1f2;
+      --text: #1f2937;
+      --white: #ffffff;
+      --light-pink: #fce7f3;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Oswald', sans-serif;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    img { display: block; width: 100%; height: auto; object-fit: cover; }
+
+    /* ── NAV ── */
+    nav {
+      background-color: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(157,23,77,0.1);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--primary);
+      letter-spacing: 0.03em;
+    }
+
+    .nav-logo span {
+      color: var(--accent);
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--primary);
+      color: var(--white);
+      font-family: 'Oswald', sans-serif;
+      font-weight: 500;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      padding: 10px 24px;
+      border-radius: 4px;
+      border: 2px solid var(--primary);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn:hover {
+      background-color: transparent;
+      color: var(--primary);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-light {
+      background-color: var(--white);
+      color: var(--primary);
+      border: 2px solid var(--white);
+    }
+
+    .btn-light:hover {
+      background-color: transparent;
+      color: var(--white);
+    }
+
+    /* ── TRUST BADGE ── */
+    .trust-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--white);
+      border: 1.5px solid var(--accent);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    .trust-badge .stars { color: #f59e0b; font-size: 1rem; }
+
+    /* ── HERO ── */
+    #hero {
+      background-color: var(--primary);
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 560px;
+    }
+
+    .hero-left {
+      padding: 72px 48px 72px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .hero-left h1 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--white);
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .hero-left h1 em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .hero-left p {
+      color: #fce7f3;
+      font-size: 1.05rem;
+      max-width: 440px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-right::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(157,23,77,0.3) 0%, transparent 60%);
+    }
+
+    /* ── SECTIONS SHARED ── */
+    section { padding: 80px 24px; }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      margin-bottom: 16px;
+    }
+
+    .section-intro {
+      font-size: 1.05rem;
+      color: #4b5563;
+      max-width: 600px;
+      margin-bottom: 48px;
+    }
+
+    /* ── GALLERY ── */
+    #gallery {
+      background-color: var(--white);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .gallery-card {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(157,23,77,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(157,23,77,0.15);
+    }
+
+    .gallery-card img {
+      height: 280px;
+      width: 100%;
+    }
+
+    .gallery-card-body {
+      padding: 16px 20px 20px;
+    }
+
+    .gallery-card-body h4 {
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .gallery-card-body p {
+      font-size: 0.88rem;
+      color: #6b7280;
+    }
+
+    /* ── SERVICES ── */
+    #services {
+      background-color: var(--bg);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .service-card {
+      background-color: var(--white);
+      border-radius: 10px;
+      padding: 32px 28px;
+      border-left: 4px solid var(--accent);
+      box-shadow: 0 2px 16px rgba(157,23,77,0.06);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .service-card:hover {
+      border-left-color: var(--primary);
+      box-shadow: 0 6px 24px rgba(157,23,77,0.12);
+    }
+
+    .service-icon {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+
+    .service-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      font-size: 0.95rem;
+      color: #4b5563;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background-color: var(--white);
+    }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .about-text h2 { margin-bottom: 16px; }
+
+    .about-text p {
+      color: #4b5563;
+      margin-bottom: 16px;
+      font-size: 1rem;
+    }
+
+    .about-img {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(157,23,77,0.12);
+    }
+
+    .about-img img { height: 420px; }
+
+    .about-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: var(--light-pink);
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 50px;
+      margin-bottom: 20px;
+    }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials {
+      background-color: var(--primary);
+    }
+
+    #testimonials .section-label { color: var(--accent); }
+    #testimonials .section-title { color: var(--white); }
+    #testimonials .section-intro { color: #fce7f3; }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .testimonial-card {
+      background-color: rgba(255,255,255,0.08);
+      border: 1px solid rgba(249,168,212,0.25);
+      border-radius: 10px;
+      padding: 28px 24px;
+      backdrop-filter: blur(4px);
+    }
+
+    .testimonial-stars { color: #fbbf24; font-size: 1.1rem; margin-bottom: 14px; }
+
+    .testimonial-card blockquote {
+      font-size: 0.95rem;
+      color: #fce7f3;
+      font-style: italic;
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+
+    .testimonial-author {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.9rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .testimonial-event {
+      font-size: 0.8rem;
+      color: rgba(252,231,243,0.7);
+      margin-top: 2px;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background-color: var(--bg);
+    }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .contact-form {
+      background-color: var(--white);
+      border-radius: 12px;
+      padding: 40px 36px;
+      box-shadow: 0 4px 24px rgba(157,23,77,0.08);
+    }
+
+    .contact-form h3 {
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 6px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      background-color: var(--bg);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 110px; }
+
+    .contact-form .btn { width: 100%; text-align: center; padding: 14px; font-size: 1rem; margin-top: 6px; }
+
+    .contact-info h2 { margin-bottom: 16px; }
+    .contact-info p { color: #4b5563; margin-bottom: 28px; font-size: 1rem; }
+
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .contact-detail-icon {
+      width: 42px;
+      height: 42px;
+      background-color: var(--light-pink);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-detail-text strong {
+      display: block;
+      font-size: 0.85rem;
+      font-family: 'Oswald', sans-serif;
+      color: var(--primary);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .contact-detail-text span {
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .google-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background-color: var(--white);
+      border: 1.5px solid var(--accent);
+      border-radius: 8px;
+      padding: 12px 18px;
+      margin-top: 10px;
+    }
+
+    .google-badge .badge-stars { color: #f59e0b; font-size: 1.1rem; }
+    .google-badge-text strong { display: block; font-size: 1rem; font-family: 'Oswald', sans-serif; color: var(--primary); }
+    .google-badge-text span { font-size: 0.8rem; color: #6b7280; }
+
+    /* ── FOOTER ── */
+    footer {
+      background-color: #1f2937;
+      color: #d1d5db;
+      padding: 40px 24px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer-logo {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .footer-logo span { color: var(--accent); }
+
+    .footer-copy {
+      font-size: 0.82rem;
+      color: #9ca3af;
+      margin-top: 4px;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background-color: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #d1d5db;
+      font-size: 0.85rem;
+      font-weight: 700;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .social-link:hover {
+      background-color: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        min-height: unset;
+      }
+
+      .hero-left {
+        padding: 48px 24px 36px;
+        order: 1;
+      }
+
+      .hero-right {
+        order: 2;
+        height: 260px;
+      }
+
+      .hero-right::after { display: none; }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .gallery-card img { height: 220px; }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-inner {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .about-img { order: -1; }
+      .about-img img { height: 280px; }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .contact-info { order: -1; }
+
+      .contact-form { padding: 28px 20px; }
+
+      section { padding: 56px 20px; }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- Already Done claim banner -->
+<style>
+  #ad-claim-banner { position:fixed;top:0;left:0;right:0;z-index:99999;background:#1e3a5f;color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:Arial,sans-serif;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.25); }
+  #ad-claim-banner span { line-height:1.4; }
+  #ad-claim-expiry { color:#93c5fd;font-size:12px;display:block;margin-top:2px; }
+  #ad-claim-btn { background:#f59e0b;color:#1e3a5f;padding:9px 20px;border-radius:5px;text-decoration:none;font-weight:700;white-space:nowrap;font-size:14px;flex-shrink:0; }
+  #ad-claim-btn:hover { background:#fbbf24; }
+  #ad-banner-spacer { height:52px; }
+  @media(max-width:600px){ #ad-claim-banner{flex-direction:column;text-align:center;padding:12px 16px;} #ad-banner-spacer{height:100px;} }
+</style>
+<div id="ad-claim-banner">
+  <span>
+    👋 Free preview site built for <strong>Flowers by McDowell</strong> by Already Done
+    <small id="ad-claim-expiry">Preview available until 19 May — reply to claim it</small>
+  </span>
+  <a id="ad-claim-btn" href="mailto:dean@alreadydone.uk?subject=I%20want%20my%20website%20%E2%80%94%20Flowers%20by%20McDowell&body=Hi%20Dean%2C%0A%0AI've%20seen%20the%20preview%20site%20you%20built%20for%20us%20and%20I'd%20like%20to%20claim%20it.%0A%0ACan%20you%20let%20me%20know%20the%20next%20steps%3F%0A%0AThanks">Claim it for £99 →</a>
+</div>
+<div id="ad-banner-spacer"></div>
+
+  <!-- ── 1. NAVIGATION ── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">Flowers <span>by McDowell</span></a>
+      <a href="#contact" class="btn">Get in touch</a>
+    </div>
+  </nav>
+
+  <!-- ── 2. HERO ── -->
+  <section id="hero" style="padding:0;">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="trust-badge">
+          <span class="stars">★★★★★</span>
+          <span>4.9/5 &nbsp;·&nbsp; 257 Google reviews</span>
+        </div>
+        <h1>Edinburgh's florist for moments that <em>mean everything.</em></h1>
+        <p>From intimate weddings in the New Town to grand celebrations across the city, Flowers by McDowell brings your vision to life — bloom by beautiful bloom.</p>
+        <div class="hero-cta-group">
+          <a href="#contact" class="btn btn-light">Tell me about your event</a>
+          <a href="#gallery" class="btn btn-outline" style="color:#fce7f3; border-color:#fce7f3;">See our work</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <img src="https://placehold.co/1200x500/f9a8d4/9d174d?text=Flowers+by+McDowell" alt="Beautiful floral arrangements by Flowers by McDowell Edinburgh" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3. GALLERY / PORTFOLIO ── -->
+  <section id="gallery">
+    <div class="section-inner">
+      <span class="section-label">Portfolio</span>
+      <h2 class="section-title">Recent work</h2>
+      <p class="section-intro">Every arrangement we create is as unique as the occasion behind it. Here's a glimpse of the events we've had the pleasure of being part of.</p>
+      <div class="gallery-grid">
+        <div class="gallery-card">
+          <img src="https://placehold.co/600x400/fce7f3/9d174d?text=Wedding+Florals" alt="Wedding floral display Edinburgh" />
+          <div class="gallery-card-body">
+            <h4>Wedding — The Balmoral Hotel</h4>
+            <p>Blush roses, eucalyptus and trailing amaranthus for a timeless Edinburgh wedding.</p>
+          </div>
+        </div>
+        <div class="gallery-card">
+          <img src="https://placehold.co/600x400/f9a8d4/7e1043?text=Event+Centrepieces" alt="Corporate event floral centrepieces Edinburgh" />
+          <div class="gallery-card-body">
+            <h4>Corporate Gala — Edinburgh International Conference Centre</h4>
+            <p>Dramatic statement centrepieces in deep burgundy and ivory for a sell-out gala evening.</p>
+          </div>
+        </div>
+        <div class="gallery-card">
+          <img src="https://placehold.co/600x400/ffe4e6/9d174d?text=Celebration+Arch" alt="Floral arch for birthday celebration Edinburgh" />
+          <div class="gallery-card-body">
+            <h4>Milestone Birthday — Private Venue, Morningside</h4>
+            <p>A bespoke floral arch and table garlands celebrating a very special 50th.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4. SERVICES / PACKAGES ── -->
+  <section id="services">
+    <div class="section-inner">
+      <span class="section-label">What we offer</span>
+      <h2 class="section-title">Floristry for every occasion</h2>
+      <p class="section-intro">Whether you're planning the wedding of your dreams or a last-minute celebration, we offer a full range of floral services tailored to your event and budget.</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">💐</div>
+          <h3>Wedding Floristry</h3>
+          <p>Full wedding packages covering bridal bouquets, bridesmaid posies, buttonholes, ceremony arch, pew ends, reception centrepieces and evening florals. We handle everything from your initial consultation to the final petal on the day.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎉</div>
+          <h3>Events & Celebrations</h3>
+          <p>Birthdays, engagements, baby showers, anniversaries and corporate events. We design eye-catching statement pieces, table arrangements and entrance displays that set the tone from the moment guests arrive.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🏢</div>
+          <h3>Corporate Floristry</h3>
+          <p>Regular office flowers, product launches, award ceremonies and conference styling. We work with Edinburgh businesses of all sizes to bring natural beauty into professional spaces, with flexible weekly or event-by-event arrangements.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🌿</div>
+          <h3>Bespoke & Sympathy</h3>
+          <p>Seasonal hand-tied bouquets, luxury gift arrangements, and compassionate funeral floristry. Each piece is designed with care, using the freshest Scottish and seasonal stems available, delivered across Edinburgh and the Lothians.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 5. ABOUT ── -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-inner">
+        <div class="about-text">
+          <span class="section-label">Our story</span>
+          <div class="about-tag">🌸 Based in Pilton, Edinburgh</div>
+          <h2 class="section-title">Passion rooted right here in Edinburgh</h2>
+          <p>I'm Karen McDowell, and flowers have been my world for over fifteen years. Working from our studio on Gorgie Road, I've had the privilege of creating arrangements for hundreds of Edinburgh families, couples, and businesses — each one a reminder of why I fell in love with this craft in the first place.</p>
+          <p>Growing up in Pilton, I know this city intimately — its character, its weather, and the warmth of the people who live here. That local knowledge means I can source the freshest seasonal stems, recommend the right flowers for Edinburgh's unpredictable climate, and deliver on time, every time.</p>
+          <p>Every event I work on feels personal to me. When you trust me with your flowers, I don't just want them to look beautiful — I want them to feel exactly right for you and your story.</p>
+          <a href="#contact" class="btn" style="margin-top:8px;">Get in touch</a>
+        </div>
+        <div class="about-img">
+          <img src="https://placehold.co/600x420/fce7f3/9d174d?text=Karen+McDowell+Florist" alt="Karen McDowell, Edinburgh florist" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 6. TESTIMONIALS ── -->
+  <section id="testimonials">
+    <div class="section-inner">
+      <span class="section-label">Kind words</span>
+      <h2 class="section-title">What our clients say</h2>
+      <p class="section-intro">Rated 4.9/5 across 257 Google reviews — here's why Edinburgh's families and event planners keep coming back to us.</p>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <blockquote>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</blockquote>
+          <div class="testimonial-author">S. B. — Edinburgh</div>
+          <div class="testimonial-event">Wedding · September 2024</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <blockquote>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident."</blockquote>
+          <div class="testimonial-author">L. M. — Edinburgh</div>
+          <div class="testimonial-event">Corporate Gala · February 2025</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <blockquote>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est."</blockquote>
+          <div class="testimonial-author">R. T. — Leith</div>
+          <div class="testimonial-event">50th Birthday Celebration · November 2024</div>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:36px;">
+        <a href="#contact" class="btn btn-light">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 7. CONTACT / ENQUIRE ── -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="contact-inner">
+        <div class="contact-info">
+          <span class="section-label">Let's talk</span>
+          <h2 class="section-title">Let's talk about your event</h2>
+          <p>No two events are the same, and neither are our arrangements. Tell us a little about what you have in mind and we'll get back to you quickly with ideas and availability. We'd love to be part of your special day.</p>
+
+          <div class="contact-detail">
+            <div class="contact-detail-icon">📞</div>
+            <div class="contact-detail-text">
+              <strong>Phone</strong>
+              <span><a href="tel:01316080473" style="color:var(--text);">0131 608 0473</a></span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">📍</div>
+            <div class="contact-detail-text">
+              <strong>Studio Address</strong>
+              <span>556 Gorgie Rd, Edinburgh EH11 3AL</span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">🕐</div>
+            <div class="contact-detail-text">
+              <strong>Opening Hours</strong>
+              <span>Mon–Sat: 9am–5:30pm &nbsp;|&nbsp; Sun: 10am–3pm</span>
+            </div>
+          </div>
+
+          <div class="google-badge">
+            <span class="badge-stars">★★★★★</span>
+            <div class="google-badge-text">
