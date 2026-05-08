@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Already Done — Websites for local businesses, £99</title>
-  <meta name="description" content="Already Done finds local businesses without a working website and builds them one. Professional, mobile-friendly, live on your own domain — £99 once.">
+  <meta name="description" content="Already Done finds local businesses without a working website and builds them one. Professional, mobile-friendly, live on your own domain — from £99.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
@@ -86,10 +86,7 @@
       letter-spacing: -2px;
       margin-bottom: 24px;
     }
-    h1 em {
-      font-style: normal;
-      color: var(--accent);
-    }
+    h1 em { font-style: normal; color: var(--accent); }
     .hero-sub {
       font-size: clamp(17px, 2.5vw, 20px);
       color: #374151;
@@ -152,24 +149,13 @@
 
     /* ── How it works ── */
     .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
-    .step-num {
-      font-size: 48px;
-      font-weight: 900;
-      color: #e5e7eb;
-      line-height: 1;
-      margin-bottom: 16px;
-      letter-spacing: -2px;
-    }
+    .step-num { font-size: 48px; font-weight: 900; color: #e5e7eb; line-height: 1; margin-bottom: 16px; letter-spacing: -2px; }
     .step h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
     .step p { font-size: 15px; color: #6b7280; line-height: 1.6; }
 
     /* ── What you get ── */
     .get-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .get-item {
-      background: var(--grey);
-      border-radius: 10px;
-      padding: 24px;
-    }
+    .get-item { background: var(--grey); border-radius: 10px; padding: 24px; }
     .get-item h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
     .get-item p { font-size: 14px; color: #6b7280; line-height: 1.55; }
     .get-icon { font-size: 22px; margin-bottom: 12px; }
@@ -186,13 +172,7 @@
       gap: 40px;
     }
     .price-left { flex: 1; }
-    .price-amount {
-      font-size: 80px;
-      font-weight: 900;
-      line-height: 1;
-      letter-spacing: -3px;
-      margin-bottom: 8px;
-    }
+    .price-amount { font-size: 80px; font-weight: 900; line-height: 1; letter-spacing: -3px; margin-bottom: 8px; }
     .price-amount span { font-size: 40px; vertical-align: super; letter-spacing: 0; }
     .price-desc { font-size: 16px; color: #9ca3af; margin-bottom: 24px; }
     .price-includes { list-style: none; }
@@ -222,16 +202,69 @@
     .price-cta:hover { background: var(--accent2); }
     .price-note { font-size: 13px; color: #6b7280; margin-top: 12px; }
 
+    /* ── Upgrade tiers ── */
+    .upgrades-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--mid);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin: 40px 0 20px;
+    }
+    .upgrade-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .upgrade-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+    }
+    .upgrade-price {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: var(--black);
+      margin-bottom: 4px;
+    }
+    .upgrade-price span { font-size: 18px; vertical-align: super; }
+    .upgrade-name { font-size: 15px; font-weight: 700; color: var(--black); margin-bottom: 12px; }
+    .upgrade-list { list-style: none; }
+    .upgrade-list li {
+      font-size: 14px;
+      color: #4b5563;
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .upgrade-list li:last-child { border-bottom: none; }
+    .upgrade-list li::before { content: "✓"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Add-ons ── */
+    .addons-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--mid);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin: 40px 0 20px;
+    }
+    .addon-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .addon-card {
+      background: var(--grey);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .addon-icon { font-size: 20px; margin-bottom: 12px; }
+    .addon-name { font-size: 14px; font-weight: 700; color: var(--black); margin-bottom: 4px; }
+    .addon-price { font-size: 18px; font-weight: 900; color: var(--accent); letter-spacing: -0.5px; margin-bottom: 8px; }
+    .addon-desc { font-size: 13px; color: #6b7280; line-height: 1.55; }
+
     /* ── About ── */
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
     .about-text p { font-size: 17px; color: #374151; line-height: 1.7; margin-bottom: 18px; }
     .about-text p:last-child { margin-bottom: 0; }
     .about-text strong { color: var(--black); }
-    .about-card {
-      background: var(--grey);
-      border-radius: 16px;
-      padding: 36px;
-    }
+    .about-card { background: var(--grey); border-radius: 16px; padding: 36px; }
     .about-name { font-size: 22px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.5px; }
     .about-role { font-size: 14px; color: var(--mid); margin-bottom: 24px; }
     .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -343,11 +376,16 @@
       .get-grid { grid-template-columns: 1fr; }
       .pricing-box { flex-direction: column; padding: 36px 28px; text-align: center; }
       .price-amount { font-size: 60px; }
+      .upgrade-grid { grid-template-columns: 1fr; }
+      .addon-grid { grid-template-columns: 1fr 1fr; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .contact-wrap { grid-template-columns: 1fr; padding: 36px 28px; gap: 40px; }
       section { padding: 60px 20px; }
       .hero { padding: 64px 20px 56px; }
       .nav-link { display: none; }
+    }
+    @media (max-width: 480px) {
+      .addon-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -366,7 +404,7 @@
 <section class="hero">
   <div class="hero-tag">Websites for UK small businesses</div>
   <h1>We already built<br>your <em>website.</em></h1>
-  <p class="hero-sub">Already Done finds local businesses without a working website and builds one — before we've been in touch. If you got an email from us, yours is ready. £99 once, live on your own domain within the hour.</p>
+  <p class="hero-sub">Already Done finds local businesses without a working website and builds one — before we've been in touch. If you got an email from us, yours is ready. £99, live on your site within the hour.</p>
   <div class="hero-actions">
     <a href="#contact" class="btn-primary">Reply to Dean</a>
     <a href="#how-it-works" class="btn-secondary">How it works</a>
@@ -395,7 +433,7 @@
       <div class="step">
         <div class="step-num">03</div>
         <h3>You decide</h3>
-        <p>We send you the site and offer to hand it over for £99. Pay and it's live on your own domain within the hour. If you don't want it, no hard feelings.</p>
+        <p>We send you the site and offer to hand it over for £99. Pay and it's live within the hour. If you don't want it, no hard feelings.</p>
       </div>
     </div>
   </div>
@@ -408,12 +446,12 @@
   <div class="container">
     <div class="section-label">What's included</div>
     <h2>Everything you need.<br>Nothing you don't.</h2>
-    <p class="section-intro">For £99 you get a complete, live website on your own domain — not a template to fiddle with, not a subscription to manage. Done.</p>
+    <p class="section-intro">The £99 site is a complete, professional web presence — not a template to fiddle with, not a builder to learn. Done.</p>
     <div class="get-grid">
       <div class="get-item">
-        <div class="get-icon">🌐</div>
-        <h3>Your own domain</h3>
-        <p>We register your domain name for you — something like smithsplumbing.co.uk. It's yours, managed by us on your behalf, with transfer codes available any time.</p>
+        <div class="get-icon">✏️</div>
+        <h3>Written for your business</h3>
+        <p>Real copy tailored to what you do and where you are — not placeholder text. Your services, your location, your contact details.</p>
       </div>
       <div class="get-item">
         <div class="get-icon">📱</div>
@@ -421,14 +459,14 @@
         <p>Looks great on phones, tablets, and desktops. Over 60% of your customers are searching on mobile — your site works for all of them.</p>
       </div>
       <div class="get-item">
-        <div class="get-icon">✏️</div>
-        <h3>Written for your business</h3>
-        <p>Real copy tailored to what you do and where you are — not placeholder text. Your services, your location, your contact details.</p>
+        <div class="get-icon">📬</div>
+        <h3>Contact form, straight to your inbox</h3>
+        <p>Every enquiry submitted through your site goes directly to your email. No logins, no dashboards — just a message in your inbox.</p>
       </div>
       <div class="get-item">
         <div class="get-icon">⚡</div>
         <h3>Fast, reliable hosting</h3>
-        <p>Hosted on Cloudflare's global network — loads instantly worldwide. No shared hosting, no going slow during busy periods.</p>
+        <p>Hosted on Cloudflare's global network. Loads instantly. No shared hosting slowdowns. No maintenance from you.</p>
       </div>
       <div class="get-item">
         <div class="get-icon">🔍</div>
@@ -436,9 +474,9 @@
         <p>Basic SEO built in — your business name, location, and category are structured so Google knows exactly what you do and who to show you to.</p>
       </div>
       <div class="get-item">
-        <div class="get-icon">📞</div>
-        <h3>Your details, front and centre</h3>
-        <p>Phone number, address, opening hours, and a working contact form — exactly what someone clicking your Google listing wants to find.</p>
+        <div class="get-icon">⏱️</div>
+        <h3>Live within the hour</h3>
+        <p>Pay and we get to work. Domain registered, site deployed, confirmation email sent — all within about 30 minutes of payment.</p>
       </div>
     </div>
   </div>
@@ -449,17 +487,22 @@
 <!-- Pricing -->
 <section id="pricing">
   <div class="container">
+    <div class="section-label">Pricing</div>
+    <h2>One number. No hidden costs.</h2>
+    <p class="section-intro">The website is £99 — no ongoing fee for the site itself. Everything below is optional. Add what makes sense for your business.</p>
+
+    <!-- Core tier -->
     <div class="pricing-box">
       <div class="price-left">
         <div class="price-amount"><span>£</span>99</div>
-        <p class="price-desc">One payment. Live on your domain within the hour.</p>
+        <p class="price-desc">One-page website. No ongoing fee for the site.</p>
         <ul class="price-includes">
-          <li>Professional single-page website, built for you</li>
-          <li>Your own domain name (e.g. yourbusiness.co.uk)</li>
-          <li>Hosting included — fast, reliable, no monthly fee</li>
-          <li>Mobile-responsive design</li>
+          <li>Professional one-page website, built for you</li>
           <li>Written copy for your business</li>
-          <li>Working contact form</li>
+          <li>Mobile-responsive design</li>
+          <li>Contact form — enquiries go straight to your inbox</li>
+          <li>Fast hosting included, no monthly charge</li>
+          <li>Live within the hour of payment</li>
         </ul>
       </div>
       <div class="price-right">
@@ -467,6 +510,61 @@
         <p class="price-note">Reply to Dean's email or<br>use the form below</p>
       </div>
     </div>
+
+    <!-- Upgrade tiers -->
+    <p class="upgrades-label">Need more pages?</p>
+    <div class="upgrade-grid">
+      <div class="upgrade-card">
+        <div class="upgrade-price"><span>£</span>179</div>
+        <div class="upgrade-name">Multi-page site</div>
+        <ul class="upgrade-list">
+          <li>Everything in the £99 site</li>
+          <li>About Us page</li>
+          <li>One additional page (services, menu, portfolio — your call)</li>
+          <li>Upload your logo</li>
+          <li>Two custom images</li>
+        </ul>
+      </div>
+      <div class="upgrade-card">
+        <div class="upgrade-price"><span>£</span>249</div>
+        <div class="upgrade-name">Multi-page site with gallery</div>
+        <ul class="upgrade-list">
+          <li>Everything in the £179 site</li>
+          <li>Gallery page — up to 20 images</li>
+          <li>Logo and all branding assets included</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Add-ons -->
+    <p class="addons-label">Optional add-ons</p>
+    <div class="addon-grid">
+      <div class="addon-card">
+        <div class="addon-icon">🌐</div>
+        <div class="addon-name">Domain name</div>
+        <div class="addon-price">At cost</div>
+        <div class="addon-desc">You choose the name. We register and manage it. Charged at cost (~£5–10/yr depending on extension), renewed automatically each year.</div>
+      </div>
+      <div class="addon-card">
+        <div class="addon-icon">📧</div>
+        <div class="addon-name">Business email</div>
+        <div class="addon-price">£24/yr</div>
+        <div class="addon-desc">Your own address at your domain (e.g. hello@yourbusiness.co.uk). Set up and ready to use on your phone. £12/yr for each additional address. Requires a domain.</div>
+      </div>
+      <div class="addon-card">
+        <div class="addon-icon">✍️</div>
+        <div class="addon-name">Copy &amp; SEO edit</div>
+        <div class="addon-price">£5</div>
+        <div class="addon-desc">A full refresh of your page copy and SEO — updated text, optimised headings, local keyword targeting. One-off, any time.</div>
+      </div>
+      <div class="addon-card">
+        <div class="addon-icon">📊</div>
+        <div class="addon-name">Monthly report</div>
+        <div class="addon-price">£5/mo</div>
+        <div class="addon-desc">Visits, clicks, contact form submissions, referral sources, local SEO ranking, Google search volume for your category, plus a full site check and any fixes needed. PDF report, every month.</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -491,19 +589,19 @@
           <div class="about-stats">
             <div class="stat">
               <div class="stat-num">£99</div>
-              <div class="stat-label">Fixed price, always</div>
+              <div class="stat-label">Site, fixed price</div>
             </div>
             <div class="stat">
               <div class="stat-num">&lt;1hr</div>
               <div class="stat-label">From payment to live</div>
             </div>
             <div class="stat">
-              <div class="stat-num">£0</div>
-              <div class="stat-label">Monthly fees</div>
-            </div>
-            <div class="stat">
               <div class="stat-num">UK</div>
               <div class="stat-label">Local businesses only</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">£0</div>
+              <div class="stat-label">Monthly site fee</div>
             </div>
           </div>
         </div>
@@ -531,15 +629,19 @@
       </div>
       <div class="faq-item">
         <button class="faq-q">What if it doesn't look right for my business? <span class="faq-arrow">+</span></button>
-        <div class="faq-a">Just tell me what you'd like changed and I'll update it. The price stays £99 — I'm not going to charge extra for reasonable tweaks. If after changes it's still not right, you don't have to buy it.</div>
+        <div class="faq-a">Just tell me what you'd like changed and I'll update it. The price stays the same — I'm not going to charge extra for reasonable tweaks. If after changes it's still not right, you don't have to buy it.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q">What happens after I pay? <span class="faq-arrow">+</span></button>
-        <div class="faq-a">Within about 30 minutes, your domain is registered and your site is live. You'll get an email from me with your live website link — nothing to install, set up, or configure on your end. If you've added a business email address, those credentials come in the same email.</div>
+        <div class="faq-a">We get straight to work. Within about 30 minutes your site is live and you'll get a confirmation email with your URL. If you've added a domain, it'll be pointed and ready. If you've added a business email address, the credentials will be in that same email. Nothing to install or set up on your end.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">Is this a subscription or ongoing thing? <span class="faq-arrow">+</span></button>
-        <div class="faq-a">No monthly fees. The £99 covers the build and the first year of hosting and domain. After that, your domain renews annually — usually £10–15 depending on the extension. We handle it automatically and you'll get a heads-up before anything is charged.</div>
+        <button class="faq-q">Do I need a domain name? <span class="faq-arrow">+</span></button>
+        <div class="faq-a">You don't need one to buy the site — we can host it on a temporary address while you decide. But most businesses will want their own domain eventually (something like smithsplumbing.co.uk). We register and manage it for you at cost — typically £5–10 a year depending on the extension — and renew it automatically so you don't have to think about it.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Are there any ongoing costs? <span class="faq-arrow">+</span></button>
+        <div class="faq-a">The site itself has no ongoing fee. Hosting is included at no charge. If you add a domain, that renews annually at cost (typically £5–10/yr). If you add a business email address, that's £24/yr. The monthly report is £5/month if you want it. All of those are optional — nothing gets added without you choosing it.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Why is it so cheap? <span class="faq-arrow">+</span></button>
