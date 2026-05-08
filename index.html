@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Already Done — Websites for local businesses, £99</title>
-  <meta name="description" content="Already Done finds local businesses without a working website and builds them one. If you got an email from us, yours is ready to view.">
+  <meta name="description" content="Already Done finds local businesses without a working website and builds them one. Professional, mobile-friendly, live on your own domain — £99 once.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
@@ -45,6 +45,9 @@
       justify-content: space-between;
     }
     .nav-logo { font-weight: 800; font-size: 18px; letter-spacing: -0.5px; text-decoration: none; color: var(--black); }
+    .nav-right { display: flex; align-items: center; gap: 24px; }
+    .nav-link { font-size: 14px; font-weight: 500; color: var(--mid); text-decoration: none; transition: color 0.15s; }
+    .nav-link:hover { color: var(--black); }
     .nav-cta {
       background: var(--accent);
       color: var(--white);
@@ -329,7 +332,10 @@
       font-size: 14px;
       color: var(--mid);
     }
-    footer a { color: var(--mid); }
+    footer a { color: var(--mid); text-decoration: none; }
+    footer a:hover { color: var(--black); }
+    .footer-legal { margin-top: 10px; font-size: 13px; }
+    .footer-legal a { margin: 0 6px; }
 
     /* ── Responsive ── */
     @media (max-width: 768px) {
@@ -341,6 +347,7 @@
       .contact-wrap { grid-template-columns: 1fr; padding: 36px 28px; gap: 40px; }
       section { padding: 60px 20px; }
       .hero { padding: 64px 20px 56px; }
+      .nav-link { display: none; }
     }
   </style>
 </head>
@@ -349,14 +356,17 @@
 <!-- Nav -->
 <nav>
   <a href="/" class="nav-logo">Already Done</a>
-  <a href="#contact" class="nav-cta">Get in touch</a>
+  <div class="nav-right">
+    <a href="/about" class="nav-link">About</a>
+    <a href="#contact" class="nav-cta">Get in touch</a>
+  </div>
 </nav>
 
 <!-- Hero -->
 <section class="hero">
-  <div class="hero-tag">Websites for local businesses</div>
+  <div class="hero-tag">Websites for UK small businesses</div>
   <h1>We already built<br>your <em>website.</em></h1>
-  <p class="hero-sub">Already Done finds local businesses without a working website, builds them a professional one-page site, then offers it to the owner for £99. If you got an email from us — yours is ready.</p>
+  <p class="hero-sub">Already Done finds local businesses without a working website and builds one — before we've been in touch. If you got an email from us, yours is ready. £99 once, live on your own domain within the hour.</p>
   <div class="hero-actions">
     <a href="#contact" class="btn-primary">Reply to Dean</a>
     <a href="#how-it-works" class="btn-secondary">How it works</a>
@@ -375,17 +385,17 @@
       <div class="step">
         <div class="step-num">01</div>
         <h3>We find you</h3>
-        <p>We scan Google for local businesses whose website is broken, parked, or missing entirely. If your listing came up, you made the list.</p>
+        <p>We scan Google for local businesses whose website is broken, parked, or missing entirely. If you got our email, you made the list.</p>
       </div>
       <div class="step">
         <div class="step-num">02</div>
         <h3>We build it</h3>
-        <p>We create a professional, mobile-friendly single-page website for your business — before we've even spoken to you. No obligation to buy.</p>
+        <p>We create a professional, mobile-friendly website for your business — before we've even spoken to you. No obligation to buy.</p>
       </div>
       <div class="step">
         <div class="step-num">03</div>
         <h3>You decide</h3>
-        <p>We send you the site and offer to hand it over for £99. If you want it, great. If not, no hard feelings — it cost you nothing to look.</p>
+        <p>We send you the site and offer to hand it over for £99. Pay and it's live on your own domain within the hour. If you don't want it, no hard feelings.</p>
       </div>
     </div>
   </div>
@@ -398,8 +408,13 @@
   <div class="container">
     <div class="section-label">What's included</div>
     <h2>Everything you need.<br>Nothing you don't.</h2>
-    <p class="section-intro">For £99 you get a complete, live website — not a template to fiddle with, not a subscription to manage. Just a working site.</p>
+    <p class="section-intro">For £99 you get a complete, live website on your own domain — not a template to fiddle with, not a subscription to manage. Done.</p>
     <div class="get-grid">
+      <div class="get-item">
+        <div class="get-icon">🌐</div>
+        <h3>Your own domain</h3>
+        <p>We register your domain name for you — something like smithsplumbing.co.uk. It's yours, managed by us on your behalf, with transfer codes available any time.</p>
+      </div>
       <div class="get-item">
         <div class="get-icon">📱</div>
         <h3>Mobile-friendly design</h3>
@@ -412,8 +427,8 @@
       </div>
       <div class="get-item">
         <div class="get-icon">⚡</div>
-        <h3>Fast and self-contained</h3>
-        <p>A single HTML file with no external dependencies. Loads instantly, works anywhere, and doesn't break when a plugin goes out of date.</p>
+        <h3>Fast, reliable hosting</h3>
+        <p>Hosted on Cloudflare's global network — loads instantly worldwide. No shared hosting, no going slow during busy periods.</p>
       </div>
       <div class="get-item">
         <div class="get-icon">🔍</div>
@@ -423,12 +438,7 @@
       <div class="get-item">
         <div class="get-icon">📞</div>
         <h3>Your details, front and centre</h3>
-        <p>Phone number, address, opening hours, and a contact form — exactly what someone clicking your Google listing wants to find.</p>
-      </div>
-      <div class="get-item">
-        <div class="get-icon">💳</div>
-        <h3>One payment, you own it</h3>
-        <p>£99 once. No monthly fees, no subscriptions, no contracts. The files are yours — host them wherever you like, or we can help with that too.</p>
+        <p>Phone number, address, opening hours, and a working contact form — exactly what someone clicking your Google listing wants to find.</p>
       </div>
     </div>
   </div>
@@ -442,14 +452,14 @@
     <div class="pricing-box">
       <div class="price-left">
         <div class="price-amount"><span>£</span>99</div>
-        <p class="price-desc">One payment. No monthly fees. No surprises.</p>
+        <p class="price-desc">One payment. Live on your domain within the hour.</p>
         <ul class="price-includes">
-          <li>Professional single-page website</li>
-          <li>Mobile responsive design</li>
+          <li>Professional single-page website, built for you</li>
+          <li>Your own domain name (e.g. yourbusiness.co.uk)</li>
+          <li>Hosting included — fast, reliable, no monthly fee</li>
+          <li>Mobile-responsive design</li>
           <li>Written copy for your business</li>
-          <li>Contact form included</li>
-          <li>Full files handed over — you own it</li>
-          <li>Help getting it live if you need it</li>
+          <li>Working contact form</li>
         </ul>
       </div>
       <div class="price-right">
@@ -471,7 +481,8 @@
         <h2>Hi, I'm Dean.</h2>
         <p>I started Already Done because I kept noticing the same thing — brilliant local businesses with no website, or one that was broken, or one that hadn't been touched since 2011. Customers were finding them on Google and hitting a dead end.</p>
         <p>So I built a system that finds those businesses and builds them a site before we've even spoken. <strong>You get to see what you're buying before you spend a penny.</strong> If it's not right, tell me and I'll fix it. If you don't want it, no problem.</p>
-        <p>There's no agency, no team, no upsell. Just me, making websites for local businesses that actually need one.</p>
+        <p>There's no agency, no team, no hard sell. Just me, making websites for local businesses that actually need one.</p>
+        <p style="margin-top:18px;"><a href="/about" style="color:var(--accent);font-weight:600;text-decoration:none;font-size:15px;">More about Already Done →</a></p>
       </div>
       <div>
         <div class="about-card">
@@ -483,11 +494,11 @@
               <div class="stat-label">Fixed price, always</div>
             </div>
             <div class="stat">
-              <div class="stat-num">1 day</div>
-              <div class="stat-label">Typical turnaround</div>
+              <div class="stat-num">&lt;1hr</div>
+              <div class="stat-label">From payment to live</div>
             </div>
             <div class="stat">
-              <div class="stat-num">0</div>
+              <div class="stat-num">£0</div>
               <div class="stat-label">Monthly fees</div>
             </div>
             <div class="stat">
@@ -524,11 +535,11 @@
       </div>
       <div class="faq-item">
         <button class="faq-q">What happens after I pay? <span class="faq-arrow">+</span></button>
-        <div class="faq-a">I send you the HTML file and any assets. If you already have hosting, you can put it up yourself in minutes. If you don't, I can help point you in the right direction — most small business hosting costs £3–5/month.</div>
+        <div class="faq-a">Within about 30 minutes, your domain is registered and your site is live. You'll get an email from me with your live website link — nothing to install, set up, or configure on your end. If you've added a business email address, those credentials come in the same email.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Is this a subscription or ongoing thing? <span class="faq-arrow">+</span></button>
-        <div class="faq-a">No. £99 once, files are yours, that's it. If you want future updates or changes down the line you can come back to me, but there's no contract and no recurring charge.</div>
+        <div class="faq-a">No monthly fees. The £99 covers the build and the first year of hosting and domain. After that, your domain renews annually — usually £10–15 depending on the extension. We handle it automatically and you'll get a heads-up before anything is charged.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Why is it so cheap? <span class="faq-arrow">+</span></button>
@@ -550,7 +561,7 @@
         <p>If you got an email from me, just hit reply — that's the easiest way. Or use the form and I'll get back to you same day.</p>
         <a href="mailto:dean@alreadydone.uk" class="email-link">dean@alreadydone.uk</a>
       </div>
-      <form action="https://formspree.io/f/placeholder" method="POST">
+      <form action="https://formspree.io/dean@alreadydone.uk" method="POST">
         <div>
           <label for="name">Your name</label>
           <input type="text" id="name" name="name" placeholder="Jane Smith" required>
@@ -576,10 +587,15 @@
 <!-- Footer -->
 <footer>
   <p>© 2026 Already Done · <a href="mailto:dean@alreadydone.uk">dean@alreadydone.uk</a> · Edinburgh, Scotland</p>
+  <p class="footer-legal">
+    <a href="/privacy">Privacy Policy</a> ·
+    <a href="/terms">Terms &amp; Conditions</a> ·
+    <a href="/acceptable-use">Acceptable Use</a> ·
+    <a href="/values">Values &amp; Ethics</a>
+  </p>
 </footer>
 
 <script>
-  // FAQ accordion
   document.querySelectorAll('.faq-q').forEach(btn => {
     btn.addEventListener('click', () => {
       const item = btn.closest('.faq-item');
