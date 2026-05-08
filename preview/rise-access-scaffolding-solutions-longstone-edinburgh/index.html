@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rise Access & Scaffolding Solutions | Longstone Edinburgh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #1e3a5f;
+    --accent: #38bdf8;
+    --bg: #f0f9ff;
+    --text: #0f172a;
+    --white: #ffffff;
+    --light-border: #e0f2fe;
+    --muted: #64748b;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+    line-height: 1.2;
+  }
+
+  a { text-decoration: none; color: inherit; }
+
+  img { display: block; max-width: 100%; }
+
+  /* ── NAVIGATION ── */
+  nav {
+    background: var(--primary);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+  }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    gap: 16px;
+  }
+
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    flex-shrink: 0;
+  }
+
+  .nav-brand span {
+    color: var(--accent);
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+  }
+
+  .nav-phone {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 11px 24px;
+    border-radius: 6px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+    border: 2px solid transparent;
+    white-space: nowrap;
+  }
+
+  .btn:hover { transform: translateY(-1px); }
+
+  .btn-accent {
+    background: var(--accent);
+    color: var(--primary);
+    border-color: var(--accent);
+  }
+
+  .btn-accent:hover { background: #0ea5e9; border-color: #0ea5e9; }
+
+  .btn-outline-white {
+    background: transparent;
+    color: var(--white);
+    border-color: var(--white);
+  }
+
+  .btn-outline-white:hover { background: var(--white); color: var(--primary); }
+
+  .btn-primary {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+  }
+
+  .btn-primary:hover { background: #162d4a; border-color: #162d4a; }
+
+  .btn-lg {
+    padding: 15px 34px;
+    font-size: 1rem;
+    border-radius: 6px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0b1f3a 0%, #1e3a5f 50%, #0e2a47 100%);
+  }
+
+  .hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.22;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(14,30,54,0.65) 0%, rgba(14,30,54,0.82) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 880px;
+    padding: 40px 24px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(56,189,248,0.15);
+    border: 1px solid rgba(56,189,248,0.4);
+    border-radius: 50px;
+    padding: 6px 18px;
+    color: var(--accent);
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-bottom: 28px;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 22px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1.18rem;
+    color: rgba(255,255,255,0.82);
+    max-width: 600px;
+    margin: 0 auto 36px;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  .hero-sub strong {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+
+  .hero-call-link {
+    color: rgba(255,255,255,0.9);
+    font-weight: 700;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+
+  .hero-call-link:hover { color: var(--accent); }
+
+  .trust-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 8px;
+    padding: 14px 26px;
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .trust-badge .stars {
+    color: #fbbf24;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+  }
+
+  .trust-badge-label {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.65);
+    font-weight: 400;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 80px 24px;
+  }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .section-title {
+    font-size: 2.4rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .section-intro {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 600px;
+    margin-bottom: 52px;
+  }
+
+  /* ── SERVICES ── */
+  .services-section {
+    background: var(--bg);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 8px;
+  }
+
+  .service-card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 32px 26px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    border-top: 4px solid var(--accent);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(30,58,95,0.13);
+  }
+
+  .service-icon {
+    font-size: 2.2rem;
+    margin-bottom: 18px;
+    display: block;
+  }
+
+  .service-card h3 {
+    font-size: 1.18rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+  }
+
+  .service-card p {
+    font-size: 0.93rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── ABOUT ── */
+  .about-section {
+    background: var(--white);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .about-img-wrap {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    position: relative;
+  }
+
+  .about-img-wrap img {
+    width: 100%;
+    height: 440px;
+    object-fit: cover;
+  }
+
+  .about-img-badge {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: var(--primary);
+    color: var(--white);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+  }
+
+  .about-img-badge span {
+    display: block;
+    font-size: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    color: var(--accent);
+  }
+
+  .about-text .section-title { margin-bottom: 20px; }
+
+  .about-text p {
+    color: #334155;
+    margin-bottom: 18px;
+    font-size: 1.02rem;
+    line-height: 1.8;
+  }
+
+  .about-text p:last-of-type { margin-bottom: 28px; }
+
+  /* ── WHY CHOOSE US ── */
+  .why-section {
+    background: linear-gradient(135deg, #1e3a5f 0%, #0f2845 100%);
+  }
+
+  .why-section .section-title { color: var(--white); }
+  .why-section .section-label { color: var(--accent); }
+  .why-section .section-intro { color: rgba(255,255,255,0.65); }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .why-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 36px 28px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    transition: background 0.2s;
+  }
+
+  .why-card:hover { background: rgba(255,255,255,0.1); }
+
+  .why-icon {
+    font-size: 2.4rem;
+    margin-bottom: 18px;
+    display: block;
+  }
+
+  .why-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .why-card p {
+    color: rgba(255,255,255,0.72);
+    font-size: 0.93rem;
+    line-height: 1.65;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials-section {
+    background: var(--bg);
+  }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .testi-card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 32px 28px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .testi-stars {
+    color: #fbbf24;
+    font-size: 1.15rem;
+    letter-spacing: 2px;
+  }
+
+  .testi-body {
+    font-size: 0.97rem;
+    color: #334155;
+    line-height: 1.75;
+    flex-grow: 1;
+    font-style: italic;
+  }
+
+  .testi-author {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--primary);
+    border-top: 1px solid var(--light-border);
+    padding-top: 14px;
+  }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    background: var(--white);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .contact-form {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 40px 36px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+
+  .form-group label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0.02em;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    border: 1.5px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 11px 14px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    background: var(--white);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(56,189,248,0.12);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 110px; }
+
+  .form-submit { width: 100%; padding: 15px; font-size: 1rem; border: none; }
+
+  .contact-info { padding-top: 10px; }
+
+  .contact-info .section-title { font-size: 2rem; margin-bottom: 16px; }
+
+  .contact-info p {
+    color: #334155;
+    font-size: 1rem;
+    margin-bottom: 32px;
+    line-height: 1.75;
+  }
+
+  .info-block {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    background: var(--bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+  }
+
+  .info-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .info-item h4 {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  .info-item p {
+    font-size: 0.95rem;
+    color: #334155;
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  .info-item a {
+    color: var(--primary);
+    font-weight: 700;
+    transition: color 0.2s;
+  }
+
+  .info-item a:hover { color: var(--accent); }
+
+  .google-badge-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white);
+    border: 1.5px solid var(--light-border);
+    border-radius: 8px;
+    padding: 10px 18px;
+    margin-top: 28px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--primary);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .google-badge-inline .g-stars { color: #fbbf24; letter-spacing: 2px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--primary);
+    color: rgba(255,255,255,0.7);
+    padding: 40px 24px;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
+  }
+
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .footer-brand span { color: var(--accent); }
+
+  .footer-accred {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .footer-copy {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.45);
+  }
+
+  .footer-photo-credit {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* ── MID-PAGE CTA STRIP ── */
+  .cta-strip {
+    background: linear-gradient(90deg, #38bdf8 0%, #0ea5e9 100%);
+    padding: 48px 24px;
+    text-align: center;
+  }
+
+  .cta-strip h2 {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+  }
+
+  .cta-strip p {
+    color: rgba(15,23,42,0.75);
+    font-size: 1.05rem;
+    margin-bottom: 26px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    section { padding: 48px 20px; }
+
+    .nav-inner {
+      padding: 0 16px;
+      height: auto;
+      flex-wrap: wrap;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      gap: 10px;
+    }
+
+    .nav-brand { font-size: 0.95rem; }
+    .nav-phone { display: none; }
+    .btn { padding: 9px 16px; font-size: 0.83rem; }
+
+    .hero { min-height: 100vh; }
+
+    .hero h1 {
+      font-size: 2.2rem;
+    }
+
+    .hero-sub { font-size: 1rem; }
+
+    .hero-cta { flex-direction: column; gap: 12px; }
+
+    .btn-lg { padding: 13px 26px; font-size: 0.95rem; }
+
+    .services-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+
+    .about-img-wrap img { height: 280px; }
+
+    .why-grid {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .testi-grid {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+
+    .contact-form { padding: 28px 20px; }
+
+    .form-row { grid-template-columns: 1fr; }
+
+    .section-title { font-size: 1.8rem; }
+
+    .cta-strip h2 { font-size: 1.5rem; }
+
+    .cta-strip { padding: 48px 20px; }
+  }
+
+  @media (max-width: 480px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+<!-- Already Done claim banner -->
+<style>
+  #ad-claim-banner { position:fixed;top:0;left:0;right:0;z-index:99999;background:#1e3a5f;color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:Arial,sans-serif;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.25); }
+  #ad-claim-banner span { line-height:1.4; }
+  #ad-claim-expiry { color:#93c5fd;font-size:12px;display:block;margin-top:2px; }
+  #ad-claim-btn { background:#f59e0b;color:#1e3a5f;padding:9px 20px;border-radius:5px;text-decoration:none;font-weight:700;white-space:nowrap;font-size:14px;flex-shrink:0; }
+  #ad-claim-btn:hover { background:#fbbf24; }
+  @media(max-width:600px){ #ad-claim-banner{flex-direction:column;text-align:center;padding:12px 16px;} }
+</style>
+<div id="ad-claim-banner">
+  <span>
+    👋 Free preview site built for <strong>Rise Access & Scaffolding Solutions</strong> by Already Done
+    <small id="ad-claim-expiry">Preview available until 22 May — reply to claim it</small>
+  </span>
+  <a id="ad-claim-btn" href="mailto:dean@alreadydone.uk?subject=I%20want%20my%20website%20%E2%80%94%20Rise%20Access%20%26%20Scaffolding%20Solutions&body=Hi%20Dean%2C%0A%0AI've%20seen%20the%20preview%20site%20you%20built%20for%20us%20and%20I'd%20like%20to%20claim%20it.%0A%0ACan%20you%20let%20me%20know%20the%20next%20steps%3F%0A%0AThanks">Claim it for £99 →</a>
+</div>
+<div id="ad-banner-spacer"></div>
+<script>
+(function() {
+  function applyBannerOffset() {
+    var banner = document.getElementById('ad-claim-banner');
+    var spacer = document.getElementById('ad-banner-spacer');
+    if (!banner || !spacer) return;
+    var h = banner.offsetHeight;
+    spacer.style.height = h + 'px';
+    // Push any sticky/fixed navs and headers down so they sit below the banner
+    var candidates = document.querySelectorAll('nav, header, [class*="nav"], [class*="header"]');
+    candidates.forEach(function(el) {
+      if (el.id === 'ad-claim-banner') return;
+      var s = window.getComputedStyle(el);
+      if ((s.position === 'sticky' || s.position === 'fixed') && parseInt(s.top || '0') < 10) {
+        el.style.top = h + 'px';
+      }
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyBannerOffset);
+  } else {
+    applyBannerOffset();
+  }
+  window.addEventListener('resize', applyBannerOffset);
+})();
+</script>
+
+<!-- ── NAVIGATION ── -->
+<nav aria-label="Main navigation">
+  <div class="nav-inner">
+    <div class="nav-brand">Rise <span>Access</span> &amp; Scaffolding</div>
+    <div class="nav-right">
+      <a href="tel:07359867953" class="nav-phone">📞 07359 867953</a>
+      <a href="#contact" class="btn btn-accent">Get a free quote</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" aria-label="Hero">
+  <img
+    src="https://images.pexels.com/photos/8092/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=650&w=940"
+    alt="Close-up of a construction worker with hammer and tools, focused on the job."
+    class="hero-img"
+  >
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">★ Longstone, Edinburgh &amp; Surrounding Areas</div>
+    <h1>Quality <em>Scaffolding Solutions</em> in Longstone Edinburgh &amp; Surrounding Areas</h1>
+    <p class="hero-sub">
+      <strong>Safe, reliable &amp; certified scaffolding</strong> — erected on time, every time.
+      Trusted by Edinburgh homeowners, contractors, and developers since day one.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-accent btn-lg">Get a free quote</a>
+      <a href="tel:07359867953" class="hero-call-link">📞 Call us: 07359 867953</a>
+    </div>
+    <div class="trust-badge" role="img" aria-label="5 out of 5 stars, 15 Google reviews">
+      <div>
+        <div class="stars">★★★★★</div>
+        <div class="trust-badge-label">Google Reviews</div>
+      </div>
+      <div>
+        <strong>5 / 5</strong> · 15 Reviews
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section class="services-section" id="services" aria-labelledby="services-heading">
+  <div class="section-inner">
+    <span class="section-label">What We Do</span>
+    <h2 class="section-title" id="services-heading">Our Scaffolding Services</h2>
+    <p class="section-intro">From small domestic jobs to large commercial projects, Rise Access &amp; Scaffolding Solutions provides a full range of professional scaffolding services across Edinburgh and the Lothians.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">🏠</span>
+        <h3>Domestic Scaffolding</h3>
+        <p>Safe, tidy scaffold erection for homeowners tackling roof repairs, chimney work, render, painting, or loft conversions — with minimal disruption to your property.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🏗️</span>
+        <h3>Commercial Scaffolding</h3>
+        <p>Robust scaffolding solutions for contractors, developers, and commercial clients — delivered to programme, fully compliant, and built to handle demanding site requirements.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🏛️</span>
+        <h3>Heritage &amp; Stonework Access</h3>
+        <p>Specialist access scaffolding for Edinburgh's sandstone tenements, listed buildings, and traditional stonework — erected with care to protect historic fabric.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🔧</span>
+        <h3>Temporary Roof Covers</h3>
+        <p>Weatherproof temporary roof systems that allow roofing and maintenance work to continue year-round, keeping your project on schedule whatever the Edinburgh weather brings.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section class="about-section" id="about" aria-labelledby="about-heading">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-img-wrap">
+        <img
+          src="https://images.pexels.com/photos/8961401/pexels-photo-8961401.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+          alt="A construction worker using a power drill on a building site, outdoors during the day."
+        >
+        <div class="about-img-badge">
+          <span>10+</span>
+          Years of Experience
+        </div>
+      </div>
+      <div class="about-text">
+        <span class="section-label">Who We Are</span>
+        <h2 class="section-title" id="about-heading">Edinburgh's Trusted Scaffolding Specialists</h2>
+        <p>Rise Access &amp; Scaffolding Solutions is a locally rooted scaffolding company based at Royal Elizabeth Yard, Kirkliston, serving Longstone, Edinburgh, and communities right across the Lothians and beyond. We've built our reputation one scaffold at a time — with a hands-on, professional approach that keeps clients coming back.</p>
+        <p>With over a decade of experience in the trade, our team has worked on everything from single-storey extensions in Corstorphine to multi-storey commercial developments in the city centre. We know Edinburgh's buildings, its weather, and the particular demands that come with working in one of Scotland's most architecturally varied cities.</p>
+        <p>What sets us apart is straightforward: we show up on time, we communicate clearly, we work safely, and we price fairly. No hidden costs, no surprises — just solid, dependable scaffolding you can trust.</p>
+        <a href="#contact" class="btn btn-primary btn-lg">Get a free quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY CHOOSE US ── -->
+<section class="why-section" id="why" aria-labelledby="why-heading">
+  <div class="section-inner">
+    <span class="section-label">Why Rise Access</span>
+    <h2 class="section-title" id="why-heading">Built on Trust, Safety &amp; Expertise</h2>
+    <p class="section-intro">Every job we take on is backed by the right qualifications, the right insurance, and a no-obligation quote process that puts you in control from the start.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-icon">📋</span>
+        <h3>CISRS Accredited Scaffolders

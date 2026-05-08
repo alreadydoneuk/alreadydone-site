@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carrick Knowe Pharmacy | Independent Pharmacy in Longstone, Edinburgh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #1e3a5f;
+      --accent: #16a34a;
+      --accent-dark: #15803d;
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --white: #ffffff;
+      --card-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.65;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 0.04em;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: 6px;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+      border: 2px solid transparent;
+    }
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+      border-color: var(--accent);
+    }
+    .btn-primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border-color: var(--white);
+    }
+    .btn-outline:hover { background: var(--white); color: var(--primary); }
+
+    .btn-accent {
+      background: var(--accent);
+      color: var(--white);
+      border-color: var(--accent);
+    }
+    .btn-accent:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+
+    /* ── NAVIGATION ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(30, 58, 95, 0.97);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      color: var(--white);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    .nav-logo span { color: #4ade80; }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .nav-phone {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .nav-phone strong { color: var(--white); }
+    .nav-cta {
+      background: var(--accent);
+      color: var(--white);
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border: 2px solid var(--accent);
+      transition: background 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .nav-cta:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding-top: 68px;
+    }
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(30,58,95,0.92) 0%, rgba(15,23,42,0.85) 60%, rgba(22,163,74,0.35) 100%);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 80px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      background: rgba(22,163,74,0.25);
+      border: 1px solid rgba(74,222,128,0.5);
+      color: #86efac;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 16px;
+      text-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    }
+    .hero-sub {
+      font-size: 1.25rem;
+      color: #cbd5e1;
+      font-weight: 300;
+      margin-bottom: 12px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-location {
+      font-size: 1rem;
+      color: #86efac;
+      font-weight: 500;
+      margin-bottom: 36px;
+      letter-spacing: 0.04em;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .trust-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(6px);
+      color: var(--white);
+      padding: 10px 22px;
+      border-radius: 100px;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .trust-badge .stars { color: #fbbf24; font-size: 1.05rem; }
+
+    /* ── SECTIONS ── */
+    section { padding: 80px 24px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: 2.8rem;
+      color: var(--primary);
+      margin-bottom: 16px;
+      line-height: 1.05;
+    }
+    .section-divider {
+      width: 52px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), #4ade80);
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--white); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .about-text p {
+      font-size: 1.05rem;
+      color: #334155;
+      margin-bottom: 18px;
+      line-height: 1.75;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-image-wrap {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+    }
+    .about-image-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border: 3px solid var(--accent);
+      border-radius: 14px;
+      opacity: 0.3;
+      z-index: 0;
+    }
+    .about-image-wrap img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      border-radius: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .about-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 32px;
+    }
+    .stat {
+      text-align: center;
+      background: var(--bg);
+      border-radius: 8px;
+      padding: 18px 24px;
+      flex: 1;
+      box-shadow: var(--card-shadow);
+    }
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem;
+      color: var(--primary);
+      line-height: 1;
+    }
+    .stat-label { font-size: 0.82rem; color: var(--text-muted); margin-top: 4px; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--bg); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 32px 24px;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border-top: 4px solid var(--accent);
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,0.12); }
+    .service-icon {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+    .service-card h3 {
+      font-size: 1.45rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .service-card p { font-size: 0.93rem; color: #475569; line-height: 1.65; }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials {
+      background: linear-gradient(135deg, var(--primary) 0%, #0f2744 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #testimonials::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 320px;
+      height: 320px;
+      background: rgba(22,163,74,0.12);
+      border-radius: 50%;
+    }
+    #testimonials .section-title { color: var(--white); }
+    #testimonials .section-label { color: #86efac; }
+    #testimonials .section-divider { background: linear-gradient(90deg, #4ade80, #86efac); }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .review-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(6px);
+      border-radius: 10px;
+      padding: 32px 28px;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.2s;
+    }
+    .review-card:hover { transform: translateY(-3px); }
+    .review-stars { color: #fbbf24; font-size: 1.1rem; margin-bottom: 14px; }
+    .review-text {
+      font-size: 0.97rem;
+      color: #cbd5e1;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .reviewer-name { font-weight: 700; font-size: 0.9rem; color: #86efac; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--white); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-top: 48px;
+    }
+    .contact-form-wrap h3 {
+      font-size: 1.6rem;
+      color: var(--primary);
+      margin-bottom: 24px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+      letter-spacing: 0.03em;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 6px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.97rem;
+      color: var(--text);
+      background: var(--bg);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(22,163,74,0.12);
+    }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+    .contact-info { display: flex; flex-direction: column; gap: 28px; }
+    .contact-info h3 {
+      font-size: 1.6rem;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+    .info-block { display: flex; gap: 16px; align-items: flex-start; }
+    .info-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--accent), #22c55e);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(22,163,74,0.3);
+    }
+    .info-text strong {
+      display: block;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+    .info-text span, .info-text a {
+      font-size: 1rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .info-text a:hover { color: var(--accent); }
+    .map-placeholder {
+      margin-top: 28px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+    }
+    .map-placeholder img { width: 100%; display: block; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: linear-gradient(135deg, #0a1929 0%, var(--primary) 100%);
+      color: #94a3b8;
+      padding: 48px 24px 32px;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+    }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: var(--white);
+      letter-spacing: 0.06em;
+    }
+    .footer-logo span { color: #4ade80; }
+    .footer-tagline {
+      font-size: 0.93rem;
+      color: #64748b;
+      max-width: 420px;
+    }
+    .footer-divider {
+      width: 100%;
+      max-width: 300px;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      margin: 8px 0;
+    }
+    .footer-copy { font-size: 0.85rem; color: #475569; }
+    .footer-photo-credit { font-size: 12px; color: #475569; margin-top: 4px; }
+
+    /* ── TRUST CTA BAND ── */
+    .cta-band {
+      background: linear-gradient(135deg, var(--accent) 0%, #15803d 100%);
+      padding: 60px 24px;
+      text-align: center;
+    }
+    .cta-band h2 {
+      font-size: 2.6rem;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .cta-band p {
+      color: rgba(255,255,255,0.85);
+      font-size: 1.05rem;
+      margin-bottom: 32px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-band .btn {
+      background: var(--white);
+      color: var(--accent-dark);
+      border-color: var(--white);
+      font-size: 1.05rem;
+      padding: 16px 40px;
+    }
+    .cta-band .btn:hover { background: #f0fdf4; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      section { padding: 48px 20px; }
+
+      .nav-phone { display: none; }
+      .nav-logo { font-size: 1.25rem; }
+
+      .hero h1 { font-size: 2.8rem; }
+      .hero-sub { font-size: 1rem; }
+      .hero-buttons { flex-direction: column; align-items: center; }
+      .hero-buttons .btn { width: 100%; max-width: 300px; text-align: center; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 36px; }
+      .about-image-wrap img { height: 260px; }
+      .about-stats { gap: 16px; }
+      .stat { padding: 14px 12px; }
+      .stat-number { font-size: 1.8rem; }
+
+      .services-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+
+      .testimonials-grid { grid-template-columns: 1fr; gap: 20px; }
+
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+
+      .section-title { font-size: 2.1rem; }
+
+      .cta-band h2 { font-size: 2rem; }
+
+      .footer-logo { font-size: 1.6rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2.2rem; }
+      .services-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<!-- Already Done claim banner -->
+<style>
+  #ad-claim-banner { position:fixed;top:0;left:0;right:0;z-index:99999;background:#1e3a5f;color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:Arial,sans-serif;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.25); }
+  #ad-claim-banner span { line-height:1.4; }
+  #ad-claim-expiry { color:#93c5fd;font-size:12px;display:block;margin-top:2px; }
+  #ad-claim-btn { background:#f59e0b;color:#1e3a5f;padding:9px 20px;border-radius:5px;text-decoration:none;font-weight:700;white-space:nowrap;font-size:14px;flex-shrink:0; }
+  #ad-claim-btn:hover { background:#fbbf24; }
+  @media(max-width:600px){ #ad-claim-banner{flex-direction:column;text-align:center;padding:12px 16px;} }
+</style>
+<div id="ad-claim-banner">
+  <span>
+    👋 Free preview site built for <strong>Carrick Knowe Pharmacy</strong> by Already Done
+    <small id="ad-claim-expiry">Preview available until 22 May — reply to claim it</small>
+  </span>
+  <a id="ad-claim-btn" href="mailto:dean@alreadydone.uk?subject=I%20want%20my%20website%20%E2%80%94%20Carrick%20Knowe%20Pharmacy&body=Hi%20Dean%2C%0A%0AI've%20seen%20the%20preview%20site%20you%20built%20for%20us%20and%20I'd%20like%20to%20claim%20it.%0A%0ACan%20you%20let%20me%20know%20the%20next%20steps%3F%0A%0AThanks">Claim it for £99 →</a>
+</div>
+<div id="ad-banner-spacer"></div>
+<script>
+(function() {
+  function applyBannerOffset() {
+    var banner = document.getElementById('ad-claim-banner');
+    var spacer = document.getElementById('ad-banner-spacer');
+    if (!banner || !spacer) return;
+    var h = banner.offsetHeight;
+    spacer.style.height = h + 'px';
+    // Push any sticky/fixed navs and headers down so they sit below the banner
+    var candidates = document.querySelectorAll('nav, header, [class*="nav"], [class*="header"]');
+    candidates.forEach(function(el) {
+      if (el.id === 'ad-claim-banner') return;
+      var s = window.getComputedStyle(el);
+      if ((s.position === 'sticky' || s.position === 'fixed') && parseInt(s.top || '0') < 10) {
+        el.style.top = h + 'px';
+      }
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyBannerOffset);
+  } else {
+    applyBannerOffset();
+  }
+  window.addEventListener('resize', applyBannerOffset);
+})();
+</script>
+
+  <!-- ── 1. NAVIGATION ── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Carrick Knowe <span>Pharmacy</span></a>
+      <div class="nav-right">
+        <span class="nav-phone">📞 <strong>0131 334 2087</strong></span>
+        <a href="#contact" class="nav-cta">Get in touch</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── 2. HERO ── -->
+  <section class="hero" id="home">
+    <img
+      src="https://images.pexels.com/photos/5934180/pexels-photo-5934180.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+      alt="Two business professionals exchanging a box labeled 'Support Small Businesses' in a studio setting."
+      class="hero-img"
+    />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Independent Pharmacy · Longstone, Edinburgh</div>
+      <h1>Carrick Knowe Pharmacy</h1>
+      <p class="hero-sub">Trusted local pharmacy care — prescriptions, consultations, and expert advice all under one roof.</p>
+      <p class="hero-location">📍 Saughton Road North, Corstorphine, Edinburgh EH12 7DS</p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary">Get in touch</a>
+        <a href="tel:01313342087" class="btn btn-outline">Call 0131 334 2087</a>
+      </div>
+      <div class="trust-badge">
+        <span class="stars">★★★★★</span>
+        <span>4.6 / 5 &nbsp;·&nbsp; 57 Google Reviews</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3. ABOUT ── -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="section-label">About Us</p>
+          <h2 class="section-title">Your Local Independent Pharmacy</h2>
+          <div class="section-divider"></div>
+          <p>Carrick Knowe Pharmacy has been a cornerstone of the Longstone and Corstorphine community for years, offering the kind of personal, attentive service that only an independent pharmacy can provide — where staff know your name, not just your prescription number.</p>
+          <p>Unlike large chain chemists, we take the time to listen. Whether you have a question about a new medication, need advice on a minor ailment, or want to explore our health services, you'll always speak to a qualified pharmacist who genuinely cares about your wellbeing.</p>
+          <p>Situated on Saughton Road North, we serve the families and residents of Longstone, Corstorphine, Saughton, and the wider Edinburgh EH12 area — proud to be part of this community and committed to keeping it healthy.</p>
+          <div class="about-stats">
+            <div class="stat">
+              <div class="stat-number">4.6★</div>
+              <div class="stat-label">Google Rating</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">57+</div>
+              <div class="stat-label">Reviews</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">EH12</div>
+              <div class="stat-label">Local to You</div>
+            </div>
+          </div>
+        </div>
+        <div class="about-image-wrap">
+          <img
+            src="https://images.pexels.com/photos/5934186/pexels-photo-5934186.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+            alt="Smiling man in corporate attire holding sign promoting support for small businesses."
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4. SERVICES ── -->
+  <section id="services">
+    <div class="container">
+      <p class="section-label">What We Offer</p>
+      <h2 class="section-title">Our Services</h2>
+      <div class="section-divider"></div>
+      <p style="color:#475569; max-width:580px; font-size:1rem;">From dispensing your repeat prescription to same-day consultations, Carrick Knowe Pharmacy provides a full range of healthcare services for the local community.</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">💊</div>
+          <h3>Prescription Dispensing</h3>
+          <p>Fast, accurate dispensing of NHS and private prescriptions. We handle repeat prescriptions and can liaise directly with your GP surgery to save you time.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🩺</div>
+          <h3>Pharmacy Consultations</h3>
+          <p>No appointment needed. Our qualified pharmacists offer free, confidential advice on minor illnesses, medication queries, and health concerns — just walk in.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">💉</div>
+          <h3>Vaccinations & Travel Health</h3>
+          <p>From seasonal flu jabs to travel vaccinations, we provide convenient, clinically administered immunisations to keep you protected all year round.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🛍️</div>
+          <h3>Health & Wellbeing Products</h3>
+          <p>A thoughtfully stocked range of vitamins, skincare, baby products, and OTC medicines — chosen to meet the everyday needs of Edinburgh families.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIALS ── -->
+  <section id="testimonials">
+    <div class="container">
+      <p class="section-label">What Customers Say</p>
+      <h2 class="section-title">Trusted by the Local Community</h2>
+      <div class="section-divider" style="background: linear-gradient(90deg, #4ade80, #86efac);"></div>
+      <div class="testimonials-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris."</p>
+          <span class="reviewer-name">S. M. — Longstone, Edinburgh</span>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."</p>
+          <span class="reviewer-name">A. R. — Corstorphine, Edinburgh</span>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★☆</div>
+          <p class="review-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+          <span class="reviewer-name">P. T. — Saughton, Edinburgh</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA BAND ── -->
+  <div class="cta-band">
+    <div class="container">
+      <h2>Ready to Talk to a Pharmacist?</h2>
+      <p>Walk in anytime or send us a message — we're here to help the Longstone and Corstorphine community stay well.</p>
+      <a href="#contact" class="btn">Get in touch</a>
+    </div>
+  </div>
+
+  <!-- ── 6. CONTACT ── -->
+  <section id="contact">
+    <div class="container">
+      <p class="section-label">Contact Us</p>
+      <h2 class="section-title">Get in Touch</h2>
+      <div class="section-divider"></div>
+      <div class="contact-grid">
+        <div class="contact-form-wrap">
+          <h3>Send Us a Message</h3>
+          <form action="mailto:dean@alreadydone.uk" method="post" enctype="text/plain">
