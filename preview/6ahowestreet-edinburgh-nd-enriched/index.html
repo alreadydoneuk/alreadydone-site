@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6aHoweStreet | Antique Shop in Edinburgh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700;900&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #0f766e;
+      --accent: #0ea5e9;
+      --bg: #f0fdfa;
+      --text: #134e4a;
+      --white: #ffffff;
+      --light: #ccfbf1;
+      --mid: #5eead4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Raleway', sans-serif;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    img { display: block; max-width: 100%; }
+
+    a { color: var(--primary); text-decoration: none; }
+
+    hr.rule {
+      border: none;
+      border-top: 1px solid var(--mid);
+      margin: 0;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      background: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-brand {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900;
+      font-size: 1.3rem;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-phone {
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .nav-phone a { color: var(--text); }
+    .nav-phone a:hover { color: var(--primary); }
+
+    .btn-nav {
+      background: var(--primary);
+      color: var(--white);
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 0.875rem;
+      letter-spacing: 0.03em;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .btn-nav:hover { background: #0d6560; color: var(--white); }
+
+    /* ---- HERO ---- */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://lh3.googleusercontent.com/places/ANXAkqHxjbj8aOo9XVp2EUymjW3BJXz_8HcxASYhaM7YqTmURaDFJd8NBdQpNQWGOT_laVELiIA68V4uw7o1-MYIX6CHfGjiIO7scsE=s4800-h1200');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 24px;
+      width: 100%;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 400;
+      font-size: 0.95rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900;
+      font-size: 5rem;
+      color: var(--white);
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      margin-bottom: 28px;
+      max-width: 700px;
+    }
+
+    .hero-sub {
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 300;
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.88);
+      max-width: 520px;
+      margin-bottom: 36px;
+    }
+
+    .hero-rule {
+      width: 60px;
+      border: none;
+      border-top: 2px solid var(--mid);
+      margin-bottom: 32px;
+    }
+
+    .hero-cta {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--mid);
+      letter-spacing: 0.04em;
+      border-bottom: 2px solid var(--mid);
+      padding-bottom: 3px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .hero-cta:hover { color: var(--white); border-color: var(--white); }
+
+    .trust-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 6px;
+      padding: 8px 16px;
+      margin-bottom: 36px;
+    }
+
+    .trust-badge .stars { color: #fbbf24; font-size: 1rem; letter-spacing: 1px; }
+    .trust-badge .rating-text {
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    /* ---- ABOUT ---- */
+    .section-about {
+      padding: 80px 24px;
+      background: var(--white);
+    }
+
+    .about-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .section-label {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 400;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 14px;
+    }
+
+    .about-text h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--text);
+    }
+
+    .about-text p {
+      font-size: 1.05rem;
+      color: #1e6b63;
+      margin-bottom: 16px;
+    }
+
+    .about-img-wrap {
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+      position: relative;
+    }
+
+    .about-img-wrap img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+    }
+
+    /* ---- SERVICES ---- */
+    .section-services {
+      padding: 80px 24px;
+      background: var(--bg);
+    }
+
+    .section-header {
+      max-width: 1100px;
+      margin: 0 auto 56px;
+    }
+
+    .section-header h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-header p {
+      font-size: 1.05rem;
+      color: #1e6b63;
+      max-width: 520px;
+    }
+
+    .services-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: 6px;
+      padding: 36px 28px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+      border-top: 3px solid var(--primary);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.13);
+    }
+
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+
+    .service-card h3 {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .service-card p {
+      font-size: 0.93rem;
+      color: #1e6b63;
+      line-height: 1.6;
+    }
+
+    /* ---- TESTIMONIALS ---- */
+    .section-testimonials {
+      padding: 80px 24px;
+      background: var(--white);
+    }
+
+    .testimonials-header {
+      max-width: 1100px;
+      margin: 0 auto 56px;
+    }
+
+    .testimonials-header h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .testimonials-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .testimonial-card {
+      background: var(--bg);
+      border-radius: 6px;
+      padding: 36px 28px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .t-stars { color: #fbbf24; font-size: 1.1rem; letter-spacing: 2px; }
+
+    .t-body {
+      font-size: 0.97rem;
+      color: #1e6b63;
+      font-style: italic;
+      flex: 1;
+    }
+
+    .t-author {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--primary);
+    }
+
+    .t-location {
+      font-size: 0.82rem;
+      color: #5eead4;
+      font-weight: 400;
+    }
+
+    /* ---- CONTACT ---- */
+    .section-contact {
+      padding: 80px 24px;
+      background: var(--bg);
+    }
+
+    .contact-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .contact-form-wrap h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .contact-form-wrap .sub {
+      font-size: 1rem;
+      color: #1e6b63;
+      margin-bottom: 36px;
+    }
+
+    .contact-form label {
+      display: block;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      border: 1px solid var(--light);
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 0.97rem;
+      color: var(--text);
+      background: var(--white);
+      margin-bottom: 20px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(15,118,110,0.1);
+    }
+
+    .contact-form textarea { min-height: 140px; resize: vertical; }
+
+    .btn-submit {
+      background: var(--primary);
+      color: var(--white);
+      padding: 13px 32px;
+      border: none;
+      border-radius: 6px;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: background 0.2s;
+    }
+    .btn-submit:hover { background: #0d6560; }
+
+    .contact-details h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .contact-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 20px;
+      font-size: 0.97rem;
+      color: #1e6b63;
+    }
+
+    .contact-info-item .ci-icon {
+      font-size: 1.2rem;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .contact-info-item a { color: var(--primary); font-weight: 600; }
+    .contact-info-item a:hover { text-decoration: underline; }
+
+    .map-wrap {
+      margin-top: 28px;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    }
+
+    .map-wrap img { width: 100%; display: block; }
+
+    .opening-note {
+      background: var(--light);
+      border-left: 3px solid var(--primary);
+      border-radius: 0 6px 6px 0;
+      padding: 14px 18px;
+      font-size: 0.92rem;
+      color: var(--text);
+      margin-top: 20px;
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.75);
+      padding: 48px 24px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .footer-brand {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900;
+      font-size: 1.6rem;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+
+    .footer-tagline {
+      font-size: 0.92rem;
+      color: var(--mid);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+      font-size: 1.1rem;
+      transition: background 0.2s;
+    }
+    .footer-social a:hover { background: var(--primary); }
+
+    .footer-copy {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* SVG Instagram icon */
+    .ig-icon { width: 20px; height: 20px; fill: currentColor; }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      .nav-phone { display: none; }
+      .nav-brand { font-size: 1.1rem; }
+
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+
+      .hero-sub { font-size: 1rem; }
+
+      .about-inner {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .about-img-wrap img { height: 280px; }
+
+      .services-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .service-card { padding: 24px 18px; }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .section-about,
+      .section-services,
+      .section-testimonials,
+      .section-contact {
+        padding: 48px 24px;
+      }
+
+      .section-header { margin-bottom: 36px; }
+      .section-header h2,
+      .about-text h2,
+      .contact-form-wrap h2,
+      .testimonials-header h2 {
+        font-size: 1.7rem;
+      }
+
+      .hero-content { padding: 60px 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2.2rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .btn-nav { padding: 8px 14px; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <span class="nav-brand">6aHoweStreet</span>
+      <div class="nav-right">
+        <span class="nav-phone"><a href="tel:07470453301">07470 453301</a></span>
+        <a href="#contact" class="btn-nav">Get in touch</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Antique Shop, Edinburgh</p>
+      <h1>6aHoweStreet</h1>
+      <div class="trust-badge">
+        <span class="stars">★★★★★</span>
+        <span class="rating-text">5/5 &middot; 7 Google reviews</span>
+      </div>
+      <p class="hero-sub">Family-run antiques, vintage and paintings. Thoughtfully curated pieces for Edinburgh homes, with free local delivery on larger items.</p>
+      <hr class="hero-rule" />
+      <a href="#contact" class="hero-cta">Get in touch</a>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- ABOUT -->
+  <section class="section-about" id="about">
+    <div class="about-inner">
+      <div class="about-text">
+        <p class="section-label">About Us</p>
+        <h2>A passion for beautiful things, rooted in Edinburgh</h2>
+        <p>We are a family-run antique shop based on Howe Street in Edinburgh's New Town, built on a genuine shared love of vintage objects, antique furniture, and original paintings carefully brought together over many years.</p>
+        <p>What sets us apart is the personal touch: every piece in the shop has been hand-picked with care, so you will never find a cluttered, impersonal selection here. We take pride in knowing the story behind what we sell.</p>
+        <p>Based in the heart of Edinburgh and open at weekends, we offer a free delivery service for larger items within the city, making it simple to bring something special home without the hassle.</p>
+      </div>
+      <div class="about-img-wrap">
+        <img src="https://lh3.googleusercontent.com/places/ANXAkqGDIdIBno4pK3SnsntnDUK5JiQjD4hEFgwer_G48ZTkIgch0niIrGd-DHYaNEfyedZA29zKfl32U7E-dwPtSHhJQMUDSkxivuk=s4800-h1200" alt="Business photo" />
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- SERVICES -->
+  <section class="section-services" id="services">
+    <div class="section-header">
+      <p class="section-label">What We Offer</p>
+      <h2>Our specialisms</h2>
+      <p>From fine antiques to original artwork, here is what you will find at 6aHoweStreet on a weekend visit or by prior arrangement.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🪑</div>
+        <h3>Antiques Retail</h3>
+        <p>A considered selection of genuine antique furniture, ceramics, glassware, and decorative objects sourced with an eye for quality and character.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🕰️</div>
+        <h3>Vintage Goods</h3>
+        <p>Charming vintage pieces spanning several decades, ideal for collectors, interior decorators, and anyone who appreciates objects with a history.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🖼️</div>
+        <h3>Paintings</h3>
+        <p>Original paintings and artwork to bring life and warmth to any room. Our selection changes regularly, so every visit brings something new to discover.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🚚</div>
+        <h3>Delivery Service for Large Items</h3>
+        <p>We offer a complimentary delivery service for larger purchases within the Edinburgh area, so you can take home the pieces you love without any extra worry.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- TESTIMONIALS -->
+  <section class="section-testimonials" id="reviews">
+    <div class="testimonials-header">
+      <p class="section-label">Customer Reviews</p>
+      <h2>What people are saying</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-body">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
+        <div>
+          <div class="t-author">J. M.</div>
+          <div class="t-location">Edinburgh</div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-body">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."</p>
+        <div>
+          <div class="t-author">S. B.</div>
+          <div class="t-location">Edinburgh</div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-body">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."</p>
+        <div>
+          <div class="t-author">C. R.</div>
+          <div class="t-location">Edinburgh</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- CONTACT -->
+  <section class="section-contact" id="contact">
+    <div class="contact-inner">
+      <div class="contact-form-wrap">
+        <p class="section-label">Contact</p>
+        <h2>Get in touch</h2>
+        <p class="sub">Have a question about a piece, or want to arrange a visit? Drop us a message and we will get back to you as soon as we can.</p>
+        <form class="contact-form" action="mailto:morganjosephine60@gmail.com" method="post" enctype="text/plain">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="Name" placeholder="Jane Smith" required />
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="Email" placeholder="jane@example.com" required />
+          <label for="message">Message</label>
+          <textarea id="message" name="Message" placeholder="Tell us what you are looking for, or ask us anything at all..."></textarea>
+          <button type="submit" class="btn-submit">Get in touch</button>
+        </form>
+      </div>
+      <div class="contact-details">
+        <p class="section-label">Find Us</p>
+        <h3>Visit the shop</h3>
+        <div class="contact-info-item">
+          <span class="ci-icon">📍</span>
+          <span>6A Howe St, Edinburgh</span>
+        </div>
+        <div class="contact-info-item">
+          <span class="ci-icon">📞</span>
+          <span><a href="tel:07470453301">07470 453301</a></span>
+        </div>
+        <div class="contact-info-item">
+          <span class="ci-icon">🕐</span>
+          <span>Open at weekends. Please call ahead to confirm availability.</span>
+        </div>
+        <div class="opening-note">
+          We are a family-run weekend shop. If you are making a special journey, we recommend calling ahead on <a href="tel:07470453301">07470 453301</a> to confirm we are open.
+        </div>
+        <div class="map-wrap">
+          <img src="https://placehold.co/600x300?text=6A+Howe+St,+Edinburgh" alt="Map showing 6A Howe Street Edinburgh" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">6aHoweStreet</div>
+      <div class="footer-tagline">Family-run antiques, vintage and paintings. Edinburgh.</div>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/6ahowestreet/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg class="ig-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7

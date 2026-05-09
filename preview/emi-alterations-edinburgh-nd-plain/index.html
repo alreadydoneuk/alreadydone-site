@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emi Alterations | Edinburgh Seamstress</title>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #0f766e;
+    --accent: #0ea5e9;
+    --bg: #f0fdfa;
+    --text: #134e4a;
+    --white: #ffffff;
+    --dark: #0d2b28;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito Sans', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    font-size: 1rem;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Raleway', sans-serif;
+    line-height: 1.2;
+  }
+
+  img { display: block; max-width: 100%; }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ===================== NAV ===================== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(13, 43, 40, 0.92);
+    backdrop-filter: blur(8px);
+    padding: 0 40px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: var(--white);
+    letter-spacing: 0.5px;
+  }
+
+  .nav-logo span {
+    color: #5eead4;
+  }
+
+  .nav-cta {
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #5eead4;
+    border: 1.5px solid #5eead4;
+    padding: 8px 20px;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+    letter-spacing: 0.3px;
+  }
+
+  .nav-cta:hover {
+    background: #5eead4;
+    color: var(--dark);
+  }
+
+  /* ===================== HERO ===================== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      160deg,
+      rgba(13,43,40,0.82) 0%,
+      rgba(15,118,110,0.55) 60%,
+      rgba(13,43,40,0.78) 100%
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 120px 24px 80px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 50px;
+    padding: 6px 16px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #a7f3d0;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .hero h1 {
+    font-size: 5rem;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+  }
+
+  .hero-tagline {
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 48px;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    color: var(--white);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 14px 32px;
+    border-radius: 6px;
+    border: 2px solid var(--primary);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.4px;
+  }
+
+  .btn-primary:hover {
+    background: #0d6560;
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 14px 32px;
+    border-radius: 6px;
+    border: 2px solid rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    letter-spacing: 0.4px;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--white);
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-1px);
+  }
+
+  /* Trust badge below hero */
+  .trust-strip {
+    background: var(--dark);
+    padding: 16px 24px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .trust-strip .stars {
+    color: #fbbf24;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+  }
+
+  .trust-strip .trust-text {
+    color: rgba(255,255,255,0.9);
+    font-weight: 700;
+    font-size: 0.95rem;
+    font-family: 'Raleway', sans-serif;
+  }
+
+  .trust-strip .trust-sub {
+    color: rgba(255,255,255,0.55);
+    font-size: 0.82rem;
+    font-weight: 400;
+  }
+
+  /* ===================== SECTIONS ===================== */
+  section {
+    padding: 80px 40px;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .section-intro {
+    font-size: 1.05rem;
+    color: #2d7167;
+    max-width: 540px;
+    margin-bottom: 56px;
+    font-weight: 400;
+  }
+
+  /* ===================== WORK ===================== */
+  #work {
+    background: var(--white);
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .work-card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    background: var(--bg);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .work-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+  }
+
+  .work-card-img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    background: #b2d8d8;
+  }
+
+  .work-card-body {
+    padding: 20px 22px 24px;
+  }
+
+  .work-card-body h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .work-card-body p {
+    font-size: 0.9rem;
+    color: #3d7a74;
+    line-height: 1.6;
+  }
+
+  .work-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--primary);
+    background: #ccfbf1;
+    border-radius: 4px;
+    padding: 3px 10px;
+    margin-bottom: 10px;
+  }
+
+  /* ===================== ABOUT ===================== */
+  #about {
+    background: var(--bg);
+  }
+
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .about-image-wrap {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.13);
+  }
+
+  .about-image-wrap img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .about-image-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(13,43,40,0.35) 100%);
+  }
+
+  .about-text .section-label { margin-bottom: 12px; }
+
+  .about-text h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 24px;
+    color: var(--text);
+  }
+
+  .about-text p {
+    font-size: 1.02rem;
+    color: #2d6e68;
+    margin-bottom: 20px;
+    line-height: 1.8;
+  }
+
+  .about-stat-row {
+    display: flex;
+    gap: 28px;
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid #b2f0e8;
+  }
+
+  .about-stat {
+    text-align: center;
+  }
+
+  .about-stat strong {
+    display: block;
+    font-family: 'Raleway', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--primary);
+  }
+
+  .about-stat span {
+    font-size: 0.82rem;
+    color: #5a9e99;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===================== SERVICES ===================== */
+  #services {
+    background: linear-gradient(135deg, #0d2b28 0%, #0f766e 100%);
+    color: var(--white);
+  }
+
+  #services .section-label {
+    color: #5eead4;
+  }
+
+  #services .section-title {
+    color: var(--white);
+  }
+
+  #services .section-intro {
+    color: rgba(255,255,255,0.7);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .service-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 32px 30px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .service-card:hover {
+    background: rgba(255,255,255,0.12);
+    transform: translateY(-2px);
+  }
+
+  .service-icon {
+    font-size: 2rem;
+    margin-bottom: 16px;
+  }
+
+  .service-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--white);
+  }
+
+  .service-card p {
+    font-size: 0.92rem;
+    color: rgba(255,255,255,0.72);
+    line-height: 1.7;
+  }
+
+  /* ===================== TESTIMONIALS ===================== */
+  #testimonials {
+    background: var(--white);
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .testimonial-card {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 30px 26px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    position: relative;
+    transition: transform 0.2s;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .testimonial-stars {
+    color: #fbbf24;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
+
+  .testimonial-card blockquote {
+    font-size: 0.93rem;
+    color: #2d6e68;
+    line-height: 1.75;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+
+  .testimonial-author {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--primary);
+    font-family: 'Raleway', sans-serif;
+  }
+
+  .testimonial-context {
+    font-size: 0.8rem;
+    color: #5a9e99;
+    font-weight: 400;
+    display: block;
+    margin-top: 3px;
+  }
+
+  .quote-mark {
+    position: absolute;
+    top: 20px;
+    right: 22px;
+    font-size: 3rem;
+    color: #ccfbf1;
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+
+  /* ===================== CONTACT ===================== */
+  #contact {
+    background: var(--bg);
+  }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .contact-info h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    color: var(--text);
+  }
+
+  .contact-info p {
+    font-size: 1rem;
+    color: #2d6e68;
+    margin-bottom: 32px;
+    line-height: 1.75;
+  }
+
+  .contact-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .contact-detail-icon {
+    width: 38px;
+    height: 38px;
+    background: #ccfbf1;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .contact-detail-text strong {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 2px;
+  }
+
+  .contact-detail-text span {
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .cta-mid {
+    text-align: center;
+    padding: 64px 40px;
+    background: linear-gradient(135deg, #ccfbf1 0%, #e0f2fe 100%);
+    margin: 0 -40px;
+  }
+
+  .cta-mid h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+
+  .cta-mid p {
+    color: #2d7167;
+    margin-bottom: 32px;
+    font-size: 1.02rem;
+  }
+
+  form {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 36px 32px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #b2ddd9;
+    border-radius: 6px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    background: var(--bg);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  textarea:focus {
+    border-color: var(--primary);
+    background: var(--white);
+  }
+
+  textarea {
+    height: 130px;
+    resize: vertical;
+  }
+
+  .form-submit {
+    width: 100%;
+    background: var(--primary);
+    color: var(--white);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.4px;
+  }
+
+  .form-submit:hover {
+    background: #0d6560;
+    transform: translateY(-1px);
+  }
+
+  .response-note {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 0.82rem;
+    color: #5a9e99;
+    font-weight: 600;
+  }
+
+  /* MAP */
+  .map-section {
+    padding: 0;
+    background: var(--white);
+  }
+
+  .map-section img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    filter: saturate(0.7);
+  }
+
+  /* ===================== FOOTER ===================== */
+  footer {
+    background: var(--dark);
+    color: rgba(255,255,255,0.7);
+    padding: 40px 40px;
+    text-align: center;
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .footer-logo {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 900;
+    font-size: 1.4rem;
+    color: var(--white);
+  }
+
+  .footer-logo span { color: #5eead4; }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .footer-links a {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.55);
+    transition: color 0.2s;
+    font-weight: 600;
+  }
+
+  .footer-links a:hover {
+    color: #5eead4;
+  }
+
+  .footer-copy {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 768px) {
+    section { padding: 48px 20px; }
+
+    nav { padding: 0 20px; }
+
+    .nav-logo { font-size: 1.1rem; }
+    .nav-cta { font-size: 0.82rem; padding: 7px 14px; }
+
+    .hero h1 { font-size: 2.2rem; letter-spacing: -0.5px; }
+    .hero-tagline { font-size: 1rem; }
+    .hero-content { padding: 100px 20px 60px; }
+    .hero-buttons { flex-direction: column; align-items: center; }
+    .btn-primary, .btn-outline { width: 100%; max-width: 280px; text-align: center; }
+
+    .trust-strip { flex-direction: column; gap: 4px; padding: 14px 20px; }
+
+    .section-title { font-size: 1.75rem; }
+    .section-intro { margin-bottom: 36px; }
+
+    .work-grid { grid-template-columns: 1fr; }
+
+    .about-inner { grid-template-columns: 1fr; gap: 36px; }
+    .about-image-wrap img { height: 300px; }
+    .about-text h2 { font-size: 1.75rem; }
+    .about-stat-row { justify-content: center; }
+
+    .services-grid { grid-template-columns: 1fr; }
+
+    .testimonials-grid { grid-template-columns: 1fr; }
+
+    .contact-inner { grid-template-columns: 1fr; gap: 36px; }
+    .contact-info h2 { font-size: 1.75rem; }
+
+    .cta-mid { padding: 48px 20px; margin: 0 -20px; }
+    .cta-mid h2 { font-size: 1.5rem; }
+
+    form { padding: 24px 20px; }
+
+    footer { padding: 32px 20px; }
+    .footer-links { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ======================== NAV ======================== -->
+<nav>
+  <div class="nav-logo">Emi <span>Alterations</span></div>
+  <a href="#contact" class="nav-cta">Get in touch</a>
+</nav>
+
+<!-- ======================== HERO ======================== -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <img src="https://lh3.googleusercontent.com/places/ANXAkqFFSKKJo79IsnYLtBgcej7pNW-6K5JYTUojFJFEwo6xSXykDVt3qr0WsjCDJL9I8k3Hi9uI1wrZOJGW2sSdIlEAA76GAyou5z8=s4800-h1200" alt="Business photo">
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">Edinburgh Seamstress</div>
+    <h1>Emi Alterations</h1>
+    <p class="hero-tagline">Expert alterations, repairs and custom garment work in Edinburgh. Every stitch placed with care and precision.</p>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn-primary">Start a project</a>
+      <a href="#work" class="btn-outline">See the work</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== TRUST STRIP ======================== -->
+<div class="trust-strip">
+  <span class="stars">★★★★★</span>
+  <span class="trust-text">5/5 &nbsp;·&nbsp; 70 Google Reviews</span>
+  <span class="trust-sub">Verified Edinburgh customers</span>
+</div>
+
+<!-- ======================== WORK ======================== -->
+<section id="work">
+  <div class="container">
+    <div class="section-label">Selected Work</div>
+    <h2 class="section-title">The work speaks for itself.</h2>
+    <p class="section-intro">A sample of recent projects, from everyday repairs to occasion-wear transformations.</p>
+    <div class="work-grid">
+      <div class="work-card">
+        <img class="work-card-img" src="https://placehold.co/600x400/ccfbf1/0f766e?text=Project+1" alt="Bridal gown alteration project">
+        <div class="work-card-body">
+          <span class="work-tag">Bridal</span>
+          <h3>Bridal Gown Fitting</h3>
+          <p>A vintage-style wedding dress taken in and hemmed to a perfect fit for the bride's Edinburgh summer ceremony.</p>
+        </div>
+      </div>
+      <div class="work-card">
+        <img class="work-card-img" src="https://placehold.co/600x400/e0f2fe/0ea5e9?text=Project+2" alt="Suit tailoring project">
+        <div class="work-card-body">
+          <span class="work-tag">Tailoring</span>
+          <h3>Suit Tailoring</h3>
+          <p>Off-the-peg suit jacket and trousers reshaped to fit a client's measurements with hand-finished details throughout.</p>
+        </div>
+      </div>
+      <div class="work-card">
+        <img class="work-card-img" src="https://placehold.co/600x400/fef9c3/b45309?text=Project+3" alt="Garment repair project">
+        <div class="work-card-body">
+          <span class="work-tag">Repair</span>
+          <h3>Garment Restoration</h3>
+          <p>A beloved wool coat with a damaged lining and broken zip brought back to full life, better than the original construction.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== ABOUT ======================== -->
+<section id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-image-wrap">
+        <img src="https://lh3.googleusercontent.com/places/ANXAkqGuhgJQegHRsjDqhk3FI8C-Yx3e5tm0Iphu63XXZhZR2LJCeDCVZ29myEf8F2uGFKXmC5KHoiEsrgLfiWovqIz9mA0q3s1AGi4=s4800-h1080" alt="Business photo">
+      </div>
+      <div class="about-text">
+        <div class="section-label">About Emi</div>
+        <h2>Seamstress based in Edinburgh.</h2>
+        <p>I take on the garments that matter to you, whether that is a wedding dress that needs to fit perfectly, a favourite jacket in need of rescue, or a tailored piece that deserves more than a generic off-the-peg result.</p>
+        <p>My approach is hands-on and straightforward: I listen carefully, I measure properly, and I do not cut until I am certain of the outcome. Precision is not optional in this craft, it is the point.</p>
+        <p>I work from Queensferry Road in Edinburgh and take bookings at weekends as well as through the week, so there is always a slot that fits your schedule.</p>
+        <div class="about-stat-row">
+          <div class="about-stat">
+            <strong>5/5</strong>
+            <span>Google Rating</span>
+          </div>
+          <div class="about-stat">
+            <strong>70+</strong>
+            <span>Happy Clients</span>
+          </div>
+          <div class="about-stat">
+            <strong>7 days</strong>
+            <span>Available</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== SERVICES ======================== -->
+<section id="services">
+  <div class="container">
+    <div class="section-label">What I Offer</div>

@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caliber Interactive Ltd - SEO Consultant in Edinburgh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #0f766e;
+    --accent: #0ea5e9;
+    --bg: #f0fdfa;
+    --text: #134e4a;
+    --white: #ffffff;
+    --light-teal: #ccfbf1;
+    --dark-teal: #0d5e57;
+    --shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Open Sans', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    line-height: 1.7;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Oswald', sans-serif;
+    line-height: 1.2;
+  }
+
+  img { max-width: 100%; display: block; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(15, 118, 110, 0.97);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+  }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+
+  .nav-brand {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .nav-phone {
+    color: var(--light-teal);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .nav-phone:hover { color: var(--white); }
+
+  .btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--white);
+    border-color: var(--accent);
+  }
+
+  .btn-primary:hover {
+    background: #0284c7;
+    border-color: #0284c7;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(14,165,233,0.35);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border-color: rgba(255,255,255,0.7);
+  }
+
+  .btn-outline:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: var(--white);
+    transform: translateY(-1px);
+  }
+
+  .btn-primary-dark {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+  }
+
+  .btn-primary-dark:hover {
+    background: var(--dark-teal);
+    border-color: var(--dark-teal);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(15,118,110,0.35);
+  }
+
+  .btn-nav {
+    padding: 9px 20px;
+    font-size: 0.875rem;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    padding-top: 68px;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://lh3.googleusercontent.com/places/ANXAkqHNYRW0HjBo-QQ5gD7JYzVT09RcD45WIdnYFOaQKXc4lLk04v4azYmPRaOmmtapTc3eOugzbCnVIf5i6Tmqp5mN3m8MIXhtT84=s4800-h1200');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(13, 94, 87, 0.88) 0%,
+      rgba(0, 0, 0, 0.55) 50%,
+      rgba(14, 165, 233, 0.35) 100%
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 860px;
+    padding: 0 24px;
+  }
+
+  .hero-eyebrow {
+    display: inline-block;
+    background: rgba(14,165,233,0.25);
+    border: 1px solid rgba(14,165,233,0.5);
+    color: #bae6fd;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+  }
+
+  .hero-sub {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.88);
+    max-width: 620px;
+    margin: 0 auto 36px;
+    font-weight: 400;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    color: rgba(255,255,255,0.6);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .scroll-arrow {
+    width: 20px;
+    height: 20px;
+    border-right: 2px solid rgba(255,255,255,0.5);
+    border-bottom: 2px solid rgba(255,255,255,0.5);
+    transform: rotate(45deg);
+    animation: bounce 1.6s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: rotate(45deg) translateY(0); }
+    50% { transform: rotate(45deg) translateY(5px); }
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 80px 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .section-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .section-divider {
+    width: 52px;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    border-radius: 2px;
+    margin: 0 auto 40px;
+  }
+
+  .section-divider.left { margin-left: 0; }
+
+  /* ABOUT */
+  .about {
+    background: var(--bg);
+  }
+
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .about-image-wrap {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+  }
+
+  .about-image-wrap img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .about-image-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.15);
+  }
+
+  .about-badge {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    z-index: 2;
+    background: var(--primary);
+    color: var(--white);
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+  }
+
+  .about-text p {
+    font-size: 1.05rem;
+    color: #1f4740;
+    margin-bottom: 20px;
+  }
+
+  .about-features {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .about-feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .feature-icon {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: white;
+    font-size: 0.8rem;
+  }
+
+  /* SERVICES */
+  .services {
+    background: var(--white);
+  }
+
+  .services-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .services-header .section-divider {
+    margin: 0 auto 0;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .service-card {
+    background: var(--white);
+    border: 1px solid #d1fae5;
+    border-radius: 10px;
+    padding: 36px 28px;
+    box-shadow: var(--shadow);
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary), var(--accent));
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(15,118,110,0.15);
+    border-color: #a7f3d0;
+  }
+
+  .service-icon {
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(135deg, #ccfbf1, #bae6fd);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+  }
+
+  .service-card h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .service-card p {
+    font-size: 0.9rem;
+    color: #2d6a63;
+    line-height: 1.65;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials {
+    background: linear-gradient(135deg, #0d5e57 0%, #0f766e 50%, #0369a1 100%);
+    padding: 80px 0;
+  }
+
+  .testimonials .section-label {
+    color: #bae6fd;
+    text-align: center;
+    display: block;
+  }
+
+  .testimonials .section-title {
+    color: var(--white);
+    text-align: center;
+  }
+
+  .testimonials .section-divider {
+    background: linear-gradient(to right, #bae6fd, rgba(255,255,255,0.4));
+    margin: 0 auto 48px;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .testimonial-card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 32px 28px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+    transition: transform 0.25s ease;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .stars {
+    color: #fbbf24;
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+  }
+
+  .testimonial-text {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+
+  .testimonial-author {
+    font-weight: 600;
+    color: #bae6fd;
+    font-size: 0.9rem;
+  }
+
+  .testimonial-author span {
+    display: block;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.55);
+    font-weight: 400;
+    margin-top: 3px;
+  }
+
+  /* CONTACT */
+  .contact {
+    background: var(--bg);
+  }
+
+  .contact-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .contact-form-wrap {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: var(--shadow);
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #d1fae5;
+    border-radius: 6px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    background: var(--bg);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--primary);
+    background: var(--white);
+  }
+
+  .form-group textarea {
+    height: 130px;
+    resize: vertical;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .info-block {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .info-icon {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .info-text h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 0.5px;
+  }
+
+  .info-text p, .info-text a {
+    font-size: 0.95rem;
+    color: #2d6a63;
+    text-decoration: none;
+    line-height: 1.5;
+  }
+
+  .info-text a:hover { color: var(--primary); }
+
+  .map-placeholder {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 2px solid #d1fae5;
+  }
+
+  .map-placeholder img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* CTA BANNER */
+  .cta-banner {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+    padding: 64px 0;
+    text-align: center;
+  }
+
+  .cta-banner h2 {
+    font-size: 2.2rem;
+    color: var(--white);
+    margin-bottom: 14px;
+  }
+
+  .cta-banner p {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 32px;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-white {
+    background: var(--white);
+    color: var(--primary);
+    border-color: var(--white);
+    font-weight: 700;
+  }
+
+  .btn-white:hover {
+    background: var(--light-teal);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+
+  /* FOOTER */
+  footer {
+    background: #0a3d38;
+    padding: 40px 0;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .footer-brand {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .footer-copy {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-links a {
+    color: rgba(255,255,255,0.55);
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--light-teal); }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    section { padding: 48px 0; }
+
+    .nav-phone { display: none; }
+
+    .hero h1 {
+      font-size: 2.2rem;
+    }
+
+    .hero-sub { font-size: 1rem; }
+
+    .about-inner {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+
+    .about-image-wrap img { height: 280px; }
+
+    .services-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .contact-form-wrap { padding: 28px 22px; }
+
+    .footer-inner {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .footer-links { justify-content: center; }
+
+    .section-title { font-size: 1.8rem; }
+
+    .cta-banner h2 { font-size: 1.6rem; }
+
+    .cta-banner { padding: 48px 0; }
+
+    .hero-scroll { display: none; }
+  }
+
+  @media (max-width: 480px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .hero-buttons { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">Caliber Interactive Ltd</a>
+    <div class="nav-right">
+      <a href="tel:01315542333" class="nav-phone">0131 554 2333</a>
+      <a href="#contact" class="btn btn-primary btn-nav">Get in touch</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Edinburgh SEO Specialists</div>
+    <h1>Caliber Interactive Ltd</h1>
+    <p class="hero-sub">Expert SEO consultancy in Bonnington, Edinburgh. We help local and national businesses rank higher, attract more customers, and grow online with clarity and confidence.</p>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+      <a href="#services" class="btn btn-outline">See our services</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    Scroll
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-image-wrap">
+        <img src="https://lh3.googleusercontent.com/places/ANXAkqECwZps4UaURZ4WnDwCLDphi03kZIHP-JR6Tq1DId16m_S1EWBmDkmoymUdHbRm3k7dmJlq535o4YUGoNOZ3tTMg-5Bhm96E7c=s4800-h498" alt="Business photo">
+        <div class="about-badge">Based in Edinburgh</div>
+      </div>
+      <div class="about-text">
+        <span class="section-label">About us</span>
+        <h2 class="section-title">SEO that works for your business</h2>
+        <div class="section-divider left"></div>
+        <p>Caliber Interactive Ltd is an Edinburgh-based SEO consultancy working with businesses across the UK to improve their search visibility, attract targeted traffic, and convert visitors into loyal customers. We bring a focused, analytical approach to every project, combining technical expertise with a genuine understanding of what makes your audience tick.</p>
+        <p>What sets us apart is straightforward advice and measurable results. There are no jargon-heavy reports or vague promises here. We tell you exactly what we are doing, why it matters, and how it is moving the dial for your business.</p>
+        <p>Located at Bonnington Bond in the heart of Edinburgh, we are proud to serve both local Scottish businesses and clients across the UK who need an SEO partner they can trust to get the job done properly.</p>
+        <div class="about-features">
+          <div class="about-feature">
+            <div class="feature-icon">&#10003;</div>
+            Transparent reporting with no hidden jargon
+          </div>
+          <div class="about-feature">
+            <div class="feature-icon">&#10003;</div>
+            Strategies tailored to your market and goals
+          </div>
+          <div class="about-feature">
+            <div class="feature-icon">&#10003;</div>
+            Edinburgh-based team, available when you need us
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="services-header">
+      <span class="section-label">What we do</span>
+      <h2 class="section-title">Our SEO services</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">&#128269;</div>
+        <h3>Technical SEO Audits</h3>
+        <p>A thorough review of your website's technical foundations, from crawlability and site speed to structured data and mobile performance. We identify what is holding you back and give you a clear action plan to fix it.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#128205;</div>
+        <h3>Local SEO</h3>
+        <p>Get found by customers in Edinburgh and beyond. We optimise your Google Business Profile, build local citations, and craft geo-targeted content that puts you on the map for the searches that matter most to your business.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#128203;</div>
+        <h3>SEO Content Strategy</h3>
+        <p>Content that ranks and resonates. We research the keywords your audience is using, plan a content strategy that builds authority in your niche, and help you produce material that drives organic traffic month after month.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#128279;</div>
+        <h3>Link Building</h3>
+        <p>Earn high-quality backlinks from relevant, authoritative sources. Our ethical outreach campaigns strengthen your domain authority and improve your standings in competitive search results without cutting corners.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <span class="section-label">Client feedback</span>
+    <h2 class="section-title" style="text-align:center; margin-bottom:16px;">What our clients say</h2>
+    <div class="section-divider"></div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."</p>
+        <div class="testimonial-author">
+          S. T.
+          <span>Edinburgh</span>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."</p>
+        <div class="testimonial-author">
+          R. M.
+          <span>Glasgow</span>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+        <p class="testimonial-text">"Lorem ipsum dolor sit amet, consectetur adipiscing
