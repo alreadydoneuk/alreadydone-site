@@ -1,0 +1,20 @@
+.env
+node_modules/
+logs/
+screenshots/
+.wrangler/
+
+# Generated prospect site templates (exclude all except the alreadydone.uk site itself)
+sites/*
+!sites/alreadydone.uk
+# Generated prospect preview files inside the main site
+sites/alreadydone.uk/preview/
+
+*.txt
+*.csv
+*.key
+*.pem
+*.json.bak
+images/*.png
+images/*.jpg
+images/*.jpeg

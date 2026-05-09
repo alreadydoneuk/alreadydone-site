@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Payment confirmed | Already Done</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #f5f5f4;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      color: #0f0f0f;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 36px 28px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+    }
+    .tick {
+      width: 64px; height: 64px;
+      background: #dcfce7;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+    }
+    h1 { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 10px; }
+    p { font-size: 15px; color: #6b7280; line-height: 1.6; margin-bottom: 10px; }
+    .steps {
+      text-align: left;
+      background: #f9fafb;
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin: 20px 0;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #374151;
+    }
+    .steps li { list-style: none; display: flex; gap: 10px; align-items: flex-start; margin-bottom: 6px; }
+    .steps li:last-child { margin-bottom: 0; }
+    .step-num { font-weight: 700; color: #2563eb; flex-shrink: 0; width: 18px; }
+    .note { font-size: 13px; color: #6b7280; }
+    a { color: #2563eb; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="tick">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <path d="M8 16l6 6 10-10" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h1>Payment confirmed</h1>
+    <p>Your site is being set up now. Here's what's happening:</p>
+    <ul class="steps">
+      <li><span class="step-num">1</span><span>We're registering your domain and pointing it at your site</span></li>
+      <li><span class="step-num">2</span><span>Everything is being wired up — hosting, SSL, contact form</span></li>
+      <li><span class="step-num">3</span><span>You'll get an email from Dean once it's all live (usually within the hour)</span></li>
+    </ul>
+    <p class="note">Check your inbox — a confirmation email is on its way. Any questions, reply to Dean's email or contact <a href="mailto:dean@alreadydone.uk">dean@alreadydone.uk</a>.</p>
+  </div>
+</body>
+</html>

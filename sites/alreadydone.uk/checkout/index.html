@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claim your website | Already Done</title>
+  <meta name="description" content="Pay once. Your website goes live within the hour.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0f0f0f;
+      --white: #fff;
+      --grey:  #f5f5f4;
+      --mid:   #6b7280;
+      --border:#e5e7eb;
+      --accent:#2563eb;
+      --accent2:#1d4ed8;
+      --green: #16a34a;
+      --green-bg: #dcfce7;
+      --amber: #d97706;
+      --amber-bg: #fef3c7;
+      --bar-h: 72px;
+    }
+
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--black);
+      background: var(--grey);
+      padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom, 0px) + 16px);
+    }
+
+    /* ── Nav ── */
+    nav {
+      background: var(--black);
+      padding: 0 16px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo { color: #fff; font-weight: 800; font-size: 17px; letter-spacing: -0.3px; text-decoration: none; }
+    .nav-preview { color: #9ca3af; font-size: 12px; text-decoration: none; }
+    .nav-preview:hover { color: #fff; }
+
+    /* ── Layout ── */
+    .page { max-width: 560px; margin: 0 auto; padding: 0 12px; }
+
+    /* ── Business name strip ── */
+    .biz-strip {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--mid);
+    }
+    .biz-strip strong { color: var(--black); font-weight: 700; }
+
+    /* ── Section cards ── */
+    .section {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+    .section-head {
+      padding: 14px 16px 0;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .section-title { font-size: 13px; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase; color: var(--mid); }
+    .section-body { padding: 10px 16px 16px; }
+    .section-note { font-size: 12px; color: var(--mid); padding: 0 16px 10px; }
+
+    /* ── Domain cards ── */
+    .domain-loading { padding: 16px; color: var(--mid); font-size: 13px; }
+    .domain-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .domain-option:last-child { border-bottom: none; }
+    .domain-option:active { background: var(--grey); }
+    .domain-option.selected { background: #eff6ff; }
+    .domain-option.unavailable { opacity: 0.45; cursor: default; }
+    .domain-radio {
+      width: 20px; height: 20px;
+      border: 2px solid var(--border);
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.15s;
+    }
+    .domain-option.selected .domain-radio { border-color: var(--accent); }
+    .domain-radio-dot {
+      width: 10px; height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: none;
+    }
+    .domain-option.selected .domain-radio-dot { display: block; }
+    .domain-name { flex: 1; font-weight: 600; font-size: 15px; }
+    .domain-tld-badge { font-size: 11px; font-weight: 600; color: var(--mid); background: var(--grey); padding: 2px 6px; border-radius: 4px; margin-left: 4px; vertical-align: middle; }
+    .domain-tld-badge.popular { background: var(--green-bg); color: var(--green); }
+    .domain-price { font-weight: 700; font-size: 15px; white-space: nowrap; }
+    .domain-unavail-label { font-size: 12px; color: var(--mid); }
+
+    /* ── Tier cards ── */
+    .tier-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.1s;
+    }
+    .tier-option:last-child { border-bottom: none; }
+    .tier-option.selected { background: #eff6ff; }
+    .tier-option:active { background: var(--grey); }
+    .tier-radio { /* same as domain-radio */ width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .tier-option.selected .tier-radio { border-color: var(--accent); }
+    .tier-radio-dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; display: none; }
+    .tier-option.selected .tier-radio-dot { display: block; }
+    .tier-info { flex: 1; }
+    .tier-name { font-weight: 700; font-size: 15px; }
+    .tier-desc { font-size: 13px; color: var(--mid); margin-top: 2px; }
+    .tier-value-note { font-size: 11px; font-weight: 600; color: var(--green); margin-top: 3px; }
+    .tier-price { font-weight: 800; font-size: 17px; white-space: nowrap; }
+
+    /* ── Add-on rows ── */
+    .addon-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.1s;
+    }
+    .addon-row:last-child { border-bottom: none; }
+    .addon-row.checked { background: #eff6ff; }
+    .addon-row.disabled { opacity: 0.4; cursor: default; }
+    .addon-row:not(.disabled):active { background: var(--grey); }
+    .addon-check {
+      width: 22px; height: 22px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+      background: var(--white);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .addon-row.checked .addon-check { border-color: var(--accent); background: var(--accent); }
+    .addon-check svg { display: none; }
+    .addon-row.checked .addon-check svg { display: block; }
+    .addon-info { flex: 1; }
+    .addon-label { font-weight: 600; font-size: 15px; }
+    .addon-sub { font-size: 13px; color: var(--mid); margin-top: 2px; }
+    .addon-price { font-weight: 700; font-size: 15px; white-space: nowrap; text-align: right; }
+    .addon-price small { display: block; font-size: 11px; font-weight: 400; color: var(--mid); }
+
+    /* ── Addon expansion ── */
+    .addon-expand {
+      display: none;
+      padding: 0 16px 16px 50px;
+      border-bottom: 1px solid var(--border);
+      background: var(--grey);
+    }
+    .addon-expand.open { display: block; }
+    .expand-label { font-size: 12px; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 0.3px; margin: 10px 0 6px; }
+    .type-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+    .type-btn {
+      padding: 8px 4px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      background: var(--white);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .type-btn.selected { border-color: var(--accent); background: #eff6ff; color: var(--accent); font-weight: 700; }
+    .edit-level { display: flex; flex-direction: column; gap: 6px; }
+    .edit-opt {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 8px 10px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      background: var(--white);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .edit-opt.selected { border-color: var(--accent); background: #eff6ff; }
+    .edit-opt-radio { width: 16px; height: 16px; border: 2px solid var(--border); border-radius: 50%; flex-shrink: 0; margin-top: 1px; }
+    .edit-opt.selected .edit-opt-radio { border-color: var(--accent); background: var(--accent); box-shadow: inset 0 0 0 2px var(--white); }
+    .edit-opt-text { font-size: 13px; }
+    .edit-opt-text strong { font-weight: 600; display: block; }
+    .edit-opt-text span { color: var(--mid); font-size: 12px; }
+    textarea {
+      width: 100%;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-family: inherit;
+      font-size: 14px;
+      line-height: 1.5;
+      resize: vertical;
+      min-height: 90px;
+      outline: none;
+      background: var(--white);
+    }
+    textarea:focus { border-color: var(--accent); }
+    .upload-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .upload-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border: 1.5px dashed var(--border);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--mid);
+      cursor: pointer;
+      background: var(--white);
+      transition: border-color 0.15s;
+    }
+    .upload-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .upload-btn input { display: none; }
+    .upload-count { font-size: 11px; color: var(--green); font-weight: 600; }
+    .add-page-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 0;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .email-adder { padding: 10px 0 0; }
+    .email-prefix-list { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .email-prefix-row { display: flex; align-items: center; gap: 0; border: 1.5px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--white); }
+    .email-prefix-input { border: none; outline: none; padding: 10px 10px; font-size: 15px; font-family: inherit; width: 110px; color: var(--black); background: transparent; }
+    .email-prefix-at { padding: 0 6px; color: var(--mid); font-size: 14px; white-space: nowrap; }
+    .email-prefix-domain { padding: 10px 10px 10px 0; font-size: 13px; color: var(--mid); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 160px; }
+    .email-count-row { display: flex; align-items: center; gap: 12px; }
+    .count-btn {
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      background: var(--white);
+      font-size: 20px;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--black);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .count-btn:active { background: var(--grey); }
+    .count-btn:disabled { opacity: 0.35; cursor: default; }
+    .count-val { font-weight: 700; font-size: 18px; min-width: 24px; text-align: center; }
+    .email-preview { font-size: 12px; color: var(--mid); margin-top: 6px; }
+    .sample-link { font-size: 12px; color: var(--accent); text-decoration: none; font-weight: 600; }
+    .sample-link:hover { text-decoration: underline; }
+
+    /* ── Sticky bottom bar ── */
+    #pay-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--black);
+      padding: 10px 16px;
+      padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 100;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
+    }
+    .bar-total { color: #fff; }
+    .bar-total-amount { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
+    .bar-total-sub { font-size: 11px; color: #9ca3af; }
+    .bar-pay-btn {
+      flex: 1;
+      padding: 13px 16px;
+      background: var(--accent);
+      color: #fff;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .bar-pay-btn:hover { background: var(--accent2); }
+    .bar-pay-btn:disabled { background: #374151; color: #6b7280; cursor: default; }
+    .bar-pay-btn.loading { background: #374151; }
+
+    /* ── Trust footer ── */
+    .trust-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 16px;
+      font-size: 12px;
+      color: var(--mid);
+      flex-wrap: wrap;
+    }
+    .trust-item { display: flex; align-items: center; gap: 5px; }
+
+    /* ── Utils ── */
+    .mt8 { margin-top: 8px; }
+    .mt12 { margin-top: 12px; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="https://alreadydone.uk">Already Done</a>
+  <a class="nav-preview" id="nav-preview-link" href="#" target="_blank" style="display:none">View your preview →</a>
+</nav>
+
+<div id="biz-strip" class="biz-strip" style="display:none">
+  Getting your site ready…
+</div>
+
+<div class="page">
+
+  <!-- ── DOMAIN ── -->
+  <div class="section" id="section-domain">
+    <div class="section-head">
+      <span class="section-title">Your domain</span>
+    </div>
+    <p class="section-note">We register it for you at cost — no markup. Billed annually. We'll remind you before renewal.</p>
+    <div id="domain-list">
+      <div class="domain-loading">Checking availability…</div>
+    </div>
+  </div>
+
+  <!-- ── SITE TIER ── -->
+  <div class="section" id="section-tier">
+    <div class="section-head">
+      <span class="section-title">Your site</span>
+    </div>
+    <p class="section-note">Your preview is a one-page site. Upgrade if you'd like more.</p>
+    <div>
+      <div class="tier-option selected" data-tier="99" onclick="selectTier(this)">
+        <div class="tier-radio"><div class="tier-radio-dot"></div></div>
+        <div class="tier-info">
+          <div class="tier-name">One-page site</div>
+          <div class="tier-desc">What you've seen in the preview — written copy, contact details, mobile-friendly</div>
+        </div>
+        <div class="tier-price">£99</div>
+      </div>
+      <hr class="divider">
+      <div class="tier-option" data-tier="179" onclick="selectTier(this)">
+        <div class="tier-radio"><div class="tier-radio-dot"></div></div>
+        <div class="tier-info">
+          <div class="tier-name">Multi-page site</div>
+          <div class="tier-desc">Everything above + About page + 1 page of your choice (services, menu, portfolio…)</div>
+          <div class="tier-value-note">★ Best value — 2 extra pages for £80</div>
+        </div>
+        <div class="tier-price">£179</div>
+      </div>
+      <hr class="divider">
+      <div class="tier-option" data-tier="249" onclick="selectTier(this)">
+        <div class="tier-radio"><div class="tier-radio-dot"></div></div>
+        <div class="tier-info">
+          <div class="tier-name">Multi-page + gallery</div>
+          <div class="tier-desc">Everything above + gallery page with up to 20 photos</div>
+        </div>
+        <div class="tier-price">£249</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── EXTRA PAGES ── -->
+  <div class="section" id="section-pages">
+    <div class="section-head">
+      <span class="section-title">Add extra pages</span>
+    </div>
+    <p class="section-note">£50 per page. Each one is custom-written and designed to match your site.</p>
+    <div id="pages-list"></div>
+    <div style="padding: 0 16px 14px;">
+      <button class="add-page-btn" onclick="addPage()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#2563eb" stroke-width="1.5"/><path d="M8 5v6M5 8h6" stroke="#2563eb" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Add a page — £50
+      </button>
+    </div>
+  </div>
+
+  <!-- ── EMAIL ── -->
+  <div class="section" id="section-email">
+    <div class="section-head">
+      <span class="section-title">Business email</span>
+    </div>
+    <p class="section-note" id="email-note">Select a domain above to add a business email address.</p>
+    <div class="addon-row" id="email-addon-row" onclick="toggleEmail()">
+      <div class="addon-check" id="email-check">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="addon-info">
+        <div class="addon-label">Add email to your domain</div>
+        <div class="addon-sub" id="email-example-addr">e.g. hello@yourbusiness.co.uk</div>
+      </div>
+      <div class="addon-price">£24<small>/ year</small></div>
+    </div>
+    <div class="addon-expand" id="email-expand">
+      <div class="expand-label">How many addresses?</div>
+      <div class="email-count-row">
+        <button class="count-btn" id="email-minus" onclick="changeEmailCount(-1)" disabled>−</button>
+        <span class="count-val" id="email-count-val">1</span>
+        <button class="count-btn" id="email-plus" onclick="changeEmailCount(1)">+</button>
+        <span style="font-size:13px;color:var(--mid)">address<span id="email-plural">es</span></span>
+      </div>
+      <div class="email-preview" id="email-cost-line">1st address: £24/yr. Additional: £12/yr each.</div>
+      <div class="email-prefix-list" id="email-prefix-list"></div>
+    </div>
+  </div>
+
+  <!-- ── MONTHLY REPORT ── -->
+  <div class="section" id="section-report">
+    <div class="section-head">
+      <span class="section-title">Monthly intelligence report</span>
+    </div>
+    <p class="section-note">SEO rankings, competitor tracking, review analysis, site health — emailed monthly. Cancel any time.</p>
+    <div class="addon-row" id="report-addon-row" onclick="toggleReport()">
+      <div class="addon-check" id="report-check">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="addon-info">
+        <div class="addon-label">Monthly report add-on</div>
+        <div class="addon-sub">
+          Ranking, reviews, competitors, site errors.
+          <a class="sample-link" href="/report-sample" target="_blank">See a sample →</a>
+        </div>
+      </div>
+      <div class="addon-price">£5<small>/ month</small></div>
+    </div>
+  </div>
+
+  <div class="trust-row">
+    <span class="trust-item">🔒 Stripe-secured</span>
+    <span class="trust-item">⚡ Live within the hour</span>
+    <span class="trust-item">✉️ dean@alreadydone.uk</span>
+  </div>
+
+</div><!-- /page -->
+
+<!-- ── STICKY PAY BAR ── -->
+<div id="pay-bar">
+  <div class="bar-total">
+    <div class="bar-total-amount" id="bar-amount">£99</div>
+    <div class="bar-total-sub" id="bar-sub">today's payment</div>
+  </div>
+  <button class="bar-pay-btn" id="pay-btn" onclick="startCheckout()">Pay now →</button>
+</div>
+
+<!-- PAGE TEMPLATE (cloned per extra page) -->
+<template id="page-template">
+  <div class="page-entry" style="border-top: 1px solid var(--border); padding: 14px 16px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+      <strong style="font-size:14px;">Extra page</strong>
+      <button class="remove-page-btn" onclick="removePage(this)" style="font-size:12px;color:var(--mid);background:none;border:none;cursor:pointer;font-family:inherit;">Remove</button>
+    </div>
+
+    <div class="expand-label">What type of page?</div>
+    <div class="type-grid" style="margin-bottom:10px;">
+      <button class="type-btn" data-type="Services" onclick="selectType(this)">Services</button>
+      <button class="type-btn" data-type="Menu" onclick="selectType(this)">Menu</button>
+      <button class="type-btn" data-type="Gallery" onclick="selectType(this)">Gallery</button>
+      <button class="type-btn" data-type="About" onclick="selectType(this)">About</button>
+      <button class="type-btn" data-type="Portfolio" onclick="selectType(this)">Portfolio</button>
+      <button class="type-btn" data-type="Other" onclick="selectType(this)">Other</button>
+    </div>
+
+    <div class="expand-label">Your copy</div>
+    <div class="edit-level" style="margin-bottom:8px;">
+      <div class="edit-opt selected" data-level="verbatim" onclick="selectEditLevel(this)">
+        <div class="edit-opt-radio"></div>
+        <div class="edit-opt-text">
+          <strong>Use it as-is</strong>
+          <span>We'll lay it out exactly as you write it</span>
+        </div>
+      </div>
+      <div class="edit-opt" data-level="tidy" onclick="selectEditLevel(this)">
+        <div class="edit-opt-radio"></div>
+        <div class="edit-opt-text">
+          <strong>Light edit</strong>
+          <span>Tidy grammar and spelling, keep your voice</span>
+        </div>
+      </div>
+      <div class="edit-opt" data-level="rewrite" onclick="selectEditLevel(this)">
+        <div class="edit-opt-radio"></div>
+        <div class="edit-opt-text">
+          <strong>Full rewrite</strong>
+          <span>Use your notes as a brief — we'll write it for you</span>
+        </div>
+      </div>
+    </div>
+
+    <textarea class="page-copy-input" rows="4" placeholder="Paste your content, describe what you want, or leave notes for us…"></textarea>
+
+    <div class="expand-label mt8">Attachments (optional)</div>
+    <div class="upload-row" style="margin-top:4px;">
+      <label class="upload-btn image-upload-btn">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><circle cx="4.5" cy="6.5" r="1" fill="currentColor"/><path d="M1 10l3-3 2 2 2-2.5L13 10" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Add images
+        <input type="file" accept="image/*" multiple onchange="countFiles(this)">
+      </label>
+      <label class="upload-btn pdf-upload-btn" style="display:none">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1.5" y="1" width="11" height="12" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M4 5h6M4 7.5h6M4 10h4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
+        Menu / PDF
+        <input type="file" accept=".pdf,image/*" onchange="countFiles(this)">
+      </label>
+    </div>
+  </div>
+</template>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────────
+const state = {
+  slug: '',
+  bizName: '',
+  selectedDomain: null,       // { domain, price_gbp, price_usd }
+  domainOptions: [],
+  tier: 99,
+  pages: [],                  // [{ type, edit_level, copy }]
+  emailEnabled: false,
+  emailCount: 1,
+  reportEnabled: false,
+};
+
+// ── Init ───────────────────────────────────────────────────────────────────
+(async function init() {
+  const params = new URLSearchParams(location.search);
+  state.slug = params.get('slug') || '';
+
+  if (state.slug) {
+    const navLink = document.getElementById('nav-preview-link');
+    navLink.href = `https://alreadydone.uk/preview/${state.slug}`;
+    navLink.style.display = '';
+
+    document.getElementById('biz-strip').style.display = '';
+  }
+
+  await loadDomains();
+  updateBar();
+})();
+
+async function loadDomains() {
+  const list = document.getElementById('domain-list');
+  if (!state.slug) {
+    list.innerHTML = '<div class="domain-loading">No site slug — check the link in your email.</div>';
+    return;
+  }
+
+  try {
+    const r = await fetch(`/api/domain-options?slug=${encodeURIComponent(state.slug)}`);
+    const data = await r.json();
+    state.domainOptions = data.options || [];
+    renderDomains(data);
+  } catch {
+    list.innerHTML = '<div class="domain-loading" style="color:#dc2626">Could not check domains — try refreshing.</div>';
+  }
+}
+
+function renderDomains(data) {
+  const list = document.getElementById('domain-list');
+  const strip = document.getElementById('biz-strip');
+
+  if (!data.options?.length) {
+    list.innerHTML = '<div class="domain-loading">No domains available — contact dean@alreadydone.uk</div>';
+    return;
+  }
+
+  const bizName = data.domain_base || state.slug.split('-').slice(0, 3).join(' ');
+  state.bizName = bizName;
+  if (strip) {
+    strip.innerHTML = `Your website for <strong>${titleCase(bizName)}</strong>`;
+    document.title = `${titleCase(bizName)} — Already Done`;
+  }
+
+  updateEmailExample(data.options[0]?.domain || '');
+
+  list.innerHTML = data.options.map((opt, i) => {
+    if (!opt.available) return `
+      <div class="domain-option unavailable">
+        <div class="domain-radio"></div>
+        <div style="flex:1">
+          <div class="domain-name">${esc(opt.domain)} <span class="domain-tld-badge">not available</span></div>
+        </div>
+      </div>`;
+    const popular = opt.tld === '.co.uk';
+    return `
+      <div class="domain-option${i === 0 && opt.available ? ' selected' : ''}" data-idx="${i}" onclick="selectDomain(${i})">
+        <div class="domain-radio"><div class="domain-radio-dot"></div></div>
+        <div style="flex:1">
+          <div class="domain-name">${esc(opt.domain)}${popular ? ' <span class="domain-tld-badge popular">most popular</span>' : ''}</div>
+          <div style="font-size:12px;color:var(--mid)">£${opt.price_gbp}/yr · annual · reminder before renewal</div>
+        </div>
+        <div class="domain-price">£${opt.price_gbp}</div>
+      </div>`;
+  }).join('<hr class="divider">');
+
+  // Auto-select first available
+  const firstAvail = data.options.findIndex(o => o.available);
+  if (firstAvail >= 0) {
+    state.selectedDomain = data.options[firstAvail];
+    updateEmailNote(data.options[firstAvail].domain);
+  }
+
+  updateBar();
+}
+
+function selectDomain(idx) {
+  const opt = state.domainOptions[idx];
+  if (!opt?.available) return;
+  state.selectedDomain = opt;
+
+  document.querySelectorAll('.domain-option').forEach((el, i) => {
+    el.classList.toggle('selected', i === idx);
+  });
+
+  updateEmailNote(opt.domain);
+  updateEmailExample(opt.domain);
+  updateBar();
+}
+
+// ── Tier ───────────────────────────────────────────────────────────────────
+function selectTier(el) {
+  document.querySelectorAll('.tier-option').forEach(t => t.classList.remove('selected'));
+  el.classList.add('selected');
+  state.tier = parseInt(el.dataset.tier);
+  updateBar();
+}
+
+// ── Extra pages ────────────────────────────────────────────────────────────
+let pageCount = 0;
+
+function addPage() {
+  pageCount++;
+  const tmpl = document.getElementById('page-template');
+  const clone = tmpl.content.cloneNode(true);
+  const entry = clone.querySelector('.page-entry');
+  entry.dataset.pageId = pageCount;
+  document.getElementById('pages-list').appendChild(clone);
+  state.pages.push({ id: pageCount, type: '', edit_level: 'verbatim', copy: '' });
+  updateBar();
+}
+
+function removePage(btn) {
+  const entry = btn.closest('.page-entry');
+  const id = parseInt(entry.dataset.pageId);
+  state.pages = state.pages.filter(p => p.id !== id);
+  entry.remove();
+  updateBar();
+}
+
+function selectType(btn) {
+  const entry = btn.closest('.page-entry');
+  const id = parseInt(entry.dataset.pageId);
+  const type = btn.dataset.type;
+
+  entry.querySelectorAll('.type-btn').forEach(b => b.classList.toggle('selected', b === btn));
+  updatePage(id, { type });
+
+  // Show PDF upload only for Menu type
+  const pdfBtn = entry.querySelector('.pdf-upload-btn');
+  if (pdfBtn) pdfBtn.style.display = type === 'Menu' ? '' : 'none';
+}
+
+function selectEditLevel(el) {
+  const entry = el.closest('.page-entry');
+  const id = parseInt(entry.dataset.pageId);
+  entry.querySelectorAll('.edit-opt').forEach(e => e.classList.toggle('selected', e === el));
+  updatePage(id, { edit_level: el.dataset.level });
+}
+
+function updatePage(id, fields) {
+  const page = state.pages.find(p => p.id === id);
+  if (page) Object.assign(page, fields);
+}
+
+function countFiles(input) {
+  const count = input.files?.length || 0;
+  const label = input.closest('.upload-btn');
+  const existing = label.querySelector('.upload-count');
+  if (existing) existing.remove();
+  if (count > 0) {
+    const span = document.createElement('span');
+    span.className = 'upload-count';
+    span.textContent = `${count} selected`;
+    label.appendChild(span);
+  }
+}
+
+// ── Email ──────────────────────────────────────────────────────────────────
+function toggleEmail() {
+  const row = document.getElementById('email-addon-row');
+  if (row.classList.contains('disabled')) return;
+  state.emailEnabled = !state.emailEnabled;
+  row.classList.toggle('checked', state.emailEnabled);
+  document.getElementById('email-check').querySelector('svg').style.display = state.emailEnabled ? '' : 'none';
+  document.getElementById('email-expand').classList.toggle('open', state.emailEnabled);
+  if (state.emailEnabled) renderPrefixInputs();
+  updateBar();
+}
+
+const DEFAULT_PREFIXES = ['info', 'hello', 'contact', 'admin', 'enquiries'];
+
+function changeEmailCount(delta) {
+  state.emailCount = Math.max(1, Math.min(5, state.emailCount + delta));
+  document.getElementById('email-count-val').textContent = state.emailCount;
+  document.getElementById('email-plural').textContent = state.emailCount === 1 ? '' : 'es';
+  document.getElementById('email-minus').disabled = state.emailCount <= 1;
+  document.getElementById('email-plus').disabled = state.emailCount >= 5;
+  updateEmailCostLine();
+  renderPrefixInputs();
+  updateBar();
+}
+
+function renderPrefixInputs() {
+  const list = document.getElementById('email-prefix-list');
+  if (!list) return;
+  const domain = state.selectedDomain?.domain || 'yourdomain.co.uk';
+  const current = getPrefixes();
+
+  list.innerHTML = '';
+  for (let i = 0; i < state.emailCount; i++) {
+    const row = document.createElement('div');
+    row.className = 'email-prefix-row';
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'email-prefix-input';
+    input.placeholder = DEFAULT_PREFIXES[i] || 'email';
+    input.value = current[i] || '';
+    input.maxLength = 30;
+    input.setAttribute('autocomplete', 'off');
+    input.setAttribute('autocapitalize', 'none');
+    const at = document.createElement('span');
+    at.className = 'email-prefix-at';
+    at.textContent = '@';
+    const domainSpan = document.createElement('span');
+    domainSpan.className = 'email-prefix-domain';
+    domainSpan.textContent = domain;
+    row.appendChild(input);
+    row.appendChild(at);
+    row.appendChild(domainSpan);
+    list.appendChild(row);
+  }
+}
+
+function getPrefixes() {
+  const inputs = document.querySelectorAll('#email-prefix-list .email-prefix-input');
+  return Array.from(inputs).map(el => (el.value.trim() || el.placeholder).toLowerCase().replace(/[^a-z0-9._+-]/g, ''));
+}
+
+function updateEmailNote(domain) {
+  const row = document.getElementById('email-addon-row');
+  const note = document.getElementById('email-note');
+  if (domain) {
+    row.classList.remove('disabled');
+    note.textContent = `Professional email on your own domain.`;
+  } else {
+    if (state.emailEnabled) toggleEmail();
+    row.classList.add('disabled');
+    note.textContent = 'Select a domain above to add a business email address.';
+  }
+}
+
+function updateEmailExample(domain) {
+  const el = document.getElementById('email-example-addr');
+  if (el && domain) el.textContent = `e.g. info@${domain}, hello@${domain}`;
+  // Refresh domain labels in prefix input rows
+  document.querySelectorAll('.email-prefix-domain').forEach(span => { span.textContent = domain || 'yourdomain.co.uk'; });
+}
+
+function updateEmailCostLine() {
+  const line = document.getElementById('email-cost-line');
+  if (!line) return;
+  if (state.emailCount <= 1) {
+    line.textContent = '1st address: £24/yr.';
+  } else {
+    const extra = state.emailCount - 1;
+    line.textContent = `1st address: £24/yr. ${extra} extra address${extra > 1 ? 'es' : ''}: £${12 * extra}/yr.`;
+  }
+}
+
+// ── Report ─────────────────────────────────────────────────────────────────
+function toggleReport() {
+  state.reportEnabled = !state.reportEnabled;
+  const row = document.getElementById('report-addon-row');
+  row.classList.toggle('checked', state.reportEnabled);
+  updateBar();
+}
+
+// ── Pricing ────────────────────────────────────────────────────────────────
+function calcTotal() {
+  let oneOff = state.tier;
+  let annual = 0;
+  let monthly = 0;
+
+  if (state.selectedDomain) oneOff += state.selectedDomain.price_gbp;
+  oneOff += state.pages.length * 50;
+
+  if (state.emailEnabled) {
+    annual += 24 + Math.max(0, state.emailCount - 1) * 12;
+  }
+  if (state.reportEnabled) monthly += 5;
+
+  return { oneOff, annual, monthly };
+}
+
+function updateBar() {
+  const { oneOff, annual, monthly } = calcTotal();
+  const btn = document.getElementById('pay-btn');
+  const amountEl = document.getElementById('bar-amount');
+  const subEl = document.getElementById('bar-sub');
+
+  amountEl.textContent = `£${oneOff.toFixed(2).replace('.00', '')}`;
+
+  const parts = [];
+  if (annual > 0) parts.push(`+£${annual}/yr from yr 2`);
+  if (monthly > 0) parts.push(`+£${monthly}/mo report`);
+  subEl.textContent = parts.length ? `today · ${parts.join(', ')}` : 'today\'s payment';
+
+  const ready = state.selectedDomain !== null;
+  btn.disabled = !ready;
+  btn.textContent = ready ? `Pay £${oneOff.toFixed(2).replace('.00', '')} →` : 'Choose a domain to continue';
+}
+
+// ── Checkout ───────────────────────────────────────────────────────────────
+async function startCheckout() {
+  const btn = document.getElementById('pay-btn');
+  if (btn.disabled || btn.classList.contains('loading')) return;
+
+  btn.classList.add('loading');
+  btn.textContent = 'Preparing checkout…';
+
+  // Collect page copy from textareas
+  document.querySelectorAll('.page-entry').forEach(entry => {
+    const id = parseInt(entry.dataset.pageId);
+    const page = state.pages.find(p => p.id === id);
+    if (page) {
+      page.copy = entry.querySelector('.page-copy-input')?.value || '';
+    }
+  });
+
+  try {
+    const res = await fetch('/api/create-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        slug: state.slug,
+        tier: state.tier,
+        domain: state.selectedDomain?.domain,
+        domain_price_gbp: state.selectedDomain?.price_gbp,
+        domain_price_usd: state.selectedDomain?.price_usd,
+        pages: state.pages,
+        email_count: state.emailEnabled ? state.emailCount : 0,
+        email_prefixes: state.emailEnabled ? getPrefixes() : [],
+        include_report: state.reportEnabled,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert(data.error || 'Something went wrong — please try again or email dean@alreadydone.uk');
+      btn.classList.remove('loading');
+      updateBar();
+    }
+  } catch {
+    alert('Connection error — please try again.');
+    btn.classList.remove('loading');
+    updateBar();
+  }
+}
+
+// ── Utils ──────────────────────────────────────────────────────────────────
+function esc(s) {
+  return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function titleCase(s) {
+  return (s || '').replace(/\b\w/g, c => c.toUpperCase());
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About | Already Done</title>
+  <meta name="description" content="Already Done builds websites for local businesses who haven't got round to it yet. Find out who's behind it and why.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0f0f0f;
+      --white:   #ffffff;
+      --grey:    #f5f5f4;
+      --mid:     #6b7280;
+      --accent:  #2563eb;
+      --accent2: #1d4ed8;
+      --border:  #e5e7eb;
+    }
+
+    body { font-family: 'Inter', system-ui, sans-serif; font-size: 17px; line-height: 1.6; color: var(--black); background: var(--white); }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px; height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-weight: 800; font-size: 18px; letter-spacing: -0.5px; text-decoration: none; color: var(--black); }
+    .nav-cta {
+      background: var(--accent); color: var(--white);
+      padding: 8px 18px; border-radius: 6px;
+      font-size: 14px; font-weight: 600; text-decoration: none;
+      transition: background 0.15s;
+    }
+    .nav-cta:hover { background: var(--accent2); }
+
+    main { max-width: 720px; margin: 0 auto; padding: 72px 24px 96px; }
+
+    .page-tag {
+      display: inline-block;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 900; letter-spacing: -1.5px; line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .lead {
+      font-size: 19px; color: #374151; line-height: 1.65;
+      margin-bottom: 56px; max-width: 600px;
+    }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+    h2 {
+      font-size: 22px; font-weight: 800; letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+
+    p { font-size: 16px; color: #374151; line-height: 1.75; margin-bottom: 18px; }
+    p:last-child { margin-bottom: 0; }
+
+    .values-list { list-style: none; display: grid; gap: 24px; margin-top: 4px; }
+    .values-list li {
+      padding: 24px;
+      background: var(--grey);
+      border-radius: 10px;
+    }
+    .values-list li strong {
+      display: block; font-size: 16px; font-weight: 700;
+      color: var(--black); margin-bottom: 6px;
+    }
+    .values-list li span { font-size: 15px; color: #4b5563; line-height: 1.65; }
+
+    .env-note {
+      background: #f0fdf4; border: 1px solid #bbf7d0;
+      border-radius: 10px; padding: 24px; margin-top: 24px;
+    }
+    .env-note p { color: #166534; font-size: 15px; margin-bottom: 8px; }
+    .env-note p:last-child { margin-bottom: 0; }
+    .env-note a { color: #166534; font-weight: 600; }
+
+    .cta-strip {
+      margin-top: 56px;
+      background: var(--black); color: var(--white);
+      border-radius: 16px; padding: 40px 48px;
+      display: flex; align-items: center; justify-content: space-between; gap: 32px;
+      flex-wrap: wrap;
+    }
+    .cta-strip p { font-size: 18px; font-weight: 700; color: var(--white); margin: 0; letter-spacing: -0.3px; }
+    .cta-strip a {
+      background: var(--accent); color: var(--white);
+      padding: 14px 28px; border-radius: 8px;
+      font-size: 16px; font-weight: 700; text-decoration: none;
+      white-space: nowrap; transition: background 0.15s; flex-shrink: 0;
+    }
+    .cta-strip a:hover { background: var(--accent2); }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px; text-align: center;
+      font-size: 14px; color: var(--mid);
+    }
+    footer a { color: var(--mid); text-decoration: none; }
+    footer a:hover { color: var(--black); }
+    .footer-legal { margin-top: 10px; font-size: 13px; }
+    .footer-legal a { margin: 0 6px; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Already Done</a>
+  <a href="/#contact" class="nav-cta">Get in touch</a>
+</nav>
+
+<main>
+  <div class="page-tag">About</div>
+  <h1>We build websites for small businesses who haven't got round to it yet.</h1>
+  <p class="lead">Most small businesses in the UK are brilliant at what they do. Fixing boilers. Cutting hair. Laying patios. But most of them don't have a website, and that means customers who could find them, can't. Already Done exists to fix that.</p>
+
+  <h2>How it works</h2>
+  <p>We find local businesses with no online presence. We build them a professional one-page website, without being asked. Then we offer it to them for £99.</p>
+  <p>If they want it, great. If not, no hard feelings.</p>
+  <p>No sales calls. No lengthy briefs. No months of back and forth. The site is already done. You are just deciding whether to take it.</p>
+
+  <hr class="divider">
+
+  <h2>What we believe</h2>
+  <ul class="values-list">
+    <li>
+      <strong>Small businesses deserve a real online presence.</strong>
+      <span>Not a Facebook page. Not a Google Maps listing with no photos. A proper website that works on mobile, loads fast, and tells people what they need to know.</span>
+    </li>
+    <li>
+      <strong>Done is better than perfect.</strong>
+      <span>The best website is one that actually exists. We build clean, fast, honest sites. No bloat. No fluff. No WordPress plugins that break every six months.</span>
+    </li>
+    <li>
+      <strong>We work at the pace of the internet, not the pace of agencies.</strong>
+      <span>Traditional web agencies quote thousands and take months. We turn a site around in minutes. Same quality, far fewer overheads.</span>
+    </li>
+    <li>
+      <strong>Automation should create value, not extract it.</strong>
+      <span>We use technology to make this affordable. We pass those savings on: £99 for something that should cost £500–1,000 elsewhere.</span>
+    </li>
+  </ul>
+
+  <hr class="divider">
+
+  <h2>Our environmental commitment</h2>
+  <p>For every website we build and deliver, we plant one tree. We publish a quarterly report showing sites built and trees planted.</p>
+  <div class="env-note">
+    <p>We're committed to carbon-neutral operations and documenting the journey openly.</p>
+    <p><a href="/values">Read our full Ethical &amp; Environmental Policy →</a></p>
+  </div>
+
+  <hr class="divider">
+
+  <h2>Who's behind this</h2>
+  <p>Already Done is a one-person operation. My name is Dean. I'm a developer based in Scotland. I built this because I kept walking past brilliant local businesses with no website and thought: I could fix that.</p>
+  <p>Every site is generated using AI tools and checked before it goes out. The emails come from me. The support comes from me. If something goes wrong, I sort it.</p>
+
+  <div class="cta-strip">
+    <p>Ready to get your site live?</p>
+    <a href="/#contact">Get in touch →</a>
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 Already Done · <a href="mailto:dean@alreadydone.uk">dean@alreadydone.uk</a> · Edinburgh, Scotland</p>
+  <p class="footer-legal">
+    <a href="/privacy">Privacy Policy</a> ·
+    <a href="/terms">Terms &amp; Conditions</a> ·
+    <a href="/acceptable-use">Acceptable Use</a> ·
+    <a href="/values">Values &amp; Ethics</a>
+  </p>
+</footer>
+
+</body>
+</html>

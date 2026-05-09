@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin | Already Done</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0f0f0f; --white: #fff; --grey: #f5f5f4;
+      --mid: #6b7280; --border: #e5e7eb;
+      --accent: #2563eb; --green: #16a34a; --red: #dc2626; --amber: #d97706;
+    }
+    body { font-family: 'Inter', system-ui, sans-serif; font-size: 14px; background: var(--grey); color: var(--black); min-height: 100vh; }
+    nav { background: #0f0f0f; color: #fff; padding: 0 24px; height: 52px; display: flex; align-items: center; gap: 16px; }
+    nav span { font-weight: 700; font-size: 16px; letter-spacing: -0.3px; }
+    nav small { color: #9ca3af; font-size: 12px; }
+    #auth-screen { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 52px); }
+    .auth-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 32px; width: 320px; }
+    .auth-card h2 { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
+    .auth-card input { width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 14px; font-family: inherit; outline: none; }
+    .auth-card input:focus { border-color: var(--accent); }
+    .auth-card button { width: 100%; margin-top: 12px; padding: 10px; background: var(--accent); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
+    .auth-card button:hover { background: #1d4ed8; }
+    .auth-error { color: var(--red); font-size: 12px; margin-top: 8px; }
+    #dashboard { display: none; padding: 24px; max-width: 1200px; margin: 0 auto; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
+    .stat { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+    .stat-label { font-size: 11px; font-weight: 600; letter-spacing: 0.5px; color: var(--mid); text-transform: uppercase; margin-bottom: 6px; }
+    .stat-value { font-size: 28px; font-weight: 800; letter-spacing: -1px; line-height: 1; }
+    .stat-value.green { color: var(--green); }
+    .stat-value.amber { color: var(--amber); }
+    .stat-sub { font-size: 11px; color: var(--mid); margin-top: 4px; }
+    .section { margin-bottom: 28px; }
+    .section-title { font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 12px; }
+    .table-wrap { background: #fff; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; }
+    th { font-size: 11px; font-weight: 600; letter-spacing: 0.3px; color: var(--mid); text-transform: uppercase; padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    td { padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafafa; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+    .badge-blue { background: #dbeafe; color: #1e40af; }
+    .badge-green { background: #dcfce7; color: #15803d; }
+    .badge-amber { background: #fef3c7; color: #b45309; }
+    .badge-red { background: #fee2e2; color: #991b1b; }
+    .badge-grey { background: #f3f4f6; color: #374151; }
+    .link { color: var(--accent); text-decoration: none; font-weight: 500; }
+    .link:hover { text-decoration: underline; }
+    .muted { color: var(--mid); }
+    .empty { padding: 24px; text-align: center; color: var(--mid); font-size: 13px; }
+    .refresh-btn { background: none; border: 1px solid var(--border); border-radius: 6px; padding: 5px 12px; font-size: 12px; cursor: pointer; color: var(--mid); font-family: inherit; float: right; margin-top: -2px; }
+    .refresh-btn:hover { background: var(--grey); }
+    .updated { font-size: 11px; color: var(--mid); margin-bottom: 16px; }
+    @media (max-width: 700px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } #dashboard { padding: 16px; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span>Already Done</span>
+  <small id="nav-updated"></small>
+</nav>
+
+<div id="auth-screen">
+  <div class="auth-card">
+    <h2>Admin</h2>
+    <input type="password" id="token-input" placeholder="Admin token" autocomplete="current-password">
+    <button onclick="login()">Sign in</button>
+    <div class="auth-error" id="auth-error"></div>
+  </div>
+</div>
+
+<div id="dashboard">
+  <div class="stats-grid" id="stats-grid"></div>
+
+  <div class="section">
+    <div class="section-title">
+      Revenue & Paying Customers
+      <button class="refresh-btn" onclick="loadData()">↻ Refresh</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Business</th>
+            <th>Domain</th>
+            <th>Status</th>
+            <th>Paid at</th>
+            <th>Delivered at</th>
+          </tr>
+        </thead>
+        <tbody id="paying-table"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Preview Sites — In Pipeline</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Business</th>
+            <th>Status</th>
+            <th>Sentiment</th>
+            <th>Emailed</th>
+            <th>Preview</th>
+          </tr>
+        </thead>
+        <tbody id="preview-table"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Recent Activity (30 events)</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>When</th>
+            <th>Type</th>
+            <th>Direction</th>
+            <th>Summary</th>
+          </tr>
+        </thead>
+        <tbody id="activity-table"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+const TOKEN_KEY = 'ad_admin_token';
+let savedToken = localStorage.getItem(TOKEN_KEY) || '';
+
+document.getElementById('token-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') login();
+});
+
+if (savedToken) login(savedToken);
+
+async function login(token) {
+  token = token || document.getElementById('token-input').value.trim();
+  if (!token) return;
+
+  const result = await fetchData(token);
+  if (result.error) {
+    document.getElementById('auth-error').textContent = 'Invalid token';
+    localStorage.removeItem(TOKEN_KEY);
+    return;
+  }
+
+  localStorage.setItem(TOKEN_KEY, token);
+  savedToken = token;
+  document.getElementById('auth-screen').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  render(result);
+}
+
+async function loadData() {
+  if (!savedToken) return;
+  const result = await fetchData(savedToken);
+  if (!result.error) render(result);
+}
+
+async function fetchData(token) {
+  try {
+    const res = await fetch(`/api/admin-data?token=${encodeURIComponent(token)}`);
+    return await res.json();
+  } catch (e) {
+    return { error: e.message };
+  }
+}
+
+function render(data) {
+  const ts = data.generated_at ? new Date(data.generated_at).toLocaleString('en-GB') : '';
+  document.getElementById('nav-updated').textContent = `Last updated ${ts}`;
+
+  // Stats
+  const pc = data.pipeline_counts || {};
+  const previewCount = (data.previews || []).length;
+  const positiveCount = pc.replied_positive || 0;
+  const payingCount = (data.paying || []).length;
+  const gross = data.revenue?.gross_gbp || 0;
+
+  const stats = [
+    { label: 'Gross Revenue', value: `£${gross}`, cls: gross > 0 ? 'green' : '', sub: `${payingCount} customer${payingCount !== 1 ? 's' : ''}` },
+    { label: 'Preview Sites', value: previewCount, sub: 'in pipeline' },
+    { label: 'Positive Replies', value: positiveCount, cls: positiveCount > 0 ? 'amber' : '', sub: 'awaiting payment' },
+    { label: 'Emailed', value: pc.emailed || 0, sub: 'outreach sent' },
+    { label: 'Follow-ups', value: pc.follow_up_sent || 0, sub: 'sent' },
+    { label: 'Researched', value: pc.researched || 0, sub: 'ready to build' },
+    { label: 'Templates Built', value: pc.template_built || 0, sub: 'ready to send' },
+    { label: 'Delivered', value: data.revenue?.total_delivered || 0, cls: (data.revenue?.total_delivered || 0) > 0 ? 'green' : '', sub: 'sites live' },
+  ];
+
+  document.getElementById('stats-grid').innerHTML = stats.map(s => `
+    <div class="stat">
+      <div class="stat-label">${s.label}</div>
+      <div class="stat-value ${s.cls || ''}">${s.value}</div>
+      ${s.sub ? `<div class="stat-sub">${s.sub}</div>` : ''}
+    </div>
+  `).join('');
+
+  // Paying customers
+  const payingTbody = document.getElementById('paying-table');
+  if (!data.paying?.length) {
+    payingTbody.innerHTML = '<tr><td colspan="5" class="empty">No paying customers yet</td></tr>';
+  } else {
+    payingTbody.innerHTML = data.paying.map(b => `
+      <tr>
+        <td><strong>${esc(b.name)}</strong><br><span class="muted">${esc(b.category)} · ${esc(b.location)}</span></td>
+        <td>${b.registered_domain ? `<a class="link" href="https://${b.registered_domain}" target="_blank">${b.registered_domain}</a>` : '<span class="muted">—</span>'}</td>
+        <td><span class="badge ${statusBadge(b.pipeline_status)}">${b.pipeline_status}</span></td>
+        <td>${b.paid_at ? fmtDate(b.paid_at) : '<span class="muted">—</span>'}</td>
+        <td>${b.delivered_at ? fmtDate(b.delivered_at) : '<span class="muted">—</span>'}</td>
+      </tr>
+    `).join('');
+  }
+
+  // Preview sites
+  const previewTbody = document.getElementById('preview-table');
+  if (!data.previews?.length) {
+    previewTbody.innerHTML = '<tr><td colspan="5" class="empty">No preview sites in pipeline</td></tr>';
+  } else {
+    previewTbody.innerHTML = data.previews.map(b => `
+      <tr>
+        <td><strong>${esc(b.name)}</strong><br><span class="muted">${esc(b.category)} · ${esc(b.location)}</span></td>
+        <td><span class="badge ${statusBadge(b.pipeline_status)}">${b.pipeline_status}</span></td>
+        <td>${sentimentBadge(b.response_sentiment)}</td>
+        <td>${b.emailed_at ? fmtDate(b.emailed_at) : '<span class="muted">—</span>'}</td>
+        <td>${b.preview_url ? `<a class="link" href="${esc(b.preview_url)}" target="_blank">View →</a>` : '<span class="muted">—</span>'}</td>
+      </tr>
+    `).join('');
+  }
+
+  // Activity
+  const activityTbody = document.getElementById('activity-table');
+  if (!data.recent_interactions?.length) {
+    activityTbody.innerHTML = '<tr><td colspan="4" class="empty">No recent activity</td></tr>';
+  } else {
+    activityTbody.innerHTML = data.recent_interactions.map(i => `
+      <tr>
+        <td class="muted" style="white-space:nowrap">${fmtDate(i.created_at)}</td>
+        <td>${esc(i.type)}</td>
+        <td>${i.direction === 'inbound' ? '↙ in' : '↗ out'}</td>
+        <td class="muted">${esc((i.content_summary || '').slice(0, 80))}</td>
+      </tr>
+    `).join('');
+  }
+}
+
+function statusBadge(status) {
+  const map = {
+    delivered: 'badge-green', paid: 'badge-green', delivering: 'badge-green',
+    replied_positive: 'badge-amber',
+    replied_negative: 'badge-red', replied_neutral: 'badge-grey',
+    emailed: 'badge-blue', follow_up_sent: 'badge-blue',
+    template_built: 'badge-grey',
+  };
+  return map[status] || 'badge-grey';
+}
+
+function sentimentBadge(s) {
+  if (!s) return '<span class="muted">—</span>';
+  const map = { positive: 'badge-green', negative: 'badge-red', neutral: 'badge-grey' };
+  return `<span class="badge ${map[s] || 'badge-grey'}">${s}</span>`;
+}
+
+function fmtDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+}
+
+function esc(s) {
+  return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+
+</body>
+</html>

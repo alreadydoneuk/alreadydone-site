@@ -1,0 +1,6 @@
+name = "alreadydone-uk"
+pages_build_output_dir = "."
+
+# Environment variables are set in the Cloudflare Pages dashboard:
+# SUPABASE_URL, SUPABASE_SERVICE_KEY, STRIPE_WEBHOOK_SECRET, STRIPE_SECRET_KEY,
+# SLACK_REVENUE, SLACK_PIPELINE, ADMIN_TOKEN
