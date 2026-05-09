@@ -3,189 +3,251 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Paul D Shapero Painter &amp; Decorator | Pilton Edinburgh</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<title>Paul D Shapero Painter & Decorator | Pilton Edinburgh</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #1e3a5f;
+    --accent: #38bdf8;
+    --bg: #f0f9ff;
+    --text: #0f172a;
+    --white: #ffffff;
+    --light-blue: #e0f2fe;
+    --muted: #64748b;
+    --shadow: 0 2px 16px rgba(0,0,0,0.08);
+    --radius: 10px;
+  }
 
   html { scroll-behavior: smooth; }
 
   body {
     font-family: 'Source Sans 3', sans-serif;
-    background-color: #f0f9ff;
-    color: #0f172a;
-    line-height: 1.6;
+    background-color: var(--bg);
+    color: var(--text);
+    font-size: 17px;
+    line-height: 1.65;
   }
 
   h1, h2, h3, h4 {
     font-family: 'Montserrat', sans-serif;
+    line-height: 1.2;
   }
 
-  a { text-decoration: none; color: inherit; }
+  a { color: inherit; text-decoration: none; }
 
-  img { max-width: 100%; display: block; }
+  img { display: block; max-width: 100%; }
 
-  /* ===== NAVIGATION ===== */
+  .container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+    border: none;
+  }
+  .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  .btn-accent {
+    background-color: var(--accent);
+    color: var(--primary);
+  }
+
+  .btn-white {
+    background-color: var(--white);
+    color: var(--primary);
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 2px solid var(--white);
+    color: var(--white);
+  }
+
+  /* ===== NAV ===== */
   nav {
-    background: #1e3a5f;
+    background: var(--primary);
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.18);
   }
 
   .nav-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 14px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 16px 24px;
+    max-width: 1140px;
+    margin: 0 auto;
     gap: 16px;
-    flex-wrap: wrap;
   }
 
   .nav-brand {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
+    font-weight: 800;
     font-size: 1.05rem;
-    color: #fff;
-    line-height: 1.3;
+    color: var(--white);
+    flex-shrink: 0;
   }
 
   .nav-brand span {
-    display: block;
-    font-size: 0.78rem;
-    font-weight: 400;
-    color: #38bdf8;
-    letter-spacing: 0.04em;
+    color: var(--accent);
   }
 
   .nav-right {
     display: flex;
     align-items: center;
     gap: 20px;
-    flex-wrap: wrap;
   }
 
   .nav-phone {
-    color: #38bdf8;
+    color: var(--light-blue);
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
-    font-size: 1rem;
-  }
-
-  .btn {
-    display: inline-block;
-    padding: 11px 24px;
-    border-radius: 6px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: filter 0.2s, transform 0.15s;
-    border: none;
-  }
-
-  .btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
-
-  .btn-accent {
-    background: #38bdf8;
-    color: #0f172a;
-  }
-
-  .btn-white {
-    background: #fff;
-    color: #1e3a5f;
-  }
-
-  .btn-outline {
-    background: transparent;
-    border: 2px solid #38bdf8;
-    color: #38bdf8;
+    font-size: 0.95rem;
   }
 
   /* ===== HERO ===== */
   .hero {
     position: relative;
-    min-height: 560px;
+    background: linear-gradient(135deg, #1e3a5f 0%, #0c2340 60%, #1a4a7a 100%);
+    overflow: hidden;
+    min-height: 580px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .hero-img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    z-index: 0;
-  }
-
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(30,58,95,0.88) 0%, rgba(30,58,95,0.65) 60%, rgba(56,189,248,0.18) 100%);
-    z-index: 1;
   }
 
   .hero-banner-strip {
-    position: relative;
-    z-index: 2;
-    background: linear-gradient(90deg, #1e3a5f 70%, #38bdf8 100%);
-    padding: 10px 0;
+    background: var(--accent);
+    padding: 8px 24px;
     text-align: center;
   }
 
   .hero-banner-strip p {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    color: #38bdf8;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--primary);
+    letter-spacing: 0.05em;
     text-transform: uppercase;
   }
 
+  .hero-body {
+    display: flex;
+    align-items: stretch;
+    flex: 1;
+  }
+
   .hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 80px 24px;
-    width: 100%;
-  }
-
-  .hero-content h1 {
-    font-size: 3.6rem;
-    font-weight: 800;
-    color: #fff;
-    line-height: 1.1;
-    max-width: 780px;
-    margin-bottom: 20px;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.35);
-  }
-
-  .hero-content .hero-sub {
-    font-size: 1.2rem;
-    color: #bae6fd;
+    flex: 1;
+    padding: 64px 40px 64px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     max-width: 600px;
-    margin-bottom: 12px;
-    font-family: 'Source Sans 3', sans-serif;
   }
 
-  .hero-phone-display {
+  .hero-image-col {
+    flex: 0 0 45%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-image-col img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.85;
+  }
+
+  .hero-image-col::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, #1e3a5f 0%, transparent 40%);
+  }
+
+  .hero-wrapper {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    flex: 1;
+  }
+
+  .trust-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(56,189,248,0.15);
+    border: 1.5px solid var(--accent);
+    border-radius: 50px;
+    padding: 6px 16px;
+    margin-bottom: 24px;
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.8rem;
+    font-size: 0.85rem;
     font-weight: 700;
-    color: #38bdf8;
-    margin-bottom: 30px;
-    display: block;
-    text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+    color: var(--accent);
+    width: fit-content;
+  }
+
+  .trust-badge .stars { color: #fbbf24; }
+
+  .hero h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 3.5rem;
+    color: var(--white);
+    margin-bottom: 12px;
+    line-height: 1.1;
+  }
+
+  .hero-tagline {
+    font-size: 1.15rem;
+    color: var(--light-blue);
+    margin-bottom: 28px;
+    font-weight: 500;
+  }
+
+  .hero-differentiators {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+
+  .diff-chip {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 50px;
+    padding: 5px 14px;
+    font-size: 0.87rem;
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+  }
+
+  .hero-phone-large {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin-top: 24px;
   }
 
   .hero-ctas {
@@ -195,87 +257,48 @@
     flex-wrap: wrap;
   }
 
-  .hero-ctas .call-link {
-    color: #bae6fd;
+  .call-link {
+    color: var(--light-blue);
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
-    font-size: 1rem;
-    border-bottom: 1px solid #38bdf8;
-    padding-bottom: 2px;
-    transition: color 0.2s;
-  }
-
-  .hero-ctas .call-link:hover { color: #38bdf8; }
-
-  .trust-badge {
-    margin-top: 32px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(56,189,248,0.4);
-    border-radius: 8px;
-    padding: 10px 18px;
-    backdrop-filter: blur(4px);
-  }
-
-  .trust-badge .stars {
-    color: #fbbf24;
-    font-size: 1.1rem;
-    letter-spacing: 2px;
-  }
-
-  .trust-badge .trust-text {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
     font-size: 0.95rem;
-    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .call-link:hover { color: var(--white); }
+
+  /* ===== SECTION HEADINGS ===== */
+  .section-heading {
+    text-align: center;
+    margin-bottom: 56px;
   }
 
-  .trust-badge .trust-sub {
-    font-size: 0.8rem;
-    color: #bae6fd;
-    font-family: 'Source Sans 3', sans-serif;
+  .section-heading h2 {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 12px;
   }
 
-  /* ===== SECTIONS SHARED ===== */
-  section {
-    padding: 80px 24px;
-  }
-
-  .section-inner {
-    max-width: 1200px;
+  .section-heading p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 560px;
     margin: 0 auto;
   }
 
-  .section-label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #38bdf8;
-    margin-bottom: 8px;
-  }
-
-  .section-title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2rem;
-    font-weight: 800;
-    color: #1e3a5f;
-    margin-bottom: 14px;
-  }
-
-  .section-intro {
-    font-size: 1.05rem;
-    color: #334155;
-    max-width: 600px;
-    margin-bottom: 48px;
+  .section-heading .underline-bar {
+    width: 56px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin: 12px auto 0;
   }
 
   /* ===== SERVICES ===== */
-  #services {
-    background: #fff;
+  .services-section {
+    padding: 80px 0;
+    background: var(--white);
   }
 
   .services-grid {
@@ -285,109 +308,121 @@
   }
 
   .service-card {
-    background: #f0f9ff;
-    border-radius: 10px;
+    background: var(--bg);
+    border-radius: var(--radius);
     padding: 32px 24px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-    border-top: 4px solid #38bdf8;
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--accent);
     transition: transform 0.2s, box-shadow 0.2s;
   }
 
   .service-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 28px rgba(30,58,95,0.13);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.12);
   }
 
   .service-icon {
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, #1e3a5f, #38bdf8);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 18px;
-    font-size: 1.4rem;
+    font-size: 2.2rem;
+    margin-bottom: 16px;
   }
 
   .service-card h3 {
     font-size: 1.1rem;
     font-weight: 700;
-    color: #1e3a5f;
+    color: var(--primary);
     margin-bottom: 10px;
   }
 
   .service-card p {
     font-size: 0.95rem;
-    color: #475569;
+    color: var(--muted);
     line-height: 1.6;
   }
 
   /* ===== ABOUT ===== */
-  #about {
-    background: #f0f9ff;
+  .about-section {
+    padding: 80px 0;
+    background: var(--bg);
   }
 
-  .about-grid {
+  .about-inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    gap: 56px;
     align-items: center;
   }
 
-  .about-img-wrap {
-    border-radius: 12px;
+  .about-image {
+    border-radius: var(--radius);
     overflow: hidden;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.13);
     position: relative;
   }
 
-  .about-img-wrap img {
+  .about-image img {
     width: 100%;
     height: 420px;
     object-fit: cover;
-    display: block;
+    object-position: center;
   }
 
-  .about-badge {
+  .about-image-badge {
     position: absolute;
     bottom: 20px;
     left: 20px;
-    background: #1e3a5f;
-    color: #fff;
-    padding: 12px 18px;
+    background: var(--primary);
+    color: var(--white);
+    padding: 12px 20px;
     border-radius: 8px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
   }
 
-  .about-badge span {
+  .about-image-badge span {
+    color: var(--accent);
+    font-size: 1.4rem;
     display: block;
-    font-size: 0.75rem;
-    font-weight: 400;
-    color: #38bdf8;
+  }
+
+  .about-text h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 20px;
   }
 
   .about-text p {
-    font-size: 1.05rem;
     color: #334155;
     margin-bottom: 18px;
-    line-height: 1.75;
+    font-size: 1.05rem;
   }
 
-  .about-cta {
-    margin-top: 28px;
+  .about-highlight {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--light-blue);
+    border-left: 4px solid var(--accent);
+    border-radius: 6px;
+    padding: 14px 20px;
+    margin-top: 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 0.95rem;
   }
 
   /* ===== WHY CHOOSE US ===== */
-  #why {
-    background: linear-gradient(135deg, #1e3a5f 0%, #0e2442 100%);
+  .why-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #1e3a5f 0%, #0c2340 100%);
   }
 
-  #why .section-title { color: #fff; }
-  #why .section-label { color: #38bdf8; }
-  #why .section-intro { color: #bae6fd; }
+  .why-section .section-heading h2 { color: var(--white); }
+  .why-section .section-heading p { color: var(--light-blue); }
 
   .why-grid {
     display: grid;
@@ -397,41 +432,38 @@
 
   .why-card {
     background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(56,189,248,0.25);
-    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: var(--radius);
     padding: 36px 28px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.15);
     text-align: center;
+    box-shadow: var(--shadow);
     transition: background 0.2s;
   }
 
-  .why-card:hover {
-    background: rgba(56,189,248,0.1);
-  }
+  .why-card:hover { background: rgba(255,255,255,0.12); }
 
   .why-icon {
-    font-size: 2.4rem;
+    font-size: 2.6rem;
     margin-bottom: 18px;
-    display: block;
   }
 
   .why-card h3 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 700;
-    color: #38bdf8;
+    color: var(--accent);
     margin-bottom: 10px;
   }
 
   .why-card p {
+    color: #cbd5e1;
     font-size: 0.95rem;
-    color: #bae6fd;
     line-height: 1.6;
   }
 
   /* ===== TESTIMONIALS ===== */
-  #testimonials {
-    background: #fff;
+  .testimonials-section {
+    padding: 80px 0;
+    background: var(--white);
   }
 
   .testimonials-grid {
@@ -441,22 +473,21 @@
   }
 
   .testimonial-card {
-    background: #f0f9ff;
-    border-radius: 10px;
-    padding: 32px 26px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    box-shadow: var(--shadow);
     position: relative;
-    border-left: 4px solid #38bdf8;
+    border-bottom: 3px solid var(--accent);
   }
 
-  .testimonial-card .stars {
+  .testimonial-stars {
     color: #fbbf24;
-    font-size: 1.05rem;
-    letter-spacing: 2px;
+    font-size: 1.1rem;
     margin-bottom: 14px;
   }
 
-  .testimonial-card blockquote {
+  .testimonial-body {
     font-size: 0.97rem;
     color: #334155;
     line-height: 1.7;
@@ -464,259 +495,287 @@
     font-style: italic;
   }
 
-  .testimonial-card .reviewer {
+  .testimonial-author {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-size: 0.88rem;
-    color: #1e3a5f;
+    color: var(--primary);
+    font-size: 0.9rem;
   }
 
-  .testimonial-card .reviewer span {
-    font-weight: 400;
-    color: #64748b;
+  .testimonial-location {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-top: 2px;
   }
 
   .quote-mark {
+    font-size: 4rem;
+    color: var(--accent);
+    opacity: 0.25;
     position: absolute;
-    top: 20px;
-    right: 22px;
-    font-size: 3.5rem;
-    color: #e0f2fe;
+    top: 12px;
+    right: 20px;
     font-family: Georgia, serif;
     line-height: 1;
   }
 
-  /* ===== CONTACT ===== */
-  #contact {
-    background: #f0f9ff;
+  /* ===== CTA STRIP ===== */
+  .cta-strip {
+    background: linear-gradient(90deg, var(--accent) 0%, #0ea5e9 100%);
+    padding: 56px 0;
+    text-align: center;
   }
 
-  .contact-grid {
+  .cta-strip h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 10px;
+  }
+
+  .cta-strip p {
+    color: #0c4a6e;
+    font-size: 1.05rem;
+    margin-bottom: 28px;
+  }
+
+  /* ===== CONTACT ===== */
+  .contact-section {
+    padding: 80px 0;
+    background: var(--bg);
+  }
+
+  .contact-inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 48px;
+    gap: 56px;
     align-items: start;
   }
 
   .contact-form-card {
-    background: #fff;
-    border-radius: 12px;
+    background: var(--white);
+    border-radius: var(--radius);
     padding: 40px 36px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    box-shadow: var(--shadow);
   }
 
   .contact-form-card h3 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 700;
-    color: #1e3a5f;
+    color: var(--primary);
     margin-bottom: 24px;
   }
 
   .form-group {
-    margin-bottom: 18px;
+    margin-bottom: 20px;
   }
 
   .form-group label {
     display: block;
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.85rem;
     font-weight: 600;
-    color: #1e3a5f;
+    font-size: 0.88rem;
+    color: var(--primary);
     margin-bottom: 6px;
   }
 
   .form-group input,
   .form-group textarea {
     width: 100%;
-    padding: 12px 14px;
+    padding: 12px 16px;
     border: 1.5px solid #cbd5e1;
     border-radius: 6px;
     font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.97rem;
-    color: #0f172a;
-    background: #f8fafc;
+    font-size: 1rem;
+    color: var(--text);
+    background: var(--bg);
     transition: border-color 0.2s;
     outline: none;
   }
 
   .form-group input:focus,
   .form-group textarea:focus {
-    border-color: #38bdf8;
-    background: #fff;
+    border-color: var(--accent);
+    background: var(--white);
   }
 
-  .form-group textarea { resize: vertical; min-height: 110px; }
-
-  .form-submit { margin-top: 8px; width: 100%; padding: 14px; font-size: 1rem; }
-
-  .contact-info {
-    padding-top: 8px;
-  }
+  .form-group textarea { height: 110px; resize: vertical; }
 
   .contact-info h3 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 700;
-    color: #1e3a5f;
+    color: var(--primary);
     margin-bottom: 24px;
   }
 
   .contact-detail {
     display: flex;
-    align-items: flex-start;
     gap: 16px;
+    align-items: flex-start;
     margin-bottom: 24px;
+    padding: 20px;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
   }
 
   .contact-detail-icon {
-    width: 44px;
-    height: 44px;
-    background: linear-gradient(135deg, #1e3a5f, #38bdf8);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
+    font-size: 1.6rem;
     flex-shrink: 0;
+    margin-top: 2px;
   }
 
   .contact-detail-text strong {
     display: block;
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.85rem;
     font-weight: 700;
-    color: #1e3a5f;
-    margin-bottom: 2px;
+    color: var(--primary);
+    font-size: 0.9rem;
+    margin-bottom: 3px;
   }
 
-  .contact-detail-text p {
-    font-size: 0.97rem;
+  .contact-detail-text span {
     color: #334155;
+    font-size: 0.97rem;
   }
 
-  .contact-detail-text a {
-    color: #1e3a5f;
-    font-weight: 600;
-    transition: color 0.2s;
-  }
-
-  .contact-detail-text a:hover { color: #38bdf8; }
-
-  .contact-map {
-    margin-top: 28px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-  }
-
-  .contact-map img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px;
-  }
-
-  .weekend-note {
-    margin-top: 24px;
-    background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
-    border: 1px solid #bae6fd;
-    border-radius: 8px;
-    padding: 16px 18px;
-    font-size: 0.92rem;
-    color: #1e3a5f;
-    font-family: 'Source Sans 3', sans-serif;
-  }
-
-  .weekend-note strong {
+  .contact-phone-big {
     font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: var(--primary);
+  }
+
+  .weekend-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #dcfce7;
+    border: 1.5px solid #4ade80;
+    border-radius: 50px;
+    padding: 6px 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+    color: #166534;
+    margin-top: 16px;
+  }
+
+  .map-placeholder {
+    margin-top: 24px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+
+  .map-placeholder img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: var(--radius);
   }
 
   /* ===== FOOTER ===== */
   footer {
-    background: #0e2442;
-    padding: 40px 24px;
+    background: var(--primary);
     color: #94a3b8;
+    padding: 48px 0 28px;
   }
 
   .footer-inner {
-    max-width: 1200px;
-    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+
+  .footer-brand h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .footer-brand h3 span { color: var(--accent); }
+
+  .footer-brand p {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: #94a3b8;
+  }
+
+  .footer-col h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--white);
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+  }
+
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 8px; font-size: 0.9rem; }
+  .footer-col ul li a { color: #94a3b8; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--accent); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 12px;
   }
 
-  .footer-brand {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    color: #fff;
-    margin-bottom: 4px;
-  }
-
-  .footer-sub {
-    font-size: 0.82rem;
+  .footer-bottom p {
+    font-size: 0.85rem;
     color: #64748b;
-    margin-top: 2px;
-  }
-
-  .footer-right {
-    text-align: right;
-  }
-
-  .footer-right p {
-    font-size: 0.82rem;
-    color: #64748b;
-    margin-bottom: 4px;
   }
 
   .photo-credit {
     font-size: 12px;
     color: #475569;
-    margin-top: 8px;
-  }
-
-  /* ===== DIVIDER ===== */
-  .divider {
-    width: 60px;
-    height: 4px;
-    background: linear-gradient(90deg, #38bdf8, #1e3a5f);
-    border-radius: 2px;
-    margin-bottom: 24px;
   }
 
   /* ===== MOBILE ===== */
   @media (max-width: 768px) {
-    section { padding: 48px 18px; }
+    .nav-phone { display: none; }
+    .nav-brand { font-size: 0.92rem; }
+    .btn { padding: 12px 22px; font-size: 0.9rem; }
 
-    .nav-inner { padding: 12px 18px; gap: 10px; }
-    .nav-phone { font-size: 0.9rem; }
-    .btn { padding: 10px 18px; font-size: 0.85rem; }
+    .hero-image-col { display: none; }
+    .hero-wrapper { flex-direction: column; }
+    .hero-content { padding: 48px 0 48px 0; max-width: 100%; }
+    .hero h1 { font-size: 2.2rem; }
+    .hero-tagline { font-size: 1rem; }
+    .hero-phone-large { font-size: 1.25rem; }
 
-    .hero-content { padding: 48px 18px; }
-    .hero-content h1 { font-size: 2.2rem; }
-    .hero-content .hero-sub { font-size: 1rem; }
-    .hero-phone-display { font-size: 1.35rem; }
-
+    .services-section { padding: 48px 0; }
     .services-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
-    .about-grid { grid-template-columns: 1fr; gap: 32px; }
-    .about-img-wrap img { height: 280px; }
-    .why-grid { grid-template-columns: 1fr; gap: 18px; }
-    .testimonials-grid { grid-template-columns: 1fr; gap: 18px; }
-    .contact-grid { grid-template-columns: 1fr; gap: 32px; }
-    .contact-form-card { padding: 28px 20px; }
-    .footer-inner { flex-direction: column; align-items: flex-start; }
-    .footer-right { text-align: left; }
-    .section-title { font-size: 1.6rem; }
-    .trust-badge { flex-wrap: wrap; }
-  }
 
-  @media (max-width: 480px) {
-    .services-grid { grid-template-columns: 1fr; }
-    .nav-right { gap: 10px; }
+    .about-section { padding: 48px 0; }
+    .about-inner { grid-template-columns: 1fr; gap: 32px; }
+    .about-image img { height: 300px; }
+    .about-text h2 { font-size: 1.7rem; }
+
+    .why-section { padding: 48px 0; }
+    .why-grid { grid-template-columns: 1fr; gap: 20px; }
+
+    .testimonials-section { padding: 48px 0; }
+    .testimonials-grid { grid-template-columns: 1fr; gap: 20px; }
+
+    .cta-strip { padding: 40px 0; }
+    .cta-strip h2 { font-size: 1.5rem; }
+
+    .contact-section { padding: 48px 0; }
+    .contact-inner { grid-template-columns: 1fr; gap: 32px; }
+    .contact-form-card { padding: 28px 20px; }
+
+    .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+
+    .section-heading { margin-bottom: 36px; }
+    .section-heading h2 { font-size: 1.7rem; }
   }
 </style>
 </head>
@@ -725,117 +784,92 @@
 <!-- ===== NAVIGATION ===== -->
 <nav>
   <div class="nav-inner">
-    <div class="nav-brand">
-      Paul D Shapero Painter &amp; Decorator
-      <span>Pilton, Edinburgh</span>
-    </div>
+    <div class="nav-brand">Paul D Shapero <span>Painter &amp; Decorator</span></div>
     <div class="nav-right">
-      <a class="nav-phone" href="tel:07932493007">07932 493007</a>
-      <a class="btn btn-accent" href="#contact">Get a free quote</a>
+      <a href="tel:07932493007" class="nav-phone">07932 493007</a>
+      <a href="#contact" class="btn btn-accent">Get a free quote</a>
     </div>
   </div>
 </nav>
 
 <!-- ===== HERO ===== -->
-<section class="hero" style="padding:0;">
-  <img class="hero-img" src="https://images.pexels.com/photos/8092/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Close-up of a construction worker with hammer and tools, focused on the job.">
-  <div class="hero-overlay"></div>
+<section class="hero">
   <div class="hero-banner-strip">
-    <p>Serving Pilton, Edinburgh and surrounding areas</p>
+    <p>Serving Pilton, Edinburgh and surrounding areas. Weekend appointments available.</p>
   </div>
-  <div class="hero-content">
-    <h1>Paul D Shapero Painter &amp; Decorator</h1>
-    <p class="hero-sub">Quality painting and decorating in Pilton, Edinburgh and surrounding areas. Meticulous finishes, honest pricing, and a decorator you can rely on to turn up and do the job right.</p>
-    <a class="hero-phone-display" href="tel:07932493007">07932 493007</a>
-    <div class="hero-ctas">
-      <a class="btn btn-accent" href="#contact">Get a free quote</a>
-      <a class="call-link" href="tel:07932493007">Call us now</a>
-    </div>
-    <div class="trust-badge">
-      <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-      <div>
-        <div class="trust-text">5/5 Google Rating</div>
-        <div class="trust-sub">10 verified Google reviews</div>
+  <div class="hero-body">
+    <div class="hero-wrapper">
+      <div class="hero-content">
+        <div class="trust-badge">
+          <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          5/5 &middot; 10 Google reviews
+        </div>
+        <h1>Paul D Shapero Painter &amp; Decorator</h1>
+        <p class="hero-tagline">Quality painter and decorator work in Pilton Edinburgh and surrounding areas. Reliable, neat, and finished to the highest standard every time.</p>
+        <div class="hero-differentiators">
+          <span class="diff-chip">Local Edinburgh Expert</span>
+          <span class="diff-chip">Weekend Appointments</span>
+          <span class="diff-chip">Free Quotes</span>
+          <span class="diff-chip">Fully Insured</span>
+        </div>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn-accent">Get a free quote</a>
+          <a href="tel:07932493007" class="call-link">Call 07932 493007</a>
+        </div>
+        <div class="hero-phone-large">&#128222; 07932 493007</div>
+      </div>
+      <div class="hero-image-col">
+        <img src="https://lh3.googleusercontent.com/places/ANXAkqHiLfq5Enj9o9qZ3CD4nmhE6f2x4_1gY4BAl1Z8SROQMxSX_ZEvZ_recJZ8OSNoXhCChXhe__7Zhzd4kRUtQzC4oiW_2XN80lM=s4800-h480" alt="Business photo">
       </div>
     </div>
   </div>
 </section>
 
 <!-- ===== SERVICES ===== -->
-<section id="services">
-  <div class="section-inner">
-    <p class="section-label">What we do</p>
-    <h2 class="section-title">Our Services</h2>
-    <div class="divider"></div>
-    <p class="section-intro">From refreshing a single room to transforming an entire property, Paul offers a full range of interior and exterior decorating services across Edinburgh.</p>
+<section class="services-section" id="services">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Our Services</h2>
+      <p>Professional painting and decorating services for homes and businesses across Edinburgh.</p>
+      <div class="underline-bar"></div>
+    </div>
     <div class="services-grid">
       <div class="service-card">
         <div class="service-icon">&#127968;</div>
         <h3>Interior Painting</h3>
-        <p>Walls, ceilings, woodwork, and feature walls finished to a high standard, with careful preparation that makes the difference you can see and feel.</p>
+        <p>Flawless interior painting for living rooms, bedrooms, kitchens, and hallways, with careful preparation and a clean finish every time.</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">&#127970;</div>
+        <div class="service-icon">&#127963;</div>
         <h3>Exterior Painting</h3>
-        <p>Weather-resistant exterior coatings and paintwork to protect and refresh your home's outside, keeping it looking smart through Edinburgh's seasons.</p>
+        <p>Weather-resistant exterior coatings that protect and refresh the outside of your home, using quality paints suited to the Scottish climate.</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">&#127749;</div>
-        <h3>Wallpaper Hanging</h3>
-        <p>Precise wallpaper fitting for all paper types, including feature walls and full room installs, with seams aligned and surfaces properly prepared first.</p>
+        <div class="service-icon">&#127775;</div>
+        <h3>Wallpapering</h3>
+        <p>Expert wallpaper hanging, including feature walls, full-room wallpapering, and lining, with precision pattern matching and bubble-free results.</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">&#128296;</div>
-        <h3>Decorating Maintenance</h3>
-        <p>Ongoing maintenance painting, touch-up work, and small-scale decorating jobs to keep your home or rental property looking its best throughout the year.</p>
+        <div class="service-icon">&#128736;</div>
+        <h3>Surface Preparation</h3>
+        <p>Thorough filling, sanding, and priming to ensure surfaces are perfectly ready, making the finished paintwork last longer and look better.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ===== ABOUT ===== -->
-<section id="about">
-  <div class="section-inner">
-    <div class="about-grid">
-      <div class="about-img-wrap">
-        <img src="https://images.pexels.com/photos/8961401/pexels-photo-8961401.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="A construction worker using a power drill on a building site, outdoors during the day.">
-        <div class="about-badge">
-          Based in Edinburgh
-          <span>Pilton and surrounding areas</span>
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-image">
+        <img src="https://lh3.googleusercontent.com/places/ANXAkqFESALXpIbw-2D59yb8tOkTyAU99aPIn6_lXFT0FHqJxVpvUvIsbJASZoNZcxzn1IHe2c6_py68CaltcmaahjVpVDOS56SbOZQ=s4800-h683" alt="Business photo">
+        <div class="about-image-badge">
+          <span>5&#9733;</span>
+          Rated in Edinburgh
         </div>
       </div>
       <div class="about-text">
-        <p class="section-label">About Paul</p>
-        <h2 class="section-title">A decorator you can trust</h2>
-        <div class="divider"></div>
-        <p>Paul D Shapero is an experienced, Edinburgh-based painter and decorator who has built a strong reputation across Pilton and the wider city for delivering consistently high-quality workmanship at fair, transparent prices.</p>
-        <p>With years of hands-on experience covering everything from domestic interiors to exterior property work, Paul brings attention to detail and a professional attitude to every job, whether it is a single bedroom refresh or a complete whole-house redecoration.</p>
-        <p>What sets Paul apart is a genuine commitment to getting the job done properly: surfaces are always fully prepared, materials are chosen carefully, and every project is treated with the same care and respect as if it were his own home. Weekend availability means work can fit around your schedule, not just Paul's.</p>
-        <div class="about-cta">
-          <a class="btn btn-accent" href="#contact">Get a free quote</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== WHY CHOOSE US ===== -->
-<section id="why">
-  <div class="section-inner">
-    <p class="section-label">Why choose Paul</p>
-    <h2 class="section-title">Quality, reliability, and peace of mind</h2>
-    <div class="divider" style="background: linear-gradient(90deg,#38bdf8,#bae6fd);"></div>
-    <p class="section-intro">Three reasons why Edinburgh homeowners trust Paul D Shapero with their homes.</p>
-    <div class="why-grid">
-      <div class="why-card">
-        <span class="why-icon">&#127942;</span>
-        <h3>Skilled and Experienced Tradesperson</h3>
-        <p>Paul is a skilled, experienced decorator with a proven track record across Edinburgh. His 5/5 Google rating across 10 verified reviews reflects the consistent quality he delivers on every project.</p>
-      </div>
-      <div class="why-card">
-        <span class="why-icon">&#128737;</span>
-        <h3>Fully Insured</h3>
-        <p>All work is carried out with full public liability insurance in place, giving you complete peace of mind that your home and belongings are protected throughout the job.</p>
-      </div>
-      <div class="why-card">
-        <span class="why-
+        <h2>About Paul D Shapero</h2>
+        <p>Paul D Shapero is a skilled, experienced painter and decorator based in Pilton, Edinburgh, with a well-established reputation for delivering high-quality results to homeowners and businesses throughout the city.</p>
+        <p>With years of hands-on experience working across Edinburgh and the surrounding areas, Paul brings local knowledge, attention to

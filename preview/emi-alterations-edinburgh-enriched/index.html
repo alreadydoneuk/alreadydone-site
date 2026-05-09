@@ -1,878 +1,864 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Emi Alterations | Clothing Repairs & Alterations | Edinburgh</title>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --primary: #0f766e;
-    --accent: #0ea5e9;
-    --bg: #f0fdfa;
-    --text: #134e4a;
-    --white: #ffffff;
-    --light-teal: #ccfbf1;
-    --dark-hero: #0d1f1e;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Nunito Sans', sans-serif;
-    color: var(--text);
-    background: var(--bg);
-    line-height: 1.7;
-  }
-
-  h1, h2, h3, h4 {
-    font-family: 'Raleway', sans-serif;
-    line-height: 1.2;
-  }
-
-  img { max-width: 100%; display: block; }
-
-  a { color: inherit; text-decoration: none; }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    background: rgba(13, 31, 30, 0.92);
-    backdrop-filter: blur(8px);
-    padding: 18px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .nav-logo {
-    font-family: 'Raleway', sans-serif;
-    font-weight: 900;
-    font-size: 1.25rem;
-    color: var(--white);
-    letter-spacing: 0.02em;
-  }
-
-  .nav-logo span { color: #5eead4; }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    list-style: none;
-  }
-
-  .nav-links a {
-    color: rgba(255,255,255,0.85);
-    font-size: 0.95rem;
-    font-weight: 600;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover { color: #5eead4; }
-
-  .nav-cta {
-    background: var(--primary);
-    color: var(--white) !important;
-    padding: 10px 22px;
-    border-radius: 6px;
-    transition: background 0.2s !important;
-  }
-
-  .nav-cta:hover { background: #0ea5e9 !important; color: var(--white) !important; }
-
-  /* ── HERO ── */
-  .hero {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    z-index: 0;
-  }
-
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(13,31,30,0.88) 0%, rgba(15,118,110,0.72) 60%, rgba(14,165,233,0.45) 100%);
-    z-index: 1;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 120px 24px 80px;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.25);
-    color: #a7f3d0;
-    font-size: 0.85rem;
-    font-weight: 700;
-    padding: 6px 16px;
-    border-radius: 50px;
-    margin-bottom: 24px;
-    letter-spacing: 0.04em;
-  }
-
-  .hero h1 {
-    font-size: 4.5rem;
-    font-weight: 900;
-    color: var(--white);
-    margin-bottom: 16px;
-    letter-spacing: -0.01em;
-    text-shadow: 0 2px 20px rgba(0,0,0,0.4);
-  }
-
-  .hero-sub {
-    font-size: 1.25rem;
-    color: rgba(255,255,255,0.88);
-    margin-bottom: 12px;
-    font-weight: 600;
-  }
-
-  .hero-descriptor {
-    font-size: 1rem;
-    color: rgba(255,255,255,0.72);
-    margin-bottom: 40px;
-    max-width: 520px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .hero-buttons {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .btn-primary {
-    background: var(--primary);
-    color: var(--white);
-    padding: 15px 32px;
-    border-radius: 6px;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    border: 2px solid var(--primary);
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-    display: inline-block;
-  }
-
-  .btn-primary:hover { background: #0d6560; transform: translateY(-2px); }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--white);
-    padding: 15px 32px;
-    border-radius: 6px;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    border: 2px solid rgba(255,255,255,0.7);
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-    display: inline-block;
-  }
-
-  .btn-outline:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
-
-  /* ── TRUST STRIP ── */
-  .trust-strip {
-    background: var(--primary);
-    padding: 18px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 48px;
-    flex-wrap: wrap;
-  }
-
-  .trust-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--white);
-    font-weight: 700;
-    font-size: 0.95rem;
-  }
-
-  .trust-item .stars { color: #fbbf24; font-size: 1.1rem; letter-spacing: 1px; }
-
-  .trust-divider { width: 1px; height: 30px; background: rgba(255,255,255,0.3); }
-
-  /* ── SECTIONS ── */
-  section { padding: 80px 0; }
-
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
-
-  .section-label {
-    display: inline-block;
-    color: var(--primary);
-    font-weight: 700;
-    font-size: 0.8rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-
-  .section-title {
-    font-size: 2.4rem;
-    font-weight: 900;
-    color: var(--text);
-    margin-bottom: 16px;
-  }
-
-  .section-intro {
-    font-size: 1.05rem;
-    color: #3d7a73;
-    max-width: 560px;
-    margin-bottom: 56px;
-  }
-
-  /* ── SELECTED WORK ── */
-  #work { background: var(--white); }
-
-  .work-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
-    margin-top: 48px;
-  }
-
-  .work-card {
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-    background: var(--white);
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-
-  .work-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.13); }
-
-  .work-card-img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    background: var(--light-teal);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .work-card-img img { width: 100%; height: 100%; object-fit: cover; }
-
-  .work-card-img-placeholder {
-    width: 100%;
-    height: 220px;
-    background: linear-gradient(135deg, #ccfbf1 0%, #a7f3d0 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .work-card-img-placeholder .work-icon {
-    font-size: 2.5rem;
-  }
-
-  .work-card-img-placeholder .work-label {
-    font-family: 'Raleway', sans-serif;
-    font-weight: 700;
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--primary);
-  }
-
-  .work-card-body { padding: 24px; }
-
-  .work-card-tag {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 8px;
-  }
-
-  .work-card h3 {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 8px;
-  }
-
-  .work-card p {
-    font-size: 0.92rem;
-    color: #3d7a73;
-    line-height: 1.6;
-  }
-
-  /* ── ABOUT ── */
-  #about { background: var(--bg); }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-    align-items: center;
-  }
-
-  .about-img-wrap {
-    position: relative;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-  }
-
-  .about-img-wrap img {
-    width: 100%;
-    height: 460px;
-    object-fit: cover;
-  }
-
-  .about-img-accent {
-    position: absolute;
-    bottom: -16px;
-    right: -16px;
-    width: 120px;
-    height: 120px;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    border-radius: 12px;
-    z-index: -1;
-    opacity: 0.6;
-  }
-
-  .about-text .section-label { display: block; }
-
-  .about-text .section-title { margin-bottom: 24px; }
-
-  .about-text p {
-    font-size: 1.05rem;
-    color: #3d7a73;
-    margin-bottom: 20px;
-    line-height: 1.8;
-  }
-
-  .about-stats {
-    display: flex;
-    gap: 32px;
-    margin-top: 32px;
-    flex-wrap: wrap;
-  }
-
-  .stat {
-    text-align: center;
-    background: var(--white);
-    padding: 18px 24px;
-    border-radius: 10px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-    flex: 1;
-    min-width: 100px;
-  }
-
-  .stat-number {
-    font-family: 'Raleway', sans-serif;
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--primary);
-    display: block;
-  }
-
-  .stat-label {
-    font-size: 0.8rem;
-    color: #3d7a73;
-    font-weight: 600;
-  }
-
-  /* ── SERVICES ── */
-  #services { background: var(--white); }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 28px;
-    margin-top: 48px;
-  }
-
-  .service-card {
-    background: var(--bg);
-    border-radius: 10px;
-    padding: 36px 32px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-    border-left: 4px solid var(--primary);
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-
-  .service-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.12); }
-
-  .service-icon {
-    font-size: 2.2rem;
-    margin-bottom: 16px;
-    display: block;
-  }
-
-  .service-card h3 {
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: var(--text);
-  }
-
-  .service-card p {
-    font-size: 0.95rem;
-    color: #3d7a73;
-    line-height: 1.7;
-  }
-
-  /* ── WEEKEND BANNER ── */
-  .weekend-banner {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-    border-radius: 10px;
-    padding: 32px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    margin-top: 40px;
-    flex-wrap: wrap;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-  }
-
-  .weekend-banner-text h3 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 6px;
-  }
-
-  .weekend-banner-text p {
-    color: rgba(255,255,255,0.85);
-    font-size: 0.95rem;
-  }
-
-  .btn-white {
-    background: var(--white);
-    color: var(--primary);
-    padding: 13px 28px;
-    border-radius: 6px;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.15s, box-shadow 0.15s;
-    display: inline-block;
-    white-space: nowrap;
-  }
-
-  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
-
-  /* ── TESTIMONIALS ── */
-  #testimonials { background: var(--bg); }
-
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 48px;
-  }
-
-  .testimonial-card {
-    background: var(--white);
-    border-radius: 10px;
-    padding: 32px 28px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-    position: relative;
-  }
-
-  .testimonial-stars {
-    color: #fbbf24;
-    font-size: 1.1rem;
-    margin-bottom: 16px;
-    letter-spacing: 2px;
-  }
-
-  .testimonial-quote {
-    font-size: 0.97rem;
-    color: #3d7a73;
-    line-height: 1.75;
-    margin-bottom: 20px;
-    font-style: italic;
-  }
-
-  .testimonial-author {
-    font-weight: 700;
-    font-size: 0.9rem;
-    color: var(--text);
-  }
-
-  .testimonial-context {
-    font-size: 0.82rem;
-    color: #5a9e97;
-  }
-
-  .testimonial-mark {
-    position: absolute;
-    top: 20px;
-    right: 24px;
-    font-size: 3rem;
-    color: var(--light-teal);
-    font-family: Georgia, serif;
-    line-height: 1;
-  }
-
-  /* ── CONTACT ── */
-  #contact { background: var(--white); }
-
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-    align-items: start;
-  }
-
-  .contact-info .section-title { margin-bottom: 20px; }
-
-  .contact-info p {
-    font-size: 1rem;
-    color: #3d7a73;
-    margin-bottom: 32px;
-    line-height: 1.7;
-  }
-
-  .contact-details { list-style: none; margin-bottom: 32px; }
-
-  .contact-details li {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--light-teal);
-    font-size: 0.95rem;
-    color: var(--text);
-  }
-
-  .contact-details li:last-child { border-bottom: none; }
-
-  .contact-icon {
-    color: var(--primary);
-    font-size: 1.1rem;
-    margin-top: 2px;
-    flex-shrink: 0;
-  }
-
-  .contact-form {
-    background: var(--bg);
-    border-radius: 12px;
-    padding: 40px 36px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-  }
-
-  .contact-form h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: var(--text);
-  }
-
-  .contact-form .form-note {
-    font-size: 0.88rem;
-    color: #5a9e97;
-    margin-bottom: 28px;
-  }
-
-  .form-group { margin-bottom: 18px; }
-
-  .form-group label {
-    display: block;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 6px;
-    letter-spacing: 0.03em;
-  }
-
-  .form-group input,
-  .form-group textarea,
-  .form-group select {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1.5px solid #b2dfdb;
-    border-radius: 6px;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 0.95rem;
-    color: var(--text);
-    background: var(--white);
-    transition: border-color 0.2s;
-    outline: none;
-  }
-
-  .form-group input:focus,
-  .form-group textarea:focus,
-  .form-group select:focus { border-color: var(--primary); }
-
-  .form-group textarea { height: 130px; resize: vertical; }
-
-  .form-submit {
-    width: 100%;
-    background: var(--primary);
-    color: var(--white);
-    padding: 14px;
-    border: none;
-    border-radius: 6px;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-    margin-top: 6px;
-  }
-
-  .form-submit:hover { background: #0d6560; transform: translateY(-1px); }
-
-  /* ── MAP AREA ── */
-  .map-wrap {
-    margin-top: 48px;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-  }
-
-  .map-wrap img { width: 100%; display: block; }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--dark-hero);
-    padding: 48px 0 28px;
-  }
-
-  .footer-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 32px;
-  }
-
-  .footer-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 40px;
-    padding-bottom: 32px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    flex-wrap: wrap;
-  }
-
-  .footer-brand .nav-logo {
-    font-size: 1.4rem;
-    margin-bottom: 10px;
-    display: block;
-  }
-
-  .footer-brand p {
-    color: rgba(255,255,255,0.55);
-    font-size: 0.88rem;
-    max-width: 280px;
-    line-height: 1.6;
-  }
-
-  .footer-links h4 {
-    color: rgba(255,255,255,0.9);
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-
-  .footer-links ul { list-style: none; }
-
-  .footer-links ul li { margin-bottom: 10px; }
-
-  .footer-links ul li a {
-    color: rgba(255,255,255,0.55);
-    font-size: 0.9rem;
-    transition: color 0.2s;
-  }
-
-  .footer-links ul li a:hover { color: #5eead4; }
-
-  .footer-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 24px;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .footer-copy {
-    color: rgba(255,255,255,0.4);
-    font-size: 0.83rem;
-  }
-
-  .footer-photo-credit {
-    color: rgba(255,255,255,0.3);
-    font-size: 12px;
-  }
-
-  /* ── HOURS TABLE ── */
-  .hours-table { width: 100%; border-collapse: collapse; margin-top: 4px; }
-  .hours-table tr { border-bottom: 1px solid var(--light-teal); }
-  .hours-table tr:last-child { border-bottom: none; }
-  .hours-table td { padding: 7px 0; font-size: 0.9rem; color: var(--text); }
-  .hours-table td:last-child { text-align: right; color: #3d7a73; font-weight: 600; }
-  .hours-highlight td { color: var(--primary) !important; font-weight: 700; }
-  .hours-highlight td:last-child { color: var(--primary) !important; }
-
-  /* ── MEDIA QUERY ── */
-  @media (max-width: 768px) {
-    section { padding: 48px 0; }
-
-    nav { padding: 16px 20px; }
-
-    .nav-links { display: none; }
-
-    .hero h1 { font-size: 2.4rem; }
-
-    .hero-sub { font-size: 1rem; }
-
-    .hero-descriptor { font-size: 0.9rem; }
-
-    .hero-content { padding: 100px 20px 60px; }
-
-    .hero-buttons { flex-direction: column; align-items: center; }
-
-    .btn-primary, .btn-outline { width: 100%; max-width: 300px; text-align: center; }
-
-    .trust-strip { gap: 20px; padding: 16px 20px; flex-direction: column; }
-
-    .trust-divider { width: 60px; height: 1px; }
-
-    .container { padding: 0 20px; }
-
-    .section-title { font-size: 1.8rem; }
-
-    .work-grid { grid-template-columns: 1fr; gap: 20px; }
-
-    .about-grid { grid-template-columns: 1fr; gap: 36px; }
-
-    .about-img-wrap img { height: 280px; }
-
-    .about-stats { gap: 16px; }
-
-    .services-grid { grid-template-columns: 1fr; gap: 20px; }
-
-    .weekend-banner { flex-direction: column; text-align: center; padding: 28px 24px; }
-
-    .testimonials-grid { grid-template-columns: 1fr; gap: 20px; }
-
-    .contact-grid { grid-template-columns: 1fr; gap: 36px; }
-
-    .contact-form { padding: 28px 20px; }
-
-    .footer-top { flex-direction: column; gap: 28px; }
-
-    .footer-bottom { flex-direction: column; text-align: center; }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emi Alterations | Clothing Repairs & Alterations, Edinburgh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #0f766e;
+      --primary-dark: #0d5f58;
+      --accent: #0ea5e9;
+      --bg: #f0fdfa;
+      --text: #134e4a;
+      --text-light: #5eead4;
+      --white: #ffffff;
+      --card-shadow: 0 2px 16px rgba(0,0,0,0.08);
+      --section-pad: 80px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito Sans', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Raleway', sans-serif;
+      line-height: 1.2;
+    }
+
+    /* ===================== NAV ===================== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(15, 118, 110, 0.97);
+      backdrop-filter: blur(8px);
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+    }
+
+    .nav-brand {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: var(--white) !important;
+      color: var(--primary) !important;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-weight: 700 !important;
+      transition: background 0.2s, color 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--accent) !important;
+      color: var(--white) !important;
+    }
+
+    /* ===================== HERO ===================== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(15, 118, 110, 0.88) 0%,
+        rgba(14, 95, 88, 0.75) 40%,
+        rgba(14, 165, 233, 0.55) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 120px 24px 80px;
+      max-width: 860px;
+    }
+
+    .trust-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: var(--white);
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 30px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(4px);
+    }
+
+    .trust-badge .stars { color: #fbbf24; letter-spacing: 1px; }
+
+    .hero h1 {
+      font-family: 'Raleway', sans-serif;
+      font-size: 5rem;
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      text-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+
+    .hero-tagline {
+      font-size: 1.3rem;
+      color: rgba(255,255,255,0.9);
+      font-weight: 400;
+      margin-bottom: 12px;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 40px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--white);
+      color: var(--primary);
+      padding: 14px 32px;
+      border-radius: 6px;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      text-decoration: none;
+      border: 2px solid var(--white);
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 6px;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.75);
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* ===================== SECTION COMMONS ===================== */
+    section {
+      padding: var(--section-pad) 40px;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .section-intro {
+      font-size: 1.05rem;
+      color: #2d7a74;
+      max-width: 560px;
+      margin-bottom: 52px;
+    }
+
+    /* ===================== WORK ===================== */
+    #work { background: var(--white); }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .work-card {
+      background: var(--white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .work-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(15,118,110,0.13);
+    }
+
+    .work-card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .work-card-body {
+      padding: 22px 24px 28px;
+    }
+
+    .work-card-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .work-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .work-card p {
+      font-size: 0.92rem;
+      color: #4a7a76;
+      line-height: 1.6;
+    }
+
+    /* ===================== ABOUT ===================== */
+    #about {
+      background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .about-img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 8px 40px rgba(15,118,110,0.18);
+    }
+
+    .about-text .section-title { margin-bottom: 24px; }
+
+    .about-text p {
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 18px;
+      line-height: 1.8;
+    }
+
+    .about-detail {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-top: 8px;
+    }
+
+    .about-detail span.dot {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    /* ===================== SERVICES ===================== */
+    #services { background: var(--white); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .service-card {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 36px 32px;
+      box-shadow: var(--card-shadow);
+      border-left: 4px solid var(--primary);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .service-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .service-card h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      font-size: 0.95rem;
+      color: #4a7a76;
+      line-height: 1.7;
+    }
+
+    .services-cta {
+      margin-top: 48px;
+      text-align: center;
+    }
+
+    .btn-primary-dark {
+      background: var(--primary);
+      color: var(--white);
+      padding: 14px 36px;
+      border-radius: 6px;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      text-decoration: none;
+      border: 2px solid var(--primary);
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+
+    .btn-primary-dark:hover {
+      background: var(--primary-dark);
+      border-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* ===================== TESTIMONIALS ===================== */
+    #testimonials {
+      background: linear-gradient(160deg, #134e4a 0%, #0f766e 100%);
+    }
+
+    #testimonials .section-label { color: var(--text-light); }
+    #testimonials .section-title { color: var(--white); }
+    #testimonials .section-intro { color: rgba(255,255,255,0.7); }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .testimonial-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 10px;
+      padding: 32px 28px;
+      backdrop-filter: blur(4px);
+      box-shadow: var(--card-shadow);
+    }
+
+    .testimonial-stars {
+      color: #fbbf24;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+
+    .testimonial-card p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.75;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    .testimonial-author {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .testimonial-context {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ===================== CONTACT ===================== */
+    #contact { background: var(--bg); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .contact-info .section-title { margin-bottom: 20px; }
+
+    .contact-info p {
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 28px;
+      line-height: 1.8;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .contact-detail-icon {
+      width: 40px; height: 40px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-detail-text {
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .contact-detail-text strong {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .contact-detail-text a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .contact-detail-text a:hover { text-decoration: underline; }
+
+    .response-note {
+      margin-top: 24px;
+      font-size: 0.85rem;
+      color: #6b9e99;
+      font-style: italic;
+    }
+
+    .hours-table {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .hours-table td {
+      padding: 5px 0;
+      color: var(--text);
+    }
+
+    .hours-table td:first-child {
+      font-weight: 700;
+      width: 110px;
+      color: var(--primary);
+    }
+
+    form {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 40px 36px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+      letter-spacing: 0.03em;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid #b2dfdb;
+      border-radius: 6px;
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: #f9fffe;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 130px; }
+
+    form button[type="submit"] {
+      width: 100%;
+      padding: 14px;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    form button[type="submit"]:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* ===================== MAP ===================== */
+    #map-section { padding: 0; }
+
+    .map-container {
+      width: 100%;
+      height: 320px;
+      background: #ccc;
+      overflow: hidden;
+    }
+
+    .map-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ===================== FOOTER ===================== */
+    footer {
+      background: #0a3d39;
+      color: rgba(255,255,255,0.75);
+      padding: 48px 40px 32px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 32px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .footer-desc {
+      font-size: 0.9rem;
+      max-width: 280px;
+      line-height: 1.6;
+    }
+
+    .footer-links h4 {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 12px;
+    }
+
+    .footer-links ul { list-style: none; }
+
+    .footer-links li { margin-bottom: 8px; }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--white); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-copy {
+      font-size: 0.85rem;
+    }
+
+    .footer-photo-credit {
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ===================== DIVIDER ===================== */
+    .section-divider {
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 2px;
+      margin-bottom: 40px;
+    }
+
+    /* ===================== MEDIA QUERIES ===================== */
+    @media (max-width: 768px) {
+      :root { --section-pad: 48px; }
+
+      nav { padding: 0 20px; }
+
+      .nav-links { display: none; }
+
+      .hero h1 { font-size: 2.6rem; }
+
+      .hero-tagline { font-size: 1.1rem; }
+
+      .hero-buttons { flex-direction: column; align-items: center; }
+
+      section { padding: var(--section-pad) 20px; }
+
+      .section-title { font-size: 1.8rem; }
+
+      .work-grid { grid-template-columns: 1fr; }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .about-img { height: 280px; }
+
+      .services-grid { grid-template-columns: 1fr; }
+
+      .testimonials-grid { grid-template-columns: 1fr; }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      form { padding: 28px 20px; }
+
+      .footer-top { flex-direction: column; gap: 28px; }
+
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ── 1. NAVIGATION ── -->
-<nav>
-  <span class="nav-logo">Emi <span>Alterations</span></span>
-  <ul class="nav-links">
-    <li><a href="#work">Work</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#testimonials">Reviews</a></li>
-    <li><a href="#contact" class="nav-cta">Get in touch</a></li>
-  </ul>
-</nav>
+  <!-- ===== NAVIGATION ===== -->
+  <nav>
+    <a class="nav-brand" href="#hero">Emi Alterations</a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#contact" class="nav-cta">Get in touch</a></li>
+    </ul>
+  </nav>
 
-<!-- ── 2. HERO ── -->
-<section class="hero">
-  <img class="hero-bg" src="https://images.pexels.com/photos/36697538/pexels-photo-36697538.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Photographer reviewing camera while setting up a shot in a studio.">
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <div class="hero-badge">&#9733; 5/5 on Google &middot; 70 Reviews &middot; Edinburgh</div>
-    <h1>Emi Alterations</h1>
-    <p class="hero-sub">Expert clothing repairs and alterations in Edinburgh</p>
-    <p class="hero-descriptor">From precise tailoring to careful repairs. Every garment treated with the attention it deserves, by someone who genuinely loves the craft.</p>
-    <div class="hero-buttons">
-      <a href="#contact" class="btn-primary">Start a project</a>
-      <a href="#services" class="btn-outline">Explore services</a>
+  <!-- ===== HERO ===== -->
+  <section id="hero" class="hero">
+    <img
+      class="hero-bg"
+      src="https://lh3.googleusercontent.com/places/ANXAkqFFSKKJo79IsnYLtBgcej7pNW-6K5JYTUojFJFEwo6xSXykDVt3qr0WsjCDJL9I8k3Hi9uI1wrZOJGW2sSdIlEAA76GAyou5z8=s4800-h1200"
+      alt="Business photo"
+    />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="trust-badge">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        5/5 &nbsp;&middot;&nbsp; 70 Google reviews
+      </div>
+      <h1>Emi Alterations</h1>
+      <p class="hero-tagline">Expert clothing repairs and alterations in Edinburgh</p>
+      <p class="hero-sub">Based on Queensferry Rd &nbsp;&middot;&nbsp; Open weekdays and weekends</p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn-primary">Start a project</a>
+        <a href="#services" class="btn-outline">See what I do</a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- TRUST STRIP -->
-<div class="trust-strip">
-  <div class="trust-item">
-    <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-    <span>5/5 &middot; 70 Google reviews</span>
-  </div>
-  <div class="trust-divider"></div>
-  <div class="trust-item">
-    <span>&#128205;</span>
-    <span>134 Queensferry Rd, Edinburgh EH4 2BG</span>
-  </div>
-  <div class="trust-divider"></div>
-  <div class="trust-item">
-    <span>&#128222;</span>
-    <span>07756 574921</span>
-  </div>
-  <div class="trust-divider"></div>
-  <div class="trust-item">
-    <span>&#128336;</span>
-    <span>Available weekends too</span>
-  </div>
-</div>
+  <!-- ===== SELECTED WORK ===== -->
+  <section id="work">
+    <div class="section-inner">
+      <p class="section-label">Selected Work</p>
+      <h2 class="section-title">The work speaks for itself</h2>
+      <div class="section-divider"></div>
+      <p class="section-intro">Every piece that leaves my studio is exactly as it should be. Here are a few examples of recent projects.</p>
 
-<!-- ── 3. SELECTED WORK ── -->
-<section id="work">
-  <div class="container">
-    <span class="section-label">Selected Work</span>
-    <h2 class="section-title">Garments given a new life</h2>
-    <p class="section-intro">Every project that comes through the door gets proper thought and real skill. Here is a selection of the kind of work Emi takes on.</p>
-
-    <div class="work-grid">
-
-      <div class="work-card">
-        <div class="work-card-img">
-          <div class="work-card-img-placeholder">
-            <span class="work-icon">&#128392;</span>
-            <span class="work-label">Portfolio piece</span>
+      <div class="work-grid">
+        <div class="work-card">
+          <img src="https://images.pexels.com/photos/6626903/pexels-photo-6626903.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Wedding dress alteration" />
+          <div class="work-card-body">
+            <p class="work-card-tag">Bridal</p>
+            <h3>Wedding Dress Fitting</h3>
+            <p>A full resizing and hem adjustment on a vintage gown, preserving every original detail while achieving a flawless fit for the bride.</p>
           </div>
         </div>
-        <div class="work-card-body">
-          <p class="work-card-tag">Bridal &amp; Occasion</p>
-          <h3>
+        <div class="work-card">
+          <img src="https://images.pexels.com/photos/6765188/pexels-photo-6765188.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Suit tailoring" />
+          <div class="work-card-body">
+            <p class="work-card-tag">Menswear</p>
+            <h3>Bespoke Suit Tailoring</h3>
+            <p>Taking an off-the-peg suit and reshaping it through the chest, waist and sleeves to sit as though it was always made to measure.</p>
+          </div>
+        </div>
+        <div class="work-card">
+          <img src="https://images.pexels.com/photos/4621333/pexels-photo-4621333.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Clothing repairs" />
+          <div class="work-card-body">
+            <p class="work-card-tag">Repairs</p>
+            <h3>Garment Restoration</h3>
+            <p>Invisible repair work on a beloved leather jacket, with seam re-stitching and zip replacement leaving the piece looking brand new.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <img
+          class="about-img"
+          src="https://lh3.googleusercontent.com/places/ANXAkqGuhgJQegHRsjDqhk3FI8C-Yx3e5tm0Iphu63XXZhZR2LJCeDCVZ29myEf8F2uGFKXmC5KHoiEsrgLfiWovqIz9mA0q3s1AGi4=s4800-h1080"
+          alt="Business photo"
+        />
+        <div class="about-text">
+          <p class="section-label">About</p>
+          <h2 class="section-title">Crafted with care, every time</h2>
+          <div class="section-divider"></div>
+          <p>I am Emi, a seamstress based in Edinburgh with a lifelong passion for working with clothing and a genuine belief that the right fit transforms how you feel in what you wear.</p>
+          <p>My studio is at 134 Queensferry Road, and I am here throughout the week including at weekends, because I know that life does not always run to a Monday-to-Friday schedule.</p>
+          <p>Whether it is a cherished garment that needs careful repair, a suit that just needs to sit better, or a special occasion dress that has to be exactly right, I treat every project with the same level of attention and craft.</p>
+          <div class="about-detail"><span class="dot"></span> Based at 134 Queensferry Rd, Edinburgh EH4 2BG</div>
+          <div class="about-detail"><span class="dot"></span> Open Monday to Saturday</div>
+          <div class="about-detail"><span class="dot"></span> Rated 5/5 across 70 Google reviews</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section id="services">
+    <div class="section-inner">
+      <p class="section-label">Services</p>
+      <h2 class="section
