@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sofa & Chair Repairs | Upholsterer in Longstone, Edinburgh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #0f766e;
+    --accent: #0ea5e9;
+    --bg: #f0fdfa;
+    --text: #134e4a;
+    --white: #ffffff;
+    --dark: #0d2b28;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Open Sans', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Oswald', sans-serif;
+    line-height: 1.2;
+  }
+
+  img { display: block; max-width: 100%; }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--dark);
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+  }
+
+  .nav-brand {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.5px;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .nav-phone {
+    color: #a7f3d0;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border: 2px solid transparent;
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+  }
+
+  .btn-primary:hover {
+    background: #0d6660;
+    border-color: #0d6660;
+    box-shadow: 0 4px 16px rgba(15,118,110,0.35);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border-color: var(--white);
+  }
+
+  .btn-outline:hover {
+    background: rgba(255,255,255,0.12);
+    box-shadow: 0 4px 16px rgba(255,255,255,0.1);
+  }
+
+  .btn-accent {
+    background: var(--accent);
+    color: var(--white);
+    border-color: var(--accent);
+  }
+
+  .btn-accent:hover {
+    background: #0284c7;
+    border-color: #0284c7;
+    box-shadow: 0 4px 16px rgba(14,165,233,0.35);
+  }
+
+  .btn-sm {
+    padding: 9px 20px;
+    font-size: 0.9rem;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0d2b28 0%, #0f766e 60%, #0ea5e9 100%);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.52);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 860px;
+    padding: 48px 24px;
+  }
+
+  .hero-eyebrow {
+    display: inline-block;
+    background: rgba(14,165,233,0.22);
+    border: 1px solid rgba(14,165,233,0.5);
+    color: #7dd3fc;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.4);
+  }
+
+  .hero-sub {
+    font-size: 1.2rem;
+    color: #d1fae5;
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+
+  .hero-location {
+    font-size: 1rem;
+    color: #a7f3d0;
+    margin-bottom: 32px;
+    font-style: italic;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+
+  .trust-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 40px;
+    padding: 10px 24px;
+    color: var(--white);
+    font-size: 0.95rem;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+  }
+
+  .trust-badge .stars {
+    color: #fbbf24;
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 80px 24px;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+
+  .section-divider {
+    width: 56px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    border-radius: 2px;
+    margin-bottom: 32px;
+  }
+
+  /* ABOUT */
+  .about {
+    background: var(--white);
+  }
+
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .about-img-wrap {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 32px rgba(0,0,0,0.14);
+  }
+
+  .about-img-wrap img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .about-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+  }
+
+  .about-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: var(--white);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 16px rgba(15,118,110,0.25);
+  }
+
+  .about p {
+    margin-bottom: 16px;
+    color: #1e4a45;
+    font-size: 1.02rem;
+  }
+
+  .about-stats {
+    display: flex;
+    gap: 28px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+
+  .stat-box {
+    background: var(--bg);
+    border: 1px solid #99f6e4;
+    border-radius: 8px;
+    padding: 16px 22px;
+    text-align: center;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  }
+
+  .stat-box .stat-num {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: block;
+  }
+
+  .stat-box .stat-label {
+    font-size: 0.8rem;
+    color: #2d7d73;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* SERVICES */
+  .services {
+    background: var(--bg);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 12px;
+  }
+
+  .service-card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 32px 24px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    border-top: 4px solid var(--primary);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+  }
+
+  .service-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    font-size: 1.4rem;
+  }
+
+  .service-card h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .service-card p {
+    font-size: 0.92rem;
+    color: #2d6b65;
+    line-height: 1.65;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials {
+    background: linear-gradient(135deg, var(--dark) 0%, #0f4f4a 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .testimonials::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(14,165,233,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .testimonials .section-title {
+    color: var(--white);
+  }
+
+  .testimonials .section-label {
+    color: #67e8f9;
+  }
+
+  .reviews-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .google-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 30px;
+    padding: 8px 18px;
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .google-badge .stars { color: #fbbf24; }
+
+  .yell-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,204,0,0.12);
+    border: 1px solid rgba(255,204,0,0.3);
+    border-radius: 30px;
+    padding: 8px 18px;
+    color: #fde68a;
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .review-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 28px 24px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+    backdrop-filter: blur(4px);
+    transition: background 0.2s;
+  }
+
+  .review-card:hover {
+    background: rgba(255,255,255,0.11);
+  }
+
+  .review-stars {
+    color: #fbbf24;
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+    letter-spacing: 2px;
+  }
+
+  .review-text {
+    color: #d1fae5;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    margin-bottom: 18px;
+    font-style: italic;
+  }
+
+  .review-author {
+    color: #a7f3d0;
+    font-weight: 600;
+    font-size: 0.88rem;
+    font-style: normal;
+  }
+
+  .review-time {
+    color: #5eead4;
+    font-size: 0.8rem;
+    margin-top: 2px;
+  }
+
+  /* CONTACT */
+  .contact {
+    background: var(--white);
+  }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .contact-form-wrap {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 40px 36px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    border: 1px solid #99f6e4;
+  }
+
+  .contact-form-wrap h3 {
+    font-size: 1.5rem;
+    color: var(--text);
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #99f6e4;
+    border-radius: 6px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    background: var(--white);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(15,118,110,0.12);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 130px;
+  }
+
+  .contact-info {
+    padding-top: 8px;
+  }
+
+  .contact-info h3 {
+    font-size: 1.5rem;
+    color: var(--text);
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+
+  .info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .info-icon {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(15,118,110,0.2);
+  }
+
+  .info-item strong {
+    display: block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--primary);
+    margin-bottom: 2px;
+  }
+
+  .info-item span {
+    font-size: 0.97rem;
+    color: #1e4a45;
+  }
+
+  .info-item a {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+
+  .info-item a:hover { color: var(--accent); }
+
+  .map-wrap {
+    margin-top: 28px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.1);
+    border: 1px solid #99f6e4;
+  }
+
+  .map-wrap img {
+    width: 100%;
+    display: block;
+  }
+
+  .weekend-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #ecfdf5;
+    border: 1px solid #6ee7b7;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 0.88rem;
+    color: var(--primary);
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    color: #a7f3d0;
+    padding: 36px 24px;
+    text-align: center;
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .footer-brand {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .footer-copy {
+    font-size: 0.82rem;
+    color: #5eead4;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 0 16px; }
+    .nav-brand { font-size: 1rem; }
+    .nav-phone { display: none; }
+
+    section { padding: 48px 16px; }
+
+    .hero { min-height: 85vh; }
+    .hero h1 { font-size: 2.2rem; }
+    .hero-sub { font-size: 1rem; }
+    .hero-buttons { flex-direction: column; align-items: center; }
+
+    .about-inner { grid-template-columns: 1fr; gap: 32px; }
+    .about-img-wrap img { height: 260px; }
+    .about-stats { gap: 16px; }
+
+    .services-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .reviews-grid { grid-template-columns: 1fr; gap: 16px; }
+
+    .contact-inner { grid-template-columns: 1fr; gap: 32px; }
+    .contact-form-wrap { padding: 24px 18px; }
+
+    .section-title { font-size: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">Sofa &amp; Chair Repairs</div>
+  <div class="nav-right">
+    <a href="tel:01312352989" class="nav-phone">0131 235 2989</a>
+    <a href="#contact" class="btn btn-primary btn-sm">Get in touch</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img
+    src="https://lh3.googleusercontent.com/place-photos/AJRVUZMo6C7EdUMnFQ2ZBOy00--DMKpcsDHVYXdd8yQFZxoT9PmX_ZUVYVc_ZDkZv4E5KAtmiSWiqrdTffe6DV7cwdplQBoUeZQtw2Cge-zUMJWs_mbipZmvbt7fNoOKjf5AKH5ea-J0Q2YZggoq=s4800-h1200"
+    alt="Business photo"
+    class="hero-bg"
+  >
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">35+ Years of Expert Craftsmanship</div>
+    <h1>Sofa &amp; Chair Repairs</h1>
+    <p class="hero-sub">Professional upholstery and furniture repair in Longstone, Edinburgh and across the Lothians.</p>
+    <p class="hero-location">Restoring sofas, armchairs and cushions to feel as good as new. Weekend service available.</p>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+      <a href="tel:01312352989" class="btn btn-outline">Call 0131 235 2989</a>
+    </div>
+    <div class="trust-badge">
+      <span class="stars">★★★★★</span>
+      <span>5/5 &nbsp;·&nbsp; 48 Google Reviews</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-img-wrap">
+        <img
+          src="https://lh3.googleusercontent.com/place-photos/AJRVUZNlHgIxECHFX_dZLPk0yNYzdxYeYkqTu76CKe36WKXtsScCFCgR-JvXqFwX_aDYgXSZI2iJ-3rQ2oUEQBFlzY4l7fw9PK8B3zGZSKAzw8gqao1JnEkCI_Zk_1fFaDjFYyEOzyQV4VcQoCp11HPtv6vxZA=s4800-h900"
+          alt="Business photo"
+        >
+        <div class="about-img-overlay"></div>
+      </div>
+      <div class="about-copy">
+        <div class="section-label">About Us</div>
+        <h2 class="section-title">Edinburgh's Trusted Upholstery Specialists</h2>
+        <div class="section-divider"></div>
+        <div class="about-badge">&#127968; Over 35 Years Serving Edinburgh</div>
+        <p>Sofa &amp; Chair Repairs is a renowned upholstery and furniture repair service based in Edinburgh, with over 35 years of hands-on experience restoring sofas, armchairs and cushions to their best.</p>
+        <p>Led by Russell, the team brings genuine skill and honesty to every job, offering free estimates, regular photo updates throughout the repair, and thorough follow-up checks after work is complete. No hidden costs, no shortcuts.</p>
+        <p>From Longstone to Portobello and right across the Lothians, we are proud to be the local repair specialists that Edinburgh homeowners trust when the big retailers and insurers let them down.</p>
+        <div class="about-stats">
+          <div class="stat-box">
+            <span class="stat-num">35+</span>
+            <span class="stat-label">Years Trading</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">5/5</span>
+            <span class="stat-label">Google Rating</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">48</span>
+            <span class="stat-label">Reviews</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services">
+  <div class="container">
+    <div style="text-align:center; margin-bottom: 48px;">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Our Services</h2>
+      <div class="section-divider" style="margin: 0 auto;"></div>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">&#129152;</div>
+        <h3>Cushion Restuffing</h3>
+        <p>Sagging or flat sofa cushions? Russell and his team use quality foam and fillings to bring tired cushions back to life, making your sofa feel as comfortable as the day you bought it.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#128295;</div>
+        <h3>Frame Repair</h3>
+        <p>A broken or weakened frame does not have to mean a new sofa. We carry out structural repairs to sofa and armchair frames, tackling the root cause of sagging and instability for a long-lasting result.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#127981;</div>
+        <h3>Full Upholstery Reupholstery</h3>
+        <p>From a beloved armchair that needs fresh fabric to a sofa requiring a complete overhaul, we reupholster furniture to a professional standard, matching your style and budget.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#128666;</div>
+        <h3>Collection &amp; Delivery</h3>
+        <p>For cushion and upholstery work, we offer a convenient pick-up and drop-off service across Edinburgh and the Lothians, so you are never without your furniture for long.</p>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top: 44px;">
+      <a href="#contact" class="btn btn-primary">Get a Free Estimate</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <div style="margin-bottom: 16px;">
+      <div class="section-label">Customer Reviews</div>
+      <h2 class="section-title">What Our Customers Say</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="reviews-meta">
+      <div class="google-badge">
+        <span class="stars">★★★★★</span>
+        <span>5/5 &nbsp;·&nbsp; 48 Google Reviews</span>
+      </div>
+      <div class="yell-badge">
+        &#11088; Also reviewed on Yell
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Russell and his team restuffed my couch cushions. They did a fabulous job. My couches feel like new again. There was excellent communication throughout the process. I highly recommend them!"</p>
+        <div class="review-author">Chery G.</div>
+        <div class="review-time">6 months ago · Google</div>
+      </div>
+      <div class="review-card">
+        <div class="

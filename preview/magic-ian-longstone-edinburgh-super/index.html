@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magic Ian - Balloon Artist & Children's Entertainer | Edinburgh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #111827;
+    --accent: #d97706;
+    --bg: #fafaf9;
+    --text: #111827;
+    --white: #ffffff;
+    --light-grey: #f3f4f6;
+    --mid-grey: #6b7280;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+  }
+
+  img { max-width: 100%; display: block; }
+
+  a { text-decoration: none; color: inherit; }
+
+  /* ====== NAVIGATION ====== */
+  nav {
+    background: var(--primary);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+  }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.01em;
+  }
+
+  .nav-logo span {
+    color: var(--accent);
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .nav-phone {
+    color: #d1d5db;
+    font-size: 0.95rem;
+    font-weight: 400;
+  }
+
+  .nav-phone strong {
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 12px 28px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.03em;
+    border: 2px solid transparent;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--white);
+    border-color: var(--accent);
+  }
+
+  .btn-primary:hover {
+    background: #b45309;
+    border-color: #b45309;
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border-color: var(--white);
+  }
+
+  .btn-outline:hover {
+    background: var(--white);
+    color: var(--primary);
+  }
+
+  .btn-dark {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+  }
+
+  .btn-dark:hover {
+    background: #1f2937;
+    border-color: #1f2937;
+  }
+
+  /* ====== HERO ====== */
+  .hero {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: var(--primary);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(17,24,39,0.72) 0%, rgba(17,24,39,0.55) 50%, rgba(217,119,6,0.18) 100%);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 860px;
+    padding: 0 24px;
+  }
+
+  .trust-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 100px;
+    padding: 8px 20px;
+    color: #fde68a;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 28px;
+    backdrop-filter: blur(4px);
+  }
+
+  .trust-badge .stars {
+    color: #fbbf24;
+    font-size: 1rem;
+  }
+
+  .hero h1 {
+    font-size: 5rem;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.05;
+    margin-bottom: 16px;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    letter-spacing: -0.01em;
+  }
+
+  .hero h1 span {
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1.25rem;
+    color: #e5e7eb;
+    max-width: 620px;
+    margin: 0 auto 12px;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .hero-location {
+    font-size: 1rem;
+    color: #fde68a;
+    font-weight: 700;
+    margin-bottom: 36px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ====== SECTIONS ====== */
+  section {
+    padding: 80px 24px;
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  .section-intro {
+    font-size: 1.05rem;
+    color: var(--mid-grey);
+    max-width: 680px;
+    margin-bottom: 56px;
+    line-height: 1.8;
+  }
+
+  /* ====== ABOUT ====== */
+  .about {
+    background: var(--white);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .about-image-wrap {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.14);
+  }
+
+  .about-image-wrap img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .about-image-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(17,24,39,0.08);
+    pointer-events: none;
+  }
+
+  .about-accent-bar {
+    width: 48px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin-bottom: 24px;
+  }
+
+  .about-text p {
+    font-size: 1.05rem;
+    color: #374151;
+    margin-bottom: 18px;
+    line-height: 1.8;
+  }
+
+  .about-trust-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 32px;
+  }
+
+  .pill {
+    background: var(--light-grey);
+    color: var(--primary);
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 100px;
+    letter-spacing: 0.03em;
+  }
+
+  .pill-accent {
+    background: #fef3c7;
+    color: #92400e;
+  }
+
+  /* ====== SERVICES ====== */
+  .services {
+    background: var(--bg);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .service-card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 36px 28px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-top: 3px solid var(--accent);
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+  }
+
+  .service-icon {
+    font-size: 2.2rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .service-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 12px;
+  }
+
+  .service-card p {
+    font-size: 0.92rem;
+    color: var(--mid-grey);
+    line-height: 1.7;
+  }
+
+  /* ====== TESTIMONIALS ====== */
+  .testimonials {
+    background: var(--primary);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .testimonials::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #111827 60%, #1f2937 100%);
+    z-index: 0;
+  }
+
+  .testimonials .section-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .testimonials .section-label {
+    color: #fbbf24;
+  }
+
+  .testimonials .section-title {
+    color: var(--white);
+  }
+
+  .testimonials .section-intro {
+    color: #9ca3af;
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .review-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 32px 28px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: background 0.2s ease;
+  }
+
+  .review-card:hover {
+    background: rgba(255,255,255,0.09);
+  }
+
+  .review-stars {
+    color: #fbbf24;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+  }
+
+  .review-text {
+    font-size: 0.93rem;
+    color: #d1d5db;
+    line-height: 1.75;
+    flex: 1;
+  }
+
+  .review-author {
+    font-weight: 700;
+    color: var(--white);
+    font-size: 0.9rem;
+  }
+
+  .review-meta {
+    font-size: 0.78rem;
+    color: #6b7280;
+    margin-top: 2px;
+  }
+
+  .google-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin-bottom: 40px;
+  }
+
+  .google-badge .g-logo {
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: #4285f4;
+  }
+
+  .google-badge .g-logo span:nth-child(1) { color: #4285f4; }
+  .google-badge .g-logo span:nth-child(2) { color: #ea4335; }
+  .google-badge .g-logo span:nth-child(3) { color: #fbbc05; }
+  .google-badge .g-logo span:nth-child(4) { color: #4285f4; }
+  .google-badge .g-logo span:nth-child(5) { color: #34a853; }
+  .google-badge .g-logo span:nth-child(6) { color: #ea4335; }
+
+  .google-badge-text {
+    color: var(--white);
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .google-badge-text .stars {
+    color: #fbbf24;
+  }
+
+  /* ====== CONTACT ====== */
+  .contact {
+    background: var(--white);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .contact-form-wrap h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--primary);
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 6px;
+    letter-spacing: 0.03em;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    background: var(--bg);
+    border: 1.5px solid #e5e7eb;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--accent);
+  }
+
+  .form-group textarea {
+    min-height: 140px;
+    resize: vertical;
+  }
+
+  .contact-info h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--primary);
+  }
+
+  .contact-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .contact-icon {
+    width: 42px;
+    height: 42px;
+    background: #fef3c7;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .contact-detail-text strong {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--mid-grey);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 3px;
+  }
+
+  .contact-detail-text a,
+  .contact-detail-text span {
+    font-size: 1rem;
+    color: var(--primary);
+    font-weight: 400;
+  }
+
+  .contact-detail-text a:hover {
+    color: var(--accent);
+  }
+
+  .map-placeholder {
+    margin-top: 32px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+
+  .map-placeholder img {
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+  }
+
+  /* ====== FOOTER ====== */
+  footer {
+    background: var(--primary);
+    padding: 48px 24px 32px;
+    text-align: center;
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .footer-logo span {
+    color: var(--accent);
+  }
+
+  .footer-tagline {
+    color: #9ca3af;
+    font-size: 0.9rem;
+    margin-bottom: 28px;
+  }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .social-link {
+    width: 44px;
+    height: 44px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d1d5db;
+    font-size: 1.15rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+
+  .social-link:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--white);
+  }
+
+  .footer-divider {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin: 0 0 24px;
+  }
+
+  .footer-bottom {
+    color: #6b7280;
+    font-size: 0.82rem;
+    line-height: 1.7;
+  }
+
+  .footer-bottom a {
+    color: var(--accent);
+  }
+
+  /* ====== MOBILE RESPONSIVE ====== */
+  @media (max-width: 768px) {
+    section { padding: 48px 20px; }
+
+    .nav-inner { padding: 0 16px; }
+    .nav-phone { display: none; }
+    .nav-logo { font-size: 1.25rem; }
+
+    .hero { min-height: 100svh; }
+    .hero h1 { font-size: 2.8rem; }
+    .hero-sub { font-size: 1rem; }
+    .hero-location { font-size: 0.85rem; }
+    .hero-buttons { flex-direction: column; align-items: center; }
+    .hero-buttons .btn { width: 100%; max-width: 320px; text-align: center; }
+
+    .about-grid { grid-template-columns: 1fr; gap: 36px; }
+    .about-image-wrap img { height: 280px; }
+    .about-image-wrap { order: -1; }
+
+    .section-title { font-size: 1.8rem; }
+    .section-intro { margin-bottom: 36px; }
+
+    .services-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .service-card { padding: 24px 18px; }
+
+    .reviews-grid { grid-template-columns: 1fr; gap: 16px; }
+
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+
+    .footer-logo { font-size: 1.4rem; }
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 2.2rem; }
+    .services-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ====== NAVIGATION ====== -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo"><span>Magic</span> Ian</div>
+    <div class="nav-right">
+      <div class="nav-phone">Call: <strong>07730 769374</strong></div>
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ====== HERO ====== -->
+<section class="hero">
+  <img
+    class="hero-bg"
+    src="https://lh3.googleusercontent.com/places/ANXAkqF5ULAGrk3qacWfAIDjdih4zRGIHiXKkcYtKk92GbLaDJ7F4DM_cbYDMWywiXU59srRRSTY5ohYtbxEWPc1xaL-Fqd3Z_A7HvY=s4800-h900"
+    alt="Business photo"
+  >
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="trust-badge">
+      <span class="stars">★★★★★</span>
+      <span>5/5 &middot; 78 Google Reviews</span>
+    </div>
+    <h1><span>Magic</span> Ian</h1>
+    <p class="hero-sub">Multi award-winning children's entertainer, balloon artist and close-up magician, bringing wonder to parties and events across Edinburgh for over 30 years.</p>
+    <p class="hero-location">Balloon Artist &amp; Entertainer &middot; Longstone, Edinburgh</p>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+      <a href="#services" class="btn btn-outline">See what I offer</a>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">Scroll to explore</div>
+</section>
+
+<!-- ====== ABOUT ====== -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-image-wrap">
+        <img
+          src="https://lh3.googleusercontent.com/place-photos/AJRVUZMD8x0NZo6vMOMhFwSOKDoHqem5BRHibIVvMbRO7PU0c28v63P9TlN0PqZhIoNkaC4HxZNR_Fs-1PFzrxG3ljC0duHHMN_3hc11KXsDpTsd1NCw7ZyEiDT3vkvTDvSi6V_oZczJUtANQIB-Rj9EYod8Jw=s4800-h1200"
+          alt="Business photo"
+        >
+      </div>
+      <div class="about-text">
+        <p class="section-label">About Magic Ian</p>
+        <div class="about-accent-bar"></div>
+        <p>Magic Ian is a multi award-winning magician, children's entertainer and top-class balloon modeller based in Longstone, Edinburgh, with over 30 years of experience creating unforgettable moments at birthday parties, corporate events and community celebrations across the city and beyond.</p>
+        <p>What sets Ian apart is his rare ability to captivate every age in the room at once: from energetic games and dancing that get the youngest children moving, through to brilliantly comic magic and close-up illusions that leave parents and grandparents just as wide-eyed as the kids.</p>
+        <p>Ian is a long-serving member of the Edinburgh Magic Circle, having served as both President and Secretary for eight years, and is trusted by Edinburgh families weekend after weekend to deliver a show that is professional, punctual and genuinely magical.</p>
+        <div class="about-trust-pills">
+          <span class="pill pill-accent">30+ Years Experience</span>
+          <span class="pill">Edinburgh Magic Circle Member</span>
+          <span class="pill">Past President &amp; Secretary</span>
+          <span class="pill">Multi Award-Winning</span>
+          <span class="pill">Online Since 2009</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SERVICES ====== -->
+<section class="services" id="services">
+  <div class="section-inner">
+    <p class="section-label">What I Do</p>
+    <h2 class="section-title">Entertainment That Amazes Everyone</h2>
+    <p class="section-intro">Whether you are planning a children's birthday party, a family event or something a little more grown-up, Magic Ian brings a brilliant, bespoke performance tailored to your guests and your occasion.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">🎈</span>
+        <h3>Balloon Modelling</h3>
+        <p>Spectacular balloon creations that delight children of all ages. From simple swords and animals through to complex sculptures, every balloon is made with care and a smile, keeping the queue entertained all on its own.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🎩</span>
+        <h3>Children's Magic Show</h3>
+        <p>A full interactive magic show packed with comedy, audience participation and genuinely astonishing illusions. Structured to hold attention from start to finish, with games and dancing in the first half and a focused magic performance after the food break.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">✨</span>
+        <h3>Close-Up Magic</h3>
+        <p>Intimate, mind-bending magic performed right in the hands of your guests. Perfect for mingling at family gatherings, corporate events or adult celebrations where you want something truly memorable to get people talking.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🎉</span>
+        <h3>Birthday Party Packages</h3>
+        <p>Complete party entertainment packages for birthdays, featuring a mix of magic, balloon modelling and interactive games. Ian handles the full two hours so you can relax and enjoy the moment. Great for mixed ages from three upwards.</p>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:48px;">
+      <a href="#contact" class="btn btn-dark">Get in touch to check availability</a>
+    </div>
+  </div>
+</section>
+
+<!-- ====== TESTIMONIALS ====== -->
+<section class="testimonials" id="reviews">
+  <div class="section-inner">
+    <p class="section-label">What Parents Say</p>
+    <h2 class="section-title">Real Reviews from Edinburgh Families</h2>
+    <div class="google-badge">
+      <span class="g-logo">
+        <span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span>
+      </span>
+      <span class="google-badge-text"><span class="stars">★★★★★</span> 5/5 &middot; 78 reviews</span>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Magic Ian was amazing! All the kids were fully entertained for the entire performance and the adults also found it a wonderful show. Would highly recommend, communication prior to the party was excellent too. All the children aged 3-7 loved it."</p>
+        <div>
+          <div class="review-author">Carrie W.</div>
+          <div class="review-meta">Edinburgh &middot; 3 months ago</div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"We booked a 2 hour show from Magic Ian for our daughter's 6th birthday party. Ian was wonderful and I can't recommend him enough. Ian was extremely professional, the first half got the children dancing, moving, and playing
