@@ -1,42 +1,39 @@
 # System health
-0 7 * * * /home/brantley/homelab_daily_health.sh >> /home/brantley/homelab_reports/cron.log 2>&1
+0 7 * * * /usr/local/bin/cron-alert "daily-health" /home/brantley/homelab_daily_health.sh >> /srv/media2/logs/homelab/cron.log 2>&1
 
-# ── Already Done pipeline ────────────────────────────────────────────────────
-# 2:00am: Main pipeline — reply monitor + follow-up + research + site builder
-# Pipeline script handles its own .env sourcing and Slack notifications.
-0 2 * * * /home/brantley/alreadydone/scripts/run-pipeline-cron.sh >> /home/brantley/alreadydone/logs/cron-errors.log 2>&1
+# ── Already Done pipeline ─────────────────────────────────────────────────────
+0 2 * * * /usr/local/bin/cron-alert "AD-pipeline" bash -c 'cd /home/brantley/alreadydone && bash scripts/run-pipeline-cron.sh' >> /srv/media2/logs/alreadydone/pipeline.log 2>&1
 
-# ── Enrichment: Ghost + Dark cohorts, WHOIS on Dark, Serper email search ────
-# Runs 3x/day during business hours. 50 businesses/run = 150/day.
-# cd ensures dotenv finds .env in the project root.
-0 9  * * * cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-enrichment.js  >> /home/brantley/alreadydone/logs/enrichment.log 2>&1
-0 13 * * * cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-enrichment.js  >> /home/brantley/alreadydone/logs/enrichment.log 2>&1
-0 16 * * * cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-enrichment.js  >> /home/brantley/alreadydone/logs/enrichment.log 2>&1
+# Enrichment 3x/day
+0 9  * * * cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-enrichment.js  >> /srv/media2/logs/alreadydone/enrichment.log 2>&1
+0 13 * * * cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-enrichment.js  >> /srv/media2/logs/alreadydone/enrichment.log 2>&1
+0 16 * * * cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-enrichment.js  >> /srv/media2/logs/alreadydone/enrichment.log 2>&1
 
-# ── Domain expiry: flags recently lapsed and imminent-expiry Dark businesses ─
-# Runs after overnight enrichment has collected WHOIS data.
-30 8 * * * cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-domain-expiry.js >> /home/brantley/alreadydone/logs/domain-expiry.log 2>&1
+# Domain expiry
+30 8 * * * cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-domain-expiry.js >> /srv/media2/logs/alreadydone/domain-expiry.log 2>&1
 
-# ── Outreach: Mon–Fri, business hours only, capped at 4pm ──────────────────
-# Business hours guard is inside the agent — safe to run on the hour.
-# No 5pm run: emails arriving at 4-5pm get read next morning at best.
-0 9,11,13,15 * * 1-5 cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-outreach.js >> /home/brantley/alreadydone/logs/outreach.log 2>&1
+# Outreach: Mon–Fri, business hours
+0 9,11,13,15 * * 1-5 /usr/local/bin/cron-alert "AD-outreach" bash -c "cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-outreach.js" >> /srv/media2/logs/alreadydone/outreach.log 2>&1
 
-# ── Management agents (2:30am, one per weekday) ───────────────────────────────
-30 2 * * 1 cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-finance.js         >> /home/brantley/alreadydone/logs/agents.log 2>&1
-30 2 * * 2 cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-eo.js              >> /home/brantley/alreadydone/logs/agents.log 2>&1
-30 2 * * 3 cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-customer-service.js >> /home/brantley/alreadydone/logs/agents.log 2>&1
-30 2 * * 4 cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-business-dev.js    >> /home/brantley/alreadydone/logs/agents.log 2>&1
-30 2 * * 5 cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-sales-manager.js   >> /home/brantley/alreadydone/logs/agents.log 2>&1
-30 2 * * 6 cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-ld.js              >> /home/brantley/alreadydone/logs/agents.log 2>&1
-30 2 * * 0 cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-sales-director.js  >> /home/brantley/alreadydone/logs/agents.log 2>&1
+# Management agents (one per day)
+30 2 * * 1 cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-finance.js          >> /srv/media2/logs/alreadydone/agents.log 2>&1
+30 2 * * 2 cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-eo.js               >> /srv/media2/logs/alreadydone/agents.log 2>&1
+30 2 * * 3 cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-customer-service.js >> /srv/media2/logs/alreadydone/agents.log 2>&1
+30 2 * * 4 cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-business-dev.js     >> /srv/media2/logs/alreadydone/agents.log 2>&1
+30 2 * * 5 cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-sales-manager.js    >> /srv/media2/logs/alreadydone/agents.log 2>&1
+30 2 * * 6 cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-ld.js               >> /srv/media2/logs/alreadydone/agents.log 2>&1
+30 2 * * 0 cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-sales-director.js   >> /srv/media2/logs/alreadydone/agents.log 2>&1
 
-# ── EA briefings and monitor ──────────────────────────────────────────────────
-0 8  * * * cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-ea-briefing-morning.js  >> /home/brantley/alreadydone/logs/ea.log 2>&1
-0 17 * * * cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-ea-briefing-evening.js  >> /home/brantley/alreadydone/logs/ea.log 2>&1
-*/5 * * * * cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-ea-monitor.js          >> /home/brantley/alreadydone/logs/ea.log 2>&1
-0 3 * * * cd /home/brantley/foundlocal && /home/brantley/.nvm/versions/node/v24.13.0/bin/npm run seed:enrich >> /home/brantley/foundlocal/logs/enrich.log 2>&1
+# EA briefings and monitor
+0 8  * * * cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-ea-briefing-morning.js >> /srv/media2/logs/alreadydone/ea.log 2>&1
+0 17 * * * cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-ea-briefing-evening.js >> /srv/media2/logs/alreadydone/ea.log 2>&1
+*/5 * * * * cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-ea-monitor.js         >> /srv/media2/logs/alreadydone/ea.log 2>&1
 
-# ── Provision: picks up paid orders, registers domain, deploys site, sends onboarding ──
-# Every 15 min — guarantees live within the hour as promised
-*/15 * * * * cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-provision.js >> /home/brantley/alreadydone/logs/provision.log 2>&1
+# ── FoundLocal ────────────────────────────────────────────────────────────────
+0 3 * * * /usr/local/bin/cron-alert "FL-seed-enrich" bash -c "cd /home/brantley/foundlocal && /home/brantley/.nvm/versions/node/v24.13.0/bin/npm run seed:enrich" >> /srv/media2/logs/foundlocal/enrich.log 2>&1
+
+# ── Provision: picks up paid orders every 15 min ──────────────────────────────
+*/15 * * * * /usr/local/bin/cron-alert "AD-provision" bash -c "cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-provision.js" >> /srv/media2/logs/alreadydone/provision.log 2>&1
+
+# ── Monthly reports: 1st of month, 9am — full reports + free trials ─────────
+0 9 1 * * /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-monthly-report.js >> /home/brantley/alreadydone/logs/agents.log 2>&1

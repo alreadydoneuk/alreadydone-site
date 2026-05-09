@@ -61,6 +61,23 @@ export async function runBusinessDevAgent() {
   const totalProspects = pipeline.filter(b => b.lead_temperature === 'hot' || b.lead_temperature === 'warm').length;
   const hotLeads = pipeline.filter(b => b.lead_temperature === 'hot').length;
 
+  // Report add-on conversion tracking
+  const { count: reportSubscribers } = await supabase
+    .from('businesses').select('id', { count: 'exact', head: true })
+    .eq('order_include_report', true).eq('pipeline_status', 'delivered');
+
+  const { count: freeTrialsSent } = await supabase
+    .from('report_history').select('id', { count: 'exact', head: true })
+    .eq('report_type', 'free_trial');
+
+  const { count: trialOpened } = await supabase
+    .from('report_history').select('id', { count: 'exact', head: true })
+    .eq('report_type', 'free_trial').not('opened_at', 'is', null);
+
+  const { count: trialClicked } = await supabase
+    .from('report_history').select('id', { count: 'exact', head: true })
+    .eq('report_type', 'free_trial').not('cta_clicked_at', 'is', null);
+
   const dataContext = `
 Pipeline snapshot (as of ${now.toDateString()}):
 Total businesses tracked: ${pipeline.length}
@@ -77,6 +94,12 @@ No-website enrichment pipeline (highest-value group — no site = easy sale):
 
 New leads researched this week: ${(recentResearched || []).length}
 Top categories this week: ${topCategories || 'N/A'}
+
+Report add-on (£5/month) funnel:
+- Paid at point of sale: ${reportSubscribers || 0}
+- Free trial reports sent: ${freeTrialsSent || 0}
+- Free trials opened: ${trialOpened || 0} (${freeTrialsSent ? Math.round((trialOpened / freeTrialsSent) * 100) : 0}% open rate)
+- Free trials CTA clicked: ${trialClicked || 0} (${freeTrialsSent ? Math.round((trialClicked / freeTrialsSent) * 100) : 0}% click rate)
 `;
 
   const report = await agentCall(

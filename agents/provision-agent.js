@@ -3,6 +3,7 @@ import { checkDomain, registerDomain, pointToCloudflarePages, pollUntilLive } fr
 import { addEmailDnsRecords, provisionEmailAddresses } from '../lib/email-provisioning.js';
 import { sendOnboardingStarted, sendOnboardingComplete } from '../lib/mailer.js';
 import { generateExtraPageSection } from '../lib/claude.js';
+import { captureSnapshot } from '../lib/report-data.js';
 import { alert } from '../lib/slack.js';
 import { execSync } from 'child_process';
 import { mkdirSync, writeFileSync, rmSync } from 'fs';
@@ -188,6 +189,13 @@ async function provisionBusiness(business) {
     null,
     { domain, pagesHostname, to, emailAccounts: emailAccounts.map(a => a.address), extraPages: orderPages.length }
   );
+
+  // ── 13. Capture baseline data snapshot for reports ────────────────────────
+  try {
+    await captureSnapshot({ ...business, registered_domain: domain }, 'baseline');
+  } catch (err) {
+    console.warn(`    Snapshot failed (non-fatal): ${err.message}`);
+  }
 
   const emailNote = emailCount > 0 ? ` + ${emailCount} email(s)` : '';
   const pagesNote = orderPages.length > 0 ? ` + ${orderPages.length} extra page(s)` : '';

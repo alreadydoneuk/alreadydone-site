@@ -61,6 +61,11 @@ Pipeline:
 - Paid (awaiting delivery): ${statusCounts.paid || 0}
 - Delivered: ${statusCounts.delivered || 0}
 - Template built (ready to email): ${statusCounts.template_built || 0}
+
+Report add-on (£5/month recurring):
+- Paid report subscribers: ${(await supabase.from('businesses').select('id', { count: 'exact', head: true }).eq('order_include_report', true).eq('pipeline_status', 'delivered')).count || 0}
+- Free trial reports sent: ${(await supabase.from('report_history').select('id', { count: 'exact', head: true }).eq('report_type', 'free_trial')).count || 0}
+- Report MRR (£5 x subscribers): £${((await supabase.from('businesses').select('id', { count: 'exact', head: true }).eq('order_include_report', true).eq('pipeline_status', 'delivered')).count || 0) * 5}
 `;
 
   const report = await agentCall(
