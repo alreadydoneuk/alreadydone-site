@@ -2,6 +2,7 @@ import { supabase } from '../lib/db.js';
 import { agentCall } from '../lib/claude.js';
 import { agentReport } from '../lib/slack.js';
 import { saveReport } from '../lib/reports.js';
+import { getPreviewEngagement } from '../lib/report-data.js';
 import 'dotenv/config';
 
 export async function runBusinessDevAgent() {
@@ -78,6 +79,31 @@ export async function runBusinessDevAgent() {
     .from('report_history').select('id', { count: 'exact', head: true })
     .eq('report_type', 'free_trial').not('cta_clicked_at', 'is', null);
 
+  // Email engagement (from Resend webhooks)
+  const { count: emailsOpened } = await supabase
+    .from('businesses').select('id', { count: 'exact', head: true })
+    .not('email_opened_at', 'is', null);
+
+  const { count: linksClicked } = await supabase
+    .from('businesses').select('id', { count: 'exact', head: true })
+    .not('email_link_clicked_at', 'is', null);
+
+  const { count: emailsSent } = await supabase
+    .from('businesses').select('id', { count: 'exact', head: true })
+    .in('pipeline_status', ['emailed', 'replied', 'paid', 'delivered', 'template_built']);
+
+  // PostHog: prospect preview engagement (who is actually looking at their preview)
+  const previewViews = await getPreviewEngagement({ days: 7 });
+  const hotPreviews = previewViews.filter(p => p.views >= 3);
+  const previewViewsTotal = previewViews.reduce((s, p) => s + p.views, 0);
+  const previewEngagementBlock = previewViews.length > 0
+    ? `Preview site engagement this week (via PostHog):
+- Total preview views: ${previewViewsTotal} across ${previewViews.length} unique previews
+- High-intent prospects (3+ views): ${hotPreviews.length}
+${hotPreviews.slice(0, 5).map(p => `  • ${p.slug} — ${p.views} views, last seen ${new Date(p.last_seen).toLocaleDateString('en-GB')}`).join('\n')}
+${previewViews.length > 0 ? `Top previews this week:\n${previewViews.slice(0, 5).map(p => `  • ${p.slug} — ${p.views} view${p.views !== 1 ? 's' : ''}`).join('\n')}` : ''}`
+    : `Preview site engagement: no data (PostHog may not be configured)`;
+
   const dataContext = `
 Pipeline snapshot (as of ${now.toDateString()}):
 Total businesses tracked: ${pipeline.length}
@@ -94,6 +120,13 @@ No-website enrichment pipeline (highest-value group — no site = easy sale):
 
 New leads researched this week: ${(recentResearched || []).length}
 Top categories this week: ${topCategories || 'N/A'}
+
+${previewEngagementBlock}
+
+Outreach email engagement (via Resend webhooks):
+- Emails sent (emailed+ pipeline): ${emailsSent || 0}
+- Opened: ${emailsOpened || 0}${emailsSent ? ` (${Math.round(((emailsOpened||0) / emailsSent) * 100)}% open rate)` : ''}
+- Preview link clicked: ${linksClicked || 0}${emailsOpened ? ` (${Math.round(((linksClicked||0) / (emailsOpened||1)) * 100)}% of openers clicked)` : ''}
 
 Report add-on (£5/month) funnel:
 - Paid at point of sale: ${reportSubscribers || 0}
