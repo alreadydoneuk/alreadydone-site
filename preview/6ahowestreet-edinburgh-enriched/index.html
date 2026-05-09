@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6aHoweStreet | Antiques, Vintage and Paintings in Edinburgh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700;800;900&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #0f766e;
+      --accent: #0ea5e9;
+      --bg: #f0fdfa;
+      --text: #134e4a;
+      --text-light: #5eead4;
+      --white: #ffffff;
+      --muted: #6b7280;
+      --rule: #99f6e4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    img { display: block; max-width: 100%; }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(240, 253, 250, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 5%;
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      gap: 16px;
+    }
+
+    .nav-brand {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900;
+      font-size: 1.25rem;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+      white-space: nowrap;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-phone {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .btn-nav {
+      background: var(--primary);
+      color: var(--white);
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 10px 22px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-nav:hover { background: #0d6460; }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(15,118,110,0.88) 0%, rgba(14,165,233,0.55) 100%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 5%;
+      width: 100%;
+    }
+
+    .hero-trust {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 28px;
+      letter-spacing: 0.3px;
+    }
+
+    .hero-trust .stars { color: #fbbf24; letter-spacing: 1px; }
+
+    .hero h1 {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900;
+      font-size: 5rem;
+      color: var(--white);
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+      max-width: 800px;
+    }
+
+    .hero-sub {
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.9);
+      max-width: 560px;
+      margin-bottom: 36px;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    .hero-rule {
+      width: 60px;
+      height: 2px;
+      background: rgba(255,255,255,0.5);
+      margin-bottom: 36px;
+    }
+
+    .hero-cta {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--white);
+      border-bottom: 2px solid rgba(255,255,255,0.7);
+      padding-bottom: 4px;
+      letter-spacing: 0.5px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .hero-cta:hover {
+      color: #5eead4;
+      border-color: #5eead4;
+    }
+
+    /* ─── SECTION SHARED ─── */
+    section {
+      padding: 80px 5%;
+    }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-rule {
+      width: 48px;
+      height: 2px;
+      background: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    .section-label {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .section-heading {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--text);
+      margin-bottom: 20px;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+    }
+
+    hr.divider {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 0;
+    }
+
+    /* ─── ABOUT ─── */
+    .about {
+      background: var(--white);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-text p {
+      font-size: 1.05rem;
+      color: #2d6a64;
+      margin-bottom: 16px;
+      line-height: 1.75;
+    }
+
+    .about-text p:last-child { margin-bottom: 0; }
+
+    .about-img-wrap {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+      aspect-ratio: 4/3;
+    }
+
+    .about-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ─── SERVICES ─── */
+    .services {
+      background: var(--bg);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 32px 26px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+      border-top: 3px solid var(--primary);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+    }
+
+    .service-icon {
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+    }
+
+    .service-card h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .service-card p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonials {
+      background: var(--white);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 48px;
+    }
+
+    .review-card {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 30px 26px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+      position: relative;
+    }
+
+    .review-stars {
+      color: #fbbf24;
+      font-size: 1rem;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+
+    .review-text {
+      font-size: 0.95rem;
+      color: #2d6a64;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .review-author {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--primary);
+    }
+
+    .review-location {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ─── CONTACT ─── */
+    .contact {
+      background: var(--bg);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-top: 48px;
+    }
+
+    .contact-form form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contact-form label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+      display: block;
+      letter-spacing: 0.3px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--rule);
+      border-radius: 6px;
+      background: var(--white);
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 140px;
+    }
+
+    .btn-submit {
+      background: var(--primary);
+      color: var(--white);
+      font-family: 'Raleway', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 14px 32px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      align-self: flex-start;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-submit:hover { background: #0d6460; }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .contact-detail h4 {
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .contact-detail p {
+      font-size: 1rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .contact-detail .sub {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 400;
+      margin-top: 2px;
+    }
+
+    .map-placeholder {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+      margin-top: 4px;
+    }
+
+    .map-placeholder img {
+      width: 100%;
+      display: block;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.75);
+      padding: 40px 5%;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-brand {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900;
+      font-size: 1.2rem;
+      color: var(--white);
+    }
+
+    .footer-copy {
+      font-size: 0.85rem;
+    }
+
+    .footer-photo-credit {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    /* ─── TRUST BADGE (reusable) ─── */
+    .trust-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--white);
+      border: 1.5px solid var(--rule);
+      border-radius: 999px;
+      padding: 8px 20px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      margin-bottom: 32px;
+    }
+
+    .trust-badge .stars { color: #fbbf24; }
+
+    /* ─── MEDIA QUERIES ─── */
+    @media (max-width: 768px) {
+      section { padding: 48px 5%; }
+
+      nav { padding: 0 4%; }
+
+      .nav-phone { display: none; }
+
+      .hero h1 {
+        font-size: 2.2rem;
+        letter-spacing: -1px;
+      }
+
+      .hero-sub { font-size: 1rem; }
+
+      .hero-content { padding: 48px 5%; }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .about-img-wrap { order: -1; }
+
+      .services-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .section-heading { font-size: 1.8rem; }
+
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 480px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAVIGATION ─── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">6aHoweStreet</a>
+      <div class="nav-right">
+        <a href="tel:07470453301" class="nav-phone">07470 453301</a>
+        <a href="#contact" class="btn-nav">Get in touch</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero" style="padding:0;">
+    <div class="hero-bg">
+      <img
+        src="https://images.pexels.com/photos/5934180/pexels-photo-5934180.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+        alt="Two business professionals exchanging a box labeled 'Support Small Businesses' in a studio setting."
+      />
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-trust">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span>5/5 &middot; 7 Google reviews</span>
+      </div>
+      <h1>6aHoweStreet</h1>
+      <p class="hero-sub">Edinburgh's beloved antique shop for curated vintage finds, paintings, and beautiful objects. Open weekends at 6A Howe Street, Edinburgh.</p>
+      <div class="hero-rule"></div>
+      <a href="#contact" class="hero-cta">Get in touch</a>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── ABOUT ─── -->
+  <section class="about" id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="section-label">About Us</p>
+          <h2 class="section-heading">A passion for antiques, rooted in Edinburgh</h2>
+          <p>6aHoweStreet is a family-run antique shop nestled in the heart of Edinburgh's Georgian New Town, bringing together a lovingly curated collection of antiques, vintage pieces, and original paintings from across the decades.</p>
+          <p>What sets us apart is the care and knowledge we bring to every item we stock. Each piece is personally selected for its character, quality, and story, ensuring that what you find here is genuinely special rather than mass-produced.</p>
+          <p>Located at 6A Howe Street, we have become a fixture of Edinburgh's independent shopping scene, and we are proud to offer free delivery on large items across the Edinburgh area, making it easy to bring a piece of history into your home.</p>
+        </div>
+        <div class="about-img-wrap">
+          <img
+            src="https://images.pexels.com/photos/5934186/pexels-photo-5934186.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+            alt="Smiling man in corporate attire holding sign promoting support for small businesses."
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── SERVICES ─── -->
+  <section class="services" id="services">
+    <div class="section-inner">
+      <p class="section-label">What We Offer</p>
+      <h2 class="section-heading">Discover what's in store</h2>
+      <div class="services-grid">
+
+        <div class="service-card">
+          <div class="service-icon">&#127912;</div>
+          <h3>Original Paintings</h3>
+          <p>A rotating selection of original artworks spanning landscapes, portraits, and abstracts sourced from private collections and estate sales across Scotland and beyond.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">&#128218;</div>
+          <h3>Antiques and Collectables</h3>
+          <p>From Georgian silverware to mid-century ceramics, our antiques collection covers centuries of craftsmanship. Every item is carefully assessed for authenticity and condition.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">&#128241;</div>
+          <h3>Vintage Furniture and Decor</h3>
+          <p>Statement vintage furniture and decorative accessories to elevate any interior. We specialise in pieces with genuine character, ideal for adding soul to modern and traditional homes alike.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">&#128666;</div>
+          <h3>Free Edinburgh Delivery</h3>
+          <p>We offer a complimentary delivery service for large items throughout the Edinburgh area, making it simple and stress-free to bring your favourite find home.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── TESTIMONIALS ─── -->
+  <section class="testimonials" id="testimonials">
+    <div class="section-inner">
+      <div class="trust-badge">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span>Rated 5/5 on Google &middot; 7 reviews</span>
+      </div>
+      <p class="section-label">Customer Reviews</p>
+      <h2 class="section-heading">What our customers say</h2>
+      <div class="testimonials-grid">
+
+        <div class="review-card">
+          <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="review-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
+          <p class="review-author">J. M.</p>
+          <p class="review-location">Edinburgh</p>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="review-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."</p>
+          <p class="review-author">S. T.</p>
+          <p class="review-location">Edinburgh</p>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="review-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat."</p>
+          <p class="review-author">A. R.</p>
+          <p class="review-location">Edinburgh</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── CONTACT ─── -->
+  <section class="contact" id="contact">
+    <div class="section-inner">
+      <p class="section-label">Get in Touch</p>
+      <h2 class="section-heading">We would love to hear from you</h2>
+      <div class="contact-grid">
+
+        <div class="contact-form">
+          <form action="mailto:morganjosephine60@gmail.com" method="post" enctype="text/plain">
+            <div>
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="Name" placeholder="e.g. Sarah Williamson" required />
+            </div>
+            <div>
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="Email" placeholder="e.g. sarah@example.com" required />
+            </div>
+            <div>
+              <label for="message">Your Message</label>
+              <textarea id="message" name="Message" placeholder="Tell us what you are looking for, or ask us about a specific item..."></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Get in touch</button>
+          </form>
+        </div>
+
+        <div class="contact-info">
+          <div class="contact-detail">
+            <h4>Phone</h4>
+            <p><a href="tel:07470453301" style="color:var(--text);">07470 453301</a></p>
+          </div>
+          <div class="contact-detail">
+            <h4>Address</h4>
+            <p>6A Howe Street, Edinburgh, EH3 6TD</p>
+            <p class="sub">Scotland, United Kingdom</p>
+          </div>
+          <div class="contact-detail">
+            <h4>Opening Hours</h4>
+            <p>Wednesday to Sunday</p>
+            <p class="sub">Weekend trading. Please contact us to confirm seasonal hours.</p>
+          </div>
+          <div class="map-placeholder">
+            <img src="https://via.placeholder.com/600x300/e0f2fe/0f766e?text=6A+Howe+Street%2C+Edinburgh" alt="Map showing location of 6aHoweStreet at 6A Howe Street, Edinburgh EH3 6TD" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">6aHoweStreet</span>
+      <span class="footer-copy">&copy; 2025 6aHoweStreet. All rights reserved. 6A Howe Street, Edinburgh EH3 6TD.</span>
+      <p class="footer-photo-credit">Photo: Pexels (Gustavo Fring)</p>
+    </div>
+  </footer>
+
+</body>
+</html>

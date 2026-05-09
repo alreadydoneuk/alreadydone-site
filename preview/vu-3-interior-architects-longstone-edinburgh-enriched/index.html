@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VU-3 Interior Architects | Edinburgh & UK-Wide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #1e3a5f;
+    --accent: #16a34a;
+    --bg: #f8fafc;
+    --text: #0f172a;
+    --muted: #64748b;
+    --rule: #cbd5e1;
+    --white: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+    line-height: 1.2;
+  }
+
+  hr.rule {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 0;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--rule);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .nav-phone {
+    font-size: 0.95rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 400;
+  }
+
+  .nav-phone:hover { color: var(--primary); }
+
+  .btn {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--white);
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: background 0.2s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn:hover { background: #15803d; }
+
+  .btn-outline {
+    background: transparent;
+    border: 2px solid var(--white);
+    color: var(--white);
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: background 0.2s ease, color 0.2s ease;
+    display: inline-block;
+  }
+
+  .btn-outline:hover {
+    background: var(--white);
+    color: var(--primary);
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    width: 100%;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(30,58,95,0.88) 50%, rgba(22,163,74,0.35) 100%);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 760px;
+    padding: 80px 60px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #86efac;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: var(--white);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-rule {
+    width: 64px;
+    height: 3px;
+    background: var(--accent);
+    margin: 24px 0;
+    border: none;
+  }
+
+  .hero-sub {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.88);
+    max-width: 520px;
+    margin-bottom: 36px;
+    font-weight: 300;
+  }
+
+  .hero-cta {
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #86efac;
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-bottom: 2px solid #86efac;
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .hero-cta:hover { color: var(--white); border-color: var(--white); }
+
+  /* ===== SECTION COMMON ===== */
+  section {
+    padding: 80px 40px;
+  }
+
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .section-title {
+    font-size: 2.4rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .section-intro {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 620px;
+    margin-bottom: 48px;
+  }
+
+  /* ===== ABOUT ===== */
+  .about-section {
+    background: var(--white);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .about-text p {
+    color: var(--text);
+    font-size: 1.05rem;
+    margin-bottom: 16px;
+  }
+
+  .about-text p:last-child { margin-bottom: 0; }
+
+  .about-img-wrap {
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+
+  .about-img-wrap img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ===== SERVICES ===== */
+  .services-section {
+    background: var(--bg);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .service-card {
+    background: var(--white);
+    border-radius: 4px;
+    padding: 32px 28px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    border-top: 3px solid var(--accent);
+    transition: transform 0.2s ease;
+  }
+
+  .service-card:hover { transform: translateY(-4px); }
+
+  .service-icon {
+    width: 42px;
+    height: 42px;
+    background: #dcfce7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .service-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--accent);
+    fill: none;
+  }
+
+  .service-card h3 {
+    font-size: 1.15rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+  }
+
+  .service-card p {
+    font-size: 0.93rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ===== TESTIMONIALS ===== */
+  .testimonials-section {
+    background: var(--primary);
+    padding: 80px 40px;
+  }
+
+  .testimonials-section .section-label { color: #86efac; }
+  .testimonials-section .section-title { color: var(--white); }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .testimonial-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 4px;
+    padding: 32px 28px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+
+  .stars {
+    color: #fbbf24;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
+
+  .testimonial-card p {
+    color: rgba(255,255,255,0.82);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+
+  .reviewer {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: #86efac;
+    letter-spacing: 0.04em;
+  }
+
+  /* ===== CONTACT ===== */
+  .contact-section {
+    background: var(--white);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .contact-form label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.97rem;
+    color: var(--text);
+    background: var(--bg);
+    margin-bottom: 20px;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    border-color: var(--accent);
+  }
+
+  .contact-form textarea { height: 130px; resize: vertical; }
+
+  .contact-details { margin-top: 8px; }
+
+  .contact-details h3 {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .contact-icon {
+    width: 36px;
+    height: 36px;
+    background: #dcfce7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .contact-icon svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--accent);
+    fill: none;
+  }
+
+  .contact-item-text {
+    font-size: 0.97rem;
+    color: var(--text);
+  }
+
+  .contact-item-text a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .contact-item-text a:hover { text-decoration: underline; }
+
+  .map-wrap {
+    margin-top: 28px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+
+  .map-wrap img {
+    width: 100%;
+    display: block;
+  }
+
+  .service-area-note {
+    display: inline-block;
+    background: #dcfce7;
+    color: #166534;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-top: 20px;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--text);
+    color: rgba(255,255,255,0.6);
+    padding: 40px 40px;
+    text-align: center;
+  }
+
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  footer p {
+    font-size: 0.88rem;
+    margin-bottom: 6px;
+  }
+
+  .photo-credit {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    margin-top: 12px;
+  }
+
+  /* ===== DIVIDER SECTIONS ===== */
+  .thin-rule-section {
+    padding: 0 40px;
+  }
+
+  /* ===== MEDIA QUERIES ===== */
+  @media (max-width: 768px) {
+    nav {
+      padding: 0 20px;
+      height: auto;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 14px;
+      padding-bottom: 14px;
+    }
+
+    .nav-right { gap: 14px; }
+
+    .nav-phone { font-size: 0.85rem; }
+
+    .hero-content {
+      padding: 48px 24px;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+    }
+
+    .hero-sub { font-size: 1rem; }
+
+    section { padding: 48px 20px; }
+
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+
+    .about-img-wrap img { height: 280px; }
+
+    .services-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .section-title { font-size: 1.8rem; }
+
+    .testimonials-section { padding: 48px 20px; }
+
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    footer { padding: 32px 20px; }
+
+    .hero { min-height: 85vh; }
+  }
+
+  @media (max-width: 480px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .nav-brand { font-size: 0.95rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav>
+  <a href="#" class="nav-brand">VU-3 Interior Architects</a>
+  <div class="nav-right">
+    <a href="tel:01315161807" class="nav-phone">0131 516 1807</a>
+    <a href="#contact" class="btn">Get in touch</a>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" style="padding:0;">
+  <img
+    src="https://images.pexels.com/photos/5934180/pexels-photo-5934180.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+    alt="Two business professionals exchanging a box labeled 'Support Small Businesses' in a studio setting."
+    class="hero-img"
+  >
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Interior Architects, Edinburgh</span>
+    <h1>VU-3 Interior Architects</h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">Commercial interior architecture rooted in Longstone, Edinburgh, delivering considered, purposeful spaces for clients across the UK.</p>
+    <a href="#contact" class="hero-cta">Get in touch</a>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ===== ABOUT ===== -->
+<section class="about-section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <span class="section-label">About Us</span>
+        <h2 class="section-title">A specialist studio with a national reach</h2>
+        <p>VU-3 Interior Architects is a close-knit, specialist practice based in South Gyle, Edinburgh, focused entirely on the commercial sector. Our small, dedicated team brings precision and genuine creative thinking to every project, ensuring that each space we design serves its purpose beautifully and efficiently.</p>
+        <p>What sets us apart is our commitment to quality over volume. We work with a select number of clients at any one time, which means every brief receives the focused attention and crafted detail it deserves, whether the project is a single office refurbishment or a multi-site rollout.</p>
+        <p>Though we call Longstone, Edinburgh home, our practice operates across the length and breadth of the United Kingdom, bringing the same standard of care and design rigour to every location we serve.</p>
+        <a href="#contact" class="btn" style="margin-top:24px;">Get in touch</a>
+      </div>
+      <div class="about-img-wrap">
+        <img
+          src="https://images.pexels.com/photos/5934186/pexels-photo-5934186.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+          alt="Smiling man in corporate attire holding sign promoting support for small businesses."
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ===== SERVICES ===== -->
+<section class="services-section">
+  <div class="container">
+    <span class="section-label">What We Do</span>
+    <h2 class="section-title">Our Services</h2>
+    <p class="section-intro">We offer a focused range of interior architecture services tailored to the commercial sector, delivered with care from initial concept through to completion.</p>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
+          </svg>
+        </div>
+        <h3>Commercial Interior Design</h3>
+        <p>Transforming offices, retail spaces, and hospitality environments into functional, inspiring interiors that reflect your brand and support your team.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 20h20M4 20V10l8-7 8 7v10"/><path d="M10 20v-6h4v6"/>
+          </svg>
+        </div>
+        <h3>Space Planning</h3>
+        <p>Intelligent layout strategies that maximise every square metre, improving workflow, occupant wellbeing, and the overall efficiency of your commercial space.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+          </svg>
+        </div>
+        <h3>Refurbishment Consultancy</h3>
+        <p>Expert guidance through every stage of a commercial refurbishment, from feasibility and concept through to contractor coordination and final handover.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+          </svg>
+        </div>
+        <h3>Concept and Specification</h3>
+        <p>Detailed design concepts, material specifications, and finish schedules that give your project a clear visual direction and keep contractors aligned throughout.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials-section">
+  <div class="container">
+    <span class="section-label">Client Feedback</span>
+    <h2 class="section-title">What our clients say</h2>
+    <p class="section-intro" style="color:rgba(255,255,255,0.65); margin-bottom:40px;">We would highly recommend VU-3 Interior Architects. Here is what clients across the UK have shared about working with us.</p>
+    <div class="testimonials-grid">
+
+      <div class="testimonial-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
+        <span class="reviewer">J. M. &mdash; Edinburgh</span>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."</p>
+        <span class="reviewer">S. T. &mdash; Glasgow</span>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum."</p>
+        <span class="reviewer">R. K. &mdash; Leeds</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ===== CONTACT ===== -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <span class="section-label">Contact</span>
+    <h2 class="section-title">Get in touch</h2>
+    <p class="section-intro">Ready to discuss your next commercial project? We welcome enquiries from businesses across the UK. Fill in the form below or contact us directly and we will get back to you promptly.</p>
+
+    <div class="contact-grid">
+      <div class="contact-form">
+        <form action="mailto:dean@alreadydone.uk" method="post" enctype="text/plain">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="Name" placeholder="Jane Smith" required>
+
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="Email" placeholder="jane@yourcompany.com" required>
+
+          <label for="message">Your Message</label>
+          <textarea id="message" name="Message" placeholder="Tell us about your project and how we can help..."></textarea>
+
+          <button type="submit" class="btn" style="width:100%; font-size:1rem; padding:14px;">Get in touch</button>
+        </form>
+      </div>
+
+      <div class="contact-details">
+        <h3>Contact Details</h3>
+
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.22 1.18 2 2 0 012.2.22h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.07 6.07l1.06-1.06a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/>
+            </svg>
+          </div>
+          <div class="contact-item-text">
+            <strong>Phone</strong><br>
+            <a href="tel:01315161807">0131 516 1807</a>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div class="contact-item-text">
+            <strong>Address</strong><br>
+            3 Redheughs Rigg, South Gyle<br>Edinburgh EH12 9DQ
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
+            </svg>
+          </div>
+          <div class="contact-item-text">
+            <strong>Service Area</strong><br>
+            Based in Edinburgh, serving clients all around the UK.
+          </div>
+        </div>
+
+        <span class="service-area-note">UK-Wide Coverage</span>
+
+        <div class="map-wrap">
+          <img src="https://via.placeholder.com/600x300/e2e8f0/94a3b8?text=Map+Placeholder" alt="Map showing location of VU-3 Interior Architects in South Gyle, Edinburgh">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<hr class="rule">
+<footer>
+  <div class="footer-brand">VU-3 Interior Architects</div>
+  <p>3 Redheughs Rigg, South Gyle, Edinburgh EH12 9DQ</p>
+  <p>Tel: <a href="tel:01315161807" style="color:rgba(255,255,255,0.6); text-decoration:none;">0131 516 1807</a></p>
+  <p style="margin-top:10px;">&copy; 2025 VU-3 Interior Architects. All rights reserved.</p>
+  <p class="photo-credit">Photo: Pexels (Gustavo Fring)</p>
+</footer>
+
+</body>
+</html>
