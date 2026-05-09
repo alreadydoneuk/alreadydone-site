@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edinburgh Metalwork | Blacksmith in Longstone, Edinburgh</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #0f766e;
+    --accent: #0ea5e9;
+    --bg: #f0fdfa;
+    --text: #134e4a;
+    --white: #ffffff;
+    --light-teal: #ccfbf1;
+    --border: #b2e8e0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Open Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Oswald', sans-serif;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  a { text-decoration: none; color: inherit; }
+
+  img { display: block; max-width: 100%; }
+
+  /* ---- NAVIGATION ---- */
+  nav {
+    background: var(--white);
+    border-bottom: 2px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    gap: 16px;
+  }
+
+  .nav-brand {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .nav-phone {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    color: var(--text);
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 11px 26px;
+    border-radius: 6px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    color: var(--white);
+    box-shadow: 0 2px 8px rgba(15,118,110,0.25);
+  }
+
+  .btn-primary:hover {
+    background: #0d6460;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(15,118,110,0.3);
+  }
+
+  .btn-accent {
+    background: var(--accent);
+    color: var(--white);
+    box-shadow: 0 2px 8px rgba(14,165,233,0.25);
+  }
+
+  .btn-accent:hover {
+    background: #0891b2;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(14,165,233,0.3);
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 520px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-banner-strip {
+    background: linear-gradient(135deg, var(--primary) 0%, #0d9488 50%, var(--accent) 100%);
+    padding: 56px 24px 48px;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+
+  .hero-banner-strip::after {
+    content: '';
+    position: absolute;
+    bottom: -24px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary) 0%, #0d9488 50%, var(--accent) 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 30%, 0 100%);
+    z-index: 1;
+  }
+
+  .hero-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 1px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tagline {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.2rem;
+    color: #ccfbf1;
+    margin-bottom: 20px;
+    font-weight: 500;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-phone-display {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2rem;
+    color: var(--white);
+    font-weight: 600;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 4px;
+  }
+
+  .hero-phone-display a {
+    color: var(--white);
+  }
+
+  .hero-phone-label {
+    font-size: 0.85rem;
+    color: #a7f3d0;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 24px;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .hero-cta-wrap {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 8px;
+  }
+
+  .hero-image-section {
+    position: relative;
+    flex: 1;
+    min-height: 320px;
+  }
+
+  .hero-image-section img {
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(15,118,110,0.3) 0%, rgba(15,118,110,0.05) 100%);
+    pointer-events: none;
+  }
+
+  /* ---- SECTIONS ---- */
+  section {
+    padding: 80px 24px;
+  }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+    text-align: center;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    color: #5f8e8a;
+    font-size: 1rem;
+    margin-bottom: 48px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ---- TRUST BADGE ---- */
+  .trust-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white);
+    border: 2px solid #fbbf24;
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    color: #92400e;
+    font-weight: 600;
+    box-shadow: 0 2px 12px rgba(251,191,36,0.2);
+    margin-bottom: 32px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .trust-stars { color: #f59e0b; font-size: 1.1rem; }
+
+  /* ---- ABOUT ---- */
+  #about {
+    background: var(--white);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .about-text p {
+    margin-bottom: 16px;
+    font-size: 1.05rem;
+    color: var(--text);
+  }
+
+  .about-text p:last-child { margin-bottom: 0; }
+
+  .about-image {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+
+  .about-image img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ---- SERVICES ---- */
+  #services {
+    background: var(--bg);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .service-card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 32px 24px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    border-top: 4px solid var(--primary);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  }
+
+  .service-icon {
+    font-size: 2.2rem;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .service-card h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 10px;
+  }
+
+  .service-card p {
+    font-size: 0.93rem;
+    color: #3d7872;
+    line-height: 1.65;
+  }
+
+  /* ---- TESTIMONIALS ---- */
+  #testimonials {
+    background: var(--white);
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .testimonial-card {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 28px 24px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    border-left: 4px solid var(--accent);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .t-stars { color: #f59e0b; font-size: 1.1rem; }
+
+  .t-text {
+    font-size: 0.95rem;
+    color: var(--text);
+    font-style: italic;
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  .t-author {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary);
+  }
+
+  .t-town {
+    font-size: 0.82rem;
+    color: #5f8e8a;
+    margin-top: 2px;
+  }
+
+  /* ---- CONTACT ---- */
+  #contact {
+    background: var(--bg);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .contact-form-card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 40px 36px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+
+  .contact-form-card h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 24px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    background: #f0fdfa;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--primary);
+    background: var(--white);
+  }
+
+  .form-group textarea {
+    height: 130px;
+    resize: vertical;
+  }
+
+  .contact-info-card {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .info-block {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 24px 28px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .info-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .info-block h4 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 4px;
+  }
+
+  .info-block p, .info-block a {
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .info-block a {
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  .map-placeholder {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+
+  .map-placeholder img {
+    width: 100%;
+    display: block;
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background: linear-gradient(135deg, var(--primary) 0%, #0d6460 100%);
+    color: var(--white);
+    padding: 40px 24px 32px;
+    text-align: center;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-brand {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .footer-address {
+    font-size: 0.9rem;
+    color: #a7f3d0;
+    margin-bottom: 8px;
+  }
+
+  .footer-copy {
+    font-size: 0.85rem;
+    color: #ccfbf1;
+    margin-top: 16px;
+  }
+
+  .footer-photo-credit {
+    font-size: 12px;
+    color: #5eead4;
+    margin-top: 10px;
+  }
+
+  .footer-divider {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    margin: 20px auto;
+    max-width: 400px;
+  }
+
+  /* ---- CTA STRIP ---- */
+  .cta-strip {
+    background: linear-gradient(135deg, #0d9488 0%, var(--accent) 100%);
+    padding: 60px 24px;
+    text-align: center;
+  }
+
+  .cta-strip h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2rem;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .cta-strip p {
+    color: #e0f7fa;
+    font-size: 1.05rem;
+    margin-bottom: 28px;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-white {
+    background: var(--white);
+    color: var(--primary);
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 14px 36px;
+    border-radius: 6px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+
+  .btn-white:hover {
+    background: var(--light-teal);
+    transform: translateY(-2px);
+  }
+
+  /* ---- MOBILE ---- */
+  @media (max-width: 768px) {
+    section { padding: 48px 18px; }
+
+    .nav-inner { padding: 0 16px; height: 60px; }
+    .nav-phone { display: none; }
+    .nav-brand { font-size: 1.1rem; }
+
+    .hero-title {
+      font-size: 2.2rem;
+    }
+
+    .hero-tagline { font-size: 1rem; }
+    .hero-phone-display { font-size: 1.5rem; }
+    .hero-banner-strip { padding: 40px 18px 36px; }
+
+    .about-grid { grid-template-columns: 1fr; gap: 28px; }
+    .about-image img { height: 260px; }
+
+    .services-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .service-card { padding: 24px 18px; }
+
+    .testimonials-grid { grid-template-columns: 1fr; gap: 16px; }
+
+    .contact-grid { grid-template-columns: 1fr; gap: 28px; }
+    .contact-form-card { padding: 28px 20px; }
+
+    .cta-strip { padding: 48px 18px; }
+    .cta-strip h2 { font-size: 1.6rem; }
+
+    .section-title { font-size: 1.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ====== NAVIGATION ====== -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">Edinburgh Metalwork</div>
+    <div class="nav-right">
+      <a href="tel:01315606118" class="nav-phone">0131 560 6118</a>
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ====== HERO ====== -->
+<section id="hero" style="padding:0; background: var(--bg);">
+  <div class="hero">
+    <div class="hero-banner-strip">
+      <div class="trust-badge">
+        <span class="trust-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        5/5 &middot; 4 Google Reviews
+      </div>
+      <h1 class="hero-title">Edinburgh Metalwork</h1>
+      <p class="hero-tagline">Expert blacksmith services in Longstone, Edinburgh. Crafted with skill, built to last.</p>
+      <p class="hero-phone-display"><a href="tel:01315606118">0131 560 6118</a></p>
+      <p class="hero-phone-label">Call us today for a free quote</p>
+      <div class="hero-cta-wrap">
+        <a href="#contact" class="btn btn-accent">Get in touch</a>
+      </div>
+    </div>
+    <div class="hero-image-section">
+      <img
+        src="https://images.pexels.com/photos/5934180/pexels-photo-5934180.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+        alt="Two business professionals exchanging a box labeled 'Support Small Businesses' in a studio setting."
+      >
+      <div class="hero-image-overlay"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== ABOUT ====== -->
+<section id="about">
+  <div class="section-inner">
+    <h2 class="section-title">About Edinburgh Metalwork</h2>
+    <p class="section-subtitle">Your trusted local blacksmith, right here in Longstone.</p>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Edinburgh Metalwork is a family-run blacksmith business based in Longstone, Edinburgh, with years of hands-on experience crafting and fabricating metalwork for homeowners, businesses, and contractors across the city and beyond.</p>
+        <p>What sets us apart is our commitment to quality at every stage of the process. From the initial design consultation through to the finished piece, every project receives the same careful attention to detail and honest, straightforward advice. We work with iron, steel, and a range of other metals to deliver results that are both functional and genuinely well-made.</p>
+        <p>As a Longstone-based business, we are proud to serve our local Edinburgh community. Whether you need a bespoke gate for your home in Morningside, structural steelwork for a project in Leith, or decorative ironwork for a property in the New Town, we are close by and ready to help.</p>
+        <div style="margin-top:28px;">
+          <a href="#contact" class="btn btn-primary">Get in touch</a>
+        </div>
+      </div>
+      <div class="about-image">
+        <img
+          src="https://images.pexels.com/photos/5934186/pexels-photo-5934186.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+          alt="Smiling man in corporate attire holding sign promoting support for small businesses."
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SERVICES ====== -->
+<section id="services">
+  <div class="section-inner">
+    <h2 class="section-title">Our Services</h2>
+    <p class="section-subtitle">From bespoke commissions to structural fabrication, we cover it all.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">&#128297;</span>
+        <h3>Bespoke Gates and Railings</h3>
+        <p>Handcrafted gates, driveway entrances, and security railings designed and made to your exact specifications. Strong, stylish, and built to last Edinburgh's weather.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">&#128736;</span>
+        <h3>Structural Steelwork</h3>
+        <p>Precision steel fabrication for construction and renovation projects. We work closely with builders and contractors across Edinburgh to deliver reliable structural metalwork on time.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">&#10024;</span>
+        <h3>Decorative Ironwork</h3>
+        <p>Traditional and contemporary decorative ironwork for homes, gardens, and heritage properties. Each piece is shaped and finished by hand in our Longstone workshop.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">&#128295;</span>
+        <h3>Repairs and Restoration</h3>
+        <p>We repair and restore existing metalwork, including antique ironwork, damaged gates, and corroded railings. Bring old metalwork back to life with sympathetic, skilled craftsmanship.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CTA STRIP ====== -->
+<div class="cta-strip">
+  <h2>Ready to start your project?</h2>
+  <p>Whether you have a clear brief or just an idea, we are happy to talk it through. Give us a call or drop us a message today.</p>
+  <a href="#contact" class="btn-white">Get in touch</a>
+</div>
+
+<!-- ====== TESTIMONIALS ====== -->
+<section id="testimonials">
+  <div class="section-inner">
+    <h2 class="section-title">What Our Customers Say</h2>
+    <p class="section-subtitle">Rated 5/5 on Google. Here is what local customers have been saying.</p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="t-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
+        <div>
+          <div class="t-author">S. M.</div>
+          <div class="t-town">Longstone, Edinburgh</div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="t-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."</p>
+        <div>
+          <div class="t-author">R. T.</div>
+          <div class="t-town">Morningside, Edinburgh</div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="t-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore."</p>
+        <div>
+          <div class="t-author">P. K.</div>
+          <div class="t-town">Corstorphine, Edinburgh</div>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:32px; font-size:0.9rem; color:#5f8e8a;">
+      <span style="color:#f59e0b; font-size:1rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      &nbsp;5/5 &middot; 4 Google Reviews &middot; Edinburgh Metalwork
+    </p>
+  </div>
+</section>
+
+<!-- ====== CONTACT ====== -->
+<section id="contact">
+  <div class="section-inner">
+    <h2 class="section-title">Get in Touch</h2>
+    <p class="section-subtitle">Have a project in mind or need some advice? Fill in the form below or give us a call. We aim to respond to all enquiries within one business day.</p>
+    <div class="contact-grid">
+      <div class="contact-form-card">
+        <h3>Send Us a Message</h3>
+        <form action="mailto:athelstaneforge@gmail.com" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="Name" placeholder="e.g. Jane Smith" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="Email" placeholder="e.g. jane@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="Message" placeholder="Tell us about your project or enquiry..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%; font-size:1.05rem; padding:14px;">Get in touch</button>
+        </form>
+      </div>
+      <div class="contact-info-card">
+        <div class="info-block">
+          <div class="info-icon">&#128222;</div>
+          <div>
+            <h4>Phone</h4>
+            <a href="tel:01315606118">0131 560 6118</a>
+            <p style="font-size:0.85rem; color:#5f8e8a; margin-top:4px;">Mon to Fri, 8am to 5pm</p>
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="info-icon">&#128205

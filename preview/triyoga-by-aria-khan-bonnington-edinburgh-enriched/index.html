@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRIYOGA By ARIA KHAN | Yoga Instructor | Bonnington Edinburgh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700;800;900&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #78350f;
+    --accent: #d97706;
+    --bg: #fef3c7;
+    --text: #1c1917;
+    --light-rule: #e6d9b0;
+    --muted: #92806a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 17px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Raleway', sans-serif;
+    color: var(--primary);
+    line-height: 1.2;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* THIN RULE */
+  .rule {
+    border: none;
+    border-top: 1px solid var(--light-rule);
+    margin: 0;
+  }
+
+  /* SECTION PADDING */
+  section {
+    padding: 80px 0;
+  }
+
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* =====================
+     NAV
+  ===================== */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(254, 243, 199, 0.96);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--light-rule);
+  }
+
+  .nav-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+
+  .nav-logo {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--primary);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+
+  .nav-logo span {
+    display: block;
+    font-weight: 300;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+  }
+
+  .nav-cta {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--primary);
+    border: 1.5px solid var(--primary);
+    padding: 9px 20px;
+    border-radius: 6px;
+    transition: background 0.25s, color 0.25s;
+    white-space: nowrap;
+  }
+
+  .nav-cta:hover {
+    background: var(--primary);
+    color: var(--bg);
+    text-decoration: none;
+  }
+
+  /* =====================
+     HERO
+  ===================== */
+  #hero {
+    padding: 0;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-image-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero-image-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      rgba(254, 243, 199, 0.97) 0%,
+      rgba(254, 243, 199, 0.88) 45%,
+      rgba(120, 53, 15, 0.18) 100%
+    );
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 120px 32px 80px;
+    max-width: 700px;
+    margin-left: 5vw;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+
+  .hero-h1 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 900;
+    font-size: 4.2rem;
+    color: var(--primary);
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    line-height: 1.05;
+  }
+
+  .hero-tagline {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 1.45rem;
+    color: var(--primary);
+    margin-bottom: 28px;
+    line-height: 1.4;
+  }
+
+  .hero-rule {
+    border: none;
+    border-top: 1px solid var(--accent);
+    width: 60px;
+    margin-bottom: 28px;
+  }
+
+  .hero-body {
+    font-size: 1.05rem;
+    color: #44352a;
+    max-width: 480px;
+    margin-bottom: 36px;
+    font-weight: 300;
+    line-height: 1.85;
+  }
+
+  .hero-cta-link {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--primary);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 3px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .hero-cta-link:hover {
+    color: var(--accent);
+    border-color: var(--primary);
+    text-decoration: none;
+  }
+
+  /* =====================
+     ABOUT
+  ===================== */
+  #about .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .about-label {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  .about-h2 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    margin-bottom: 24px;
+  }
+
+  .about-body p {
+    margin-bottom: 18px;
+    color: #3d2e26;
+    font-weight: 400;
+  }
+
+  .about-img-wrap {
+    position: relative;
+  }
+
+  .about-img-wrap img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+    box-shadow: 0 2px 32px rgba(0,0,0,0.10);
+  }
+
+  .about-img-accent {
+    position: absolute;
+    top: -16px;
+    left: -16px;
+    width: 80px;
+    height: 80px;
+    border: 2px solid var(--accent);
+    border-radius: 2px;
+    z-index: -1;
+  }
+
+  /* =====================
+     WHAT I HELP WITH
+  ===================== */
+  #help {
+    background: linear-gradient(160deg, #fff8e8 0%, var(--bg) 100%);
+  }
+
+  #help .section-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .section-label {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .section-h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 14px;
+  }
+
+  .section-sub {
+    font-size: 1.02rem;
+    color: var(--muted);
+    max-width: 540px;
+    margin: 0 auto;
+    font-weight: 300;
+  }
+
+  .help-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .help-card {
+    background: #fffdf5;
+    border: 1px solid var(--light-rule);
+    border-radius: 4px;
+    padding: 32px 24px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .help-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 28px rgba(0,0,0,0.12);
+  }
+
+  .help-card-num {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 900;
+    font-size: 2.4rem;
+    color: var(--light-rule);
+    line-height: 1;
+    margin-bottom: 14px;
+  }
+
+  .help-card h3 {
+    font-size: 1.08rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--primary);
+  }
+
+  .help-card p {
+    font-size: 0.93rem;
+    color: var(--muted);
+    font-weight: 400;
+    line-height: 1.65;
+  }
+
+  /* =====================
+     HOW IT WORKS
+  ===================== */
+  #process .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    position: relative;
+  }
+
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 16.6%;
+    right: 16.6%;
+    height: 1px;
+    background: var(--light-rule);
+    z-index: 0;
+  }
+
+  .process-step {
+    text-align: center;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--bg);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .process-step h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--primary);
+  }
+
+  .process-step p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* =====================
+     CREDENTIALS
+  ===================== */
+  #credentials {
+    background: linear-gradient(135deg, #78350f 0%, #92420e 100%);
+  }
+
+  #credentials .section-label,
+  #credentials .section-h2,
+  #credentials .section-sub {
+    color: rgba(254, 243, 199, 0.7);
+  }
+
+  #credentials .section-h2 {
+    color: var(--bg);
+  }
+
+  #credentials .section-header {
+    text-align: center;
+    margin-bottom: 52px;
+  }
+
+  .creds-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .cred-card {
+    background: rgba(254, 243, 199, 0.08);
+    border: 1px solid rgba(254, 243, 199, 0.18);
+    border-radius: 4px;
+    padding: 32px 28px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+
+  .cred-icon {
+    font-size: 1.8rem;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .cred-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--bg);
+    margin-bottom: 10px;
+  }
+
+  .cred-card p {
+    font-size: 0.9rem;
+    color: rgba(254, 243, 199, 0.72);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* =====================
+     TESTIMONIALS
+  ===================== */
+  #testimonials {
+    background: #fffdf5;
+  }
+
+  #testimonials .section-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .testimonial-card {
+    background: var(--bg);
+    border: 1px solid var(--light-rule);
+    border-radius: 4px;
+    padding: 36px 28px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    position: relative;
+  }
+
+  .testimonial-stars {
+    color: var(--accent);
+    font-size: 1rem;
+    margin-bottom: 18px;
+    letter-spacing: 2px;
+  }
+
+  .testimonial-quote {
+    font-size: 0.97rem;
+    color: #3d2e26;
+    font-weight: 400;
+    line-height: 1.8;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .testimonial-rule {
+    border: none;
+    border-top: 1px solid var(--light-rule);
+    margin-bottom: 18px;
+  }
+
+  .testimonial-name {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    color: var(--primary);
+    text-transform: uppercase;
+  }
+
+  .testimonial-card::before {
+    content: '\201C';
+    position: absolute;
+    top: 16px;
+    right: 24px;
+    font-size: 4rem;
+    color: var(--light-rule);
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+
+  /* =====================
+     CONTACT
+  ===================== */
+  #contact .section-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .contact-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .contact-info h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--primary);
+  }
+
+  .contact-info p {
+    font-size: 0.98rem;
+    color: #3d2e26;
+    margin-bottom: 14px;
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  .contact-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .contact-detail-icon {
+    font-size: 1.1rem;
+    color: var(--accent);
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .contact-detail-text {
+    font-size: 0.97rem;
+    color: #3d2e26;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  .contact-detail-text strong {
+    display: block;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 3px;
+  }
+
+  .map-embed {
+    margin-top: 28px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--light-rule);
+  }
+
+  .map-embed img {
+    width: 100%;
+    display: block;
+  }
+
+  /* FORM */
+  .contact-form-wrap h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--primary);
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 7px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    background: #fffdf5;
+    border: 1px solid var(--light-rule);
+    border-radius: 4px;
+    padding: 12px 16px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.97rem;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--accent);
+  }
+
+  .form-group textarea {
+    min-height: 130px;
+    resize: vertical;
+  }
+
+  .form-submit {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 0.88rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--primary);
+    color: var(--bg);
+    border: none;
+    border-radius: 6px;
+    padding: 14px 36px;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.15s;
+    width: 100%;
+  }
+
+  .form-submit:hover {
+    background: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  /* =====================
+     FOOTER
+  ===================== */
+  footer {
+    background: var(--primary);
+    color: rgba(254, 243, 199, 0.7);
+    padding: 48px 0 32px;
+  }
+
+  .footer-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .footer-logo {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--bg);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .footer-tagline {
+    font-size: 0.88rem;
+    color: rgba(254, 243, 199, 0.65);
+    font-weight: 300;
+    margin-bottom: 8px;
+  }
+
+  .footer-membership {
+    font-size: 0.82rem;
+    color: rgba(254, 243, 199, 0.55);
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+
+  .footer-copyright {
+    font-size: 0.78rem;
+    color: rgba(254, 243, 199, 0.4);
+  }
+
+  .footer-photo-credit {
+    font-size: 12px;
+    color: rgba(254, 243, 199, 0.35);
+    margin-top: 8px;
+  }
+
+  .footer-contact {
+    text-align: right;
+    font-size: 0.88rem;
+    color: rgba(254, 243, 199, 0.65);
+    line-height: 1.8;
+  }
+
+  .footer-contact a {
+    color: var(--accent);
+  }
+
+  /* =====================
+     MOBILE
+  ===================== */
+  @media (max-width: 768px) {
+    section { padding: 48px 0; }
+
+    .nav-inner { padding: 0 20px; }
+    .nav-logo span { display: none; }
+    .nav-cta { font-size: 0.75rem; padding: 7px 14px; }
+
+    .hero-content {
+      padding: 100px 20px 60px;
+      margin-left: 0;
+      max-width: 100%;
+    }
+
+    .hero-h1 {
+      font-size: 2.2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-tagline { font-size: 1.1rem; }
+    .hero-body { font-size: 0.97rem; }
+
+    #about .container {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+
+    .about-img-wrap img { height: 320px; }
+    .about-img-accent { display: none; }
+
+    .help-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .process-steps {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .process-steps::before { display: none; }
+
+    .creds-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .contact-wrap {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .footer-inner {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .footer-contact { text-align: left; }
+
+    .container { padding: 0 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      TRIYOGA By ARIA KHAN
+      <span>Yoga Instructor, Bonnington Edinburgh</span>
+    </div>
+    <a href="#contact" class="nav-cta">Book a consultation</a>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section id="hero">
+  <div class="hero-image-bg">
+    <img src="https://images.pexels.com/photos/14187888/pexels-photo-14187888.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Close-up of an arm massage promoting relaxation and wellness in a spa environment.">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Yoga Instruction, Bonnington Edinburgh</p>
+    <h1 class="hero-h1">TRIYOGA<br>By ARIA KHAN</h1>
+    <p class="hero-tagline">Supporting your wellbeing<br>in Bonnington Edinburgh</p>
+    <hr class="hero-rule">
+    <p class="hero-body">You deserve a practice that meets you exactly where you are. Whether you are managing stress, rebuilding strength, or simply searching for a moment of stillness, I am here to walk alongside you with care, curiosity, and no judgement whatsoever.</p>
+    <a href="#contact" class="hero-cta-link">Book a free initial consultation</a>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ===================== ABOUT ===================== -->
+<section id="about">
+  <div class="container">
+    <div class="about-body">
+      <p class="about-label">About Aria</p>
+      <h2 class="about-h2">A practice built around you, not a programme.</h2>
+      <p>I am Aria Khan, a registered yoga instructor based here in Bonnington, Edinburgh, and I have been guiding people through the transformative power of movement and breath for over a decade. My training spans Hatha, Yin, and therapeutic yoga, and I hold a 500-hour RYT certification recognised by Yoga Alliance, alongside specialist study in trauma-sensitive practice and mindfulness-based stress reduction.</p>
+      <p>What matters most to me is the person on the mat, not just the posture. I began this work because I know firsthand how much a compassionate, skilled guide can change everything when life feels overwhelming. Yoga became my anchor, and now it is my honour to offer that same steadiness to others.</p>
+      <p>Every session I offer is shaped around your individual body, your nervous system, and your goals. I work with clients one-to-one and in small groups, both in person at my Edinburgh studio near London Road and online for those who prefer the comfort of home.</p>
+    </div>
+    <div class="about-img-wrap">
+      <div class="about-img-accent"></div>
+      <img src="https://images.pexels.com/photos/5888069/pexels-photo-5888069.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Two therapists performing foot massage therapy for a client indoors.">
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ===================== WHAT I HELP WITH ===================== -->
+<section id="help">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Areas of Focus</p>
+      <h2 class="section-h2">What I help with</h2>
+      <p class="section-sub">Whether you are just beginning or returning to practice, these are the areas where my clients most often find real, lasting change.</p>
+    </div>
+    <div class="help-grid">
+      <div class="help-card">
+        <div class="help-card-num">01</div>
+        <h3>Stress and Anxiety</h3>
+        <p>Gentle, breathwork-led sessions that calm the nervous system and help you feel grounded again in your everyday life.</p>
+      </div>
+      <div class="help-card">
+        <div class="help-card-num">02</div>
+        <h3>Back Pain and Mobility</h3>
+        <p>Therapeutic movement sequences designed to release tension, restore alignment, and rebuild confidence in your body.</p>
+      </div>
+      <div class="help-card">
+        <div class="help-card-num">03</div>
+        <h3>Sleep and Recovery</h3>
+        <p>Restorative and Yin practices that signal safety to your body, helping you wind down and achieve deeper, more restful sleep.</p>
+      </div>
+      <div class="help-card">
+        <div class="help-card-num">04</div>
+        <h3>Burnout and Exhaustion</h3>
+        <p>A slower, nourishing approach that rebuilds energy from the inside out, without adding pressure or performance expectations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ===================== HOW IT WORKS ===================== -->
+<section id="process">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">The Process</p>
+      <h2 class="section-h2">How we work together</h2>
+      <p class="section-sub">No rush, no pressure. Just a simple, caring pathway from first conversation to lasting change.</p>
+    </div>
+    <div class="process-steps">

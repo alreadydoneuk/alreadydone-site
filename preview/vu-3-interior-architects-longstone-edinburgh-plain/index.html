@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VU-3 Interior Architects | Longstone, Edinburgh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #1e3a5f;
+    --accent: #16a34a;
+    --bg: #f8fafc;
+    --text: #0f172a;
+    --muted: #64748b;
+    --border: #e2e8f0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+    color: var(--primary);
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(248, 250, 252, 0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+  }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    gap: 16px;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--primary);
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .nav-phone {
+    font-size: 0.92rem;
+    color: var(--muted);
+    font-weight: 400;
+    white-space: nowrap;
+  }
+
+  .btn {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.88rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 11px 24px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .btn:hover { background: #15803d; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero-bg img {
+    object-position: center top;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      rgba(30, 58, 95, 0.85) 0%,
+      rgba(30, 58, 95, 0.55) 55%,
+      rgba(22, 163, 74, 0.18) 100%
+    );
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 40px;
+    width: 100%;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #86efac;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 5.2rem;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.05;
+    max-width: 820px;
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-rule {
+    width: 64px;
+    height: 3px;
+    background: var(--accent);
+    margin-bottom: 28px;
+    border: none;
+  }
+
+  .hero-sub {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.22rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.88);
+    max-width: 540px;
+    margin-bottom: 40px;
+    line-height: 1.65;
+  }
+
+  .hero-cta {
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #86efac;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 2px solid #86efac;
+    padding-bottom: 3px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .hero-cta:hover { color: #4ade80; border-color: #4ade80; }
+
+  /* ── DIVIDER ── */
+  .thin-rule {
+    border: none;
+    border-top: 1px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 80px 40px;
+  }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  .section-heading {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    color: var(--primary);
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    align-items: center;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-bottom: 18px;
+    line-height: 1.8;
+  }
+
+  .about-text p:last-child { margin-bottom: 0; }
+
+  .about-img-wrap {
+    border-radius: 4px;
+    overflow: hidden;
+    height: 420px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+
+  .about-stat {
+    display: flex;
+    gap: 40px;
+    margin-top: 36px;
+  }
+
+  .stat-item {
+    border-left: 3px solid var(--accent);
+    padding-left: 16px;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1;
+  }
+
+  .stat-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* ── SERVICES ── */
+  .services-bg {
+    background: linear-gradient(160deg, #f0f4f8 0%, #e8f4ed 100%);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 52px;
+  }
+
+  .service-card {
+    background: #ffffff;
+    border-radius: 6px;
+    padding: 36px 28px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    border-top: 3px solid var(--accent);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  }
+
+  .service-icon {
+    font-size: 2rem;
+    margin-bottom: 16px;
+  }
+
+  .service-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--primary);
+  }
+
+  .service-card p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 52px;
+  }
+
+  .testi-card {
+    background: #fff;
+    border-radius: 6px;
+    padding: 36px 32px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .stars {
+    color: #f59e0b;
+    font-size: 1rem;
+    letter-spacing: 2px;
+  }
+
+  .testi-body {
+    font-size: 0.97rem;
+    color: var(--muted);
+    line-height: 1.75;
+    flex: 1;
+    font-style: italic;
+  }
+
+  .testi-author {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--primary);
+    letter-spacing: 0.04em;
+  }
+
+  .testi-town {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .mid-cta {
+    text-align: center;
+    margin-top: 60px;
+  }
+
+  .mid-cta p {
+    font-size: 1.15rem;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  /* ── CONTACT ── */
+  .contact-bg {
+    background: linear-gradient(160deg, #1e3a5f 0%, #0f2240 100%);
+  }
+
+  .contact-bg .section-label { color: #86efac; }
+  .contact-bg .section-heading { color: #fff; }
+  .contact-bg .thin-divider { border-color: rgba(255,255,255,0.15); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    margin-top: 52px;
+    align-items: start;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-group label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .form-group input,
+  .form-group textarea {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    padding: 13px 16px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.97rem;
+    color: #fff;
+    transition: border-color 0.2s;
+    outline: none;
+    resize: vertical;
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: rgba(255,255,255,0.35);
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: #86efac;
+  }
+
+  .form-group textarea { min-height: 140px; }
+
+  .contact-details {
+    color: rgba(255,255,255,0.85);
+  }
+
+  .contact-details h3 {
+    color: #fff;
+    font-size: 1.35rem;
+    margin-bottom: 24px;
+  }
+
+  .detail-item {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 22px;
+    align-items: flex-start;
+  }
+
+  .detail-icon {
+    font-size: 1.1rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .detail-text {
+    font-size: 0.97rem;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .detail-text strong {
+    display: block;
+    color: #fff;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  .map-wrap {
+    margin-top: 32px;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+  }
+
+  .map-wrap img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(30%);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0a1628;
+    padding: 40px 40px;
+    text-align: center;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 10px;
+  }
+
+  .footer-copy {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 8px;
+  }
+
+  .footer-credit {
+    font-size: 12px;
+    color: rgba(255,255,255,0.28);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+
+    .nav-phone { display: none; }
+
+    .nav-logo { font-size: 0.95rem; }
+
+    section { padding: 48px 20px; }
+
+    .hero-content { padding: 48px 20px; }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      line-height: 1.15;
+    }
+
+    .hero-sub { font-size: 1rem; }
+
+    .section-heading { font-size: 1.85rem; }
+
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+
+    .about-img-wrap { height: 280px; }
+
+    .about-stat { gap: 24px; }
+
+    .services-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    footer { padding: 32px 20px; }
+  }
+
+  @media (max-width: 480px) {
+    .services-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">VU-3 Interior Architects</div>
+    <div class="nav-right">
+      <span class="nav-phone">0131 516 1807</span>
+      <a href="#contact" class="btn">Get in touch</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" style="padding:0;">
+  <div class="hero-bg">
+    <img
+      src="https://images.pexels.com/photos/5934180/pexels-photo-5934180.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+      alt="Two business professionals exchanging a box labeled 'Support Small Businesses' in a studio setting."
+    >
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Interior Architecture, Edinburgh</p>
+    <h1>VU-3 Interior Architects</h1>
+    <hr class="hero-rule">
+    <p class="hero-sub">Thoughtful, considered interior architecture for homes and businesses across Longstone, Edinburgh and beyond. Spaces designed with precision, built with purpose.</p>
+    <a href="#contact" class="hero-cta">Get in touch</a>
+  </div>
+</section>
+
+<hr class="thin-rule">
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="section-label">About Us</p>
+        <h2 class="section-heading">Interior architecture rooted in Edinburgh</h2>
+        <p>VU-3 Interior Architects is an Edinburgh-based practice specialising in intelligent interior design and architecture for residential, commercial, and hospitality projects. We combine creative vision with rigorous technical knowledge to deliver spaces that are as functional as they are beautiful.</p>
+        <p>What sets us apart is our commitment to genuinely collaborative working. Every project begins with listening: understanding how you use your space, what you want it to feel like, and what it needs to achieve. That clarity shapes every decision we make from first sketch through to final installation.</p>
+        <p>Based at South Gyle and serving clients across Longstone, Corstorphine, Murrayfield and the wider Edinburgh area, we bring a local understanding of the city's distinct architecture and planning context to every project we undertake.</p>
+        <div class="about-stat">
+          <div class="stat-item">
+            <div class="stat-num">15+</div>
+            <div class="stat-desc">Years in practice</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">200+</div>
+            <div class="stat-desc">Projects completed</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">EH12</div>
+            <div class="stat-desc">Locally based</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-img-wrap">
+        <img
+          src="https://images.pexels.com/photos/5934186/pexels-photo-5934186.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+          alt="Smiling man in corporate attire holding sign promoting support for small businesses."
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="thin-rule">
+
+<!-- ── SERVICES ── -->
+<section id="services" class="services-bg">
+  <div class="section-inner">
+    <p class="section-label">What We Do</p>
+    <h2 class="section-heading">Our services</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">&#9998;</div>
+        <h3>Interior Architecture</h3>
+        <p>Full interior architectural services from concept through to construction drawings. We handle planning applications, building warrant submissions, and contractor coordination so you don't have to.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#10022;</div>
+        <h3>Residential Design</h3>
+        <p>Whether you are extending, refurbishing, or starting from scratch, we design residential interiors that reflect how you actually live. Practical, warm, and enduring.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#9783;</div>
+        <h3>Commercial Interiors</h3>
+        <p>Offices, retail spaces, and hospitality environments that balance brand, function, and wellbeing. We understand the demands of commercial spaces and design accordingly.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#9650;</div>
+        <h3>Space Planning and Consultation</h3>
+        <p>Not every project needs a full architectural appointment. Our focused consultation service helps you unlock the potential of your existing space with clear, actionable guidance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="thin-rule">
+
+<!-- ── TESTIMONIALS ── -->
+<section id="testimonials">
+  <div class="section-inner">
+    <p class="section-label">Client Feedback</p>
+    <h2 class="section-heading">What our clients say</h2>
+    <div class="testimonials-grid">
+      <div class="testi-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-body">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris."</p>
+        <div>
+          <div class="testi-author">S. M.</div>
+          <div class="testi-town">Longstone, Edinburgh</div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-body">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</p>
+        <div>
+          <div class="testi-author">R. T.</div>
+          <div class="testi-town">Corstorphine, Edinburgh</div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+        <p class="testi-body">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum."</p>
+        <div>
+          <div class="testi-author">A. K.</div>
+          <div class="testi-town">South Gyle, Edinburgh</div>
+        </div>
+      </div>
+    </div>
+    <div class="mid-cta">
+      <p>Ready to transform your space? We'd love to hear about your project.</p>
+      <a href="#contact" class="btn">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<hr class="thin-rule">
+
+<!-- ── CONTACT ── -->
+<section id="contact" class="contact-bg">
+  <div class="section-inner">
+    <p class="section-label">Contact</p>
+    <h2 class="section-heading">Get in touch</h2>
+    <div class="contact-grid">
+      <form class="contact-form" action="mailto:dean@alreadydone.uk" method="post" enctype="text/plain">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="name" placeholder="e.g. Sarah Robertson" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Tell us about your project</label>
+          <textarea id="message" name="message" placeholder="Describe your project, the space involved, and any key requirements..." required></textarea>
+        </div>
+        <button type="submit" class="btn" style="width:fit-content;">Get in touch</button>
+      </form>
+      <div class="contact-details">
+        <h3>Visit or call us</h3>
+        <div class="detail-item">
+          <span class="detail-icon">&#9742;</span>
+          <div class="detail-text">
+            <strong>Phone</strong>
+            <a href="tel:01315161807" style="color:rgba(255,255,255,0.8); font-size:1.05rem;">0131 516 1807</a>
+          </div>
+        </div>
+        <div class="detail-item">
+          <span class="detail-icon">&#9679;</span>
+          <div class="detail-text">
+            <strong>Address</strong>
+            3 Redheughs Rigg, South Gyle,<br>Edinburgh EH12 9DQ
+          </div>
+        </div>
+        <div class="detail-item">
+          <span class="detail-icon">&#9675;</span>
+          <div class="detail-text">
+            <strong>Area Served</strong>
+            Longstone, Corstorphine, Murrayfield, and across Edinburgh
+          </div>
+        </div>
+        <div class="map-wrap">
+          <img src="https://via.placeholder.com/600x300/1e3a5f/86efac?text=3+Redheughs+Rigg%2C+South+Gyle%2C+Edinburgh" alt="Map showing VU-3 Interior Architects location at South Gyle, Edinburgh">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">VU-3 Interior Architects</div>
+    <p class="footer-copy">&copy; 2025 VU-3 Interior Architects. 3 Redheughs Rigg, South Gyle, Edinburgh EH12 9DQ.</p>
+    <p class="footer-credit">Photo: Pexels (Gustavo Fring)</p>
+  </div>
+</footer>
+
+</body>
+</html>
