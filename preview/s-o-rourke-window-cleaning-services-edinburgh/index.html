@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S O'Rourke Window Cleaning Services | Gutter Cleaning Edinburgh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #1d4ed8;
+      --accent: #f59e0b;
+      --bg: #eff6ff;
+      --text: #1e3a8a;
+      --dark: #1e293b;
+      --white: #ffffff;
+      --shadow: 0 2px 16px rgba(0,0,0,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background-color: var(--bg);
+      color: var(--dark);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text);
+    }
+
+    img { display: block; max-width: 100%; }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ---- BUTTONS ---- */
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.75rem;
+      border-radius: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #1a1a1a;
+    }
+    .btn-primary:hover { background: #d97706; transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--white);
+      color: var(--white);
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.15); transform: translateY(-1px); }
+
+    /* ---- NAV ---- */
+    nav {
+      background: var(--primary);
+      padding: 0 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 68px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      box-shadow: 0 2px 12px rgba(29,78,216,0.18);
+    }
+    .nav-brand {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--white);
+      line-height: 1.2;
+      max-width: 220px;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    .nav-phone {
+      color: var(--accent);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      white-space: nowrap;
+    }
+    .nav-phone:hover { color: #fbbf24; }
+
+    /* ---- HERO ---- */
+    .hero {
+      position: relative;
+      min-height: 560px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(29,78,216,0.88) 0%, rgba(30,58,138,0.78) 100%);
+      z-index: 1;
+    }
+    .hero-banner-strip {
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(90deg, rgba(245,158,11,0.95) 0%, rgba(251,191,36,0.9) 100%);
+      padding: 0.55rem 5%;
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #1a1a1a;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 80px 5%;
+      max-width: 760px;
+    }
+    .hero-content h1 {
+      font-size: 3.8rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1.1rem;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    }
+    .hero-tagline {
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.92);
+      margin-bottom: 1.6rem;
+      max-width: 560px;
+      font-weight: 500;
+    }
+    .hero-phone {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 1.8rem;
+      letter-spacing: 0.02em;
+    }
+    .hero-cta-group { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+
+    /* ---- SECTION WRAPPER ---- */
+    section { padding: 80px 5%; }
+    .section-alt { background: var(--white); }
+    .section-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .section-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.6rem;
+    }
+    .section-intro {
+      font-size: 1.05rem;
+      color: #475569;
+      max-width: 600px;
+      margin-bottom: 2.8rem;
+    }
+
+    /* ---- SERVICES ---- */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 2rem 1.5rem;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--primary);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(29,78,216,0.13); }
+    .service-icon {
+      font-size: 2.2rem;
+      margin-bottom: 0.9rem;
+      display: block;
+    }
+    .service-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .service-card p { font-size: 0.95rem; color: #475569; line-height: 1.6; }
+
+    /* ---- ABOUT ---- */
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    .about-img-wrap {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(29,78,216,0.12);
+    }
+    .about-img-wrap img { width: 100%; height: 380px; object-fit: cover; }
+    .about-text h2 { margin-bottom: 1rem; font-size: 2rem; }
+    .about-text p { color: #475569; margin-bottom: 1rem; font-size: 1.02rem; }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--bg);
+      border: 1.5px solid var(--primary);
+      border-radius: 50px;
+      padding: 0.4rem 1rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--primary);
+      margin-top: 1.2rem;
+    }
+
+    /* ---- WHY CHOOSE ---- */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .why-card {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 2rem 1.75rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.8rem;
+      border-left: 4px solid var(--accent);
+    }
+    .why-icon {
+      font-size: 2.4rem;
+    }
+    .why-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .why-card p { font-size: 0.97rem; color: #475569; line-height: 1.6; }
+
+    /* ---- CONTACT ---- */
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .contact-form-card {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+    }
+    .contact-form-card h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .contact-form-card .closing-line {
+      font-size: 0.97rem;
+      color: #475569;
+      margin-bottom: 1.5rem;
+    }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border: 1.5px solid #bfdbfe;
+      border-radius: 6px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1rem;
+      color: var(--dark);
+      background: var(--bg);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--primary); }
+    .form-group textarea { min-height: 120px; resize: vertical; }
+    .contact-info-col { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-detail-card {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 1.5rem 1.75rem;
+      box-shadow: var(--shadow);
+    }
+    .contact-detail-card h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .contact-detail-card p, .contact-detail-card a {
+      font-size: 1.05rem;
+      color: var(--dark);
+      font-weight: 500;
+    }
+    .contact-detail-card a:hover { color: var(--primary); }
+    .contact-phone-big {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .map-wrap { border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); }
+
+    /* ---- FOOTER ---- */
+    footer {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%);
+      color: rgba(255,255,255,0.85);
+      padding: 48px 5% 32px;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .footer-brand {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+    .footer-insured {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(245,158,11,0.2);
+      border: 1.5px solid var(--accent);
+      border-radius: 50px;
+      padding: 0.3rem 0.9rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--accent);
+      margin-top: 0.6rem;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      font-size: 0.95rem;
+    }
+    .footer-links a { color: rgba(255,255,255,0.75); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.12);
+      padding-top: 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.5);
+    }
+    .footer-bottom .photo-credit { font-size: 12px; color: rgba(255,255,255,0.4); }
+
+    /* ---- MEDIA QUERY ---- */
+    @media (max-width: 768px) {
+      section { padding: 48px 5%; }
+
+      nav { flex-wrap: wrap; gap: 0.5rem; padding: 0.75rem 5%; }
+      .nav-brand { font-size: 0.9rem; max-width: 180px; }
+      .nav-phone { font-size: 0.9rem; }
+      .nav-right .btn { display: none; }
+
+      .hero-content { padding: 48px 5%; }
+      .hero-content h1 { font-size: 2.2rem; }
+      .hero-tagline { font-size: 1.05rem; }
+      .hero-phone { font-size: 1.5rem; }
+
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .about-img-wrap img { height: 260px; }
+      .why-grid { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-inner { flex-direction: column; gap: 1.5rem; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .section-title { font-size: 1.6rem; }
+    }
+
+    @media (max-width: 480px) {
+      .services-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<!-- Already Done claim banner -->
+<style>
+  #ad-claim-banner { position:fixed;top:0;left:0;right:0;z-index:99999;background:#1e3a5f;color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:Arial,sans-serif;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.25); }
+  #ad-claim-banner span { line-height:1.4; }
+  #ad-claim-expiry { color:#93c5fd;font-size:12px;display:block;margin-top:2px; }
+  #ad-claim-btn { background:#f59e0b;color:#1e3a5f;padding:9px 20px;border-radius:5px;text-decoration:none;font-weight:700;white-space:nowrap;font-size:14px;flex-shrink:0; }
+  #ad-claim-btn:hover { background:#fbbf24; }
+  @media(max-width:600px){ #ad-claim-banner{flex-direction:column;text-align:center;padding:12px 16px;} }
+</style>
+<div id="ad-claim-banner">
+  <span>
+    👋 Free preview site built for <strong>S O'Rourke Window Cleaning Services</strong> by Already Done
+    <small id="ad-claim-expiry">Preview available until 23 May — reply to claim it</small>
+  </span>
+  <a id="ad-claim-btn" href="mailto:dean@alreadydone.uk?subject=I%20want%20my%20website%20%E2%80%94%20S%20O'Rourke%20Window%20Cleaning%20Services&body=Hi%20Dean%2C%0A%0AI've%20seen%20the%20preview%20site%20you%20built%20for%20us%20and%20I'd%20like%20to%20claim%20it.%0A%0ACan%20you%20let%20me%20know%20the%20next%20steps%3F%0A%0AThanks">Claim it for £99 →</a>
+</div>
+<div id="ad-banner-spacer"></div>
+<script>
+(function() {
+  function applyBannerOffset() {
+    var banner = document.getElementById('ad-claim-banner');
+    var spacer = document.getElementById('ad-banner-spacer');
+    if (!banner || !spacer) return;
+    var h = banner.offsetHeight;
+    spacer.style.height = h + 'px';
+    // Push any sticky/fixed navs and headers down so they sit below the banner
+    var candidates = document.querySelectorAll('nav, header, [class*="nav"], [class*="header"]');
+    candidates.forEach(function(el) {
+      if (el.id === 'ad-claim-banner') return;
+      var s = window.getComputedStyle(el);
+      if ((s.position === 'sticky' || s.position === 'fixed') && parseInt(s.top || '0') < 10) {
+        el.style.top = h + 'px';
+      }
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyBannerOffset);
+  } else {
+    applyBannerOffset();
+  }
+  window.addEventListener('resize', applyBannerOffset);
+})();
+</script>
+
+  <!-- ======= NAV ======= -->
+  <nav>
+    <span class="nav-brand">S O'Rourke Window Cleaning Services</span>
+    <div class="nav-right">
+      <a href="tel:07932793220" class="nav-phone">07932 793220</a>
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+    </div>
+  </nav>
+
+  <!-- ======= HERO ======= -->
+  <section class="hero" style="padding:0;">
+    <img
+      class="hero-img"
+      src="https://images.pexels.com/photos/35342373/pexels-photo-35342373.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+      alt="City worker cleans entrance of tattoo and piercing shop with visible signage."
+    />
+    <div class="hero-overlay"></div>
+    <div class="hero-banner-strip">Weekend appointments available. Edinburgh and surrounding areas.</div>
+    <div class="hero-content">
+      <h1>S O'Rourke Window Cleaning Services</h1>
+      <p class="hero-tagline">Reliable gutter cleaner in Edinburgh, trusted by local families. Keeping your home in good shape, weekend by weekend.</p>
+      <a href="tel:07932793220" class="hero-phone">07932 793220</a>
+      <div class="hero-cta-group">
+        <a href="#contact" class="btn btn-primary">Get in touch</a>
+        <a href="#services" class="btn btn-outline">See our services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= SERVICES ======= -->
+  <section id="services" class="section-alt">
+    <div class="section-label">What we do</div>
+    <h2 class="section-title">Services we offer</h2>
+    <p class="section-intro">From blocked gutters to sparkling windows, we take care of the jobs that keep your home looking its best and protected from Edinburgh's weather.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">🏠</span>
+        <h3>Gutter Cleaning</h3>
+        <p>We clear out leaves, debris, and blockages from your gutters so rainwater flows freely and away from your foundations. Ideal before the Scottish autumn sets in.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">💧</span>
+        <h3>Gutter Inspection</h3>
+        <p>Not sure if your gutters are coping? We carry out a thorough check for cracks, sagging sections, or loose fixings, and give you an honest report on what we find.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🪟</span>
+        <h3>Window Cleaning</h3>
+        <p>Professional exterior window cleaning using streak-free methods. We leave your windows clear and bright, giving your home a fresh, well-kept appearance all year round.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🧹</span>
+        <h3>Fascia and Soffit Cleaning</h3>
+        <p>We clean your fascias and soffits to remove the grime and green algae that builds up over time. It protects the wood and helps your home stay looking sharp.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= ABOUT ======= -->
+  <section id="about">
+    <div class="about-inner">
+      <div class="about-img-wrap">
+        <img
+          src="https://images.pexels.com/photos/5667308/pexels-photo-5667308.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+          alt="From below of aged dwelling building exterior with window on front wall in city in sunlight"
+        />
+      </div>
+      <div class="about-text">
+        <div class="section-label">About us</div>
+        <h2 class="section-title">A friendly local service you can rely on</h2>
+        <p>I'm Stephen O'Rourke, and I run S O'Rourke Window Cleaning Services from my home here in Edinburgh, just off Craigmount Bank in EH4. This isn't a big franchise operation. It's a one-person business built on doing a proper job and being easy to deal with.</p>
+        <p>Edinburgh's weather can be hard on homes. Gutters fill up quickly, windows pick up grime from the city air, and it's easy for small maintenance tasks to slide. That's where I come in. I work weekends so that busy families and working homeowners don't have to take time off just to get essential jobs done.</p>
+        <p>I take real pride in the work I do, and I treat every home as if it were my own. Whether you've got a tenement flat in the city or a semi-detached out towards Corstorphine, I'll turn up on time, do the job properly, and leave everything tidy behind me.</p>
+        <div class="about-badge">📍 Based in Edinburgh, EH4</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= WHY CHOOSE US ======= -->
+  <section id="why" class="section-alt">
+    <div class="section-label">Why choose us</div>
+    <h2 class="section-title">What makes us different</h2>
+    <p class="section-intro">We know you have a choice when it comes to home maintenance services. Here's why Edinburgh homeowners keep coming back to us.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-icon">🛡️</span>
+        <h3>Fully Insured</h3>
+        <p>You can book with complete peace of mind. S O'Rourke Window Cleaning Services is fully insured, so you and your property are properly protected at all times while we work.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">📍</span>
+        <h3>Locally Based in Edinburgh</h3>
+        <p>We're not a call centre booking agency. We're based right here in Edinburgh, which means we understand local properties, local weather, and local needs. You'll always speak to the person who'll actually show up.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">✅</span>
+        <h3>Consistent, Dependable Service</h3>
+        <p>We work weekends to fit around your life, not the other way around. When you book with us, we arrive when we say we will, complete the work thoroughly, and follow up if anything needs attention.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CONTACT ======= -->
+  <section id="contact">
+    <div class="section-label">Get in touch</div>
+    <h2 class="section-title">Ready to book or have a question?</h2>
+    <p class="section-intro">No job too small. Just get in touch and we'll get back to you promptly, usually the same day.</p>
+    <div class="contact-inner">
+      <div class="contact-form-card">
+        <h3>Send us a message</h3>
+        <p class="closing-line">Fill in the form below and we'll get back to you as soon as possible, typically the same day if you contact us on a weekend.</p>
+        <form action="mailto:dean@alreadydone.uk" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" placeholder="e.g. Jane Smith" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone number (optional)</label>
+            <input type="tel" id="phone" name="phone" placeholder="07700 000000" />
+          </div>
+          <div class="form-group">
+            <label for="message">Your message</label>
+            <textarea id="message" name="message" placeholder="Tell us what you need, your address area, and any other details..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;font-size:1.05rem;padding:0.9rem 1.75rem;">Get in touch</button>
+        </form>
+      </div>
+      <div class="contact-info-col">
+        <div class="contact-detail-card">
+          <h4>Call us directly</h4>
+          <a href="tel:07932793220" class="contact-phone-big">07932 793220</a>
+          <p style="font-size:0.9rem;color:#475569;margin-top:0.3rem;">Available at weekends. Leave a message if we're on a job and we'll call you straight back.</p>
+        </div>
+        <div class="contact-detail-card">
+          <h4>Our address</h4>
+          <p>3 Craigmount Bank, Edinburgh</p>
+        </div>
+        <div class="contact-detail-card">
+          <h4>Service area</h4>
+          <p>We cover Edinburgh and the surrounding areas, including Corstorphine, Barnton, Davidson's Mains, Silverknowes, Blackhall, Murrayfield, and beyond. Not sure if we cover your area? Just ask us.</p>
+        </div>
+        <div class="map-wrap">
+          <iframe src="https://maps.google.com/maps?q=S%20O'Rourke%20Window%20Cleaning%20Services%2C%20EH4%208HQ&output=embed" width="100%" height="300" frameborder="0" style="border:0;border-radius:6px;display:block;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FOOTER ======= -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">S O'Rourke Window Cleaning Services</div>
+        <p style="font-size:0.93rem;margin-top:0.3rem;">3 Craigmount Bank, Edinburgh</p>
+        <p style="font-size:0.93rem;"><a href="tel:07932793220" style="color:rgba(255,255,255,0.75);">07932 793220</a></p>
+        <div class="footer-insured">✔ Fully Insured</div>
+      </div>
+      <div class="footer-links">
+        <strong style="color:var(--white);font-family:'Montserrat',sans-serif;font-size:0.88rem;letter-spacing:0.08em;text-transform:uppercase;">Quick links</strong>
+        <a href="#services">Services</a>
+        <a href="#about">About us</a>
+        <a href="#why">Why choose us</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div style="font-size:0.93rem;max-width:240px;">
+        <strong style="color:var(--white);font-family:'Montserrat',sans-serif;">Weekend appointments available</strong>
+        <p style="margin-top:0.4rem;">We know your time is precious. Book a weekend slot and we'll come to you at a time that actually suits you.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2024 S O'Rourke Window Cleaning Services. All rights reserved.</span>
+      <span class="photo-credit">Photo: Pexels (Matthew Jesús, Francesco Ungaro)</span>
+    </div>
+  </footer>
+
+</body>
+</html>

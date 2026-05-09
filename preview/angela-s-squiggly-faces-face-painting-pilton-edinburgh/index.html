@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Angela's Squiggly Faces - Face Painting | Pilton Edinburgh</title>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito Sans', sans-serif;
+    color: #1e293b;
+    background: #f8fafc;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Raleway', sans-serif;
+  }
+
+  a { text-decoration: none; color: inherit; }
+
+  /* NAV */
+  nav {
+    background: #334155;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    min-height: 64px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  }
+
+  .nav-brand {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: #fff;
+    line-height: 1.2;
+    max-width: 220px;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .nav-phone {
+    color: #f8fafc;
+    font-weight: 600;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+
+  .btn-accent {
+    background: #ea580c;
+    color: #fff;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    transition: background 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .btn-accent:hover { background: #c2410c; }
+
+  .btn-outline {
+    background: transparent;
+    color: #fff;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 12px 28px;
+    border-radius: 6px;
+    border: 2px solid #fff;
+    cursor: pointer;
+    display: inline-block;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .btn-outline:hover { background: #fff; color: #334155; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: #334155;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://lh3.googleusercontent.com/place-photos/AJRVUZPjoZ5huYu2u6vH8KOm5sk-cpGWNT7hLQ1ePdmxx_EEW1Jk9a-UIMaa2n-IwFv0U_0Xeop6cZuW4YUGOuaDgPS1nVXKV3ozkfWrNfylW7jHGVEouwvT7dfBKy8UTM_fmji97IebhJoX8Q6SKqo=s4800-h1200');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.6);
+    z-index: 0;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(51,65,85,0.72) 0%, rgba(234,88,12,0.38) 100%);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 860px;
+    padding: 40px 24px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    padding: 6px 18px;
+    border-radius: 50px;
+    margin-bottom: 24px;
+    letter-spacing: 0.03em;
+  }
+
+  .hero-badge .stars { color: #fbbf24; }
+
+  .hero h1 {
+    font-size: 4.2rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 18px rgba(0,0,0,0.35);
+  }
+
+  .hero-sub {
+    font-size: 1.25rem;
+    color: rgba(255,255,255,0.92);
+    margin-bottom: 12px;
+    font-weight: 600;
+    font-family: 'Raleway', sans-serif;
+  }
+
+  .hero-tagline {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.78);
+    margin-bottom: 36px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-btns .btn-accent {
+    font-size: 1.05rem;
+    padding: 14px 32px;
+  }
+
+  .hero-call {
+    color: #fff;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 14px 28px;
+    border-radius: 6px;
+    border: 2px solid rgba(255,255,255,0.7);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+  }
+
+  .hero-call:hover { background: rgba(255,255,255,0.12); }
+
+  /* SECTIONS */
+  section { padding: 80px 24px; }
+
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #ea580c;
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    font-size: 2.2rem;
+    color: #334155;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .section-intro {
+    font-size: 1.05rem;
+    color: #475569;
+    max-width: 640px;
+    margin-bottom: 48px;
+  }
+
+  /* SERVICES */
+  .services-bg { background: #fff; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .service-card {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 32px 24px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    border-top: 4px solid #ea580c;
+    transition: transform 0.2s ease;
+  }
+
+  .service-card:hover { transform: translateY(-4px); }
+
+  .service-icon {
+    font-size: 2.2rem;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .service-card h3 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #334155;
+    margin-bottom: 10px;
+  }
+
+  .service-card p {
+    font-size: 0.95rem;
+    color: #475569;
+    line-height: 1.6;
+  }
+
+  /* ABOUT */
+  .about-bg {
+    background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+    color: #fff;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .about-img-wrap {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.28);
+  }
+
+  .about-img-wrap img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .about-text .section-title { color: #fff; }
+  .about-text .section-label { color: #fb923c; }
+
+  .about-text p {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 16px;
+    line-height: 1.75;
+  }
+
+  .about-text .btn-accent {
+    margin-top: 10px;
+    font-size: 1rem;
+    padding: 13px 30px;
+  }
+
+  /* WHY CHOOSE US */
+  .why-bg { background: #f8fafc; }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .why-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 36px 28px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    text-align: center;
+    transition: transform 0.2s ease;
+  }
+
+  .why-card:hover { transform: translateY(-4px); }
+
+  .why-icon {
+    font-size: 2.8rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .why-card h3 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #334155;
+    margin-bottom: 10px;
+  }
+
+  .why-card p {
+    font-size: 0.95rem;
+    color: #475569;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials-bg { background: #fff; }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .review-card {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 32px 26px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .review-stars {
+    color: #f59e0b;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+  }
+
+  .review-text {
+    font-size: 0.97rem;
+    color: #334155;
+    line-height: 1.7;
+    flex: 1;
+    font-style: italic;
+  }
+
+  .review-author {
+    font-weight: 700;
+    color: #334155;
+    font-size: 0.95rem;
+  }
+
+  .review-time {
+    font-size: 0.82rem;
+    color: #94a3b8;
+  }
+
+  /* TRUST BADGE */
+  .trust-strip {
+    background: linear-gradient(90deg, #334155, #1e293b);
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  .trust-strip p {
+    color: #fff;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+
+  .trust-strip .stars { color: #fbbf24; font-size: 1.3rem; }
+
+  /* CONTACT */
+  .contact-bg { background: #f8fafc; }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .contact-form-wrap {
+    background: #fff;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+
+  .contact-form-wrap h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #334155;
+    margin-bottom: 24px;
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .form-group label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #334155;
+    margin-bottom: 6px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 6px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.97rem;
+    color: #1e293b;
+    background: #f8fafc;
+    transition: border-color 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #ea580c;
+  }
+
+  .form-group textarea { resize: vertical; min-height: 110px; }
+
+  .form-submit {
+    background: #ea580c;
+    color: #fff;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 13px 32px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s;
+  }
+
+  .form-submit:hover { background: #c2410c; }
+
+  .contact-info h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #334155;
+    margin-bottom: 20px;
+  }
+
+  .contact-detail {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .contact-detail-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .contact-detail-text strong {
+    display: block;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 2px;
+  }
+
+  .contact-detail-text span {
+    color: #475569;
+    font-size: 0.97rem;
+  }
+
+  .map-wrap {
+    margin-top: 28px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+
+  /* FOOTER */
+  footer {
+    background: #1e293b;
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 36px 24px;
+  }
+
+  footer .footer-brand {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  footer p {
+    font-size: 0.88rem;
+    line-height: 1.8;
+  }
+
+  footer a { color: #fb923c; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    section { padding: 48px 20px; }
+
+    nav {
+      padding: 0 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+      min-height: auto;
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+
+    .nav-brand { font-size: 0.88rem; max-width: 160px; }
+    .nav-phone { display: none; }
+
+    .hero { min-height: 92vh; }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      margin-bottom: 14px;
+    }
+
+    .hero-sub { font-size: 1rem; }
+    .hero-tagline { font-size: 0.92rem; }
+
+    .hero-btns { flex-direction: column; align-items: center; }
+    .hero-btns .btn-accent, .hero-call { width: 100%; max-width: 300px; justify-content: center; text-align: center; }
+
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .about-grid { grid-template-columns: 1fr; gap: 32px; }
+    .about-img-wrap img { height: 260px; }
+    .why-grid { grid-template-columns: 1fr; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+    .contact-form-wrap { padding: 28px 20px; }
+    .section-title { font-size: 1.7rem; }
+  }
+</style>
+</head>
+<body>
+<!-- Already Done claim banner -->
+<style>
+  #ad-claim-banner { position:fixed;top:0;left:0;right:0;z-index:99999;background:#1e3a5f;color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:Arial,sans-serif;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.25); }
+  #ad-claim-banner span { line-height:1.4; }
+  #ad-claim-expiry { color:#93c5fd;font-size:12px;display:block;margin-top:2px; }
+  #ad-claim-btn { background:#f59e0b;color:#1e3a5f;padding:9px 20px;border-radius:5px;text-decoration:none;font-weight:700;white-space:nowrap;font-size:14px;flex-shrink:0; }
+  #ad-claim-btn:hover { background:#fbbf24; }
+  @media(max-width:600px){ #ad-claim-banner{flex-direction:column;text-align:center;padding:12px 16px;} }
+</style>
+<div id="ad-claim-banner">
+  <span>
+    👋 Free preview site built for <strong>Angela's Squiggly Faces - Face Painting</strong> by Already Done
+    <small id="ad-claim-expiry">Preview available until 23 May — reply to claim it</small>
+  </span>
+  <a id="ad-claim-btn" href="mailto:dean@alreadydone.uk?subject=I%20want%20my%20website%20%E2%80%94%20Angela's%20Squiggly%20Faces%20-%20Face%20Painting&body=Hi%20Dean%2C%0A%0AI've%20seen%20the%20preview%20site%20you%20built%20for%20us%20and%20I'd%20like%20to%20claim%20it.%0A%0ACan%20you%20let%20me%20know%20the%20next%20steps%3F%0A%0AThanks">Claim it for £99 →</a>
+</div>
+<div id="ad-banner-spacer"></div>
+<script>
+(function() {
+  function applyBannerOffset() {
+    var banner = document.getElementById('ad-claim-banner');
+    var spacer = document.getElementById('ad-banner-spacer');
+    if (!banner || !spacer) return;
+    var h = banner.offsetHeight;
+    spacer.style.height = h + 'px';
+    // Push any sticky/fixed navs and headers down so they sit below the banner
+    var candidates = document.querySelectorAll('nav, header, [class*="nav"], [class*="header"]');
+    candidates.forEach(function(el) {
+      if (el.id === 'ad-claim-banner') return;
+      var s = window.getComputedStyle(el);
+      if ((s.position === 'sticky' || s.position === 'fixed') && parseInt(s.top || '0') < 10) {
+        el.style.top = h + 'px';
+      }
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyBannerOffset);
+  } else {
+    applyBannerOffset();
+  }
+  window.addEventListener('resize', applyBannerOffset);
+})();
+</script>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">Angela's Squiggly Faces<br>Face Painting</div>
+  <div class="nav-right">
+    <a href="tel:07890215560" class="nav-phone">07890 215560</a>
+    <a href="#contact" class="btn-accent">Get a free quote</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="stars">★★★★★</span> 5/5 · 67 Google Reviews
+    </div>
+    <h1>Angela's Squiggly Faces - Face Painting</h1>
+    <p class="hero-sub">Quality face painting in Pilton Edinburgh and surrounding areas</p>
+    <p class="hero-tagline">Professional, patient, and perfectly creative. Bringing smiles to birthday parties, events, and celebrations across Edinburgh every weekend.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-accent">Get a free quote</a>
+      <a href="tel:07890215560" class="hero-call">&#128222; Call 07890 215560</a>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <p><span class="stars">★★★★★</span> &nbsp;Rated 5/5 from 67 genuine Google reviews &nbsp;|&nbsp; Pilton Edinburgh and surrounding areas &nbsp;|&nbsp; Weekend availability</p>
+</div>
+
+<!-- SERVICES -->
+<section class="services-bg">
+  <div class="container">
+    <p class="section-label">What we offer</p>
+    <h2 class="section-title">Creative Services for Every Occasion</h2>
+    <p class="section-intro">From kids' birthday parties to community events, Angela brings colour, creativity, and a calm, professional approach to every booking.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">🎨</span>
+        <h3>Full Face Painting</h3>
+        <p>Intricate, vibrant full-face designs from tigers and butterflies to superheroes, tailored to each child's request with patience and care.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">✨</span>
+        <h3>Glitter Tattoos</h3>
+        <p>Long-lasting, sparkling glitter tattoos that are a hit with all ages. A brilliant add-on to any party package for that extra wow factor.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🎉</span>
+        <h3>Birthday Party Packages</h3>
+        <p>Tailored packages for children's parties that keep the queue moving smoothly, so every child gets their moment without missing the fun.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🏆</span>
+        <h3>Events and Community Days</h3>
+        <p>Festival stalls, school fairs, corporate family days, and community events. Angela handles mixed ages and large crowds with ease and friendly professionalism.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-bg">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap">
+        <img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNC_j_7WIWvV0Pa7m9ie_S7JFs_b-2VpV1wsJS6_8xU6c-_qr-OK7GSDwtp_Klq1fARE9oKb5bWwZHXljNK1kEqD3yEyqOTqThy491fSd94kFmoouFq-tEJD2ZDMWkoxytCh-oyKTb-cpJk3F3mkIaOLw=s4800-h1200" alt="Business photo">
+      </div>
+      <div class="about-text">
+        <p class="section-label">About Angela</p>
+        <h2 class="section-title">A Friendly Face Behind Every Smile</h2>
+        <p>Angela is a skilled and passionate face painter based in Pilton, Edinburgh, serving families and event organisers across Edinburgh, Inverkeithing, Fife, and the wider Lothians each and every weekend.</p>
+        <p>With years of experience painting children and adults alike, Angela has built a reputation for her wide range of designs, her gentle approach with shy children, and her ability to keep things running smoothly even at the busiest parties.</p>
+        <p>What truly sets Angela apart is her care from the very first enquiry to the last painted face. Fast, detailed communication, early arrival to set up, and a calm, creative energy that children and parents both love.</p>
+        <a href="#contact" class="btn-accent">Get a free quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why-bg">
+  <div class="container">
+    <p class="section-label">Why choose us</p>
+    <h2 class="section-title">The Squiggly Faces Difference</h2>
+    <p class="section-intro">Parents and event organisers across Edinburgh trust Angela for good reason. Here is what makes every booking worry-free.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-icon">🛡️</span>
+        <h3>Fully Insured</h3>
+        <p>Angela holds full public liability insurance, giving parents and event organisers complete peace of mind at every booking.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">🎖️</span>
+        <h3>Professional and Reliable</h3>
+        <p>Always on time and fully prepared. Angela arrives early to set up, communicates promptly, and delivers consistently outstanding results every time.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">💬</span>
+        <h3>Free, No-Obligation Quotes</h3>
+        <p>Get a clear, honest quote with no pressure. Angela will talk through your event needs and recommend the best package to suit your budget and guest numbers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-bg">
+  <div class="container">
+    <p class="section-label">Real Google Reviews</p>
+    <h2 class="section-title">What Our Customers Say</h2>
+    <p class="section-intro">Rated 5 stars by 67 families and event organisers across Edinburgh and Fife. Here is what some of them had to say.</p>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"We booked Angela for a 5th birthday party. She was so attentive from booking to any queries we had in the run up to our party. Answered emails promptly and on the day was accommodating for the amount of children we had to be painted. She was patient with everyone and did an amazing job at face painting with a wide range of choices for the kids to get. Extremely professional and friendly, would highly recommend."</p>
+        <div>
+          <div class="review-author">Katie N.</div>
+          <div class="review-time">2 months ago</div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Angela was fantastic. Throughout the booking process her communication was fast and detailed. She arrived early to set up for our daughter's birthday party and she was the highlight of the day for the children. She is extremely talented and friendly. Will be using again in the future!"</p>
+        <div>
+          <div class="review-author">Abbie G.</div>
+          <div class="review-time">7 months ago</div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"I booked Squiggly Faces for my daughter's birthday party and was so impressed with quality of Angela's work. All the kids were supper happy and the adults were commenting on how good the kids looked. My mum even got a snake painted on her arm ..... Angela was so professional and gave me great advise on how to best coordinate the kids so all the kids got the most from the party but still got their faces done without missing out waiting in line. Angela was great with the kids and even the shy kids were happy to sit in the chair and get their faces done. I would highly recommend Squiggly Faces and wouldn't hesitate to book again for any event even an adult party would be made better by some face paints."</p>
+        <div>
+          <div class="review-author">Amanda W.</div>
+          <div class="review-time">A year ago</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-bg" id="contact">
+  <div class="container">
+    <p class="section-label">Get in touch</p>
+    <h2 class="section-title">Get a Free Quote Today</h2>
+    <p class="section-intro">Tell Angela about your event and she will get back to you quickly with a clear, no-obligation quote tailored to your needs.</p>
+    <div class="contact-grid">
+      <div class="contact-form-wrap">
+        <h3>Send a Message</h3>
+        <form action="mailto:help@netmums.com" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="Name" placeholder="e.g. Sarah Smith" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="Email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="Phone" placeholder="e.g. 07700 900000">
+          </div>
+          <div class="form-group">
+            <label for="message">Tell us about your event</label>
+            <textarea id="message" name="Message" placeholder="e.g. Children's birthday party for 20 kids, 4th June in Edinburgh. Looking for face painting and glitter tattoos..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Get a free quote</button>
+        </form>
+      </div>
+      <div class="contact-info">
+        <h3>Contact Details</h3>
+        <div class="contact-detail">
+          <span class="contact-detail-icon">&#128222;</span>
+          <div class="contact-detail-text">
+            <strong>Phone</strong>
+            <span><a href="tel:07890215560" style="color:#ea580c;font-weight:700;">07890 215560</a></span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-icon">&#128205;</span>
+          <div class="contact-detail-text">
+            <strong>Based at</strong>
+            <span>40 Preston Cres, Inverkeithing<br>Serving Pilton, Edinburgh and surrounding areas</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-icon">&#128197;</span>
+          <div class="contact-detail-text">
+            <strong>Availability</strong>
+            <span>Weekend bookings across Edinburgh, Inverkeithing, Fife, and the Lothians</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-icon">&#11088;</span>
+          <div class="contact-detail-text">
+            <strong>Google Rating</strong>
+            <span style="color:#f59e0b;font-weight:700;">★★★★★ 5/5</span> &nbsp;<span>from 67 reviews</span>
+          </div>
+        </div>
+        <div class="map-wrap">
+          <iframe src="https://maps.google.com/maps?q=Angela's%20Squiggly%20Faces%20-%20Face%20Painting%2C%20KY11%201DS&output=embed" width="100%" height="300" frameborder="0" style="border:0;border-radius:6px;display:block;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Angela's Squiggly Faces - Face Painting</div>
+  <p>Fully insured professional face painter &nbsp;|&nbsp; Serving Pilton Edinburgh, Inverkeithing, Fife and the Lothians</p>
+  <p style="margin-top:6px;">40 Preston Cres, Inverkeithing &nbsp;|&nbsp; <a href="tel:07890215560">07890 215560</a></p>
+  <p style="margin-top:10px;">&copy; 2024 Angela's Squiggly Faces. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
