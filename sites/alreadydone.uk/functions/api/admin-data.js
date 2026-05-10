@@ -48,6 +48,7 @@ export async function onRequestGet(context) {
     pipelineCounts,
     previews,
     paying,
+    live,
     recentInteractions,
     revRows,
     totalEmailed,
@@ -72,12 +73,21 @@ export async function onRequestGet(context) {
       '&limit=100',
     ].join('')),
 
-    // Paying / delivered customers
+    // Paying customers (paid + delivering — not yet live)
     sb('businesses', [
       '?select=id,name,category,location,pipeline_status,registered_domain,',
       'paid_at,delivered_at,customer_email,order_tier,order_email_count',
-      '&pipeline_status=in.(paid,delivering,delivered)',
+      '&pipeline_status=in.(paid,delivering)',
       '&order=paid_at.desc',
+      '&limit=50',
+    ].join('')),
+
+    // Live sites (delivered) — kept for 2 weeks post-delivery
+    sb('businesses', [
+      '?select=id,name,category,location,pipeline_status,registered_domain,site_slug,',
+      'paid_at,delivered_at,customer_email,order_tier,phone',
+      '&pipeline_status=eq.delivered',
+      '&order=delivered_at.desc',
       '&limit=50',
     ].join('')),
 
@@ -115,8 +125,8 @@ export async function onRequestGet(context) {
 
   const revenue = {
     gross_gbp: Math.round(grossGbp * 100) / 100,
-    total_paid: (paying || []).filter(b => b.pipeline_status !== 'delivered').length,
-    total_delivered: (paying || []).filter(b => b.pipeline_status === 'delivered').length,
+    total_paid: (paying || []).length,
+    total_delivered: (live || []).length,
   };
 
   const engagement = {
@@ -142,6 +152,7 @@ export async function onRequestGet(context) {
     pipeline_counts: counts,
     previews: previews || [],
     paying: paying || [],
+    live: live || [],
     recent_interactions: recentInteractions || [],
     revenue,
     engagement,

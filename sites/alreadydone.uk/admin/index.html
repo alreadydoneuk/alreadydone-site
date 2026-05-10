@@ -129,6 +129,18 @@
   </div>
 
   <div class="section">
+    <div class="section-title">Live Sites (delivered — held 2 weeks)</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Business</th><th>Live Domain</th><th>Preview</th><th>Contact</th><th>Tier</th><th>Paid</th><th>Live Since</th>
+        </tr></thead>
+        <tbody id="live-table"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
     <div class="section-title">Preview Sites — In Pipeline</div>
     <div class="table-wrap">
       <table>
@@ -271,6 +283,36 @@ function render(data) {
         <td>${b.delivered_at ? fmtDate(b.delivered_at) : '<span class="muted">—</span>'}</td>
       </tr>
     `).join('');
+  }
+
+  // ── Live sites ────────────────────────────────────────────────────────────
+  const liveTbody = document.getElementById('live-table');
+  if (!data.live?.length) {
+    liveTbody.innerHTML = '<tr><td colspan="7" class="empty">No live sites yet</td></tr>';
+  } else {
+    liveTbody.innerHTML = data.live.map(b => {
+      const domain = b.registered_domain;
+      const domainLink = domain
+        ? `<a class="link" href="https://${esc(domain)}" target="_blank">${esc(domain)}</a>`
+        : '<span class="muted">—</span>';
+      const previewLink = b.site_slug
+        ? `<a class="link" href="/preview/${esc(b.site_slug)}" target="_blank">preview</a>`
+        : '<span class="muted">—</span>';
+      const contact = [
+        b.customer_email ? `<a class="link" href="mailto:${esc(b.customer_email)}">${esc(b.customer_email)}</a>` : null,
+        b.phone ? `<span class="muted">${esc(b.phone)}</span>` : null,
+      ].filter(Boolean).join('<br>') || '<span class="muted">—</span>';
+      return `
+      <tr>
+        <td><strong>${esc(b.name)}</strong><br><span class="muted">${esc(b.category)} · ${esc(b.location)}</span></td>
+        <td>${domainLink}</td>
+        <td>${previewLink}</td>
+        <td>${contact}</td>
+        <td>£${b.order_tier || '—'}</td>
+        <td>${b.paid_at ? fmtDate(b.paid_at) : '<span class="muted">—</span>'}</td>
+        <td>${b.delivered_at ? fmtDate(b.delivered_at) : '<span class="muted">—</span>'}</td>
+      </tr>`;
+    }).join('');
   }
 
   // ── Preview sites ─────────────────────────────────────────────────────────
