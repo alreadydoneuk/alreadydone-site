@@ -77,6 +77,24 @@ async function buildSiteForBusiness(business) {
   const slug = generateSlug(business.name, business.location);
 
   const serperContext = await enrichBusinessForSiteBuild(business).catch(() => null);
+
+  // Pre-build website check: enrichment may discover a working website we missed at research time.
+  if (serperContext?.discovered_website) {
+    const { url } = serperContext.discovered_website;
+    console.log(`    ⚠️  Website discovered at enrichment: ${url} — excluding`);
+    await updateBusiness(business.id, {
+      website_status: 'live',
+      is_prospect: false,
+      pipeline_status: 'excluded',
+    });
+    await logInteraction(
+      business.id, 'skip', 'internal',
+      `Excluded at pre-build check — website found: ${url}`, null,
+      serperContext.discovered_website,
+    );
+    return; // caller handles the missing return value gracefully (built stays unchanged)
+  }
+
   if (serperContext) {
     const hints = [
       serperContext.established ? `est. ${serperContext.established}` : null,

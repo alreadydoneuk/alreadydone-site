@@ -60,7 +60,11 @@ async function provisionBusiness(business) {
   const plan = emailCount > 0 ? 'site_and_email' : 'site_only';
 
   if (!to) throw new Error('No email address to send onboarding to');
-  if (!business.order_domain) throw new Error('No domain selected by customer — cannot provision');
+
+  if (!business.order_domain) {
+    await provisionNoDomain(business, to, firstName, plan, orderPages, emailCount);
+    return;
+  }
 
   console.log(`\n  Provisioning: ${business.name}`);
   console.log(`    Domain: ${business.order_domain} | Emails: ${emailCount} | Extra pages: ${orderPages.length}`);
@@ -201,6 +205,95 @@ async function provisionBusiness(business) {
   const pagesNote = orderPages.length > 0 ? ` + ${orderPages.length} extra page(s)` : '';
   await alert(`🚀 Delivered — ${business.name}\nhttps://${domain}${emailNote}${pagesNote}`).catch(() => {});
   console.log(`    ✓ ${business.name} → https://${domain}`);
+}
+
+// No-domain path: deploy to Cloudflare Pages and deliver via the pages.dev hostname.
+// Used when the customer buys the site without domain registration.
+async function provisionNoDomain(business, to, firstName, plan, orderPages, emailCount) {
+  console.log(`\n  Provisioning (no domain): ${business.name}`);
+  console.log(`    Extra pages: ${orderPages.length}`);
+
+  // ── 1. Send Email 1 ──────────────────────────────────────────────────────────
+  await sendOnboardingStarted({ to, firstName, domain: null, emailPrefix: null, plan: 'site_only', noCustomDomain: true });
+  console.log(`    Email 1 sent: ${to}`);
+
+  // ── 2. Build extra page sections ─────────────────────────────────────────────
+  let html = business.template_html;
+  if (!html) throw new Error('No template_html on business record');
+
+  if (orderPages.length > 0) {
+    for (const page of orderPages) {
+      try {
+        const section = await generateExtraPageSection(html, page, business);
+        html = injectSection(html, section, page.type);
+      } catch (err) {
+        console.warn(`    Could not build section "${page.type}": ${err.message} — skipping`);
+      }
+    }
+  }
+
+  // ── 3. Fix contact form to use customer email ─────────────────────────────────
+  html = html
+    .replace(/mailto:dean@alreadydone\.uk/g, `mailto:${to}`)
+    .replace(/action="mailto:[^"]*"/g, `action="mailto:${to}"`);
+
+  // ── 4. Deploy to Cloudflare Pages ────────────────────────────────────────────
+  const projectName = `${PAGES_PROJECT_PREFIX}${business.site_slug || business.id}`.slice(0, 63);
+  const tmpDir = `/tmp/provision-${business.id}`;
+  mkdirSync(tmpDir, { recursive: true });
+  writeFileSync(`${tmpDir}/index.html`, html);
+
+  console.log(`    Deploying to Cloudflare Pages (${projectName})...`);
+  const deployOutput = execSync(
+    `CLOUDFLARE_API_TOKEN="${process.env.CLOUDFLARE_TOKEN}" CLOUDFLARE_ACCOUNT_ID="${CF_ACCOUNT_ID}" npx wrangler pages deploy "${tmpDir}" --project-name="${projectName}"`,
+    { encoding: 'utf8', timeout: 120000 }
+  );
+  rmSync(tmpDir, { recursive: true, force: true });
+
+  const pagesHostnameMatch = deployOutput.match(/https?:\/\/([a-z0-9-]+\.pages\.dev)/);
+  const pagesHostname = pagesHostnameMatch?.[1];
+  if (!pagesHostname) throw new Error(`Could not extract pages.dev hostname from wrangler output:\n${deployOutput}`);
+  console.log(`    Pages live: https://${pagesHostname}`);
+
+  // ── 5. Update DB — mark delivering ───────────────────────────────────────────
+  await supabase.from('businesses').update({
+    pipeline_status: 'delivering',
+    pages_hostname: pagesHostname,
+    pages_project_name: projectName,
+  }).eq('id', business.id);
+
+  // ── 6. Send Email 2 ───────────────────────────────────────────────────────────
+  await sendOnboardingComplete({
+    to,
+    firstName,
+    domain: pagesHostname,
+    emailPrefix: null,
+    emailPassword: null,
+    plan: 'site_only',
+    noCustomDomain: true,
+  });
+  console.log(`    Email 2 sent: ${to}`);
+
+  // ── 7. Mark delivered ────────────────────────────────────────────────────────
+  await supabase.from('businesses').update({
+    pipeline_status: 'delivered',
+    delivered_at: new Date().toISOString(),
+  }).eq('id', business.id);
+
+  await logInteraction(
+    business.id, 'site_delivered', 'internal',
+    `Site delivered (no custom domain). URL: https://${pagesHostname}`, null,
+    { pagesHostname, to },
+  );
+
+  try {
+    await captureSnapshot({ ...business, registered_domain: pagesHostname }, 'baseline');
+  } catch (err) {
+    console.warn(`    Snapshot failed (non-fatal): ${err.message}`);
+  }
+
+  await alert(`🚀 Delivered (no domain) — ${business.name}\nhttps://${pagesHostname}`).catch(() => {});
+  console.log(`    ✓ ${business.name} → https://${pagesHostname}`);
 }
 
 // Inject a new <section> before </body> and add a nav link before </nav>
