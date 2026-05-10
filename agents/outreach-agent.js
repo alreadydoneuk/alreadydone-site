@@ -17,14 +17,13 @@ function isWithinBusinessHours() {
   }).formatToParts(now);
   const ukHour = parseInt(ukTime.find(p => p.type === 'hour').value, 10);
   const ukDay  = ukTime.find(p => p.type === 'weekday').value; // Mon Tue Wed Thu Fri Sat Sun
-  const isWeekday = !['Sat', 'Sun'].includes(ukDay);
   const isWorkingHour = ukHour >= 9 && ukHour < 18;
-  return isWeekday && isWorkingHour;
+  return isWorkingHour;
 }
 
-export async function runOutreachAgent() {
-  if (!isWithinBusinessHours()) {
-    console.log('Outreach skipped — outside UK business hours (Mon–Fri 09:00–18:00)');
+export async function runOutreachAgent({ force = false } = {}) {
+  if (!force && !isWithinBusinessHours()) {
+    console.log('Outreach skipped — outside UK business hours (09:00–18:00)');
     return { sent: 0, skipped: true };
   }
   const businesses = await getBusinessesByStatus('template_built');
