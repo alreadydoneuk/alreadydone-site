@@ -58,13 +58,13 @@ export async function runOutreachAgent({ force = false } = {}) {
 async function sendOutreachForBusiness(business) {
   console.log(`\n  Outreach: ${business.name} [${business.website_status}]`);
 
-  // Skip broken_dns — MX records are also gone, email will bounce
+  // broken_dns: MX records are also gone so custom domain email would bounce
   if (!isEmailable(business.website_status)) {
-    console.log(`    Skipping — broken_dns leads cannot be emailed reliably`);
+    console.log(`    Skipping — ${business.website_status} not emailable`);
     await updateBusiness(business.id, {
       pipeline_status: 'dropped',
       dropped_at_stage: 'outreach',
-      drop_reason: 'broken_dns',
+      drop_reason: `not_emailable_${business.website_status}`,
     });
     return false;
   }

@@ -33,6 +33,7 @@ export async function onRequestPost(context) {
 
   const { slug, tier, domain, domain_price_gbp, pages = [], email_count = 0, email_prefixes = [], include_report = false } = body;
   if (!slug || !tier) return json({ error: 'slug and tier required' }, 400);
+  if (email_count > 0 && !domain) return json({ error: 'A domain is required to add email addresses' }, 400);
 
   // Look up business email for pre-filling Stripe checkout
   let customerEmail = null;

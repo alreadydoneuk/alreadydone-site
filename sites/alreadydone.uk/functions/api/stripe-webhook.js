@@ -60,6 +60,21 @@ export async function onRequestPost(context) {
     return new Response('OK', { status: 200 });
   }
 
+  // Idempotency guard — Stripe retries if we don't respond quickly enough.
+  // If we already recorded this session, return OK without re-processing.
+  if (business.stripe_session_id === session.id) {
+    console.log('Duplicate webhook for session', session.id, '— already processed, skipping');
+    return new Response('OK', { status: 200 });
+  }
+
+  // Guard against re-processing already-provisioned orders.
+  // pipeline_status beyond 'paid' means provision has started or completed.
+  const alreadyProvisioning = ['delivering', 'delivered'].includes(business.pipeline_status);
+  if (alreadyProvisioning) {
+    console.log('Business already provisioning/delivered — ignoring duplicate webhook');
+    return new Response('OK', { status: 200 });
+  }
+
   // Extract order metadata from session
   const meta = session.metadata || {};
   const orderDomain = meta.domain || null;

@@ -54,15 +54,20 @@ export async function runReplyMonitorAgent() {
 
   console.log(`Reply monitor: processing ${messages.length} message(s)`);
   let processed = 0;
+  const seenUids = [];
 
   for (const msg of messages) {
     try {
       await processReply(msg);
       processed++;
+      if (msg.uid) seenUids.push(msg.uid); // mark seen only on success
     } catch (err) {
       console.error(`  Error processing reply from ${msg.from}: ${err.message}`);
+      // Leave unseen — will be retried next run rather than lost
     }
   }
+
+  if (seenUids.length) await markUidsSeen(seenUids).catch(() => {});
 
   return { processed };
 }
@@ -297,13 +302,14 @@ function extractEmail(fromStr) {
 }
 
 // ── IMAP ─────────────────────────────────────────────────────────────────
+function imapConfig() {
+  return { user: IMAP_USER, password: IMAP_PASS, host: IMAP_HOST, port: IMAP_PORT, tls: true, tlsOptions: { rejectUnauthorized: false } };
+}
+
+// Fetch unseen messages WITHOUT marking them seen — we mark individually after successful processing.
 function fetchUnseenReplies() {
   return new Promise((resolve, reject) => {
-    const imap = new Imap({
-      user: IMAP_USER, password: IMAP_PASS, host: IMAP_HOST, port: IMAP_PORT,
-      tls: true, tlsOptions: { rejectUnauthorized: false },
-    });
-
+    const imap = new Imap(imapConfig());
     const messages = [];
     const pending = [];
 
@@ -314,15 +320,19 @@ function fetchUnseenReplies() {
         imap.search(['UNSEEN'], (err, uids) => {
           if (err || !uids.length) { imap.end(); return resolve([]); }
 
-          const fetch = imap.fetch(uids, { bodies: '', markSeen: true });
+          // Do NOT markSeen here — we mark per-message after successful processing
+          const f = imap.fetch(uids, { bodies: '', struct: false });
 
-          fetch.on('message', (msg) => {
+          f.on('message', (msg) => {
             let buffer = '';
+            let uid = null;
+            msg.once('attributes', (attrs) => { uid = attrs.uid; });
             msg.on('body', (stream) => {
               stream.on('data', (chunk) => { buffer += chunk.toString('utf8'); });
               stream.once('end', () => {
                 const p = simpleParser(buffer).then(parsed => {
                   messages.push({
+                    uid,
                     from: parsed.from?.text || '',
                     subject: parsed.subject || '',
                     text: parsed.text || '',
@@ -336,13 +346,29 @@ function fetchUnseenReplies() {
             });
           });
 
-          fetch.once('end', () => { Promise.all(pending).then(() => imap.end()); });
+          f.once('end', () => { Promise.all(pending).then(() => imap.end()); });
         });
       });
     });
 
     imap.once('end', () => resolve(messages));
     imap.once('error', reject);
+    imap.connect();
+  });
+}
+
+// Mark specific UIDs as \Seen in a separate IMAP session after successful processing.
+function markUidsSeen(uids) {
+  return new Promise((resolve) => {
+    const imap = new Imap(imapConfig());
+    imap.once('ready', () => {
+      imap.openBox('INBOX', false, (err) => {
+        if (err) { imap.end(); return resolve(); }
+        imap.addFlags(uids, ['\\Seen'], () => imap.end());
+      });
+    });
+    imap.once('end', resolve);
+    imap.once('error', resolve);
     imap.connect();
   });
 }
