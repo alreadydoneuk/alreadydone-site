@@ -12,7 +12,7 @@ import 'dotenv/config';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SITES_DIR = join(__dirname, '..', 'sites');
 
-const BATCH_SIZE = parseInt(process.env.SITE_BUILD_BATCH_SIZE || '5');
+const TARGET = parseInt(process.env.SITE_BUILD_BATCH_SIZE || '40');
 const PREVIEW_BASE_URL = 'https://alreadydone.uk/preview';
 
 export async function runSiteBuilderAgent() {
@@ -26,9 +26,9 @@ export async function runSiteBuilderAgent() {
   // Must have at least one outreach route — email is required to sell the site.
   // Phone-only businesses can't receive the preview link or a purchase link.
   const contactable = businesses.filter(b => b.email);
-  const skipped = businesses.length - contactable.length;
-  if (skipped > 0) {
-    console.log(`  Skipped ${skipped} businesses with no email address`);
+  const noEmail = businesses.length - contactable.length;
+  if (noEmail > 0) {
+    console.log(`  Skipped ${noEmail} businesses with no email address`);
   }
 
   if (contactable.length === 0) {
@@ -36,12 +36,16 @@ export async function runSiteBuilderAgent() {
     return { built: 0 };
   }
 
-  const batch = contactable.slice(0, BATCH_SIZE);
-  console.log(`\nBuilding sites for ${batch.length} businesses`);
+  console.log(`\nTarget: ${TARGET} sites — pool: ${contactable.length} contactable`);
 
   let built = 0;
+  let attempted = 0;
+  const builtBusinesses = [];
 
-  for (const business of batch) {
+  for (const business of contactable) {
+    if (built >= TARGET) break;
+    attempted++;
+    const prevBuilt = built;
     try {
       await buildSiteForBusiness(business);
       built++;
@@ -54,15 +58,20 @@ export async function runSiteBuilderAgent() {
       console.error(`  Failed for ${business.name}: ${err.message}`);
       await logInteraction(business.id, 'error', 'internal', `Site build failed: ${err.message}`, err.stack);
     }
+    // Only add to the list if the build actually succeeded
+    if (built > prevBuilt) builtBusinesses.push(business);
 
-    // One site per minute — Tier 1 output token limit (~8k/min, one site ~5-6k tokens)
-    await sleep(70000);
+    // Only sleep if we're going to build another — skip the wait after the last one
+    if (built < TARGET && attempted < contactable.length) {
+      // One site per minute — Tier 1 output token limit (~8k/min, one site ~5-6k tokens)
+      await sleep(70000);
+    }
   }
 
-  console.log(`\nBuilt ${built}/${batch.length} sites\n`);
+  console.log(`\nBuilt ${built} sites (${attempted} attempted, ${attempted - built} skipped/failed)\n`);
 
   if (built > 0) {
-    const lines = batch.slice(0, built).map(b =>
+    const lines = builtBusinesses.map(b =>
       `• ${b.name} (${b.category}, ${b.location}) — ${PREVIEW_BASE_URL}/${generateSlug(b.name, b.location)}`
     ).join('\n');
     await alert(`🏗️ ${built} preview site${built > 1 ? 's' : ''} built`, lines).catch(() => {});
