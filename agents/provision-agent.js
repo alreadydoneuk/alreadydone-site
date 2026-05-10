@@ -1,7 +1,7 @@
 import { supabase, logInteraction } from '../lib/db.js';
 import { checkDomain, registerDomain, pointToCloudflarePages, pollUntilLive } from '../lib/domains.js';
 import { addEmailDnsRecords, provisionEmailAddresses } from '../lib/email-provisioning.js';
-import { sendOnboardingStarted, sendOnboardingComplete } from '../lib/mailer.js';
+import { sendOnboardingStarted, sendOnboardingComplete, sendDomainTakenNotification } from '../lib/mailer.js';
 import { generateExtraPageSection } from '../lib/claude.js';
 import { captureSnapshot } from '../lib/report-data.js';
 import { alert } from '../lib/slack.js';
@@ -78,7 +78,11 @@ async function provisionBusiness(business) {
   } else {
     const check = await checkDomain(domain);
     if (!check.available) {
-      throw new Error(`Customer-selected domain ${domain} is no longer available — manual intervention needed`);
+      await sendDomainTakenNotification({ to, firstName, domain }).catch(() => {});
+      await logInteraction(business.id, 'error', 'internal', `Domain ${domain} no longer available — customer notified`, null, { domain });
+      await supabase.from('businesses').update({ pipeline_status: 'escalated' }).eq('id', business.id);
+      await alert(`⚠️ Domain taken — ${business.name}\n${domain} is no longer available. Customer emailed. Business set to escalated.`).catch(() => {});
+      return; // Don't throw — customer has been contacted, no retry needed
     }
     await registerDomain(domain, { costUsd: check.priceUsd });
     console.log(`    Registered: ${domain}`);
@@ -108,6 +112,8 @@ async function provisionBusiness(business) {
         console.log(`    Added section: ${page.type}`);
       } catch (err) {
         console.warn(`    Could not build section "${page.type}": ${err.message} — skipping`);
+        await alert(`⚠️ Extra page failed — ${business.name}\nSection "${page.type}" could not be generated: ${err.message}\nCustomer was charged for this. Manual fix needed.`).catch(() => {});
+        await logInteraction(business.id, 'error', 'internal', `Extra page "${page.type}" generation failed: ${err.message}`, err.stack).catch(() => {});
       }
     }
   }
@@ -228,6 +234,8 @@ async function provisionNoDomain(business, to, firstName, plan, orderPages, emai
         html = injectSection(html, section, page.type);
       } catch (err) {
         console.warn(`    Could not build section "${page.type}": ${err.message} — skipping`);
+        await alert(`⚠️ Extra page failed — ${business.name}\nSection "${page.type}" could not be generated: ${err.message}\nCustomer was charged for this. Manual fix needed.`).catch(() => {});
+        await logInteraction(business.id, 'error', 'internal', `Extra page "${page.type}" generation failed: ${err.message}`, err.stack).catch(() => {});
       }
     }
   }

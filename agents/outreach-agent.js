@@ -128,6 +128,17 @@ async function sendOutreachForBusiness(business) {
     console.log(`    Email: ${email} (source: ${source})`);
   }
 
+  // broken_dns + custom domain email: DNS is fully gone so the @domain address is unreachable
+  if (business.website_status === 'broken_dns' && emailType !== 'generic') {
+    console.log(`    Dropping — broken_dns with custom domain email (${email}) — unreachable`);
+    await updateBusiness(business.id, {
+      pipeline_status: 'dropped',
+      dropped_at_stage: 'outreach',
+      drop_reason: 'broken_dns_email_dead',
+    });
+    return false;
+  }
+
   const previewUrl = business.preview_url || null;
 
   // Generate personalised email body

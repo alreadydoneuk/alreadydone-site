@@ -19,16 +19,16 @@ export async function runCustomerServiceAgent() {
   const { data: replyStats } = await supabase
     .from('businesses')
     .select('pipeline_status, lead_temperature')
-    .in('pipeline_status', ['replied_positive', 'replied_negative', 'emailed', 'paid', 'delivered', 'dropped'])
+    .in('pipeline_status', ['payment_pending', 'engaged', 'nurturing', 'suppressed', 'closed_has_site', 'emailed', 'paid', 'delivered', 'dropped'])
     .gte('updated_at', weekAgo);
 
-  const positives = (replyStats || []).filter(b => b.pipeline_status === 'replied_positive').length;
-  const negatives = (replyStats || []).filter(b => b.pipeline_status === 'replied_negative').length;
+  const positives = (replyStats || []).filter(b => ['payment_pending', 'engaged', 'nurturing'].includes(b.pipeline_status)).length;
+  const negatives = (replyStats || []).filter(b => ['suppressed', 'closed_has_site'].includes(b.pipeline_status)).length;
   const dropped = (replyStats || []).filter(b => b.pipeline_status === 'dropped').length;
 
-  const sentEmails = (interactions || []).filter(i => i.type === 'email' && i.direction === 'outbound').length;
-  const repliesReceived = (interactions || []).filter(i => i.type === 'email' && i.direction === 'inbound').length;
-  const followUps = (interactions || []).filter(i => i.type === 'follow_up').length;
+  const sentEmails = (interactions || []).filter(i => ['email_sent', 'follow_up_sent', 'auto_reply_sent'].includes(i.type)).length;
+  const repliesReceived = (interactions || []).filter(i => i.type === 'reply_received').length;
+  const followUps = (interactions || []).filter(i => i.type === 'follow_up_sent').length;
 
   const summaryList = (interactions || [])
     .filter(i => i.content_summary)

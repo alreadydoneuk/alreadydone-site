@@ -1,4 +1,4 @@
-import { generateEmail, generateStatusFollowUp } from '../lib/claude.js';
+import { generateNoReplyFollowUp, generateStatusFollowUp } from '../lib/claude.js';
 import { sendOutreachEmail, sendAutoReply } from '../lib/mailer.js';
 import { supabase } from '../lib/db.js';
 import 'dotenv/config';
@@ -42,6 +42,31 @@ export async function runFollowUpAgent() {
     dropped++;
   }
   if (dropped > 0) console.log(`Dropped ${dropped} timed-out businesses`);
+
+  // ── Path 1a2: Drop timed-out follow_up_sent businesses ───────────────────
+  // Businesses that got a follow-up but still never replied — give up after NO_REPLY_TIMEOUT_DAYS
+  const { data: followUpDropCandidates } = await supabase
+    .from('businesses')
+    .select('id, name, follow_up_sent_at')
+    .eq('pipeline_status', 'follow_up_sent')
+    .lt('follow_up_sent_at', dropCutoff)
+    .limit(100);
+
+  for (const b of followUpDropCandidates || []) {
+    await supabase.from('businesses').update({
+      pipeline_status: 'dropped',
+      dropped_at_stage: 'follow_up',
+      drop_reason: 'no_reply_after_followup',
+    }).eq('id', b.id);
+    await supabase.from('interactions').insert({
+      business_id: b.id,
+      type: 'dropped',
+      direction: 'internal',
+      content_summary: `No reply after follow-up (${NO_REPLY_TIMEOUT_DAYS} days) — dropped`,
+    });
+    dropped++;
+  }
+  if (followUpDropCandidates?.length) console.log(`Dropped ${followUpDropCandidates.length} timed-out follow_up_sent businesses`);
 
   // ── Path 1b: Drop post-reply businesses that have gone cold past 14 days ─
   // These engaged but follow_up_due_at has passed a second time — give up
@@ -217,15 +242,13 @@ async function sendPostReplyFollowUp(business) {
 }
 
 async function generateFollowUp(b) {
-  return generateEmail(
-    {
-      name: b.name,
-      category: b.category,
-      location: b.location,
-      domain: b.domain,
-      website_status: b.website_status,
-      price: b.price,
-    },
-    b.previewUrl || null
-  );
+  return generateNoReplyFollowUp({
+    name: b.name,
+    category: b.category,
+    location: b.location,
+    domain: b.domain,
+    website_status: b.website_status,
+    price: b.price,
+    previewUrl: b.previewUrl || null,
+  });
 }
