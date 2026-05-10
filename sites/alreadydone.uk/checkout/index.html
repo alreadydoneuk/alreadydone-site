@@ -375,6 +375,15 @@ posthog.init('phc_BmNKMzeABhZJpHAdJLKmEbHSHXCWGQ5gkrjLDPkLskww',{api_host:'https
     <div id="domain-list">
       <div class="domain-loading">Checking availability…</div>
     </div>
+    <hr class="divider">
+    <div class="domain-option" id="no-domain-option" onclick="selectNoDomain()">
+      <div class="domain-radio" id="no-domain-radio"><div class="domain-radio-dot"></div></div>
+      <div style="flex:1">
+        <div class="domain-name" style="font-size:14px;">I already have a domain / skip for now</div>
+        <div style="font-size:12px;color:var(--mid)">Your site will be live at a web address we give you. You can connect your own domain any time.</div>
+      </div>
+      <div class="domain-price" style="font-size:13px;color:var(--mid)">£0</div>
+    </div>
   </div>
 
   <!-- ── SITE TIER ── -->
@@ -539,7 +548,8 @@ posthog.init('phc_BmNKMzeABhZJpHAdJLKmEbHSHXCWGQ5gkrjLDPkLskww',{api_host:'https
       </div>
     </div>
 
-    <textarea class="page-copy-input" rows="4" placeholder="Paste your content, describe what you want, or leave notes for us…"></textarea>
+    <textarea class="page-copy-input" rows="4" placeholder="Paste your content, describe what you want, or leave notes for us…" oninput="checkCopyLength(this)"></textarea>
+    <div class="copy-warn" style="display:none;font-size:12px;color:var(--amber);margin-top:4px;">Only the first 400 characters will be used — keep it short or email the rest to dean@alreadydone.uk</div>
 
     <div class="expand-label mt8">Attachments (optional)</div>
     <div class="upload-row" style="margin-top:4px;">
@@ -563,6 +573,7 @@ const state = {
   slug: '',
   bizName: '',
   selectedDomain: null,       // { domain, price_gbp, price_usd }
+  noDomain: false,            // true = customer skipped domain
   domainOptions: [],
   tier: 99,
   pages: [],                  // [{ type, edit_level, copy }]
@@ -657,13 +668,30 @@ function selectDomain(idx) {
   const opt = state.domainOptions[idx];
   if (!opt?.available) return;
   state.selectedDomain = opt;
+  state.noDomain = false;
 
-  document.querySelectorAll('.domain-option').forEach((el, i) => {
+  document.querySelectorAll('.domain-option:not(#no-domain-option)').forEach((el, i) => {
     el.classList.toggle('selected', i === idx);
   });
+  document.getElementById('no-domain-option').classList.remove('selected');
+  document.getElementById('no-domain-radio').style.borderColor = '';
 
   updateEmailNote(opt.domain);
   updateEmailExample(opt.domain);
+  updateBar();
+}
+
+function selectNoDomain() {
+  state.selectedDomain = null;
+  state.noDomain = true;
+
+  document.querySelectorAll('.domain-option:not(#no-domain-option)').forEach(el => el.classList.remove('selected'));
+  document.getElementById('no-domain-option').classList.add('selected');
+  document.getElementById('no-domain-radio').style.borderColor = 'var(--accent)';
+
+  // Disable email — requires a domain
+  if (state.emailEnabled) toggleEmail();
+  updateEmailNote(null);
   updateBar();
 }
 
@@ -720,6 +748,11 @@ function selectEditLevel(el) {
 function updatePage(id, fields) {
   const page = state.pages.find(p => p.id === id);
   if (page) Object.assign(page, fields);
+}
+
+function checkCopyLength(textarea) {
+  const warn = textarea.parentElement.querySelector('.copy-warn');
+  if (warn) warn.style.display = textarea.value.length > 380 ? '' : 'none';
 }
 
 function countFiles(input) {
@@ -865,7 +898,7 @@ function updateBar() {
   if (monthly > 0) parts.push(`+£${monthly}/mo report`);
   subEl.textContent = parts.length ? `today · ${parts.join(', ')}` : 'today\'s payment';
 
-  const ready = state.selectedDomain !== null;
+  const ready = state.selectedDomain !== null || state.noDomain;
   btn.disabled = !ready;
   btn.textContent = ready ? `Pay £${oneOff.toFixed(2).replace('.00', '')} →` : 'Choose a domain to continue';
 }
@@ -894,13 +927,14 @@ async function startCheckout() {
       body: JSON.stringify({
         slug: state.slug,
         tier: state.tier,
-        domain: state.selectedDomain?.domain,
-        domain_price_gbp: state.selectedDomain?.price_gbp,
-        domain_price_usd: state.selectedDomain?.price_usd,
+        domain: state.noDomain ? null : state.selectedDomain?.domain,
+        domain_price_gbp: state.noDomain ? null : state.selectedDomain?.price_gbp,
+        domain_price_usd: state.noDomain ? null : state.selectedDomain?.price_usd,
         pages: state.pages,
         email_count: state.emailEnabled ? state.emailCount : 0,
         email_prefixes: state.emailEnabled ? getPrefixes() : [],
         include_report: state.reportEnabled,
+        no_domain: state.noDomain,
       }),
     });
 

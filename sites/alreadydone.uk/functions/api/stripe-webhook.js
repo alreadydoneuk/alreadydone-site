@@ -39,9 +39,9 @@ export async function onRequestPost(context) {
     return new Response('OK', { status: 200 });
   }
 
-  // Look up business by site_slug
+  // Look up business by site_slug — include stripe_session_id and pipeline_status for idempotency checks
   const businessRes = await fetch(
-    `${env.SUPABASE_URL}/rest/v1/businesses?site_slug=eq.${encodeURIComponent(slug)}&select=id,name,category,location,email&limit=1`,
+    `${env.SUPABASE_URL}/rest/v1/businesses?site_slug=eq.${encodeURIComponent(slug)}&select=id,name,category,location,email,stripe_session_id,pipeline_status&limit=1`,
     {
       headers: {
         apikey: env.SUPABASE_SERVICE_KEY,
@@ -107,6 +107,38 @@ export async function onRequestPost(context) {
         order_email_prefixes: orderEmailPrefixes,
         order_include_report: orderIncludeReport,
         order_pages: orderPages.length ? JSON.stringify(orderPages) : null,
+      }),
+    }
+  );
+
+  // Record revenue in finance table — this is what finance-agent reads for P&L reports
+  const amountGbp = amountPence ? amountPence / 100 : 0;
+  const taxYear = new Date().getFullYear().toString();
+  const financeDescription = [
+    `${business.name}`,
+    orderDomain ? `domain: ${orderDomain}` : null,
+    orderEmailCount > 0 ? `${orderEmailCount} email(s)` : null,
+  ].filter(Boolean).join(' — ');
+
+  await fetch(
+    `${env.SUPABASE_URL}/rest/v1/finance`,
+    {
+      method: 'POST',
+      headers: {
+        apikey: env.SUPABASE_SERVICE_KEY,
+        Authorization: `Bearer ${env.SUPABASE_SERVICE_KEY}`,
+        'Content-Type': 'application/json',
+        Prefer: 'return=minimal',
+      },
+      body: JSON.stringify({
+        business_id: business.id,
+        type: 'revenue',
+        category: 'website_sale',
+        amount: amountGbp,
+        currency: currency,
+        description: financeDescription,
+        stripe_payment_id: session.id,
+        tax_year: taxYear,
       }),
     }
   );

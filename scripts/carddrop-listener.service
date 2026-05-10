@@ -1,0 +1,17 @@
+[Unit]
+Description=CardDrop Slack listener
+After=network.target
+
+[Service]
+Type=simple
+User=brantley
+WorkingDirectory=/home/brantley/alreadydone
+ExecStart=/usr/bin/node scripts/card-http.js
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=carddrop
+
+[Install]
+WantedBy=multi-user.target

@@ -178,7 +178,8 @@ export async function runFollowUpAgent() {
       await supabase.from('businesses').update({
         pipeline_status: 'follow_up_sent',
         follow_up_sent_at: new Date().toISOString(),
-        outreach_message_id: followUpMsgId || null,
+        // Do NOT overwrite outreach_message_id — it anchors reply-monitor In-Reply-To matching
+        // for the full conversation thread. The follow-up message ID is stored in interactions.
       }).eq('id', business.id);
 
       await supabase.from('interactions').insert({

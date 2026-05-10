@@ -33,8 +33,8 @@ export async function runFinanceAgent() {
     .select('pipeline_status')
     .in('pipeline_status', ['emailed', 'paid', 'delivered', 'template_built']);
 
-  const weekRevenue = (recentPayments || []).reduce((s, r) => s + parseFloat(r.amount_gbp || 0), 0);
-  const monthRevenue = (monthPayments || []).reduce((s, r) => s + parseFloat(r.amount_gbp || 0), 0);
+  const weekRevenue = (recentPayments || []).reduce((s, r) => s + parseFloat(r.amount || 0), 0);
+  const monthRevenue = (monthPayments || []).reduce((s, r) => s + parseFloat(r.amount || 0), 0);
   const monthApiCost = (tokenCosts || []).reduce((s, r) => s + parseFloat(r.cost_usd || 0), 0);
 
   const statusCounts = {};
