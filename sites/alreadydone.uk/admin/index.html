@@ -145,7 +145,7 @@
     <div class="table-wrap">
       <table>
         <thead><tr>
-          <th>When</th><th>Type</th><th>Dir</th><th>Summary</th>
+          <th>When</th><th>Business</th><th>Type</th><th>Dir</th><th>Summary</th>
         </tr></thead>
         <tbody id="activity-table"></tbody>
       </table>
@@ -299,16 +299,24 @@ function render(data) {
   // ── Recent activity ───────────────────────────────────────────────────────
   const activityTbody = document.getElementById('activity-table');
   if (!data.recent_interactions?.length) {
-    activityTbody.innerHTML = '<tr><td colspan="4" class="empty">No recent activity</td></tr>';
+    activityTbody.innerHTML = '<tr><td colspan="5" class="empty">No recent activity</td></tr>';
   } else {
-    activityTbody.innerHTML = data.recent_interactions.map(i => `
+    activityTbody.innerHTML = data.recent_interactions.map(i => {
+      const biz = i.businesses;
+      const bizName = biz?.name ? esc(biz.name) : '<span class="muted">—</span>';
+      const bizLink = biz?.site_slug
+        ? `<a href="/preview/${esc(biz.site_slug)}" target="_blank" style="color:inherit">${bizName}</a>`
+        : bizName;
+      const bizSub = biz?.category ? `<br><span class="muted" style="font-size:0.75rem">${esc(biz.category)}${biz.location ? ', ' + esc(biz.location) : ''}</span>` : '';
+      return `
       <tr>
         <td class="muted" style="white-space:nowrap">${fmtDate(i.created_at)}</td>
+        <td>${bizLink}${bizSub}</td>
         <td>${esc(i.type)}</td>
         <td>${i.direction === 'inbound' ? '↙' : '↗'}</td>
         <td class="muted">${esc((i.content_summary || '').slice(0, 90))}</td>
-      </tr>
-    `).join('');
+      </tr>`;
+    }).join('');
   }
 }
 

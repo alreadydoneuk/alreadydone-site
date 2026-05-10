@@ -81,9 +81,9 @@ export async function onRequestGet(context) {
       '&limit=50',
     ].join('')),
 
-    // Recent interactions
+    // Recent interactions with business name
     sb('interactions', [
-      '?select=type,direction,content_summary,created_at',
+      '?select=type,direction,content_summary,created_at,businesses(name,category,location,site_slug)',
       '&order=created_at.desc',
       '&limit=30',
     ].join('')),
