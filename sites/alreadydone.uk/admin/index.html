@@ -12,11 +12,14 @@
       --black: #0f0f0f; --white: #fff; --grey: #f5f5f4;
       --mid: #6b7280; --border: #e5e7eb;
       --accent: #2563eb; --green: #16a34a; --red: #dc2626; --amber: #d97706;
+      --blue: #2563eb;
     }
     body { font-family: 'Inter', system-ui, sans-serif; font-size: 14px; background: var(--grey); color: var(--black); min-height: 100vh; }
     nav { background: #0f0f0f; color: #fff; padding: 0 24px; height: 52px; display: flex; align-items: center; gap: 16px; }
     nav span { font-weight: 700; font-size: 16px; letter-spacing: -0.3px; }
     nav small { color: #9ca3af; font-size: 12px; }
+    nav .refresh-nav { margin-left: auto; background: none; border: 1px solid #374151; border-radius: 6px; padding: 4px 12px; font-size: 12px; cursor: pointer; color: #9ca3af; font-family: inherit; }
+    nav .refresh-nav:hover { border-color: #6b7280; color: #fff; }
     #auth-screen { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 52px); }
     .auth-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 32px; width: 320px; }
     .auth-card h2 { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
@@ -25,14 +28,37 @@
     .auth-card button { width: 100%; margin-top: 12px; padding: 10px; background: var(--accent); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
     .auth-card button:hover { background: #1d4ed8; }
     .auth-error { color: var(--red); font-size: 12px; margin-top: 8px; }
-    #dashboard { display: none; padding: 24px; max-width: 1200px; margin: 0 auto; }
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
+    #dashboard { display: none; padding: 24px; max-width: 1280px; margin: 0 auto; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 24px; }
     .stat { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
     .stat-label { font-size: 11px; font-weight: 600; letter-spacing: 0.5px; color: var(--mid); text-transform: uppercase; margin-bottom: 6px; }
     .stat-value { font-size: 28px; font-weight: 800; letter-spacing: -1px; line-height: 1; }
     .stat-value.green { color: var(--green); }
     .stat-value.amber { color: var(--amber); }
+    .stat-value.blue  { color: var(--blue); }
     .stat-sub { font-size: 11px; color: var(--mid); margin-top: 4px; }
+    /* Two-panel layout for engagement + funnel */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+    @media (max-width: 800px) { .two-col { grid-template-columns: 1fr; } }
+    .panel { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+    .panel-title { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 16px; }
+    .rate-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .rate-row:last-child { margin-bottom: 0; }
+    .rate-label { font-size: 12px; font-weight: 600; width: 80px; flex-shrink: 0; }
+    .rate-bar-wrap { flex: 1; height: 8px; background: var(--grey); border-radius: 4px; overflow: hidden; }
+    .rate-bar { height: 100%; border-radius: 4px; transition: width 0.4s; }
+    .rate-bar.green { background: var(--green); }
+    .rate-bar.blue  { background: var(--blue); }
+    .rate-bar.amber { background: var(--amber); }
+    .rate-pct { font-size: 13px; font-weight: 700; width: 38px; text-align: right; flex-shrink: 0; }
+    .rate-sub { font-size: 11px; color: var(--mid); width: 70px; flex-shrink: 0; text-align: right; }
+    .funnel-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .funnel-row:last-child { border-bottom: none; }
+    .funnel-label { font-size: 13px; font-weight: 500; }
+    .funnel-val { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
+    .funnel-val.amber { color: var(--amber); }
+    .funnel-val.green { color: var(--green); }
+    .funnel-val.red   { color: var(--red); }
     .section { margin-bottom: 28px; }
     .section-title { font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 12px; }
     .table-wrap { background: #fff; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
@@ -42,30 +68,27 @@
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: #fafafa; }
     .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
-    .badge-blue { background: #dbeafe; color: #1e40af; }
-    .badge-green { background: #dcfce7; color: #15803d; }
-    .badge-amber { background: #fef3c7; color: #b45309; }
-    .badge-red { background: #fee2e2; color: #991b1b; }
-    .badge-grey { background: #f3f4f6; color: #374151; }
+    .badge-blue   { background: #dbeafe; color: #1e40af; }
+    .badge-green  { background: #dcfce7; color: #15803d; }
+    .badge-amber  { background: #fef3c7; color: #b45309; }
+    .badge-red    { background: #fee2e2; color: #991b1b; }
+    .badge-grey   { background: #f3f4f6; color: #374151; }
+    .engage-icons { display: flex; gap: 4px; }
+    .ei { font-size: 14px; opacity: 0.25; }
+    .ei.on { opacity: 1; }
     .link { color: var(--accent); text-decoration: none; font-weight: 500; }
     .link:hover { text-decoration: underline; }
     .muted { color: var(--mid); }
     .empty { padding: 24px; text-align: center; color: var(--mid); font-size: 13px; }
-    .refresh-btn { background: none; border: 1px solid var(--border); border-radius: 6px; padding: 5px 12px; font-size: 12px; cursor: pointer; color: var(--mid); font-family: inherit; float: right; margin-top: -2px; }
-    .refresh-btn:hover { background: var(--grey); }
-    .updated { font-size: 11px; color: var(--mid); margin-bottom: 16px; }
     @media (max-width: 700px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } #dashboard { padding: 16px; } }
   </style>
-<script>
-!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.people.toString(20)+" (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||(window.posthog=[]));
-posthog.init('phc_BmNKMzeABhZJpHAdJLKmEbHSHXCWGQ5gkrjLDPkLskww',{api_host:'https://eu.i.posthog.com',person_profiles:'identified_only',persistence:'memory',autocapture:false})
-</script>
 </head>
 <body>
 
 <nav>
   <span>Already Done</span>
   <small id="nav-updated"></small>
+  <button class="refresh-nav" onclick="loadData()">↻ Refresh</button>
 </nav>
 
 <div id="auth-screen">
@@ -78,24 +101,28 @@ posthog.init('phc_BmNKMzeABhZJpHAdJLKmEbHSHXCWGQ5gkrjLDPkLskww',{api_host:'https
 </div>
 
 <div id="dashboard">
+
   <div class="stats-grid" id="stats-grid"></div>
 
-  <div class="section">
-    <div class="section-title">
-      Revenue & Paying Customers
-      <button class="refresh-btn" onclick="loadData()">↻ Refresh</button>
+  <!-- Engagement rates + checkout funnel -->
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-title">Email engagement</div>
+      <div id="engagement-panel"></div>
     </div>
+    <div class="panel">
+      <div class="panel-title">Checkout funnel</div>
+      <div id="funnel-panel"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Revenue &amp; Paying Customers</div>
     <div class="table-wrap">
       <table>
-        <thead>
-          <tr>
-            <th>Business</th>
-            <th>Domain</th>
-            <th>Status</th>
-            <th>Paid at</th>
-            <th>Delivered at</th>
-          </tr>
-        </thead>
+        <thead><tr>
+          <th>Business</th><th>Domain</th><th>Status</th><th>Paid</th><th>Delivered</th>
+        </tr></thead>
         <tbody id="paying-table"></tbody>
       </table>
     </div>
@@ -105,15 +132,9 @@ posthog.init('phc_BmNKMzeABhZJpHAdJLKmEbHSHXCWGQ5gkrjLDPkLskww',{api_host:'https
     <div class="section-title">Preview Sites — In Pipeline</div>
     <div class="table-wrap">
       <table>
-        <thead>
-          <tr>
-            <th>Business</th>
-            <th>Status</th>
-            <th>Sentiment</th>
-            <th>Emailed</th>
-            <th>Preview</th>
-          </tr>
-        </thead>
+        <thead><tr>
+          <th>Business</th><th>Status</th><th>Engagement</th><th>Emailed</th><th>Reply</th><th>Preview</th>
+        </tr></thead>
         <tbody id="preview-table"></tbody>
       </table>
     </div>
@@ -123,18 +144,14 @@ posthog.init('phc_BmNKMzeABhZJpHAdJLKmEbHSHXCWGQ5gkrjLDPkLskww',{api_host:'https
     <div class="section-title">Recent Activity (30 events)</div>
     <div class="table-wrap">
       <table>
-        <thead>
-          <tr>
-            <th>When</th>
-            <th>Type</th>
-            <th>Direction</th>
-            <th>Summary</th>
-          </tr>
-        </thead>
+        <thead><tr>
+          <th>When</th><th>Type</th><th>Dir</th><th>Summary</th>
+        </tr></thead>
         <tbody id="activity-table"></tbody>
       </table>
     </div>
   </div>
+
 </div>
 
 <script>
@@ -147,17 +164,18 @@ document.getElementById('token-input').addEventListener('keydown', e => {
 
 if (savedToken) login(savedToken);
 
+// Auto-refresh every 60 seconds
+setInterval(() => { if (savedToken) loadData(); }, 60000);
+
 async function login(token) {
   token = token || document.getElementById('token-input').value.trim();
   if (!token) return;
-
   const result = await fetchData(token);
   if (result.error) {
     document.getElementById('auth-error').textContent = 'Invalid token';
     localStorage.removeItem(TOKEN_KEY);
     return;
   }
-
   localStorage.setItem(TOKEN_KEY, token);
   savedToken = token;
   document.getElementById('auth-screen').style.display = 'none';
@@ -182,24 +200,24 @@ async function fetchData(token) {
 
 function render(data) {
   const ts = data.generated_at ? new Date(data.generated_at).toLocaleString('en-GB') : '';
-  document.getElementById('nav-updated').textContent = `Last updated ${ts}`;
+  document.getElementById('nav-updated').textContent = `Updated ${ts}`;
 
-  // Stats
-  const pc = data.pipeline_counts || {};
+  const pc  = data.pipeline_counts || {};
+  const eng = data.engagement || {};
+  const cf  = data.checkout_funnel || {};
+  const rev = data.revenue || {};
   const previewCount = (data.previews || []).length;
-  const positiveCount = pc.replied_positive || 0;
-  const payingCount = (data.paying || []).length;
-  const gross = data.revenue?.gross_gbp || 0;
 
+  // ── Stats grid ────────────────────────────────────────────────────────────
   const stats = [
-    { label: 'Gross Revenue', value: `£${gross}`, cls: gross > 0 ? 'green' : '', sub: `${payingCount} customer${payingCount !== 1 ? 's' : ''}` },
-    { label: 'Preview Sites', value: previewCount, sub: 'in pipeline' },
-    { label: 'Positive Replies', value: positiveCount, cls: positiveCount > 0 ? 'amber' : '', sub: 'awaiting payment' },
-    { label: 'Emailed', value: pc.emailed || 0, sub: 'outreach sent' },
-    { label: 'Follow-ups', value: pc.follow_up_sent || 0, sub: 'sent' },
-    { label: 'Researched', value: pc.researched || 0, sub: 'ready to build' },
-    { label: 'Templates Built', value: pc.template_built || 0, sub: 'ready to send' },
-    { label: 'Delivered', value: data.revenue?.total_delivered || 0, cls: (data.revenue?.total_delivered || 0) > 0 ? 'green' : '', sub: 'sites live' },
+    { label: 'Revenue',       value: `£${rev.gross_gbp || 0}`,   cls: rev.gross_gbp > 0 ? 'green' : '', sub: `${rev.total_paid + rev.total_delivered || 0} customer(s)` },
+    { label: 'Sites Live',    value: rev.total_delivered || 0,    cls: rev.total_delivered > 0 ? 'green' : '', sub: 'delivered' },
+    { label: 'W/ Email',      value: eng.total_emailed || 0,      sub: 'prospects contacted' },
+    { label: 'Opened',        value: eng.total_opened || 0,       cls: eng.total_opened > 0 ? 'blue' : '', sub: `${eng.open_rate || 0}% open rate` },
+    { label: 'Clicked',       value: eng.total_clicked || 0,      cls: eng.total_clicked > 0 ? 'blue' : '', sub: `${eng.click_rate || 0}% click rate` },
+    { label: 'Replied',       value: eng.total_replied || 0,      cls: eng.total_replied > 0 ? 'amber' : '', sub: `${eng.reply_rate || 0}% reply rate` },
+    { label: 'In Pipeline',   value: previewCount,                sub: 'preview sites' },
+    { label: 'Ready to Send', value: pc.template_built || 0,      sub: 'templates built' },
   ];
 
   document.getElementById('stats-grid').innerHTML = stats.map(s => `
@@ -210,10 +228,39 @@ function render(data) {
     </div>
   `).join('');
 
-  // Paying customers
+  // ── Engagement panel ──────────────────────────────────────────────────────
+  const sent = eng.total_emailed || 0;
+  document.getElementById('engagement-panel').innerHTML = [
+    { label: 'Open rate',  pct: eng.open_rate  || 0, n: eng.total_opened  || 0, cls: 'blue'  },
+    { label: 'Click rate', pct: eng.click_rate || 0, n: eng.total_clicked || 0, cls: 'blue'  },
+    { label: 'Reply rate', pct: eng.reply_rate || 0, n: eng.total_replied || 0, cls: 'amber' },
+  ].map(r => `
+    <div class="rate-row">
+      <div class="rate-label">${r.label}</div>
+      <div class="rate-bar-wrap"><div class="rate-bar ${r.cls}" style="width:${Math.min(r.pct,100)}%"></div></div>
+      <div class="rate-pct">${r.pct}%</div>
+      <div class="rate-sub">${r.n} / ${sent}</div>
+    </div>
+  `).join('');
+
+  // ── Checkout funnel panel ─────────────────────────────────────────────────
+  document.getElementById('funnel-panel').innerHTML = [
+    { label: 'Checkout visited',  val: cf.viewed          || 0, cls: '' },
+    { label: 'Domain selected',   val: cf.domain_selected || 0, cls: '' },
+    { label: 'Payment started',   val: cf.payment_started || 0, cls: 'amber' },
+    { label: 'Abandoned',         val: cf.abandoned       || 0, cls: cf.abandoned > 0 ? 'red' : '' },
+    { label: 'Purchased',         val: cf.completed       || 0, cls: cf.completed > 0 ? 'green' : '' },
+  ].map(r => `
+    <div class="funnel-row">
+      <div class="funnel-label">${r.label}</div>
+      <div class="funnel-val ${r.cls}">${r.val}</div>
+    </div>
+  `).join('');
+
+  // ── Paying customers ──────────────────────────────────────────────────────
   const payingTbody = document.getElementById('paying-table');
   if (!data.paying?.length) {
-    payingTbody.innerHTML = '<tr><td colspan="5" class="empty">No paying customers yet</td></tr>';
+    payingTbody.innerHTML = '<tr><td colspan="5" class="empty">No paying customers yet — watching for first payment</td></tr>';
   } else {
     payingTbody.innerHTML = data.paying.map(b => `
       <tr>
@@ -226,23 +273,30 @@ function render(data) {
     `).join('');
   }
 
-  // Preview sites
+  // ── Preview sites ─────────────────────────────────────────────────────────
   const previewTbody = document.getElementById('preview-table');
   if (!data.previews?.length) {
-    previewTbody.innerHTML = '<tr><td colspan="5" class="empty">No preview sites in pipeline</td></tr>';
+    previewTbody.innerHTML = '<tr><td colspan="6" class="empty">No preview sites in pipeline</td></tr>';
   } else {
     previewTbody.innerHTML = data.previews.map(b => `
       <tr>
         <td><strong>${esc(b.name)}</strong><br><span class="muted">${esc(b.category)} · ${esc(b.location)}</span></td>
         <td><span class="badge ${statusBadge(b.pipeline_status)}">${b.pipeline_status}</span></td>
-        <td>${sentimentBadge(b.response_sentiment)}</td>
-        <td>${b.emailed_at ? fmtDate(b.emailed_at) : '<span class="muted">—</span>'}</td>
+        <td>
+          <div class="engage-icons">
+            <span class="ei${b.email_opened_at       ? ' on' : ''}" title="Opened">👁</span>
+            <span class="ei${b.email_link_clicked_at ? ' on' : ''}" title="Clicked">🔗</span>
+            <span class="ei${b.last_reply_at         ? ' on' : ''}" title="Replied">💬</span>
+          </div>
+        </td>
+        <td>${b.first_email_sent_at ? fmtDate(b.first_email_sent_at) : '<span class="muted">—</span>'}</td>
+        <td>${b.last_reply_at ? fmtDate(b.last_reply_at) : '<span class="muted">—</span>'}</td>
         <td>${b.preview_url ? `<a class="link" href="${esc(b.preview_url)}" target="_blank">View →</a>` : '<span class="muted">—</span>'}</td>
       </tr>
     `).join('');
   }
 
-  // Activity
+  // ── Recent activity ───────────────────────────────────────────────────────
   const activityTbody = document.getElementById('activity-table');
   if (!data.recent_interactions?.length) {
     activityTbody.innerHTML = '<tr><td colspan="4" class="empty">No recent activity</td></tr>';
@@ -251,28 +305,21 @@ function render(data) {
       <tr>
         <td class="muted" style="white-space:nowrap">${fmtDate(i.created_at)}</td>
         <td>${esc(i.type)}</td>
-        <td>${i.direction === 'inbound' ? '↙ in' : '↗ out'}</td>
-        <td class="muted">${esc((i.content_summary || '').slice(0, 80))}</td>
+        <td>${i.direction === 'inbound' ? '↙' : '↗'}</td>
+        <td class="muted">${esc((i.content_summary || '').slice(0, 90))}</td>
       </tr>
     `).join('');
   }
 }
 
-function statusBadge(status) {
+function statusBadge(s) {
   const map = {
     delivered: 'badge-green', paid: 'badge-green', delivering: 'badge-green',
-    replied_positive: 'badge-amber',
-    replied_negative: 'badge-red', replied_neutral: 'badge-grey',
+    engaged: 'badge-amber', nurturing: 'badge-amber', payment_pending: 'badge-amber',
     emailed: 'badge-blue', follow_up_sent: 'badge-blue',
     template_built: 'badge-grey',
   };
-  return map[status] || 'badge-grey';
-}
-
-function sentimentBadge(s) {
-  if (!s) return '<span class="muted">—</span>';
-  const map = { positive: 'badge-green', negative: 'badge-red', neutral: 'badge-grey' };
-  return `<span class="badge ${map[s] || 'badge-grey'}">${s}</span>`;
+  return map[s] || 'badge-grey';
 }
 
 function fmtDate(iso) {
@@ -285,6 +332,5 @@ function esc(s) {
   return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 </script>
-
 </body>
 </html>

@@ -31,25 +31,51 @@ export async function onRequestGet(context) {
       },
     }).then(r => r.json());
 
-  // Fetch all the data in parallel
-  const [pipelineCounts, previews, paying, recentInteractions] = await Promise.all([
-    // Status counts
+  const sbCount = async (path, params = '') => {
+    const r = await fetch(`${env.SUPABASE_URL}/rest/v1/${path}?select=id&limit=1${params ? '&' + params : ''}`, {
+      headers: {
+        apikey: env.SUPABASE_SERVICE_KEY,
+        Authorization: `Bearer ${env.SUPABASE_SERVICE_KEY}`,
+        Prefer: 'count=exact',
+        Range: '0-0',
+      },
+    });
+    const cr = r.headers.get('Content-Range') || '0/0';
+    return parseInt(cr.split('/')[1]) || 0;
+  };
+
+  const [
+    pipelineCounts,
+    previews,
+    paying,
+    recentInteractions,
+    revRows,
+    totalEmailed,
+    totalOpened,
+    totalClicked,
+    totalReplied,
+    checkoutViewed,
+    checkoutDomainSelected,
+    checkoutPaymentStarted,
+  ] = await Promise.all([
+    // Pipeline status breakdown (prospects only)
     sb('businesses', '?select=pipeline_status&is_prospect=eq.true'),
 
-    // Preview sites (emailed or replied, has a preview URL)
+    // Preview sites in pipeline — includes engagement columns
     sb('businesses', [
       '?select=id,name,category,location,pipeline_status,preview_url,site_slug,',
-      'google_rating,review_count,emailed_at,last_reply_at,response_sentiment',
-      '&pipeline_status=in.(template_built,emailed,follow_up_sent,replied_positive,replied_negative,replied_neutral)',
+      'google_rating,review_count,first_email_sent_at,last_reply_at,response_sentiment,',
+      'email_opened_at,email_link_clicked_at',
+      '&pipeline_status=in.(template_built,emailed,follow_up_sent,engaged,nurturing,payment_pending)',
       '&preview_url=not.is.null',
-      '&order=emailed_at.desc.nullslast',
+      '&order=first_email_sent_at.desc.nullslast',
       '&limit=100',
     ].join('')),
 
     // Paying / delivered customers
     sb('businesses', [
       '?select=id,name,category,location,pipeline_status,registered_domain,',
-      'paid_at,delivered_at,customer_email,stripe_session_id',
+      'paid_at,delivered_at,customer_email,order_tier,order_email_count',
       '&pipeline_status=in.(paid,delivering,delivered)',
       '&order=paid_at.desc',
       '&limit=50',
@@ -57,23 +83,58 @@ export async function onRequestGet(context) {
 
     // Recent interactions
     sb('interactions', [
-      '?select=type,direction,content_summary,created_at,business_id',
+      '?select=type,direction,content_summary,created_at',
       '&order=created_at.desc',
       '&limit=30',
     ].join('')),
+
+    // Revenue from finance table
+    sb('finance', '?select=amount&type=eq.revenue'),
+
+    // Email engagement counts
+    sbCount('businesses', 'first_email_sent_at=not.is.null'),
+    sbCount('businesses', 'email_opened_at=not.is.null'),
+    sbCount('businesses', 'email_link_clicked_at=not.is.null'),
+    sbCount('businesses', 'last_reply_at=not.is.null'),
+
+    // Checkout funnel from interactions
+    sbCount('interactions', 'type=eq.checkout_viewed'),
+    sbCount('interactions', 'type=eq.checkout_domain_selected'),
+    sbCount('interactions', 'type=eq.checkout_payment_started'),
   ]);
 
-  // Aggregate pipeline counts
+  // Pipeline status counts
   const counts = {};
   for (const row of (pipelineCounts || [])) {
     const s = row.pipeline_status || 'null';
     counts[s] = (counts[s] || 0) + 1;
   }
 
+  // Revenue from finance table
+  const grossGbp = (revRows || []).reduce((s, r) => s + parseFloat(r.amount || 0), 0);
+
   const revenue = {
+    gross_gbp: Math.round(grossGbp * 100) / 100,
     total_paid: (paying || []).filter(b => b.pipeline_status !== 'delivered').length,
     total_delivered: (paying || []).filter(b => b.pipeline_status === 'delivered').length,
-    gross_gbp: (paying || []).length * 99,
+  };
+
+  const engagement = {
+    total_emailed: totalEmailed,
+    total_opened: totalOpened,
+    total_clicked: totalClicked,
+    total_replied: totalReplied,
+    open_rate:  totalEmailed > 0 ? Math.round(totalOpened  / totalEmailed * 100) : 0,
+    click_rate: totalEmailed > 0 ? Math.round(totalClicked / totalEmailed * 100) : 0,
+    reply_rate: totalEmailed > 0 ? Math.round(totalReplied / totalEmailed * 100) : 0,
+  };
+
+  const checkout_funnel = {
+    viewed:           checkoutViewed,
+    domain_selected:  checkoutDomainSelected,
+    payment_started:  checkoutPaymentStarted,
+    completed:        revenue.total_paid + revenue.total_delivered,
+    abandoned:        Math.max(0, checkoutPaymentStarted - (revenue.total_paid + revenue.total_delivered)),
   };
 
   return new Response(JSON.stringify({
@@ -83,6 +144,8 @@ export async function onRequestGet(context) {
     paying: paying || [],
     recent_interactions: recentInteractions || [],
     revenue,
+    engagement,
+    checkout_funnel,
   }), {
     status: 200,
     headers: {

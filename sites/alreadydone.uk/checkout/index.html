@@ -568,6 +568,17 @@ posthog.init('phc_BmNKMzeABhZJpHAdJLKmEbHSHXCWGQ5gkrjLDPkLskww',{api_host:'https
 </template>
 
 <script>
+// ── Checkout event tracking ────────────────────────────────────────────────
+function trackCheckout(event, metadata = {}) {
+  try { posthog.capture(event, metadata); } catch (_) {}
+  if (!state.slug) return;
+  fetch('/api/checkout-event', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ event, slug: state.slug, metadata }),
+  }).catch(() => {});
+}
+
 // ── State ──────────────────────────────────────────────────────────────────
 const state = {
   slug: '',
@@ -597,6 +608,7 @@ const state = {
 
   await loadDomains();
   updateBar();
+  if (state.slug) trackCheckout('checkout_viewed');
 })();
 
 async function loadDomains() {
@@ -679,6 +691,7 @@ function selectDomain(idx) {
   updateEmailNote(opt.domain);
   updateEmailExample(opt.domain);
   updateBar();
+  trackCheckout('checkout_domain_selected', { domain: opt.domain });
 }
 
 function selectNoDomain() {
@@ -693,6 +706,7 @@ function selectNoDomain() {
   if (state.emailEnabled) toggleEmail();
   updateEmailNote(null);
   updateBar();
+  trackCheckout('checkout_domain_selected', { domain: null, no_domain: true });
 }
 
 // ── Tier ───────────────────────────────────────────────────────────────────
@@ -907,6 +921,13 @@ function updateBar() {
 async function startCheckout() {
   const btn = document.getElementById('pay-btn');
   if (btn.disabled || btn.classList.contains('loading')) return;
+
+  trackCheckout('checkout_payment_started', {
+    domain: state.selectedDomain?.domain || null,
+    tier: state.tier,
+    email_enabled: state.emailEnabled,
+    email_count: state.emailCount,
+  });
 
   btn.classList.add('loading');
   btn.textContent = 'Preparing checkout…';
