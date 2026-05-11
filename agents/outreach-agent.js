@@ -189,7 +189,7 @@ export async function sendOutreachForBusiness(business) {
     'outbound',
     `Outreach sent to ${email}. Subject: ${subject}`,
     body,
-    { messageId, etherealUrl, emailSource: source, previewUrl }
+    { messageId, etherealUrl, emailSource: source, previewUrl, subject }
   );
 
   console.log(`    ✓ Sent to ${email}`);
@@ -197,14 +197,59 @@ export async function sendOutreachForBusiness(business) {
 }
 
 function buildSubject(business) {
-  const templates = [
-    `I built a website for ${business.name}`,
-    `Quick one — I made a website for you`,
-    `${business.name} — I built something for you`,
-  ];
-  // Rotate subject lines to avoid pattern detection
-  const index = business.name.length % templates.length;
-  return templates[index];
+  const s = business.website_status;
+  const domain = business.domain || business.name;
+  const rotate = (arr) => arr[business.name.length % arr.length];
+
+  if (s === 'expired') {
+    return rotate([
+      `Your domain has expired — quick heads up`,
+      `${domain} — just wanted to flag this`,
+      `Noticed your site is down`,
+    ]);
+  }
+
+  if (business.whois_expiry_date) {
+    const days = Math.ceil((new Date(business.whois_expiry_date) - new Date()) / (1000 * 60 * 60 * 24));
+    if (days <= 1 && s !== 'expired') {
+      return rotate([
+        `${domain} — expires tomorrow`,
+        `Quick heads up about your domain`,
+        `Your domain and email go dark tomorrow`,
+      ]);
+    }
+  }
+
+  if (s === 'broken_server') {
+    return rotate([
+      `Your website isn't loading`,
+      `Spotted a problem with ${domain}`,
+      `Quick heads up about your site`,
+    ]);
+  }
+
+  if (s === 'broken') {
+    return rotate([
+      `Something's wrong with your website`,
+      `Quick heads up — your site has an issue`,
+      `Noticed a problem with ${domain}`,
+    ]);
+  }
+
+  if (s === 'coming_soon') {
+    return rotate([
+      `I finished your website`,
+      `Picked up where you left off on ${domain}`,
+      `Your coming soon page — I went ahead and finished it`,
+    ]);
+  }
+
+  // parked, none, social, seo_doorway, etc.
+  return rotate([
+    `Had a look at your Google listing`,
+    `Built something for ${business.name}`,
+    `Quick question about ${business.name}`,
+  ]);
 }
 
 function sleep(ms) {
