@@ -1,5 +1,5 @@
 import { generateNoReplyFollowUp, generateStatusFollowUp } from '../lib/claude.js';
-import { sendOutreachEmail, sendAutoReply } from '../lib/mailer.js';
+import { sendAutoReply } from '../lib/mailer.js';
 import { supabase } from '../lib/db.js';
 import 'dotenv/config';
 
@@ -165,14 +165,17 @@ export async function runFollowUpAgent() {
         previewUrl,
       });
 
-      const subject = `Re: ${business.name} — just checking in`;
+      // Look up the original subject so the follow-up Re: matches and threads correctly
+      const originalSubject = await lookupOriginalSubject(business.id);
+      const subject = originalSubject ? `Re: ${originalSubject}` : `Re: ${business.name}`;
 
-      const { messageId: followUpMsgId } = await sendOutreachEmail({
+      // Send as a reply using In-Reply-To so it threads onto the original email in the
+      // recipient's inbox rather than arriving as a disconnected new conversation
+      const { messageId: followUpMsgId } = await sendAutoReply({
         to: business.email,
         subject,
         body,
-        previewUrl,
-        screenshotPath: business.template_screenshot,
+        inReplyTo: business.outreach_message_id || null,
       });
 
       await supabase.from('businesses').update({
@@ -186,9 +189,9 @@ export async function runFollowUpAgent() {
         business_id: business.id,
         type: 'follow_up_sent',
         direction: 'outbound',
-        content_summary: `Follow-up sent to ${business.email}`,
+        content_summary: `Follow-up sent to ${business.email}. Subject: ${subject}`,
         raw_content: body,
-        metadata: { messageId: followUpMsgId },
+        metadata: { messageId: followUpMsgId, subject, inReplyTo: business.outreach_message_id },
       });
 
       console.log(`  ✓ Follow-up sent: ${business.name}`);
@@ -215,7 +218,8 @@ async function sendPostReplyFollowUp(business) {
     return;
   }
 
-  const subject = `Re: ${business.name} — just checking in`;
+  const originalSubject = await lookupOriginalSubject(business.id);
+  const subject = originalSubject ? `Re: ${originalSubject}` : `Re: ${business.name}`;
 
   // Thread onto the most recent outbound message so it arrives in the same conversation
   await sendAutoReply({
@@ -252,4 +256,26 @@ async function generateFollowUp(b) {
     price: b.price,
     previewUrl: b.previewUrl || null,
   });
+}
+
+// Looks up the original outreach subject for a business so the follow-up Re: matches.
+// Checks metadata.subject first (stored from today's commit onwards), then falls back
+// to parsing content_summary ("Outreach sent to x. Subject: Y").
+async function lookupOriginalSubject(businessId) {
+  const { data } = await supabase
+    .from('interactions')
+    .select('content_summary, metadata')
+    .eq('business_id', businessId)
+    .eq('type', 'email_sent')
+    .order('created_at', { ascending: true })
+    .limit(1);
+
+  const row = data?.[0];
+  if (!row) return null;
+
+  if (row.metadata?.subject) return row.metadata.subject;
+
+  // Fallback: parse from "Outreach sent to x@y.com. Subject: Z"
+  const match = (row.content_summary || '').match(/\. Subject: (.+)$/);
+  return match ? match[1].trim() : null;
 }
