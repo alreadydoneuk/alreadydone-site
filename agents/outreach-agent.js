@@ -69,34 +69,41 @@ export async function sendOutreachForBusiness(business) {
     return false;
   }
 
-  // Expiry timing gate:
-  // - Expired domain + generic email (Gmail etc): send the day after expiry — they still have email
-  // - Expiring soon + custom domain email: send the day before — after expiry their email dies too
-  if (business.whois_expiry_date) {
+  // Expiry timing gate — only applies to parked/coming_soon where urgency is tied to renewal date.
+  // broken_server/broken means the site is down for other reasons, not expiry — send immediately.
+  const expiryGatedStatuses = ['parked', 'coming_soon'];
+  if (business.whois_expiry_date && expiryGatedStatuses.includes(business.website_status)) {
     const expiry = new Date(business.whois_expiry_date);
     expiry.setHours(0, 0, 0, 0);
     const today = new Date(); today.setHours(0, 0, 0, 0);
     const daysUntilExpiry = Math.round((expiry - today) / (1000 * 60 * 60 * 24));
     const emailIsGeneric = isGenericEmailDomain(business.email || '');
 
-    if (business.website_status === 'expired' && emailIsGeneric && daysUntilExpiry > -2) {
-      // Too soon — wait until the day after expiry
-      console.log(`    Holding — expired domain with generic email, waiting until day after expiry`);
+    if (!emailIsGeneric && daysUntilExpiry > 1) {
+      // Custom domain email — hold until one day before expiry so we land at peak urgency
+      console.log(`    Holding — parked domain with custom email (${daysUntilExpiry} days until expiry)`);
       return false;
     }
-    if (business.website_status !== 'expired' && !emailIsGeneric && daysUntilExpiry > 1) {
-      // Not urgent yet — hold until one day before expiry
-      console.log(`    Holding — expiring domain with custom email (${daysUntilExpiry} days away), send tomorrow`);
-      return false;
-    }
-    if (business.website_status !== 'expired' && !emailIsGeneric && daysUntilExpiry < 0) {
-      // Domain already expired — their custom email is also dead, can't reach them this way
+    if (!emailIsGeneric && daysUntilExpiry < 0) {
+      // Domain already expired — custom email is dead
       console.log(`    Dropping — domain expired and custom email is likely dead`);
       await updateBusiness(business.id, {
         pipeline_status: 'dropped',
         dropped_at_stage: 'outreach',
         drop_reason: 'domain_expired_email_dead',
       });
+      return false;
+    }
+  }
+  // Separate gate for expired domains with generic email — wait until day after expiry
+  if (business.website_status === 'expired' && business.whois_expiry_date) {
+    const expiry = new Date(business.whois_expiry_date);
+    expiry.setHours(0, 0, 0, 0);
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const daysUntilExpiry = Math.round((expiry - today) / (1000 * 60 * 60 * 24));
+    const emailIsGeneric = isGenericEmailDomain(business.email || '');
+    if (emailIsGeneric && daysUntilExpiry > -2) {
+      console.log(`    Holding — expired domain with generic email, waiting until day after expiry`);
       return false;
     }
   }
