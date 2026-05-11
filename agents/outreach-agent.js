@@ -55,7 +55,7 @@ export async function runOutreachAgent({ force = false } = {}) {
   return { sent };
 }
 
-async function sendOutreachForBusiness(business) {
+export async function sendOutreachForBusiness(business) {
   console.log(`\n  Outreach: ${business.name} [${business.website_status}]`);
 
   // broken_dns: MX records are also gone so custom domain email would bounce
