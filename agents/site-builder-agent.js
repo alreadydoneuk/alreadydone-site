@@ -9,6 +9,34 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import 'dotenv/config';
 
+// ── Pre-build guards ────────────────────────────────────────────────────────
+
+const GENERIC_EMAIL_DOMAINS = ['gmail','yahoo','hotmail','icloud','outlook','live','mail','ymail','btinternet','sky','virginmedia'];
+const isGenericEmail = email => GENERIC_EMAIL_DOMAINS.some(d => email.toLowerCase().includes('@' + d + '.'));
+
+// Keywords that signal a mismatch when found in the email domain but not the business name/category
+const EMAIL_MISMATCH_KEYWORDS = ['photography','photo','landscap','webdesign','web-design','traffic-update','andynewbold'];
+
+function validateEmail(email) {
+  if (!email) return { ok: false, reason: 'no_email' };
+  if (/u00[0-9a-f]{2}|&[a-z]+;|%[0-9a-f]{2}/i.test(email)) return { ok: false, reason: 'html_entity' };
+  if (!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email)) return { ok: false, reason: 'invalid_format' };
+  if (/\.(co\.uk|com|net|org)[a-zA-Z]+/.test(email)) return { ok: false, reason: 'malformed_tld' };
+  return { ok: true };
+}
+
+function detectEmailMismatch(email, name, category) {
+  const domain = (email.split('@')[1] || '').toLowerCase();
+  const context = (name + ' ' + category).toLowerCase();
+  const kw = EMAIL_MISMATCH_KEYWORDS.find(k => domain.includes(k) && !context.includes(k));
+  return kw || null;
+}
+
+// Parked/coming_soon with a custom email far from expiry — not worth building now.
+// Log to expiry_watch pipeline_status so the daily checker can trigger when due.
+const EXPIRY_WATCH_STATUSES = ['parked', 'coming_soon'];
+const EXPIRY_WATCH_DAYS = 180; // hold off building until within 6 months of expiry
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SITES_DIR = join(__dirname, '..', 'sites');
 
@@ -82,6 +110,47 @@ export async function runSiteBuilderAgent() {
 
 async function buildSiteForBusiness(business) {
   console.log(`\n  Building: ${business.name} (${business.category}, ${business.location})`);
+
+  // ── Guard 1: email validation ───────────────────────────────────────────
+  const emailCheck = validateEmail(business.email);
+  if (!emailCheck.ok) {
+    console.log(`    ✗ Skipping — bad email (${emailCheck.reason}): ${business.email || 'none'}`);
+    await updateBusiness(business.id, { email: null, pipeline_status: 'researched' });
+    await logInteraction(business.id, 'skip', 'internal', `Skipped build — invalid email (${emailCheck.reason}): ${business.email || 'none'}`);
+    return;
+  }
+
+  // ── Guard 2: email domain mismatch ─────────────────────────────────────
+  const mismatch = detectEmailMismatch(business.email, business.name, business.category);
+  if (mismatch) {
+    console.log(`    ✗ Skipping — email domain mismatch (${mismatch}): ${business.email}`);
+    await updateBusiness(business.id, { email: null, pipeline_status: 'researched' });
+    await logInteraction(business.id, 'skip', 'internal', `Skipped build — email domain mismatch [${mismatch}]: ${business.email}`);
+    return;
+  }
+
+  // ── Guard 3: expiry watch — don't build if parked + custom email + far from expiry ──
+  if (
+    EXPIRY_WATCH_STATUSES.includes(business.website_status) &&
+    business.whois_expiry_date &&
+    !isGenericEmail(business.email)
+  ) {
+    const expiry = new Date(business.whois_expiry_date);
+    expiry.setHours(0, 0, 0, 0);
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const daysUntilExpiry = Math.round((expiry - today) / (1000 * 60 * 60 * 24));
+    if (daysUntilExpiry > EXPIRY_WATCH_DAYS) {
+      console.log(`    ⏳ Expiry watch — ${business.website_status} domain expires in ${daysUntilExpiry}d (${business.whois_expiry_date}), deferring build`);
+      await updateBusiness(business.id, { pipeline_status: 'expiry_watch' });
+      await logInteraction(
+        business.id, 'expiry_watch', 'internal',
+        `Deferred build — ${business.website_status} domain expires ${business.whois_expiry_date} (${daysUntilExpiry} days). Will re-check WHOIS and build when within ${EXPIRY_WATCH_DAYS} days.`,
+        null,
+        { website_status: business.website_status, whois_expiry_date: business.whois_expiry_date, days_until_expiry: daysUntilExpiry }
+      );
+      return;
+    }
+  }
 
   const slug = generateSlug(business.name, business.location);
 
