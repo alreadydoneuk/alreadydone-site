@@ -32,10 +32,9 @@ function detectEmailMismatch(email, name, category) {
   return kw || null;
 }
 
-// Parked/coming_soon with a custom email far from expiry — not worth building now.
-// Log to expiry_watch pipeline_status so the daily checker can trigger when due.
+// Parked/coming_soon with a custom email — never build speculatively.
+// Always defer to expiry_watch so WHOIS is re-checked on the day before building.
 const EXPIRY_WATCH_STATUSES = ['parked', 'coming_soon'];
-const EXPIRY_WATCH_DAYS = 180; // hold off building until within 6 months of expiry
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SITES_DIR = join(__dirname, '..', 'sites');
@@ -129,27 +128,23 @@ async function buildSiteForBusiness(business) {
     return;
   }
 
-  // ── Guard 3: expiry watch — don't build if parked + custom email + far from expiry ──
-  if (
-    EXPIRY_WATCH_STATUSES.includes(business.website_status) &&
-    business.whois_expiry_date &&
-    !isGenericEmail(business.email)
-  ) {
-    const expiry = new Date(business.whois_expiry_date);
-    expiry.setHours(0, 0, 0, 0);
-    const today = new Date(); today.setHours(0, 0, 0, 0);
-    const daysUntilExpiry = Math.round((expiry - today) / (1000 * 60 * 60 * 24));
-    if (daysUntilExpiry > EXPIRY_WATCH_DAYS) {
-      console.log(`    ⏳ Expiry watch — ${business.website_status} domain expires in ${daysUntilExpiry}d (${business.whois_expiry_date}), deferring build`);
-      await updateBusiness(business.id, { pipeline_status: 'expiry_watch' });
-      await logInteraction(
-        business.id, 'expiry_watch', 'internal',
-        `Deferred build — ${business.website_status} domain expires ${business.whois_expiry_date} (${daysUntilExpiry} days). Will re-check WHOIS and build when within ${EXPIRY_WATCH_DAYS} days.`,
-        null,
-        { website_status: business.website_status, whois_expiry_date: business.whois_expiry_date, days_until_expiry: daysUntilExpiry }
-      );
-      return;
-    }
+  // ── Guard 3: expiry watch — never build parked/coming_soon with custom email speculatively.
+  // The expiry-watch agent re-checks WHOIS daily and moves to researched when the domain
+  // is genuinely approaching expiry. Site gets built that same night, emailed next morning.
+  if (EXPIRY_WATCH_STATUSES.includes(business.website_status) && !isGenericEmail(business.email)) {
+    const daysUntilExpiry = business.whois_expiry_date
+      ? Math.round((new Date(business.whois_expiry_date) - new Date()) / (1000 * 60 * 60 * 24))
+      : null;
+    const expiryNote = daysUntilExpiry !== null ? ` (${daysUntilExpiry}d, ${business.whois_expiry_date})` : ' (no expiry date)';
+    console.log(`    ⏳ Expiry watch — ${business.website_status} domain${expiryNote}, deferring until WHOIS re-check confirms due`);
+    await updateBusiness(business.id, { pipeline_status: 'expiry_watch' });
+    await logInteraction(
+      business.id, 'expiry_watch', 'internal',
+      `Deferred build — ${business.website_status} domain, expiry: ${business.whois_expiry_date || 'unknown'}${daysUntilExpiry !== null ? ` (${daysUntilExpiry} days)` : ''}. Will build when expiry-watch agent confirms domain is due.`,
+      null,
+      { website_status: business.website_status, whois_expiry_date: business.whois_expiry_date, days_until_expiry: daysUntilExpiry }
+    );
+    return;
   }
 
   const slug = generateSlug(business.name, business.location);

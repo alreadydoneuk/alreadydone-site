@@ -10,13 +10,13 @@ import { lookupWhois } from '../lib/directory-finder.js';
 import { alert } from '../lib/slack.js';
 import 'dotenv/config';
 
-const TRIGGER_DAYS = 90;  // build/email when expiry is within 90 days
+const TRIGGER_DAYS = 7;   // build/email when expiry is within 7 days
 const BATCH_SIZE   = 50;  // WHOIS lookups per run (free, but rate-limit politely)
 
 export async function runExpiryWatchAgent() {
   const { data: watchList, error } = await supabase
     .from('businesses')
-    .select('id,name,category,location,domain,email,website_status,whois_expiry_date,site_slug,preview_url,template_screenshot')
+    .select('id,name,category,location,domain,email,website_status,whois_expiry_date')
     .eq('pipeline_status', 'expiry_watch')
     .not('domain', 'is', null)
     .order('whois_expiry_date', { ascending: true })
@@ -94,23 +94,13 @@ export async function runExpiryWatchAgent() {
       triggered++;
       triggeredNames.push(`${business.name} (${daysUntilExpiry}d)`);
 
-      if (business.preview_url) {
-        // Site already built — move straight to template_built for outreach
-        console.log(`    🔔 Triggered — site built, moving to template_built for outreach (${daysUntilExpiry}d to expiry)`);
-        await updateBusiness(business.id, { pipeline_status: 'template_built' });
-        await logInteraction(business.id, 'expiry_watch', 'internal',
-          `Triggered: ${daysUntilExpiry} days until expiry. Site already built — moved to template_built for outreach.`,
-          null, { days_until_expiry: daysUntilExpiry, whois_expiry_date: expiryToCheck }
-        );
-      } else {
-        // No site yet — move back to researched so site builder picks it up
-        console.log(`    🔔 Triggered — moving to researched for site build (${daysUntilExpiry}d to expiry)`);
-        await updateBusiness(business.id, { pipeline_status: 'researched' });
-        await logInteraction(business.id, 'expiry_watch', 'internal',
-          `Triggered: ${daysUntilExpiry} days until expiry. No site built yet — moved to researched for build.`,
-          null, { days_until_expiry: daysUntilExpiry, whois_expiry_date: expiryToCheck }
-        );
-      }
+      // Always move to researched — site builder will build fresh on the night, outreach follows next morning
+      console.log(`    🔔 Triggered — moving to researched for site build (${daysUntilExpiry}d to expiry)`);
+      await updateBusiness(business.id, { pipeline_status: 'researched' });
+      await logInteraction(business.id, 'expiry_watch', 'internal',
+        `Triggered: ${daysUntilExpiry} days until expiry. Moved to researched — site builder will build tonight, outreach tomorrow.`,
+        null, { days_until_expiry: daysUntilExpiry, whois_expiry_date: expiryToCheck }
+      );
 
       renewed++;
     }
