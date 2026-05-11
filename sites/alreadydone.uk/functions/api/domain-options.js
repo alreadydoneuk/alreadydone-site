@@ -1,22 +1,42 @@
 // Cloudflare Pages Function — GET /api/domain-options?slug={site_slug}
-// Checks Porkbun for 3 TLD options for the business and returns availability + price.
-// Requires env: PORKBUN_API_KEY, PORKBUN_SECRET_KEY, SUPABASE_URL, SUPABASE_SERVICE_KEY
+// Availability checked via RDAP (public, no auth, parallel — no rate limit).
+// 404 = available, 200 = registered/taken.
+// Requires env: SUPABASE_URL, SUPABASE_SERVICE_KEY
 
-// .co.uk and .com are always shown (available or not)
 const FIXED_TLDS = ['.co.uk', '.com'];
-// Cycled in order to fill up to 3 additional available slots
 const EXTRA_TLDS = ['.uk', '.net', '.org', '.co', '.biz', '.info', '.online'];
 const MAX_EXTRA_AVAILABLE = 3;
 
-const PORKBUN = 'https://api.porkbun.com/api/json/v3';
-const USD_TO_GBP = 0.79;
+// RDAP bootstrap servers per TLD
+const RDAP = {
+  'co.uk':  'https://rdap.nominet.uk/uk/domain/',
+  'uk':     'https://rdap.nominet.uk/uk/domain/',
+  'com':    'https://rdap.verisign.com/com/v1/domain/',
+  'net':    'https://rdap.verisign.com/net/v1/domain/',
+  'org':    'https://rdap.pir.org/domain/',
+  'co':     'https://rdap.nic.co/domain/',
+  'biz':    'https://rdap.nic.biz/domain/',
+  'info':   'https://rdap.afilias.net/domain/',
+  'online': 'https://rdap.nic.online/domain/',
+};
+
+const PRICES_GBP = {
+  '.co.uk':  6.70,
+  '.com':    8.67,
+  '.uk':     4.96,
+  '.net':    9.89,
+  '.org':    9.09,
+  '.co':     9.49,
+  '.biz':    9.49,
+  '.info':   9.09,
+  '.online': 3.99,
+};
 
 export async function onRequestGet(context) {
   const { request, env } = context;
   const slug = new URL(request.url).searchParams.get('slug') || '';
 
   if (!slug) return json({ error: 'slug required' }, 400);
-  if (!env.PORKBUN_API_KEY) return json({ error: 'not configured' }, 500);
 
   let domainBase = slugToDomainBase(slug);
   if (env.SUPABASE_URL && env.SUPABASE_SERVICE_KEY) {
@@ -32,35 +52,28 @@ export async function onRequestGet(context) {
 
   async function checkTld(tld) {
     const domain = `${domainBase}${tld}`;
+    const tldKey = tld.replace(/^\./, '');
+    const rdapBase = RDAP[tldKey];
+    if (!rdapBase) return { domain, tld, available: false };
     try {
-      const r = await fetch(`${PORKBUN}/domain/checkDomain/${domain}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ apikey: env.PORKBUN_API_KEY, secretapikey: env.PORKBUN_SECRET_KEY }),
-        signal: AbortSignal.timeout(8000),
+      const r = await fetch(`${rdapBase}${domain}`, {
+        headers: { Accept: 'application/rdap+json' },
+        signal: AbortSignal.timeout(6000),
       });
-      const data = await r.json();
-      const avail = data.status === 'SUCCESS' && data.response?.avail === 'yes' && data.response?.premium !== 'yes';
-      const priceUsd = avail ? parseFloat(data.response?.price || '10') : null;
-      return { domain, tld, available: avail, price_gbp: avail ? roundGbp(priceUsd * USD_TO_GBP) : null, price_usd: priceUsd };
+      const available = r.status === 404;
+      return { domain, tld, available, price_gbp: available ? (PRICES_GBP[tld] ?? null) : null };
     } catch {
       return { domain, tld, available: false, error: true };
     }
   }
 
-  // Always check and return .co.uk and .com — shown even if unavailable
-  const fixedOptions = [];
-  for (const tld of FIXED_TLDS) {
-    fixedOptions.push(await checkTld(tld));
-  }
+  // All checks in parallel — no rate limit with RDAP
+  const [fixedOptions, extraChecked] = await Promise.all([
+    Promise.all(FIXED_TLDS.map(checkTld)),
+    Promise.all(EXTRA_TLDS.map(checkTld)),
+  ]);
 
-  // Cycle extra TLDs until we have MAX_EXTRA_AVAILABLE available slots filled
-  const extraOptions = [];
-  for (const tld of EXTRA_TLDS) {
-    if (extraOptions.length >= MAX_EXTRA_AVAILABLE) break;
-    const opt = await checkTld(tld);
-    if (opt.available) extraOptions.push(opt);
-  }
+  const extraOptions = extraChecked.filter(o => o.available).slice(0, MAX_EXTRA_AVAILABLE);
 
   return json({ domain_base: domainBase, options: [...fixedOptions, ...extraOptions] });
 }
@@ -74,13 +87,11 @@ function nameToDomainBase(name) {
 }
 
 function slugToDomainBase(slug) {
-  // "bobs-plumbing-bonnington-edinburgh" → strip last 2 location parts → "bobsplumbing"
   const parts = slug.split('-');
   const keep = parts.slice(0, Math.max(parts.length - 2, 2));
   return keep.join('').replace(/[^a-z0-9]/g, '').slice(0, 22);
 }
 
-function roundGbp(n) { return Math.round(n * 100) / 100; }
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
