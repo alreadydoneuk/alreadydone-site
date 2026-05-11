@@ -221,15 +221,16 @@ function render(data) {
   const previewCount = (data.previews || []).length;
 
   // ── Stats grid ────────────────────────────────────────────────────────────
+  const totalCustomers = (rev.total_paid || 0) + (rev.total_delivered || 0);
   const stats = [
-    { label: 'Revenue',       value: `£${rev.gross_gbp || 0}`,   cls: rev.gross_gbp > 0 ? 'green' : '', sub: `${rev.total_paid + rev.total_delivered || 0} customer(s)` },
-    { label: 'Sites Live',    value: rev.total_delivered || 0,    cls: rev.total_delivered > 0 ? 'green' : '', sub: 'delivered' },
-    { label: 'W/ Email',      value: eng.total_emailed || 0,      sub: 'prospects contacted' },
-    { label: 'Opened',        value: eng.total_opened || 0,       cls: eng.total_opened > 0 ? 'blue' : '', sub: `${eng.open_rate || 0}% open rate` },
-    { label: 'Clicked',       value: eng.total_clicked || 0,      cls: eng.total_clicked > 0 ? 'blue' : '', sub: `${eng.click_rate || 0}% click rate` },
-    { label: 'Replied',       value: eng.total_replied || 0,      cls: eng.total_replied > 0 ? 'amber' : '', sub: `${eng.reply_rate || 0}% reply rate` },
-    { label: 'In Pipeline',   value: previewCount,                sub: 'preview sites' },
-    { label: 'Ready to Send', value: pc.template_built || 0,      sub: 'templates built' },
+    { label: 'Revenue',        value: `£${rev.gross_gbp || 0}`,    cls: rev.gross_gbp > 0 ? 'green' : '',          sub: `${totalCustomers} customer${totalCustomers !== 1 ? 's' : ''}` },
+    { label: 'Sites Live',     value: rev.total_delivered || 0,     cls: rev.total_delivered > 0 ? 'green' : '',    sub: 'delivered & hosted' },
+    { label: 'Outreach Sent',  value: eng.total_emailed || 0,       cls: '',                                         sub: 'emails sent to prospects' },
+    { label: 'Opened',         value: eng.total_opened || 0,        cls: eng.total_opened > 0 ? 'blue' : '',        sub: `${eng.open_rate || 0}% of sent` },
+    { label: 'Clicked',        value: eng.total_clicked || 0,       cls: eng.total_clicked > 0 ? 'blue' : '',       sub: `${eng.click_rate || 0}% of sent` },
+    { label: 'Replied',        value: eng.total_replied || 0,       cls: eng.total_replied > 0 ? 'amber' : '',      sub: `${eng.reply_rate || 0}% of sent` },
+    { label: 'Preview Sites',  value: previewCount,                  cls: '',                                         sub: 'in pipeline' },
+    { label: 'Build Pool',     value: data.build_pool || 0,          cls: (data.build_pool || 0) > 20 ? 'green' : (data.build_pool || 0) > 0 ? 'amber' : 'red', sub: 'researched w/ email' },
   ];
 
   document.getElementById('stats-grid').innerHTML = stats.map(s => `

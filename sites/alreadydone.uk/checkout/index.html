@@ -570,6 +570,8 @@ posthog.init('phc_BmNKMzeABhZJpHAdJLKmEbHSHXCWGQ5gkrjLDPkLskww',{api_host:'https
 <script>
 // ── Checkout event tracking ────────────────────────────────────────────────
 function trackCheckout(event, metadata = {}) {
+  // Don't pollute stats when admin is browsing checkout pages
+  if (localStorage.getItem('ad_admin_token')) return;
   try { posthog.capture(event, metadata); } catch (_) {}
   if (!state.slug) return;
   fetch('/api/checkout-event', {

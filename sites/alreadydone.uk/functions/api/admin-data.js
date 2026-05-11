@@ -55,6 +55,7 @@ export async function onRequestGet(context) {
     totalOpened,
     totalClicked,
     totalReplied,
+    buildPool,
     checkoutViewed,
     checkoutDomainSelected,
     checkoutPaymentStarted,
@@ -101,11 +102,14 @@ export async function onRequestGet(context) {
     // Revenue from finance table
     sb('finance', '?select=amount&type=eq.revenue'),
 
-    // Email engagement counts
-    sbCount('businesses', 'first_email_sent_at=not.is.null'),
-    sbCount('businesses', 'email_opened_at=not.is.null'),
-    sbCount('businesses', 'email_link_clicked_at=not.is.null'),
-    sbCount('businesses', 'last_reply_at=not.is.null'),
+    // Email engagement counts — exclude known admin/test addresses
+    sbCount('businesses', 'first_email_sent_at=not.is.null&email=not.in.(drougvie@gmail.com)'),
+    sbCount('businesses', 'email_opened_at=not.is.null&email=not.in.(drougvie@gmail.com)'),
+    sbCount('businesses', 'email_link_clicked_at=not.is.null&email=not.in.(drougvie@gmail.com)'),
+    sbCount('businesses', 'last_reply_at=not.is.null&email=not.in.(drougvie@gmail.com)'),
+
+    // Build pool — researched prospects with email, ready to site-build
+    sbCount('businesses', 'pipeline_status=eq.researched&email=not.is.null'),
 
     // Checkout funnel from interactions
     sbCount('interactions', 'type=eq.checkout_viewed'),
@@ -154,6 +158,7 @@ export async function onRequestGet(context) {
     paying: paying || [],
     live: live || [],
     recent_interactions: recentInteractions || [],
+    build_pool: buildPool,
     revenue,
     engagement,
     checkout_funnel,
