@@ -2,10 +2,13 @@
 // Checks Porkbun for 3 TLD options for the business and returns availability + price.
 // Requires env: PORKBUN_API_KEY, PORKBUN_SECRET_KEY, SUPABASE_URL, SUPABASE_SERVICE_KEY
 
-const TLDS = ['.co.uk', '.com', '.uk'];
-const PORKBUN = 'https://api.porkbun.com/api/json/v3';
+// .co.uk and .com are always shown (available or not)
+const FIXED_TLDS = ['.co.uk', '.com'];
+// Cycled in order to fill up to 3 additional available slots
+const EXTRA_TLDS = ['.uk', '.net', '.org', '.co', '.biz', '.info', '.online'];
+const MAX_EXTRA_AVAILABLE = 3;
 
-// Approximate GBP rate for Porkbun USD prices — update if rate drifts significantly
+const PORKBUN = 'https://api.porkbun.com/api/json/v3';
 const USD_TO_GBP = 0.79;
 
 export async function onRequestGet(context) {
@@ -15,7 +18,6 @@ export async function onRequestGet(context) {
   if (!slug) return json({ error: 'slug required' }, 400);
   if (!env.PORKBUN_API_KEY) return json({ error: 'not configured' }, 500);
 
-  // Derive a clean domain base from the business name via Supabase, fall back to slug
   let domainBase = slugToDomainBase(slug);
   if (env.SUPABASE_URL && env.SUPABASE_SERVICE_KEY) {
     try {
@@ -28,9 +30,7 @@ export async function onRequestGet(context) {
     } catch { /* fall back to slug-derived base */ }
   }
 
-  // Check each TLD sequentially — Porkbun rate-limits parallel requests
-  const options = [];
-  for (const tld of TLDS) {
+  async function checkTld(tld) {
     const domain = `${domainBase}${tld}`;
     try {
       const r = await fetch(`${PORKBUN}/domain/checkDomain/${domain}`, {
@@ -42,20 +42,27 @@ export async function onRequestGet(context) {
       const data = await r.json();
       const avail = data.status === 'SUCCESS' && data.response?.avail === 'yes' && data.response?.premium !== 'yes';
       const priceUsd = avail ? parseFloat(data.response?.price || '10') : null;
-      options.push({
-        domain,
-        tld,
-        available: avail,
-        price_gbp: avail ? roundGbp(priceUsd * USD_TO_GBP) : null,
-        price_usd: priceUsd,
-      });
+      return { domain, tld, available: avail, price_gbp: avail ? roundGbp(priceUsd * USD_TO_GBP) : null, price_usd: priceUsd };
     } catch {
-      options.push({ domain, tld, available: false, error: true });
+      return { domain, tld, available: false, error: true };
     }
   }
 
-  // Always return all 3 even if unavailable — UI shows "unavailable" state
-  return json({ domain_base: domainBase, options });
+  // Always check and return .co.uk and .com — shown even if unavailable
+  const fixedOptions = [];
+  for (const tld of FIXED_TLDS) {
+    fixedOptions.push(await checkTld(tld));
+  }
+
+  // Cycle extra TLDs until we have MAX_EXTRA_AVAILABLE available slots filled
+  const extraOptions = [];
+  for (const tld of EXTRA_TLDS) {
+    if (extraOptions.length >= MAX_EXTRA_AVAILABLE) break;
+    const opt = await checkTld(tld);
+    if (opt.available) extraOptions.push(opt);
+  }
+
+  return json({ domain_base: domainBase, options: [...fixedOptions, ...extraOptions] });
 }
 
 function nameToDomainBase(name) {
