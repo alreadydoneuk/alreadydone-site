@@ -59,6 +59,7 @@ export async function onRequestGet(context) {
     checkoutViewed,
     checkoutDomainSelected,
     checkoutPaymentStarted,
+    tokenUsage,
   ] = await Promise.all([
     // Pipeline status breakdown (prospects only)
     sb('businesses', '?select=pipeline_status&is_prospect=eq.true'),
@@ -115,6 +116,9 @@ export async function onRequestGet(context) {
     sbCount('interactions', 'type=eq.checkout_viewed'),
     sbCount('interactions', 'type=eq.checkout_domain_selected'),
     sbCount('interactions', 'type=eq.checkout_payment_started'),
+
+    // Token usage for cost tracking
+    sb('token_usage', '?select=model,input_tokens,output_tokens'),
   ]);
 
   // Pipeline status counts
@@ -123,6 +127,18 @@ export async function onRequestGet(context) {
     const s = row.pipeline_status || 'null';
     counts[s] = (counts[s] || 0) + 1;
   }
+
+  // Claude API costs from token_usage
+  // Sonnet: $3/M input, $15/M output — Haiku: $0.80/M input, $4/M output
+  let totalUsd = 0;
+  for (const row of (tokenUsage || [])) {
+    const isHaiku = (row.model || '').includes('haiku');
+    const inRate  = isHaiku ? 0.80 : 3.00;
+    const outRate = isHaiku ? 4.00 : 15.00;
+    totalUsd += (row.input_tokens / 1_000_000) * inRate + (row.output_tokens / 1_000_000) * outRate;
+  }
+  const USD_TO_GBP = 0.79;
+  const totalGbp   = totalUsd * USD_TO_GBP;
 
   // Revenue from finance table
   const grossGbp = (revRows || []).reduce((s, r) => s + parseFloat(r.amount || 0), 0);
@@ -151,6 +167,16 @@ export async function onRequestGet(context) {
     abandoned:        Math.max(0, checkoutPaymentStarted - (revenue.total_paid + revenue.total_delivered)),
   };
 
+  const contacted = totalEmailed || 0;
+  const costs = {
+    total_usd:         Math.round(totalUsd * 100) / 100,
+    total_gbp:         Math.round(totalGbp * 100) / 100,
+    cost_per_contact_usd: contacted > 0 ? Math.round((totalUsd / contacted) * 1000) / 1000 : null,
+    cost_per_contact_gbp: contacted > 0 ? Math.round((totalGbp / contacted) * 1000) / 1000 : null,
+    overhead_pct:      grossGbp > 0 ? Math.round((totalGbp / grossGbp) * 1000) / 10 : null,
+    target_pct:        10,
+  };
+
   return new Response(JSON.stringify({
     generated_at: new Date().toISOString(),
     pipeline_counts: counts,
@@ -162,6 +188,7 @@ export async function onRequestGet(context) {
     revenue,
     engagement,
     checkout_funnel,
+    costs,
   }), {
     status: 200,
     headers: {

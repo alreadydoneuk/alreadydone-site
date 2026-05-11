@@ -37,9 +37,10 @@
     .stat-value.amber { color: var(--amber); }
     .stat-value.blue  { color: var(--blue); }
     .stat-sub { font-size: 11px; color: var(--mid); margin-top: 4px; }
-    /* Two-panel layout for engagement + funnel */
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
-    @media (max-width: 800px) { .two-col { grid-template-columns: 1fr; } }
+    /* Three-panel layout for engagement + funnel + costs */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+    @media (max-width: 1000px) { .two-col { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 800px)  { .two-col { grid-template-columns: 1fr; } }
     .panel { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
     .panel-title { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 16px; }
     .rate-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
@@ -104,7 +105,7 @@
 
   <div class="stats-grid" id="stats-grid"></div>
 
-  <!-- Engagement rates + checkout funnel -->
+  <!-- Engagement rates + checkout funnel + costs -->
   <div class="two-col">
     <div class="panel">
       <div class="panel-title">Email engagement</div>
@@ -113,6 +114,10 @@
     <div class="panel">
       <div class="panel-title">Checkout funnel</div>
       <div id="funnel-panel"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">API costs &amp; efficiency</div>
+      <div id="costs-panel"></div>
     </div>
   </div>
 
@@ -214,10 +219,11 @@ function render(data) {
   const ts = data.generated_at ? new Date(data.generated_at).toLocaleString('en-GB') : '';
   document.getElementById('nav-updated').textContent = `Updated ${ts}`;
 
-  const pc  = data.pipeline_counts || {};
-  const eng = data.engagement || {};
-  const cf  = data.checkout_funnel || {};
-  const rev = data.revenue || {};
+  const pc   = data.pipeline_counts || {};
+  const eng  = data.engagement || {};
+  const cf   = data.checkout_funnel || {};
+  const rev  = data.revenue || {};
+  const cost = data.costs || {};
   const previewCount = (data.previews || []).length;
 
   // ── Stats grid ────────────────────────────────────────────────────────────
@@ -269,6 +275,48 @@ function render(data) {
       <div class="funnel-val ${r.cls}">${r.val}</div>
     </div>
   `).join('');
+
+  // ── API costs panel ───────────────────────────────────────────────────────
+  const overheadPct   = cost.overhead_pct;
+  const targetPct     = cost.target_pct || 10;
+  const overheadColor = overheadPct === null ? 'mid'
+    : overheadPct <= targetPct     ? 'green'
+    : overheadPct <= targetPct * 1.5 ? 'amber'
+    : 'red';
+
+  const overheadBarPct = overheadPct === null ? 0 : Math.min(overheadPct / (targetPct * 2) * 100, 100);
+
+  const costPerContact = cost.cost_per_contact_gbp !== null && cost.cost_per_contact_gbp !== undefined
+    ? `£${cost.cost_per_contact_gbp.toFixed(2)}`
+    : '—';
+
+  const revenueNeeded = cost.total_gbp > 0
+    ? `£${Math.ceil(cost.total_gbp / (targetPct / 100))} revenue to hit target`
+    : null;
+
+  document.getElementById('costs-panel').innerHTML = `
+    <div class="funnel-row">
+      <div class="funnel-label">Total API spend</div>
+      <div class="funnel-val" style="font-size:16px">£${(cost.total_gbp || 0).toFixed(2)}<span class="muted" style="font-size:11px;font-weight:400"> ($${(cost.total_usd || 0).toFixed(2)})</span></div>
+    </div>
+    <div class="funnel-row">
+      <div class="funnel-label">Cost per prospect</div>
+      <div class="funnel-val" style="font-size:16px">${costPerContact}</div>
+    </div>
+    <div class="funnel-row" style="flex-direction:column;align-items:flex-start;gap:8px">
+      <div style="display:flex;justify-content:space-between;width:100%">
+        <div class="funnel-label">API overhead</div>
+        <div class="funnel-val ${overheadColor}" style="font-size:16px">${overheadPct !== null ? overheadPct + '%' : '—'}</div>
+      </div>
+      <div style="width:100%;height:8px;background:var(--grey);border-radius:4px;overflow:hidden">
+        <div style="height:100%;width:${overheadBarPct}%;background:var(--${overheadColor === 'mid' ? 'mid' : overheadColor});border-radius:4px;transition:width 0.4s"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;width:100%;font-size:11px;color:var(--mid)">
+        <span>0%</span><span style="color:var(--green)">target ${targetPct}%</span><span>${targetPct * 2}%</span>
+      </div>
+    </div>
+    ${revenueNeeded ? `<div class="funnel-row"><div class="muted" style="font-size:11px">${revenueNeeded}</div></div>` : ''}
+  `;
 
   // ── Paying customers ──────────────────────────────────────────────────────
   const payingTbody = document.getElementById('paying-table');
