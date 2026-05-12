@@ -48,9 +48,6 @@ node scripts/run-follow-up.js >> "$LOG" 2>&1 || true
 node scripts/run-pipeline.js 2>&1 | tee -a "$TMPOUT" >> "$LOG"
 EXIT_CODE=${PIPESTATUS[0]}
 
-# Build 1 preview site for the next unbuilt lead
-node scripts/run-site-builder.js >> "$LOG" 2>&1 || true
-
 TIME_END="$(date '+%H:%M')"
 
 # ── Parse pipeline stats ──────────────────────────────────────────────────────

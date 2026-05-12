@@ -1,5 +1,5 @@
 import dns from 'dns/promises';
-import { getNextQueueItem, markQueueRunning, markQueueComplete, upsertDirectoryListing, logInteraction } from '../lib/db.js';
+import { getNextQueueItem, markQueueRunning, markQueueComplete, upsertDirectoryListing, logInteraction, logApiUsage } from '../lib/db.js';
 import { searchPlaces } from '../lib/places.js';
 import { checkDomain, extractDomain, isQualifiedLead, leadTier, leadTemperature, isKeywordStuffedDomain } from '../lib/parked.js';
 import { isChain } from '../lib/chains.js';
@@ -53,6 +53,11 @@ export async function runResearchAgent(targetArea = null) {
   }
 
   await markQueueComplete(item.id, saved);
+  // Places API (Advanced SKU): $0.017/request. Within $200/month free credit, tracked for visibility.
+  await logApiUsage('google_places', apiRequests, apiRequests * 0.017, {
+    agent: 'research-agent',
+    notes: `${item.category} in ${item.location} — ${places.length} results`,
+  });
   console.log(`  Saved ${saved} | Prospects ${prospects} | Skipped ${skipped}\n`);
   return { processed: places.length, saved, prospects, apiRequests };
 }

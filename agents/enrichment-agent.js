@@ -1,4 +1,4 @@
-import { supabase } from '../lib/db.js';
+import { supabase, logApiUsage } from '../lib/db.js';
 import { findEmailFromDirectories, lookupWhois } from '../lib/directory-finder.js';
 import { isGenericEmailDomain } from '../lib/email-finder.js';
 import { alert } from '../lib/slack.js';
@@ -141,6 +141,14 @@ export async function runEnrichmentAgent() {
   }
 
   console.log(`\nEnrichment complete: ${enriched} emails, ${whoisFound} WHOIS records, ${phoneOnly} phone-only\n`);
+
+  // Serper: ~3 searches/business attempted @ $0.001/search = $0.003/business
+  const totalAttempted = (darkBatch?.length || 0) + (ghostBatch?.length || 0);
+  const serperSearches = totalAttempted * 3;
+  await logApiUsage('serper', serperSearches, serperSearches * 0.001, {
+    agent: 'enrichment-agent',
+    notes: `${totalAttempted} businesses enriched (${enriched} found)`,
+  });
 
   await detectAndRemoveFalsePositives(blocklist);
 

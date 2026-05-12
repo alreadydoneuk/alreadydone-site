@@ -1,5 +1,5 @@
 # Already Done — Outstanding To-Dos
-Last updated: 2026-05-08
+Last updated: 2026-05-12
 
 ---
 
@@ -24,6 +24,16 @@ The entire checkout automation. No code exists yet.
 ---
 
 ## HIGH — should be done before first paid sale
+
+### 2a. EA Slack inbound listener — ask EA to run queries via Slack
+Current Slack setup is outbound-only (webhooks). Need to be able to message a Slack channel and have the EA agent respond with live data.
+- Create a Slack App at api.slack.com with a bot token (OAuth, not just a webhook)
+- Grant scopes: `channels:history`, `chat:write`, `channels:read`
+- Add `SLACK_BOT_TOKEN` to .env
+- Build `scripts/ea-slack-listener.js` — polls target channel every 60s using Slack Web API
+- On new message: pass to EA agent → EA decides if it's a query → runs Supabase query → posts reply in thread
+- Example queries: "how many businesses enriched in Edinburgh this week?", "show pipeline status"
+- No public URL needed — polling model runs from homelab
 
 ### 3. Cloudflare token permissions
 Current token (`CLOUDFLARE_TOKEN`) can only manage `alreadydone.uk` zone and deploy to Pages.
@@ -110,8 +120,7 @@ After payment it needs its own Pages project + custom domain.
 - Then: `git -C /tmp/OfCourseItWentWrong push origin main`
 
 ### 12. Slack bot token (EA)
-EA can write to Slack but not read #rougvie-ceo messages.
-- Needs proper bot token with `channels:history` scope
+Moved to HIGH — see item 2a above.
 
 ### 13. Webmail (future upgrade path)
 ForwardEmail has no webmail. If customers request browser access:
