@@ -4,431 +4,721 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Admin | Already Done</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --black: #0f0f0f; --white: #fff; --grey: #f5f5f4;
-      --mid: #6b7280; --border: #e5e7eb;
-      --accent: #2563eb; --green: #16a34a; --red: #dc2626; --amber: #d97706;
-      --blue: #2563eb;
+      --bg:      #0d0d0d;
+      --bg1:     #111111;
+      --bg2:     #161616;
+      --border:  #1f1f1f;
+      --border2: #2a2a2a;
+      --text:    #e0e0e0;
+      --muted:   #555555;
+      --muted2:  #333333;
+      --green:   #4ade80;
+      --red:     #f87171;
+      --yellow:  #facc15;
+      --blue:    #60a5fa;
+      --purple:  #c084fc;
     }
-    body { font-family: 'Inter', system-ui, sans-serif; font-size: 14px; background: var(--grey); color: var(--black); min-height: 100vh; }
-    nav { background: #0f0f0f; color: #fff; padding: 0 24px; height: 52px; display: flex; align-items: center; gap: 16px; }
-    nav span { font-weight: 700; font-size: 16px; letter-spacing: -0.3px; }
-    nav small { color: #9ca3af; font-size: 12px; }
-    nav .refresh-nav { margin-left: auto; background: none; border: 1px solid #374151; border-radius: 6px; padding: 4px 12px; font-size: 12px; cursor: pointer; color: #9ca3af; font-family: inherit; }
-    nav .refresh-nav:hover { border-color: #6b7280; color: #fff; }
-    #auth-screen { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 52px); }
-    .auth-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 32px; width: 320px; }
-    .auth-card h2 { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
-    .auth-card input { width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 14px; font-family: inherit; outline: none; }
-    .auth-card input:focus { border-color: var(--accent); }
-    .auth-card button { width: 100%; margin-top: 12px; padding: 10px; background: var(--accent); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
-    .auth-card button:hover { background: #1d4ed8; }
-    .auth-error { color: var(--red); font-size: 12px; margin-top: 8px; }
-    #dashboard { display: none; padding: 24px; max-width: 1280px; margin: 0 auto; }
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 24px; }
-    .stat { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
-    .stat-label { font-size: 11px; font-weight: 600; letter-spacing: 0.5px; color: var(--mid); text-transform: uppercase; margin-bottom: 6px; }
-    .stat-value { font-size: 28px; font-weight: 800; letter-spacing: -1px; line-height: 1; }
-    .stat-value.green { color: var(--green); }
-    .stat-value.amber { color: var(--amber); }
-    .stat-value.blue  { color: var(--blue); }
-    .stat-sub { font-size: 11px; color: var(--mid); margin-top: 4px; }
-    /* Three-panel layout for engagement + funnel + costs */
-    .two-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 28px; }
-    @media (max-width: 1000px) { .two-col { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 800px)  { .two-col { grid-template-columns: 1fr; } }
-    .panel { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
-    .panel-title { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 16px; }
-    .rate-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+
+    html { background: var(--bg); color: var(--text); }
+    body { font-family: 'Courier New', Courier, monospace; font-size: 13px; line-height: 1.5; background: var(--bg); min-height: 100vh; }
+
+    /* ── Auth ─────────────────────────────────────────────────── */
+    #auth-screen {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; padding: 24px;
+    }
+    .auth-card {
+      background: var(--bg1); border: 1px solid var(--border2);
+      border-radius: 8px; padding: 32px; width: 100%; max-width: 320px;
+    }
+    .auth-card h2 { font-size: 16px; color: #fff; margin-bottom: 6px; letter-spacing: 1px; text-transform: uppercase; }
+    .auth-card p  { color: var(--muted); font-size: 11px; margin-bottom: 20px; }
+    .auth-card input {
+      width: 100%; background: var(--bg2); border: 1px solid var(--border2); border-radius: 4px;
+      padding: 10px 12px; font-size: 13px; font-family: inherit; color: var(--text); outline: none;
+    }
+    .auth-card input:focus { border-color: var(--blue); }
+    .auth-card button {
+      width: 100%; margin-top: 10px; padding: 10px; background: var(--blue); color: #fff;
+      border: none; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer;
+      font-family: inherit; letter-spacing: 0.5px;
+    }
+    .auth-card button:hover { background: #3b82f6; }
+    .auth-error { color: var(--red); font-size: 11px; margin-top: 8px; min-height: 16px; }
+
+    /* ── Topbar ───────────────────────────────────────────────── */
+    #dashboard { display: none; }
+    .topbar {
+      position: sticky; top: 0; z-index: 20;
+      background: var(--bg); border-bottom: 1px solid var(--border);
+      display: flex; align-items: stretch;
+    }
+    .topbar-brand {
+      padding: 0 16px; display: flex; align-items: center;
+      border-right: 1px solid var(--border); white-space: nowrap; flex-shrink: 0;
+    }
+    .topbar-brand span { font-size: 13px; font-weight: bold; color: #fff; letter-spacing: 1px; }
+    .topbar-brand small { color: var(--muted); font-size: 10px; display: block; letter-spacing: 0; margin-top: 1px; }
+    .tabs {
+      display: flex; overflow-x: auto; flex: 1;
+      scrollbar-width: none;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab {
+      padding: 0 16px; height: 48px; display: flex; align-items: center;
+      color: var(--muted); cursor: pointer; white-space: nowrap;
+      font-size: 11px; letter-spacing: 0.8px; text-transform: uppercase;
+      border-bottom: 2px solid transparent; border-right: 1px solid var(--border);
+      transition: color 0.15s; flex-shrink: 0; user-select: none;
+    }
+    .tab:hover  { color: #aaa; background: var(--bg1); }
+    .tab.active { color: #fff; border-bottom-color: var(--green); background: var(--bg1); }
+    .topbar-meta {
+      margin-left: auto; padding: 0 14px; display: flex; align-items: center;
+      gap: 10px; flex-shrink: 0; border-left: 1px solid var(--border);
+    }
+    .topbar-time { color: var(--muted); font-size: 10px; white-space: nowrap; }
+    .topbar-refresh {
+      background: none; border: 1px solid var(--border2); border-radius: 3px;
+      padding: 4px 10px; color: var(--muted); font-size: 10px; cursor: pointer;
+      font-family: inherit; letter-spacing: 0.5px;
+    }
+    .topbar-refresh:hover { border-color: var(--blue); color: var(--blue); }
+
+    /* ── Panels ───────────────────────────────────────────────── */
+    .panel { display: none; padding: 16px; }
+    .panel.active { display: block; }
+
+    /* ── KPI grid ─────────────────────────────────────────────── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px; margin-bottom: 16px;
+    }
+    .kpi {
+      background: var(--bg1); border: 1px solid var(--border);
+      border-radius: 6px; padding: 14px 16px;
+    }
+    .kpi-label { color: var(--muted); font-size: 9px; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px; }
+    .kpi-value { font-size: 28px; font-weight: bold; line-height: 1; letter-spacing: -0.5px; }
+    .kpi-sub   { color: var(--muted); font-size: 10px; margin-top: 4px; }
+    .green  { color: var(--green);  }
+    .red    { color: var(--red);    }
+    .yellow { color: var(--yellow); }
+    .blue   { color: var(--blue);   }
+    .purple { color: var(--purple); }
+
+    /* ── Three-col panels row ─────────────────────────────────── */
+    .panels-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px; margin-bottom: 16px;
+    }
+    @media (max-width: 900px) { .panels-row { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .panels-row { grid-template-columns: 1fr; } }
+    .sub-panel {
+      background: var(--bg1); border: 1px solid var(--border);
+      border-radius: 6px; padding: 16px;
+    }
+    .sub-title {
+      color: var(--muted); font-size: 9px; text-transform: uppercase;
+      letter-spacing: 1.2px; margin-bottom: 14px;
+    }
+
+    /* ── Rate bars ────────────────────────────────────────────── */
+    .rate-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
     .rate-row:last-child { margin-bottom: 0; }
-    .rate-label { font-size: 12px; font-weight: 600; width: 80px; flex-shrink: 0; }
-    .rate-bar-wrap { flex: 1; height: 8px; background: var(--grey); border-radius: 4px; overflow: hidden; }
-    .rate-bar { height: 100%; border-radius: 4px; transition: width 0.4s; }
-    .rate-bar.green { background: var(--green); }
-    .rate-bar.blue  { background: var(--blue); }
-    .rate-bar.amber { background: var(--amber); }
-    .rate-pct { font-size: 13px; font-weight: 700; width: 38px; text-align: right; flex-shrink: 0; }
-    .rate-sub { font-size: 11px; color: var(--mid); width: 70px; flex-shrink: 0; text-align: right; }
-    .funnel-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
-    .funnel-row:last-child { border-bottom: none; }
-    .funnel-label { font-size: 13px; font-weight: 500; }
-    .funnel-val { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
-    .funnel-val.amber { color: var(--amber); }
-    .funnel-val.green { color: var(--green); }
-    .funnel-val.red   { color: var(--red); }
-    .section { margin-bottom: 28px; }
-    .section-title { font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 12px; }
-    .table-wrap { background: #fff; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-    table { width: 100%; border-collapse: collapse; }
-    th { font-size: 11px; font-weight: 600; letter-spacing: 0.3px; color: var(--mid); text-transform: uppercase; padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
-    td { padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: middle; }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: #fafafa; }
-    .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
-    .badge-blue   { background: #dbeafe; color: #1e40af; }
-    .badge-green  { background: #dcfce7; color: #15803d; }
-    .badge-amber  { background: #fef3c7; color: #b45309; }
-    .badge-red    { background: #fee2e2; color: #991b1b; }
-    .badge-grey   { background: #f3f4f6; color: #374151; }
-    .engage-icons { display: flex; gap: 4px; }
-    .ei { font-size: 14px; opacity: 0.25; }
+    .rate-label { color: #aaa; font-size: 11px; width: 68px; flex-shrink: 0; }
+    .rate-bar-wrap { flex: 1; height: 5px; background: var(--bg2); border-radius: 3px; overflow: hidden; min-width: 0; }
+    .rate-bar { height: 100%; border-radius: 3px; transition: width 0.5s; }
+    .bar-blue   { background: var(--blue);   }
+    .bar-yellow { background: var(--yellow); }
+    .bar-green  { background: var(--green);  }
+    .rate-pct { font-size: 13px; font-weight: bold; width: 32px; text-align: right; flex-shrink: 0; }
+    .rate-abs { color: var(--muted); font-size: 10px; width: 44px; text-align: right; flex-shrink: 0; }
+
+    /* ── Funnel ───────────────────────────────────────────────── */
+    .funnel-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 9px 0; border-bottom: 1px solid var(--border);
+    }
+    .funnel-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .funnel-label { color: #999; font-size: 11px; }
+    .funnel-val   { font-size: 20px; font-weight: bold; line-height: 1; }
+
+    /* ── Section headings ─────────────────────────────────────── */
+    .section-head {
+      color: var(--muted); font-size: 9px; text-transform: uppercase;
+      letter-spacing: 1.2px; margin: 20px 0 10px;
+    }
+    .section-head:first-child { margin-top: 0; }
+
+    /* ── Stat pills (queue header) ────────────────────────────── */
+    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .pill {
+      background: var(--bg1); border: 1px solid var(--border);
+      border-radius: 4px; padding: 8px 14px;
+    }
+    .pill-label { color: var(--muted); font-size: 9px; text-transform: uppercase; letter-spacing: 0.8px; }
+    .pill-val   { font-size: 22px; font-weight: bold; line-height: 1.2; margin-top: 2px; }
+
+    /* ── Tables ───────────────────────────────────────────────── */
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; border-collapse: collapse; min-width: 480px; }
+    thead th {
+      color: var(--muted); font-size: 9px; text-transform: uppercase; letter-spacing: 1px;
+      padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--border);
+      white-space: nowrap; background: var(--bg);
+      position: sticky; top: 48px;
+    }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--bg1); }
+    tbody tr.excl { background: #0f0808; }
+    tbody tr.excl:hover { background: #1a0d0d; }
+    td { padding: 7px 10px; vertical-align: middle; }
+    .n   { color: var(--muted2); width: 32px; }
+    .nm  { max-width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 500; }
+    .cat { color: var(--muted); font-size: 11px; max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .em  { color: var(--blue); max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .dm  { color: var(--purple); max-width: 160px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .src { color: var(--muted); font-size: 10px; }
+    .dt  { color: var(--muted); font-size: 10px; white-space: nowrap; }
+    .empty-row td { color: var(--muted2); text-align: center; padding: 20px; }
+
+    /* ── Badges ───────────────────────────────────────────────── */
+    .badge {
+      display: inline-block; padding: 2px 7px; border-radius: 3px;
+      font-size: 10px; font-weight: bold; white-space: nowrap;
+    }
+    .b-excl    { background: #2d0a0a; color: var(--red); }
+    .b-hot     { background: #0d2a0d; color: var(--green); }
+    .b-warm    { background: #2a1e00; color: var(--yellow); }
+    .b-cold    { background: #1a1a1a; color: var(--muted); }
+    .b-phone   { background: #1a1a1a; color: var(--muted); }
+    .b-built   { background: #0c1e38; color: var(--blue); }
+    .b-emailed { background: #1a1a2e; color: #818cf8; }
+    .b-paid    { background: #0d2a0d; color: var(--green); }
+    .b-grey    { background: #1a1a1a; color: #666; }
+
+    /* ── Engagement icons ─────────────────────────────────────── */
+    .ei-row { display: flex; gap: 5px; }
+    .ei { font-size: 13px; opacity: 0.15; }
     .ei.on { opacity: 1; }
-    .link { color: var(--accent); text-decoration: none; font-weight: 500; }
-    .link:hover { text-decoration: underline; }
-    .muted { color: var(--mid); }
-    .empty { padding: 24px; text-align: center; color: var(--mid); font-size: 13px; }
-    @media (max-width: 700px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } #dashboard { padding: 16px; } }
+
+    /* ── Progress bar ─────────────────────────────────────────── */
+    .prog-wrap { height: 3px; background: var(--bg2); border-radius: 2px; margin-bottom: 14px; }
+    .prog-fill { height: 100%; background: var(--green); border-radius: 2px; transition: width 0.5s; }
+
+    /* ── Stats row (enrichment) ───────────────────────────────── */
+    .stats-row {
+      display: flex; flex-wrap: wrap; gap: 20px;
+      padding: 12px 0; border-bottom: 1px solid var(--border); margin-bottom: 14px;
+    }
+    .stat-item { display: flex; flex-direction: column; }
+    .stat-lbl  { color: var(--muted); font-size: 9px; text-transform: uppercase; letter-spacing: 1px; }
+    .stat-val  { font-size: 22px; font-weight: bold; line-height: 1.2; color: #fff; }
+
+    /* ── Revenue cards ────────────────────────────────────────── */
+    .rev-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-bottom: 16px;
+    }
+    .rev-card {
+      background: var(--bg1); border: 1px solid var(--border);
+      border-radius: 6px; padding: 14px 16px;
+    }
+    .rev-card-title { color: var(--muted); font-size: 9px; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 4px; }
+    .rev-card-name  { font-size: 14px; font-weight: bold; color: #fff; }
+    .rev-card-sub   { color: var(--muted); font-size: 10px; margin-top: 2px; }
+    .rev-card-meta  { display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap; }
+    .rev-card-kv    { font-size: 10px; }
+    .rev-card-kv span { color: var(--muted); }
+
+    /* ── Link ─────────────────────────────────────────────────── */
+    a.lnk { color: var(--blue); text-decoration: none; }
+    a.lnk:hover { text-decoration: underline; }
+
+    @media (max-width: 480px) {
+      .panel { padding: 10px; }
+      .kpi-value { font-size: 22px; }
+      .pill-val  { font-size: 18px; }
+      .topbar-brand small { display: none; }
+    }
   </style>
 </head>
 <body>
 
-<nav>
-  <span>Already Done</span>
-  <small id="nav-updated"></small>
-  <button class="refresh-nav" onclick="loadData()">↻ Refresh</button>
-</nav>
-
 <div id="auth-screen">
   <div class="auth-card">
-    <h2>Admin</h2>
+    <h2>Already Done</h2>
+    <p>Admin access — enter your token to continue</p>
     <input type="password" id="token-input" placeholder="Admin token" autocomplete="current-password">
-    <button onclick="login()">Sign in</button>
+    <button onclick="login()">Sign in →</button>
     <div class="auth-error" id="auth-error"></div>
   </div>
 </div>
 
 <div id="dashboard">
 
-  <div class="stats-grid" id="stats-grid"></div>
-
-  <!-- Engagement rates + checkout funnel + costs -->
-  <div class="two-col">
-    <div class="panel">
-      <div class="panel-title">Email engagement</div>
-      <div id="engagement-panel"></div>
+  <div class="topbar">
+    <div class="topbar-brand">
+      <div>
+        <span>⚡ ALREADY DONE</span>
+        <small id="gen-time">—</small>
+      </div>
     </div>
-    <div class="panel">
-      <div class="panel-title">Checkout funnel</div>
-      <div id="funnel-panel"></div>
+    <div class="tabs" id="tabs">
+      <div class="tab active" data-tab="overview">Overview</div>
+      <div class="tab" data-tab="sitebuild">Site Build</div>
+      <div class="tab" data-tab="emails">Emails</div>
+      <div class="tab" data-tab="enrichment">Enrichment</div>
+      <div class="tab" data-tab="revenue">Revenue</div>
+      <div class="tab" data-tab="activity">Activity</div>
     </div>
-    <div class="panel">
-      <div class="panel-title">API costs &amp; efficiency</div>
-      <div id="costs-panel"></div>
+    <div class="topbar-meta">
+      <span class="topbar-time" id="refresh-time">Loading…</span>
+      <button class="topbar-refresh" onclick="refresh()">↻</button>
     </div>
   </div>
 
-  <div class="section">
-    <div class="section-title">Revenue &amp; Paying Customers</div>
+  <!-- OVERVIEW -->
+  <div class="panel active" id="panel-overview">
+    <div class="kpi-grid" id="kpi-grid"></div>
+    <div class="panels-row">
+      <div class="sub-panel">
+        <div class="sub-title">Email engagement</div>
+        <div id="engagement-panel"></div>
+      </div>
+      <div class="sub-panel">
+        <div class="sub-title">Checkout funnel</div>
+        <div id="funnel-panel"></div>
+      </div>
+      <div class="sub-panel">
+        <div class="sub-title">API costs</div>
+        <div id="costs-panel"></div>
+      </div>
+    </div>
+    <div class="section-head">Lead temperatures</div>
+    <div class="pill-row" id="temps-row"></div>
+    <div class="section-head">Pipeline breakdown</div>
+    <div class="pill-row" id="pipeline-row"></div>
+  </div>
+
+  <!-- SITE BUILD -->
+  <div class="panel" id="panel-sitebuild">
+    <div class="pill-row" id="build-pills"></div>
+    <div class="section-head">Ready to send — template built</div>
     <div class="table-wrap">
       <table>
         <thead><tr>
-          <th>Business</th><th>Domain</th><th>Status</th><th>Paid</th><th>Delivered</th>
+          <th class="n">#</th><th>Business</th><th>Email</th><th>Temp</th><th>Built</th><th>Preview</th>
         </tr></thead>
-        <tbody id="paying-table"></tbody>
+        <tbody id="built-tbody"></tbody>
+      </table>
+    </div>
+    <div class="section-head" style="margin-top:20px">Hot queue — next to build</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th class="n">#</th><th>Business</th><th>Email</th><th>Confidence</th><th>Source</th>
+        </tr></thead>
+        <tbody id="hot-tbody"></tbody>
+      </table>
+    </div>
+    <div class="section-head" style="margin-top:20px">Warm queue</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th class="n">#</th><th>Business</th><th>Email</th><th>Confidence</th><th>Source</th>
+        </tr></thead>
+        <tbody id="warm-tbody"></tbody>
       </table>
     </div>
   </div>
 
-  <div class="section">
-    <div class="section-title">Live Sites (delivered — held 2 weeks)</div>
+  <!-- EMAILS -->
+  <div class="panel" id="panel-emails">
+    <div class="section-head">In outreach pipeline</div>
     <div class="table-wrap">
       <table>
         <thead><tr>
-          <th>Business</th><th>Live Domain</th><th>Preview</th><th>Contact</th><th>Tier</th><th>Paid</th><th>Live Since</th>
+          <th class="n">#</th><th>Business</th><th>Email</th>
+          <th>Status</th><th>Engage</th><th>Sent</th><th>Replied</th><th>Preview</th>
         </tr></thead>
-        <tbody id="live-table"></tbody>
+        <tbody id="emails-tbody"></tbody>
       </table>
     </div>
   </div>
 
-  <div class="section">
-    <div class="section-title">Preview Sites — In Pipeline</div>
+  <!-- ENRICHMENT -->
+  <div class="panel" id="panel-enrichment">
+    <div class="stats-row" id="enrich-stats"></div>
+    <div class="section-head">Recently processed (200 most recent)</div>
     <div class="table-wrap">
       <table>
         <thead><tr>
-          <th>Business</th><th>Status</th><th>Engagement</th><th>Emailed</th><th>Reply</th><th>Preview</th>
+          <th class="n">#</th><th>Business</th><th>Email</th><th>Domain</th><th>Status</th><th>Source</th><th>Updated</th>
         </tr></thead>
-        <tbody id="preview-table"></tbody>
+        <tbody id="enrich-tbody"></tbody>
       </table>
     </div>
   </div>
 
-  <div class="section">
-    <div class="section-title">Recent Activity (30 events)</div>
+  <!-- REVENUE -->
+  <div class="panel" id="panel-revenue">
+    <div class="section-head">Paying customers</div>
+    <div id="paying-cards"></div>
+    <div class="section-head" style="margin-top:20px">Live sites (delivered)</div>
     <div class="table-wrap">
       <table>
         <thead><tr>
-          <th>When</th><th>Business</th><th>Type</th><th>Dir</th><th>Summary</th>
+          <th class="n">#</th><th>Business</th><th>Live domain</th><th>Tier</th><th>Paid</th><th>Delivered</th><th>Contact</th>
         </tr></thead>
-        <tbody id="activity-table"></tbody>
+        <tbody id="live-tbody"></tbody>
       </table>
     </div>
   </div>
 
-</div>
+  <!-- ACTIVITY -->
+  <div class="panel" id="panel-activity">
+    <div class="section-head">Last 50 events</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th style="width:120px">When</th><th>Business</th><th>Type</th><th>Dir</th><th>Summary</th>
+        </tr></thead>
+        <tbody id="activity-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- #dashboard -->
 
 <script>
-const TOKEN_KEY = 'ad_admin_token';
+const TOKEN_KEY = 'ad_admin_token_v2';
 let savedToken = localStorage.getItem(TOKEN_KEY) || '';
+let cachedData = null;
+let activeTab  = 'overview';
+let refreshTimer;
 
-document.getElementById('token-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') login();
-});
-
+// ── Auth ────────────────────────────────────────────────────────────────────
+document.getElementById('token-input').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
 if (savedToken) login(savedToken);
 
-// Auto-refresh every 60 seconds
-setInterval(() => { if (savedToken) loadData(); }, 60000);
-
-async function login(token) {
-  token = token || document.getElementById('token-input').value.trim();
-  if (!token) return;
-  const result = await fetchData(token);
-  if (result.error) {
+async function login(tok) {
+  tok = tok || document.getElementById('token-input').value.trim();
+  if (!tok) return;
+  document.getElementById('auth-error').textContent = '';
+  const d = await fetchData(tok);
+  if (d.error) {
     document.getElementById('auth-error').textContent = 'Invalid token';
     localStorage.removeItem(TOKEN_KEY);
+    savedToken = '';
     return;
   }
-  localStorage.setItem(TOKEN_KEY, token);
-  savedToken = token;
+  savedToken = tok;
+  localStorage.setItem(TOKEN_KEY, tok);
   document.getElementById('auth-screen').style.display = 'none';
   document.getElementById('dashboard').style.display = 'block';
-  render(result);
+  cacheAndRender(d);
+  scheduleRefresh();
 }
 
-async function loadData() {
-  if (!savedToken) return;
-  const result = await fetchData(savedToken);
-  if (!result.error) render(result);
-}
-
-async function fetchData(token) {
+// ── Data ────────────────────────────────────────────────────────────────────
+async function fetchData(tok) {
   try {
-    const res = await fetch(`/api/admin-data?token=${encodeURIComponent(token)}`);
-    return await res.json();
-  } catch (e) {
-    return { error: e.message };
-  }
+    const r = await fetch('/api/admin-data?token=' + encodeURIComponent(tok));
+    return await r.json();
+  } catch (e) { return { error: e.message }; }
 }
 
-function render(data) {
-  const ts = data.generated_at ? new Date(data.generated_at).toLocaleString('en-GB') : '';
-  document.getElementById('nav-updated').textContent = `Updated ${ts}`;
+function scheduleRefresh() {
+  clearTimeout(refreshTimer);
+  refreshTimer = setTimeout(refresh, 30000);
+}
 
-  const pc   = data.pipeline_counts || {};
-  const eng  = data.engagement || {};
-  const cf   = data.checkout_funnel || {};
-  const rev  = data.revenue || {};
-  const cost = data.costs || {};
-  const previewCount = (data.previews || []).length;
+async function refresh() {
+  if (!savedToken) return;
+  const d = await fetchData(savedToken);
+  if (!d.error) cacheAndRender(d);
+  scheduleRefresh();
+}
 
-  // ── Stats grid ────────────────────────────────────────────────────────────
-  const totalCustomers = (rev.total_paid || 0) + (rev.total_delivered || 0);
-  const stats = [
-    { label: 'Revenue',        value: `£${rev.gross_gbp || 0}`,    cls: rev.gross_gbp > 0 ? 'green' : '',          sub: `${totalCustomers} customer${totalCustomers !== 1 ? 's' : ''}` },
-    { label: 'Sites Live',     value: rev.total_delivered || 0,     cls: rev.total_delivered > 0 ? 'green' : '',    sub: 'delivered & hosted' },
-    { label: 'Outreach Sent',  value: eng.total_emailed || 0,       cls: '',                                         sub: 'emails sent to prospects' },
-    { label: 'Opened',         value: eng.total_opened || 0,        cls: eng.total_opened > 0 ? 'blue' : '',        sub: `${eng.open_rate || 0}% of sent` },
-    { label: 'Clicked',        value: eng.total_clicked || 0,       cls: eng.total_clicked > 0 ? 'blue' : '',       sub: `${eng.click_rate || 0}% of sent` },
-    { label: 'Replied',        value: eng.total_replied || 0,       cls: eng.total_replied > 0 ? 'amber' : '',      sub: `${eng.reply_rate || 0}% of sent` },
-    { label: 'Preview Sites',  value: previewCount,                  cls: '',                                         sub: 'in pipeline' },
-    { label: 'Build Pool',     value: data.build_pool || 0,          cls: (data.build_pool || 0) > 20 ? 'green' : (data.build_pool || 0) > 0 ? 'amber' : 'red', sub: 'researched w/ email' },
-  ];
+function cacheAndRender(d) {
+  cachedData = d;
+  const ts = d.generated_at ? fmtFull(d.generated_at) : '—';
+  document.getElementById('gen-time').textContent = ts;
+  document.getElementById('refresh-time').textContent = 'Updated ' + fmtTime(new Date());
+  renderActive();
+}
 
-  document.getElementById('stats-grid').innerHTML = stats.map(s => `
-    <div class="stat">
-      <div class="stat-label">${s.label}</div>
-      <div class="stat-value ${s.cls || ''}">${s.value}</div>
-      ${s.sub ? `<div class="stat-sub">${s.sub}</div>` : ''}
-    </div>
-  `).join('');
+// ── Tab switching ────────────────────────────────────────────────────────────
+document.getElementById('tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.tab');
+  if (!tab) return;
+  activeTab = tab.dataset.tab;
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === activeTab));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + activeTab).classList.add('active');
+  if (cachedData) renderActive();
+});
 
-  // ── Engagement panel ──────────────────────────────────────────────────────
-  const sent = eng.total_emailed || 0;
+function renderActive() {
+  if (!cachedData) return;
+  const d = cachedData;
+  if (activeTab === 'overview')    renderOverview(d);
+  if (activeTab === 'sitebuild')   renderSiteBuild(d);
+  if (activeTab === 'emails')      renderEmails(d);
+  if (activeTab === 'enrichment')  renderEnrichment(d);
+  if (activeTab === 'revenue')     renderRevenue(d);
+  if (activeTab === 'activity')    renderActivity(d);
+}
+
+// ── Overview ─────────────────────────────────────────────────────────────────
+function renderOverview(d) {
+  const k = d.kpi || {}, e = d.engagement || {}, f = d.funnel || {}, c = d.costs || {};
+
+  document.getElementById('kpi-grid').innerHTML = [
+    { label: 'Revenue',       value: '£' + (k.revenue_gbp || 0), cls: k.revenue_gbp > 0 ? 'green' : '', sub: (k.sites_live||0) + ' sites live' },
+    { label: 'Outreach Sent', value: k.total_emailed || 0,        cls: '',                                sub: 'emails sent' },
+    { label: 'Opened',        value: k.total_opened || 0,         cls: k.total_opened > 0 ? 'blue' : '', sub: e.open_rate + '% open rate' },
+    { label: 'Clicked',       value: k.total_clicked || 0,        cls: k.total_clicked > 0 ? 'blue' : '',sub: e.click_rate + '% click rate' },
+    { label: 'Replied',       value: k.total_replied || 0,        cls: k.total_replied > 0 ? 'yellow' :'',sub: e.reply_rate + '% reply rate' },
+    { label: 'Build Pool',    value: k.build_pool || 0,           cls: (k.build_pool||0) > 20 ? 'green' : (k.build_pool||0) > 0 ? 'yellow' : 'red', sub: 'researched w/ email' },
+    { label: 'Enrich Queue',  value: k.enrich_queue || 0,         cls: (k.enrich_queue||0) > 0 ? 'yellow' : 'green', sub: 'unenriched ghosts' },
+    { label: 'Total Tracked', value: (k.total_businesses||0).toLocaleString(), cls: '', sub: (k.excluded||0) + ' excluded' },
+  ].map(kp => `<div class="kpi">
+    <div class="kpi-label">${kp.label}</div>
+    <div class="kpi-value ${kp.cls}">${kp.value}</div>
+    ${kp.sub ? '<div class="kpi-sub">' + kp.sub + '</div>' : ''}
+  </div>`).join('');
+
+  const sent = k.total_emailed || 0;
   document.getElementById('engagement-panel').innerHTML = [
-    { label: 'Open rate',  pct: eng.open_rate  || 0, n: eng.total_opened  || 0, cls: 'blue'  },
-    { label: 'Click rate', pct: eng.click_rate || 0, n: eng.total_clicked || 0, cls: 'blue'  },
-    { label: 'Reply rate', pct: eng.reply_rate || 0, n: eng.total_replied || 0, cls: 'amber' },
-  ].map(r => `
-    <div class="rate-row">
-      <div class="rate-label">${r.label}</div>
-      <div class="rate-bar-wrap"><div class="rate-bar ${r.cls}" style="width:${Math.min(r.pct,100)}%"></div></div>
-      <div class="rate-pct">${r.pct}%</div>
-      <div class="rate-sub">${r.n} / ${sent}</div>
-    </div>
-  `).join('');
+    { label: 'Open rate',  pct: e.open_rate||0,  n: k.total_opened||0,  cls: 'bar-blue'   },
+    { label: 'Click rate', pct: e.click_rate||0, n: k.total_clicked||0, cls: 'bar-blue'   },
+    { label: 'Reply rate', pct: e.reply_rate||0, n: k.total_replied||0, cls: 'bar-yellow' },
+  ].map(r => `<div class="rate-row">
+    <div class="rate-label">${r.label}</div>
+    <div class="rate-bar-wrap"><div class="rate-bar ${r.cls}" style="width:${Math.min(r.pct,100)}%"></div></div>
+    <div class="rate-pct ${r.cls.replace('bar-','')}">${r.pct}%</div>
+    <div class="rate-abs">${r.n}/${sent}</div>
+  </div>`).join('');
 
-  // ── Checkout funnel panel ─────────────────────────────────────────────────
   document.getElementById('funnel-panel').innerHTML = [
-    { label: 'Checkout visited',  val: cf.viewed          || 0, cls: '' },
-    { label: 'Domain selected',   val: cf.domain_selected || 0, cls: '' },
-    { label: 'Payment started',   val: cf.payment_started || 0, cls: 'amber' },
-    { label: 'Abandoned',         val: cf.abandoned       || 0, cls: cf.abandoned > 0 ? 'red' : '' },
-    { label: 'Purchased',         val: cf.completed       || 0, cls: cf.completed > 0 ? 'green' : '' },
-  ].map(r => `
-    <div class="funnel-row">
-      <div class="funnel-label">${r.label}</div>
-      <div class="funnel-val ${r.cls}">${r.val}</div>
-    </div>
-  `).join('');
+    { label: 'Checkout visited',  val: f.viewed||0,          cls: '' },
+    { label: 'Domain selected',   val: f.domain_selected||0, cls: '' },
+    { label: 'Payment started',   val: f.payment_started||0, cls: 'yellow' },
+    { label: 'Abandoned',         val: f.abandoned||0,       cls: (f.abandoned||0) > 0 ? 'red' : '' },
+    { label: 'Purchased',         val: f.completed||0,       cls: (f.completed||0) > 0 ? 'green' : '' },
+  ].map(r => `<div class="funnel-row">
+    <div class="funnel-label">${r.label}</div>
+    <div class="funnel-val ${r.cls}">${r.val}</div>
+  </div>`).join('');
 
-  // ── API costs panel ───────────────────────────────────────────────────────
-  const overheadPct   = cost.overhead_pct;
-  const targetPct     = cost.target_pct || 10;
-  const overheadColor = overheadPct === null ? 'mid'
-    : overheadPct <= targetPct     ? 'green'
-    : overheadPct <= targetPct * 1.5 ? 'amber'
-    : 'red';
-
-  const overheadBarPct = overheadPct === null ? 0 : Math.min(overheadPct / (targetPct * 2) * 100, 100);
-
-  const costPerContact = cost.cost_per_contact_gbp !== null && cost.cost_per_contact_gbp !== undefined
-    ? `£${cost.cost_per_contact_gbp.toFixed(2)}`
-    : '—';
-
-  const revenueNeeded = cost.total_gbp > 0
-    ? `£${Math.ceil(cost.total_gbp / (targetPct / 100))} revenue to hit target`
-    : null;
-
+  const op = c.overhead_pct, oc = op===null?'':op<=10?'green':op<=15?'yellow':'red';
   document.getElementById('costs-panel').innerHTML = `
     <div class="funnel-row">
       <div class="funnel-label">Total API spend</div>
-      <div class="funnel-val" style="font-size:16px">£${(cost.total_gbp || 0).toFixed(2)}<span class="muted" style="font-size:11px;font-weight:400"> ($${(cost.total_usd || 0).toFixed(2)})</span></div>
+      <div class="funnel-val" style="font-size:18px">£${(c.total_gbp||0).toFixed(2)}<span style="color:var(--muted);font-size:11px;font-weight:normal"> ($${(c.total_usd||0).toFixed(2)})</span></div>
     </div>
     <div class="funnel-row">
-      <div class="funnel-label">Cost per prospect</div>
-      <div class="funnel-val" style="font-size:16px">${costPerContact}</div>
+      <div class="funnel-label">Per prospect</div>
+      <div class="funnel-val" style="font-size:18px">${c.per_contact_gbp!=null ? '£'+c.per_contact_gbp.toFixed(2) : '—'}</div>
     </div>
-    <div class="funnel-row" style="flex-direction:column;align-items:flex-start;gap:8px">
-      <div style="display:flex;justify-content:space-between;width:100%">
-        <div class="funnel-label">API overhead</div>
-        <div class="funnel-val ${overheadColor}" style="font-size:16px">${overheadPct !== null ? overheadPct + '%' : '—'}</div>
-      </div>
-      <div style="width:100%;height:8px;background:var(--grey);border-radius:4px;overflow:hidden">
-        <div style="height:100%;width:${overheadBarPct}%;background:var(--${overheadColor === 'mid' ? 'mid' : overheadColor});border-radius:4px;transition:width 0.4s"></div>
-      </div>
-      <div style="display:flex;justify-content:space-between;width:100%;font-size:11px;color:var(--mid)">
-        <span>0%</span><span style="color:var(--green)">target ${targetPct}%</span><span>${targetPct * 2}%</span>
-      </div>
+    <div class="funnel-row">
+      <div class="funnel-label">Overhead</div>
+      <div class="funnel-val ${oc}" style="font-size:18px">${op!=null ? op+'%' : '—'}</div>
     </div>
-    ${revenueNeeded ? `<div class="funnel-row"><div class="muted" style="font-size:11px">${revenueNeeded}</div></div>` : ''}
-  `;
+    <div style="margin-top:10px;height:5px;background:var(--bg2);border-radius:3px;overflow:hidden">
+      <div style="height:100%;width:${op!=null?Math.min(op/20*100,100):0}%;background:var(--${oc||'muted'});border-radius:3px;transition:width 0.5s"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;color:var(--muted);font-size:9px;margin-top:4px">
+      <span>0%</span><span style="color:var(--green)">target 10%</span><span>20%</span>
+    </div>`;
 
-  // ── Paying customers ──────────────────────────────────────────────────────
-  const payingTbody = document.getElementById('paying-table');
-  if (!data.paying?.length) {
-    payingTbody.innerHTML = '<tr><td colspan="5" class="empty">No paying customers yet — watching for first payment</td></tr>';
-  } else {
-    payingTbody.innerHTML = data.paying.map(b => `
-      <tr>
-        <td><strong>${esc(b.name)}</strong><br><span class="muted">${esc(b.category)} · ${esc(b.location)}</span></td>
-        <td>${b.registered_domain ? `<a class="link" href="https://${b.registered_domain}" target="_blank">${b.registered_domain}</a>` : '<span class="muted">—</span>'}</td>
-        <td><span class="badge ${statusBadge(b.pipeline_status)}">${b.pipeline_status}</span></td>
-        <td>${b.paid_at ? fmtDate(b.paid_at) : '<span class="muted">—</span>'}</td>
-        <td>${b.delivered_at ? fmtDate(b.delivered_at) : '<span class="muted">—</span>'}</td>
-      </tr>
-    `).join('');
-  }
+  const t = d.temps || {};
+  document.getElementById('temps-row').innerHTML = [
+    { label: 'Hot',  val: t.hot||0,  cls: 'green'  },
+    { label: 'Warm', val: t.warm||0, cls: 'yellow' },
+    { label: 'Cold', val: t.cold||0, cls: ''       },
+  ].map(s => `<div class="pill"><div class="pill-label">${s.label}</div><div class="pill-val ${s.cls}">${s.val}</div></div>`).join('');
 
-  // ── Live sites ────────────────────────────────────────────────────────────
-  const liveTbody = document.getElementById('live-table');
-  if (!data.live?.length) {
-    liveTbody.innerHTML = '<tr><td colspan="7" class="empty">No live sites yet</td></tr>';
-  } else {
-    liveTbody.innerHTML = data.live.map(b => {
-      const domain = b.registered_domain;
-      const domainLink = domain
-        ? `<a class="link" href="https://${esc(domain)}" target="_blank">${esc(domain)}</a>`
-        : '<span class="muted">—</span>';
-      const previewLink = b.site_slug
-        ? `<a class="link" href="/preview/${esc(b.site_slug)}" target="_blank">preview</a>`
-        : '<span class="muted">—</span>';
-      const contact = [
-        b.customer_email ? `<a class="link" href="mailto:${esc(b.customer_email)}">${esc(b.customer_email)}</a>` : null,
-        b.phone ? `<span class="muted">${esc(b.phone)}</span>` : null,
-      ].filter(Boolean).join('<br>') || '<span class="muted">—</span>';
-      return `
-      <tr>
-        <td><strong>${esc(b.name)}</strong><br><span class="muted">${esc(b.category)} · ${esc(b.location)}</span></td>
-        <td>${domainLink}</td>
-        <td>${previewLink}</td>
-        <td>${contact}</td>
-        <td>£${b.order_tier || '—'}</td>
-        <td>${b.paid_at ? fmtDate(b.paid_at) : '<span class="muted">—</span>'}</td>
-        <td>${b.delivered_at ? fmtDate(b.delivered_at) : '<span class="muted">—</span>'}</td>
-      </tr>`;
-    }).join('');
-  }
-
-  // ── Preview sites ─────────────────────────────────────────────────────────
-  const previewTbody = document.getElementById('preview-table');
-  if (!data.previews?.length) {
-    previewTbody.innerHTML = '<tr><td colspan="6" class="empty">No preview sites in pipeline</td></tr>';
-  } else {
-    previewTbody.innerHTML = data.previews.map(b => `
-      <tr>
-        <td><strong>${esc(b.name)}</strong><br><span class="muted">${esc(b.category)} · ${esc(b.location)}</span></td>
-        <td><span class="badge ${statusBadge(b.pipeline_status)}">${b.pipeline_status}</span></td>
-        <td>
-          <div class="engage-icons">
-            <span class="ei${b.email_opened_at       ? ' on' : ''}" title="Opened">👁</span>
-            <span class="ei${b.email_link_clicked_at ? ' on' : ''}" title="Clicked">🔗</span>
-            <span class="ei${b.last_reply_at         ? ' on' : ''}" title="Replied">💬</span>
-          </div>
-        </td>
-        <td>${b.first_email_sent_at ? fmtDate(b.first_email_sent_at) : '<span class="muted">—</span>'}</td>
-        <td>${b.last_reply_at ? fmtDate(b.last_reply_at) : '<span class="muted">—</span>'}</td>
-        <td>${b.preview_url ? `<a class="link" href="${esc(b.preview_url)}" target="_blank">View →</a>` : '<span class="muted">—</span>'}</td>
-      </tr>
-    `).join('');
-  }
-
-  // ── Recent activity ───────────────────────────────────────────────────────
-  const activityTbody = document.getElementById('activity-table');
-  if (!data.recent_interactions?.length) {
-    activityTbody.innerHTML = '<tr><td colspan="5" class="empty">No recent activity</td></tr>';
-  } else {
-    activityTbody.innerHTML = data.recent_interactions.map(i => {
-      const biz = i.businesses;
-      const bizName = biz?.name ? esc(biz.name) : '<span class="muted">—</span>';
-      const bizLink = biz?.site_slug
-        ? `<a href="/preview/${esc(biz.site_slug)}" target="_blank" style="color:inherit">${bizName}</a>`
-        : bizName;
-      const bizSub = biz?.category ? `<br><span class="muted" style="font-size:0.75rem">${esc(biz.category)}${biz.location ? ', ' + esc(biz.location) : ''}</span>` : '';
-      return `
-      <tr>
-        <td class="muted" style="white-space:nowrap">${fmtDate(i.created_at)}</td>
-        <td>${bizLink}${bizSub}</td>
-        <td>${esc(i.type)}</td>
-        <td>${i.direction === 'inbound' ? '↙' : '↗'}</td>
-        <td class="muted">${esc((i.content_summary || '').slice(0, 90))}</td>
-      </tr>`;
-    }).join('');
-  }
+  const p = d.pipeline_counts || {};
+  document.getElementById('pipeline-row').innerHTML = Object.entries(p)
+    .sort((a,b) => b[1]-a[1])
+    .map(([s,n]) => `<div class="pill"><div class="pill-label">${s}</div><div class="pill-val">${n}</div></div>`)
+    .join('');
 }
 
-function statusBadge(s) {
-  const map = {
-    delivered: 'badge-green', paid: 'badge-green', delivering: 'badge-green',
-    engaged: 'badge-amber', nurturing: 'badge-amber', payment_pending: 'badge-amber',
-    emailed: 'badge-blue', follow_up_sent: 'badge-blue',
-    template_built: 'badge-grey',
-  };
-  return map[s] || 'badge-grey';
+// ── Site Build ────────────────────────────────────────────────────────────────
+function renderSiteBuild(d) {
+  const tb = d.template_built || [], q = d.queue || {};
+  document.getElementById('build-pills').innerHTML = [
+    { label: 'Ready to send', val: tb.length,              cls: tb.length ? 'blue' : '' },
+    { label: 'Hot queue',     val: (q.hot||[]).length,     cls: 'green'  },
+    { label: 'Warm queue',    val: (q.warm||[]).length,    cls: 'yellow' },
+    { label: 'Daily cap',     val: '40',                   cls: '' },
+  ].map(s => `<div class="pill"><div class="pill-label">${s.label}</div><div class="pill-val ${s.cls}">${s.val}</div></div>`).join('');
+
+  tbody('built-tbody', tb, (b, i) => `
+    <td class="n">${i+1}</td>
+    <td><div class="nm">${esc(b.name)}</div><div class="cat">${esc(b.category||'')}${b.location?', '+esc(b.location):''}</div></td>
+    <td class="em">${esc(b.email||'—')}</td>
+    <td>${tempBadge(b.lead_temperature)}</td>
+    <td class="dt">${b.updated_at ? fmtDate(b.updated_at) : '—'}</td>
+    <td>${b.preview_url ? '<a class="lnk" href="'+esc(b.preview_url)+'" target="_blank">View →</a>' : '<span style="color:var(--muted2)">—</span>'}</td>
+  `, 6);
+
+  tbody('hot-tbody',  q.hot||[],  qRow, 5);
+  tbody('warm-tbody', q.warm||[], qRow, 5);
+}
+
+function qRow(b, i) {
+  return `
+    <td class="n">${i+1}</td>
+    <td><div class="nm">${esc(b.name)}</div><div class="cat">${esc(b.category||'')}${b.location?', '+esc(b.location):''}</div></td>
+    <td class="em">${esc(b.email||'—')}</td>
+    <td class="src">${esc(b.email_confidence||'')}</td>
+    <td class="src">${esc(b.email_source||'')}</td>`;
+}
+
+// ── Emails ────────────────────────────────────────────────────────────────────
+function renderEmails(d) {
+  tbody('emails-tbody', d.emailed||[], (b, i) => {
+    const ei = `<div class="ei-row">
+      <span class="ei${b.email_opened_at?' on':''}" title="Opened ${b.email_opened_at?fmtFull(b.email_opened_at):'not yet'}">👁</span>
+      <span class="ei${b.email_link_clicked_at?' on':''}" title="Clicked ${b.email_link_clicked_at?fmtFull(b.email_link_clicked_at):'not yet'}">🔗</span>
+      <span class="ei${b.last_reply_at?' on':''}" title="Replied ${b.last_reply_at?fmtFull(b.last_reply_at):'not yet'}">💬</span>
+    </div>`;
+    const scls = {'emailed':'b-emailed','follow_up_sent':'b-built','engaged':'b-hot','payment_pending':'b-paid'}[b.pipeline_status]||'b-grey';
+    return `
+      <td class="n">${i+1}</td>
+      <td><div class="nm">${esc(b.name)}</div><div class="cat">${esc(b.category||'')}${b.location?', '+esc(b.location):''}</div></td>
+      <td class="em">${esc(b.email||'—')}</td>
+      <td><span class="badge ${scls}">${esc(b.pipeline_status)}</span></td>
+      <td>${ei}</td>
+      <td class="dt">${b.first_email_sent_at ? fmtDate(b.first_email_sent_at) : '—'}</td>
+      <td class="dt">${b.last_reply_at ? fmtDate(b.last_reply_at) : '—'}</td>
+      <td>${b.preview_url ? '<a class="lnk" href="'+esc(b.preview_url)+'" target="_blank" style="font-size:11px">View →</a>' : '<span style="color:var(--muted2)">—</span>'}</td>`;
+  }, 8);
+}
+
+// ── Enrichment ────────────────────────────────────────────────────────────────
+function renderEnrichment(d) {
+  const rows = d.enrichment_recent || [];
+  const emails   = rows.filter(b => b.email).length;
+  const excl     = rows.filter(b => b.pipeline_status === 'excluded').length;
+  const phoneOnly = rows.filter(b => !b.email && b.pipeline_status !== 'excluded' && b.pipeline_status !== null).length;
+
+  document.getElementById('enrich-stats').innerHTML = [
+    { lbl: 'In sample',    val: rows.length,             cls: 'blue'   },
+    { lbl: 'Emails found', val: emails,                  cls: 'green'  },
+    { lbl: 'Excluded',     val: excl,                    cls: 'red'    },
+    { lbl: 'Phone only',   val: phoneOnly,               cls: 'yellow' },
+    { lbl: 'Enrich queue', val: (d.kpi||{}).enrich_queue||0, cls: '' },
+  ].map(s => `<div class="stat-item"><div class="stat-lbl">${s.lbl}</div><div class="stat-val ${s.cls}">${s.val}</div></div>`).join('');
+
+  tbody('enrich-tbody', rows, (b, i) => {
+    const badge = b.pipeline_status === 'excluded'
+      ? '<span class="badge b-excl">EXCL</span>'
+      : b.email ? tempBadge(b.lead_temperature)
+      : '<span class="badge b-phone">phone</span>';
+    return `
+      <td class="n">${i+1}</td>
+      <td class="nm">${esc(b.name)}</td>
+      <td class="em">${esc(b.email||'—')}</td>
+      <td class="dm">${esc(b.domain||'—')}</td>
+      <td>${badge}</td>
+      <td class="src">${esc(b.email_source||'—')}</td>
+      <td class="dt">${b.updated_at ? fmtDate(b.updated_at) : '—'}</td>`;
+  }, 7);
+}
+
+// ── Revenue ────────────────────────────────────────────────────────────────────
+function renderRevenue(d) {
+  const paying = d.paying || [], live = d.live || [];
+
+  document.getElementById('paying-cards').innerHTML = paying.length
+    ? `<div class="rev-grid">${paying.map(b => `
+        <div class="rev-card">
+          <div class="rev-card-title">Paying customer</div>
+          <div class="rev-card-name">${esc(b.name)}</div>
+          <div class="rev-card-sub">${esc(b.category||'')}${b.location?', '+esc(b.location):''}</div>
+          <div class="rev-card-meta">
+            ${b.order_tier ? '<div class="rev-card-kv"><span>Tier </span>£'+esc(b.order_tier)+'</div>' : ''}
+            ${b.paid_at ? '<div class="rev-card-kv"><span>Paid </span>'+fmtDate(b.paid_at)+'</div>' : ''}
+            ${b.customer_email ? '<div class="rev-card-kv"><a class="lnk" href="mailto:'+esc(b.customer_email)+'">'+esc(b.customer_email)+'</a></div>' : ''}
+          </div>
+        </div>`).join('')}</div>`
+    : '<p style="color:var(--muted2);padding:16px 0">No paying customers yet.</p>';
+
+  tbody('live-tbody', live, (b, i) => {
+    const dom = b.registered_domain
+      ? `<a class="lnk" href="https://${esc(b.registered_domain)}" target="_blank">${esc(b.registered_domain)}</a>`
+      : '<span style="color:var(--muted2)">—</span>';
+    return `
+      <td class="n">${i+1}</td>
+      <td><div class="nm">${esc(b.name)}</div><div class="cat">${esc(b.category||'')}${b.location?', '+esc(b.location):''}</div></td>
+      <td>${dom}</td>
+      <td class="src">£${b.order_tier||'—'}</td>
+      <td class="dt">${b.paid_at ? fmtDate(b.paid_at) : '—'}</td>
+      <td class="dt">${b.delivered_at ? fmtDate(b.delivered_at) : '—'}</td>
+      <td class="src">${b.customer_email ? '<a class="lnk" href="mailto:'+esc(b.customer_email)+'">'+esc(b.customer_email)+'</a>' : (b.phone ? esc(b.phone) : '—')}</td>`;
+  }, 7);
+}
+
+// ── Activity ────────────────────────────────────────────────────────────────────
+function renderActivity(d) {
+  tbody('activity-tbody', d.recent_interactions||[], (r, i) => {
+    const biz = r.businesses;
+    const name = biz?.name ? `<div class="nm">${esc(biz.name)}</div>${biz.category?'<div class="cat">'+esc(biz.category)+(biz.location?', '+esc(biz.location):'')+' </div>':''}` : '<span style="color:var(--muted2)">—</span>';
+    const dir = r.direction === 'inbound' ? '<span style="color:var(--green)">↙</span>' : '<span style="color:var(--muted)">↗</span>';
+    return `
+      <td class="dt">${fmtFull(r.created_at)}</td>
+      <td>${name}</td>
+      <td style="color:var(--blue);font-size:10px;white-space:nowrap">${esc(r.type)}</td>
+      <td>${dir}</td>
+      <td class="src" style="max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc((r.content_summary||'').slice(0,100))}</td>`;
+  }, 5);
+}
+
+// ── Helpers ────────────────────────────────────────────────────────────────────
+function tbody(id, rows, rowFn, cols) {
+  const el = document.getElementById(id);
+  if (!rows.length) {
+    el.innerHTML = `<tr class="empty-row"><td colspan="${cols}">—</td></tr>`;
+    return;
+  }
+  el.innerHTML = rows.map((r, i) => `<tr${r.pipeline_status==='excluded'?' class="excl"':''}>${rowFn(r,i)}</tr>`).join('');
+}
+
+function tempBadge(t) {
+  if (t === 'hot')  return '<span class="badge b-hot">★ hot</span>';
+  if (t === 'warm') return '<span class="badge b-warm">★ warm</span>';
+  return '<span class="badge b-cold">' + esc(t||'cold') + '</span>';
 }
 
 function fmtDate(iso) {
-  if (!iso) return '';
-  const d = new Date(iso);
-  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+  if (!iso) return '—';
+  return new Date(iso).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'2-digit', hour:'2-digit', minute:'2-digit' });
+}
+
+function fmtFull(iso) {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleString('en-GB', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+}
+
+function fmtTime(d) {
+  return d.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
 }
 
 function esc(s) {
-  return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 </script>
 </body>
