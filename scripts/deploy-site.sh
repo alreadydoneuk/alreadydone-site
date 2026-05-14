@@ -26,7 +26,7 @@ echo "Deploying to Cloudflare Pages..."
 source "$ROOT_DIR/.env"
 CLOUDFLARE_API_TOKEN="$CLOUDFLARE_TOKEN" \
 CLOUDFLARE_ACCOUNT_ID="c663467f92484cce5de42806e1a1e868" \
-npx wrangler pages deploy . --project-name=alreadydone-uk 2>&1
+/home/brantley/.nvm/versions/node/v24.13.0/bin/npx wrangler pages deploy . --project-name=alreadydone-uk 2>&1
 
 echo ""
 echo "Live at: https://alreadydone.uk"
