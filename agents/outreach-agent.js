@@ -3,7 +3,19 @@ import { generateEmail } from '../lib/claude.js';
 import { findEmail, isGenericEmailDomain } from '../lib/email-finder.js';
 import { sendOutreachEmail } from '../lib/mailer.js';
 import { isEmailable } from '../lib/parked.js';
+import { alert } from '../lib/slack.js';
 import 'dotenv/config';
+
+// Verify a preview URL is actually live before emailing it to a prospect.
+// Returns true if the URL returns 200, false otherwise.
+async function isPreviewLive(url) {
+  try {
+    const res = await fetch(url, { method: 'HEAD', redirect: 'follow', signal: AbortSignal.timeout(10000) });
+    return res.status === 200;
+  } catch {
+    return false;
+  }
+}
 
 const PLACEHOLDER_EMAIL_PATTERNS = [/^your@/, /^test@/, /^example@/, /^email@email/, /^noreply@/, /^no-reply@/];
 const isPlaceholderEmail = email => PLACEHOLDER_EMAIL_PATTERNS.some(p => p.test(email.toLowerCase()));
@@ -54,6 +66,21 @@ export async function runOutreachAgent({ force = false } = {}) {
   if (businesses.length === 0) {
     console.log('No template_built businesses to email');
     return { sent: 0 };
+  }
+
+  // Preflight: verify the preview site is actually live before emailing anyone.
+  // If the deploy failed last night, preview URLs return the generic homepage — abort
+  // so we don't send emails with broken links.
+  const sample = businesses.find(b => b.preview_url);
+  if (sample?.preview_url) {
+    const live = await isPreviewLive(sample.preview_url);
+    if (!live) {
+      const msg = `Outreach aborted — preview site not live. Checked: ${sample.preview_url}. Deploy may have failed.`;
+      console.error(msg);
+      await alert('⛔ Outreach aborted — preview site down', msg);
+      return { sent: 0, aborted: true };
+    }
+    console.log(`  Preflight OK: ${sample.preview_url}`);
   }
 
   const batch = businesses.slice(0, BATCH_SIZE);
