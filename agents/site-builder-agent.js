@@ -14,22 +14,51 @@ import 'dotenv/config';
 const GENERIC_EMAIL_DOMAINS = ['gmail','yahoo','hotmail','icloud','outlook','live','mail','ymail','btinternet','sky','virginmedia'];
 const isGenericEmail = email => GENERIC_EMAIL_DOMAINS.some(d => email.toLowerCase().includes('@' + d + '.'));
 
-// Keywords that signal a mismatch when found in the email domain but not the business name/category
-const EMAIL_MISMATCH_KEYWORDS = ['photography','photo','landscap','webdesign','web-design','traffic-update','andynewbold'];
+// Placeholder emails that are clearly not real contacts
+const PLACEHOLDER_EMAIL_PATTERNS = [/^your@/, /^test@/, /^example@/, /^email@email/, /^noreply@/, /^no-reply@/, /^info@info/, /^admin@admin/];
+const isPlaceholderEmail = email => PLACEHOLDER_EMAIL_PATTERNS.some(p => p.test(email.toLowerCase()));
+
+// Noise words that don't carry identity signal
+const NAME_NOISE = new Set(['the','and','of','in','at','for','ltd','limited','llp','llc','plc','inc','co','services','solutions','group','uk','scotland','edinburgh']);
 
 function validateEmail(email) {
   if (!email) return { ok: false, reason: 'no_email' };
+  if (isPlaceholderEmail(email)) return { ok: false, reason: 'placeholder' };
   if (/u00[0-9a-f]{2}|&[a-z]+;|%[0-9a-f]{2}/i.test(email)) return { ok: false, reason: 'html_entity' };
   if (!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email)) return { ok: false, reason: 'invalid_format' };
   if (/\.(co\.uk|com|net|org)[a-zA-Z]+/.test(email)) return { ok: false, reason: 'malformed_tld' };
   return { ok: true };
 }
 
+// Institutional email domains — council employees, NHS staff — never the SME owner
+const INSTITUTIONAL_PATTERNS = [/@nhs\.(net|scot|uk)$/i, /@.*\.gov\.uk$/i, /@.*\.ac\.uk$/i];
+const isInstitutionalEmail = e => INSTITUTIONAL_PATTERNS.some(p => p.test(e));
+
+// Returns a mismatch reason string if the email domain has no lexical overlap with the business name,
+// or null if it looks plausible. Only applies to custom domain (non-generic) emails.
 function detectEmailMismatch(email, name, category) {
-  const domain = (email.split('@')[1] || '').toLowerCase();
-  const context = (name + ' ' + category).toLowerCase();
-  const kw = EMAIL_MISMATCH_KEYWORDS.find(k => domain.includes(k) && !context.includes(k));
-  return kw || null;
+  if (isGenericEmail(email)) return null;
+  if (isInstitutionalEmail(email)) return `institutional email — not the business owner`;
+
+  const domain = (email.split('@')[1] || '').replace(/\.(co\.uk|com|net|org|uk|biz|info|trade|scot)$/, '').toLowerCase();
+
+  // Extract meaningful words from name (4+ chars, not noise)
+  const nameWords = (name + ' ' + category)
+    .toLowerCase()
+    .split(/[\s&\-_.,()\/]+/)
+    .filter(w => w.length >= 4 && !NAME_NOISE.has(w));
+
+  if (nameWords.length === 0) return null;
+
+  // Full word match OR 5-char prefix match for long words (catches physio/physiotherapy, jewel/jewellery etc)
+  const hasOverlap = nameWords.some(w => {
+    if (domain.includes(w)) return true;
+    if (w.length >= 7 && domain.includes(w.slice(0, 5))) return true;
+    return false;
+  });
+  if (hasOverlap) return null;
+
+  return `no overlap between "${name}" and email domain "${domain}"`;
 }
 
 // Parked/coming_soon with a custom email — never build speculatively.

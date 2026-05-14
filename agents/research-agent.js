@@ -3,6 +3,7 @@ import { getNextQueueItem, markQueueRunning, markQueueComplete, upsertDirectoryL
 import { searchPlaces } from '../lib/places.js';
 import { checkDomain, extractDomain, isQualifiedLead, leadTier, leadTemperature, isKeywordStuffedDomain } from '../lib/parked.js';
 import { isChain } from '../lib/chains.js';
+import { enrichOneBusiness, loadBlocklist } from './enrichment-agent.js';
 import 'dotenv/config';
 
 const MAX_RESULTS = parseInt(process.env.MAX_RESULTS_PER_QUERY || '60');
@@ -28,6 +29,9 @@ export async function runResearchAgent(targetArea = null) {
   console.log(`\nResearching: ${item.category} in ${item.location}`);
   await markQueueRunning(item.id);
 
+  // Load blocklist once per queue item — shared across all businesses in this batch
+  const blocklist = await loadBlocklist();
+
   let places, apiRequests;
   try {
     ({ places, apiRequests } = await searchPlaces(`${item.category} in ${item.location}`, MAX_RESULTS));
@@ -38,14 +42,17 @@ export async function runResearchAgent(targetArea = null) {
 
   console.log(`  Found ${places.length} results (${apiRequests} API call${apiRequests !== 1 ? 's' : ''})`);
 
-  let saved = 0, prospects = 0, skipped = 0;
+  let saved = 0, prospects = 0, enriched = 0, skipped = 0;
 
   for (const place of places) {
     try {
-      const result = await processPlace(place, item.category, item.location);
+      const result = await processPlace(place, item.category, item.location, blocklist);
       if (result === 'skipped') { skipped++; continue; }
       saved++;
-      if (result?.is_prospect) prospects++;
+      if (result?.is_prospect) {
+        prospects++;
+        if (result._enriched) enriched++;
+      }
     } catch (err) {
       console.error(`  Error processing ${place.name}: ${err.message}`);
     }
@@ -58,11 +65,11 @@ export async function runResearchAgent(targetArea = null) {
     agent: 'research-agent',
     notes: `${item.category} in ${item.location} — ${places.length} results`,
   });
-  console.log(`  Saved ${saved} | Prospects ${prospects} | Skipped ${skipped}\n`);
-  return { processed: places.length, saved, prospects, apiRequests };
+  console.log(`  Saved ${saved} | Prospects ${prospects} | Enriched ${enriched} | Skipped ${skipped}\n`);
+  return { processed: places.length, saved, prospects, enriched, apiRequests };
 }
 
-async function processPlace(place, category, location) {
+async function processPlace(place, category, location, blocklist) {
   if (place.business_status === 'CLOSED_PERMANENTLY') {
     process.stdout.write(`  [closed      ] ${place.name}\n`);
     return 'skipped';
@@ -173,6 +180,20 @@ async function processPlace(place, category, location) {
       `Found via Places API. Status: ${websiteStatus}. Tier: ${tier}. Temperature: ${temperature}.${hasMx ? ' Has MX.' : ''}`,
       JSON.stringify({ place_id: place.place_id, website_uri: place.website_uri })
     );
+
+    // Enrich immediately — find email while we have context on this business.
+    // Only runs if no email stored yet (upsert may have matched an existing record).
+    if (!savedRecord.email && savedRecord.id) {
+      try {
+        const outcome = await enrichOneBusiness(
+          { ...savedRecord, category, location },
+          blocklist
+        );
+        savedRecord._enriched = outcome === 'enriched';
+      } catch (err) {
+        console.error(`    Enrichment error for ${place.name}: ${err.message}`);
+      }
+    }
   }
 
   return savedRecord;

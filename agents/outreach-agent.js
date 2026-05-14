@@ -5,6 +5,29 @@ import { sendOutreachEmail } from '../lib/mailer.js';
 import { isEmailable } from '../lib/parked.js';
 import 'dotenv/config';
 
+const PLACEHOLDER_EMAIL_PATTERNS = [/^your@/, /^test@/, /^example@/, /^email@email/, /^noreply@/, /^no-reply@/];
+const isPlaceholderEmail = email => PLACEHOLDER_EMAIL_PATTERNS.some(p => p.test(email.toLowerCase()));
+
+const INSTITUTIONAL_PATTERNS = [/@nhs\.(net|scot|uk)$/i, /@.*\.gov\.uk$/i, /@.*\.ac\.uk$/i];
+const isInstitutionalEmail = e => INSTITUTIONAL_PATTERNS.some(p => p.test(e));
+
+const NAME_NOISE = new Set(['the','and','of','in','at','for','ltd','limited','llp','llc','plc','inc','co','services','solutions','group','uk','scotland','edinburgh']);
+
+function emailDomainMismatch(email, name, category) {
+  if (isGenericEmailDomain(email)) return null;
+  if (isPlaceholderEmail(email)) return 'placeholder';
+  if (isInstitutionalEmail(email)) return 'institutional email (NHS/gov/ac) — not the business owner';
+  const domain = (email.split('@')[1] || '').replace(/\.(co\.uk|com|net|org|uk|biz|info|trade|scot)$/, '').toLowerCase();
+  const nameWords = (name + ' ' + category).toLowerCase().split(/[\s&\-_.,()\/]+/).filter(w => w.length >= 4 && !NAME_NOISE.has(w));
+  if (nameWords.length === 0) return null;
+  const hasOverlap = nameWords.some(w => {
+    if (domain.includes(w)) return true;
+    if (w.length >= 7 && domain.includes(w.slice(0, 5))) return true;
+    return false;
+  });
+  return hasOverlap ? null : `domain mismatch: "${domain}" vs "${name}"`;
+}
+
 const BATCH_SIZE = 10;
 const BASE_PRICE = parseInt(process.env.BASE_PRICE_GBP || '99');
 
@@ -142,6 +165,18 @@ export async function sendOutreachForBusiness(business) {
       pipeline_status: 'dropped',
       dropped_at_stage: 'outreach',
       drop_reason: 'broken_dns_email_dead',
+    });
+    return false;
+  }
+
+  // Email domain sanity check — catch placeholder and mismatched emails from Google Places
+  const mismatch = emailDomainMismatch(email, business.name, business.category);
+  if (mismatch) {
+    console.log(`    Dropping — ${mismatch}`);
+    await updateBusiness(business.id, {
+      pipeline_status: 'dropped',
+      dropped_at_stage: 'outreach',
+      drop_reason: 'email_domain_mismatch',
     });
     return false;
   }
