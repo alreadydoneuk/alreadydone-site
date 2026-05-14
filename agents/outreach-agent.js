@@ -6,15 +6,40 @@ import { isEmailable } from '../lib/parked.js';
 import { alert } from '../lib/slack.js';
 import 'dotenv/config';
 
-// Verify a preview URL is actually live before emailing it to a prospect.
-// Returns true if the URL returns 200, false otherwise.
-async function isPreviewLive(url) {
+// Verify that a preview page contains business-specific content, not the CF Pages
+// fallback homepage. A HEAD/200 check alone is not enough — CF Pages returns 200
+// for every unmatched path by serving the root index.html as an SPA fallback,
+// which is exactly what happened when the deploy failed yesterday.
+async function isPreviewContentLive(url, businessName) {
   try {
-    const res = await fetch(url, { method: 'HEAD', redirect: 'follow', signal: AbortSignal.timeout(10000) });
-    return res.status === 200;
+    const res = await fetch(url, { redirect: 'follow', signal: AbortSignal.timeout(15000) });
+    if (res.status !== 200) return false;
+    const text = await res.text();
+    // Check for at least one meaningful word from the business name in the page body.
+    // The generic homepage won't contain prospect business names.
+    const words = businessName.toLowerCase().split(/\s+/).filter(w => w.length >= 4);
+    return words.some(w => text.toLowerCase().includes(w));
   } catch {
     return false;
   }
+}
+
+// Sample up to N businesses from the batch and verify their preview pages are live.
+// Returns { ok: boolean, failures: string[] }
+async function preflightPreviewCheck(businesses, sampleSize = 3) {
+  const candidates = businesses.filter(b => b.preview_url && b.name).slice(0, sampleSize);
+  if (candidates.length === 0) return { ok: true, failures: [] };
+
+  const results = await Promise.all(
+    candidates.map(async b => ({
+      url: b.preview_url,
+      name: b.name,
+      live: await isPreviewContentLive(b.preview_url, b.name),
+    }))
+  );
+
+  const failures = results.filter(r => !r.live).map(r => `${r.name}: ${r.url}`);
+  return { ok: failures.length === 0, failures };
 }
 
 const PLACEHOLDER_EMAIL_PATTERNS = [/^your@/, /^test@/, /^example@/, /^email@email/, /^noreply@/, /^no-reply@/];
@@ -68,20 +93,17 @@ export async function runOutreachAgent({ force = false } = {}) {
     return { sent: 0 };
   }
 
-  // Preflight: verify the preview site is actually live before emailing anyone.
-  // If the deploy failed last night, preview URLs return the generic homepage — abort
-  // so we don't send emails with broken links.
-  const sample = businesses.find(b => b.preview_url);
-  if (sample?.preview_url) {
-    const live = await isPreviewLive(sample.preview_url);
-    if (!live) {
-      const msg = `Outreach aborted — preview site not live. Checked: ${sample.preview_url}. Deploy may have failed.`;
-      console.error(msg);
-      await alert('⛔ Outreach aborted — preview site down', msg);
-      return { sent: 0, aborted: true };
-    }
-    console.log(`  Preflight OK: ${sample.preview_url}`);
+  // Preflight: verify preview pages contain real business content, not the CF Pages
+  // fallback homepage. Samples 3 businesses — a status=200 check alone is not enough
+  // because CF Pages serves the root index.html (200) for every unmatched path.
+  const { ok: preflightOk, failures } = await preflightPreviewCheck(businesses, 3);
+  if (!preflightOk) {
+    const msg = `Outreach aborted — preview pages not serving business content (deploy likely failed):\n${failures.join('\n')}`;
+    console.error(msg);
+    await alert('⛔ Outreach aborted — preview deploy check failed', msg);
+    return { sent: 0, aborted: true };
   }
+  console.log(`  Preflight OK — ${Math.min(businesses.length, 3)} preview pages verified live`);
 
   const batch = businesses.slice(0, BATCH_SIZE);
   console.log(`\nSending outreach for ${batch.length} businesses`);
