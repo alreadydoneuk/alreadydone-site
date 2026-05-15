@@ -176,41 +176,43 @@ function buildTop5Prompt(target, businesses, related) {
   const { area, category } = target;
   const plural = pluralize(category.name);
 
-  const bizList = businesses.map((b, i) => {
-    const reviews = (b.google_reviews || []).filter(r => r.text?.length > 40).slice(0, 2);
-    return [
-      `${i + 1}. ${b.name}`,
-      `   Rating: ${b.google_rating ? `${b.google_rating} ★ (${b.review_count} reviews)` : 'Not rated'}`,
-      `   Address: ${b.short_address || b.address || area.name}`,
-      b.fl_description ? `   About: ${b.fl_description}` : (b.editorial_summary ? `   About: ${b.editorial_summary}` : ''),
-      ...reviews.map(r => `   Customer review: "${r.text.slice(0, 250)}"`),
-      `   Listing URL: /${area.slug}/${category.slug}/${b.fl_slug}`,
-    ].filter(Boolean).join('\n');
-  }).join('\n\n');
+  // Business names/ratings given as context so the intro can reference them
+  const bizSummary = businesses.map((b, i) =>
+    `${i + 1}. ${b.name} — ${b.google_rating ? `${b.google_rating}★ (${b.review_count} reviews)` : 'unrated'} — ${b.short_address || b.address || area.name}`
+  ).join('\n');
 
   const relatedLinks = related.length
     ? related.map(a => `- ${a.title}: /articles/${a.slug}`).join('\n')
     : '';
 
-  return `Write a "Top 5 ${plural} in ${area.name}" article for Found Local, a local business directory covering Edinburgh and Scotland.
+  return `Write supporting content for a "Top 5 ${plural} in ${area.name}" article on Found Local, a local business directory.
 
-Businesses to feature (use this exact order):
-${bizList}
+The page already renders the individual business cards (name, photo, rating, address, description, link).
+Your job is to write ONLY:
+1. The intro section (before the business listings)
+2. The "What to look for" advice section (after the listings)
+3. A closing CTA paragraph
+
+The 5 featured businesses are:
+${bizSummary}
 
 ${relatedLinks ? `Related articles you can link to:\n${relatedLinks}\n` : ''}
 ${FORMATTING_RULES}
 
-Article structure:
-1. Intro paragraph (3–4 sentences): what makes a great ${category.name.toLowerCase()} and why ${area.name} locals care — no filler, be direct
-2. For each business: an <h2> with their rank and name as a link — e.g. <h2>1. <a href="/LISTING_URL">Business Name</a></h2>
-   - 2–3 sentences on WHY they stand out specifically (draw from reviews and description — be concrete, not generic)
-   - Their Google rating and review count mentioned naturally in text
-   - A <p class="text-sm text-gray-500 mt-1">Address line</p> after the text
-3. A short "What to look for" section as a <ul> checklist (5–6 items: practical things to check when choosing a ${category.name.toLowerCase()})
-4. Final paragraph: "Find more ${plural.toLowerCase()} in ${area.name}" with link to <a href="/${area.slug}/${category.slug}">all ${plural.toLowerCase()} in ${area.name}</a>
-${relatedLinks ? '5. A "Related guides" <h2> section with <ul> links to the related articles' : ''}
+Write exactly this structure — nothing more:
 
-Do not fabricate any details not provided above. Do not mention businesses not listed above.`;
+[INTRO]
+A single paragraph (3–4 sentences) about what makes a great ${category.name.toLowerCase()} in ${area.name} and why it matters. Be direct and specific. Mention that the five below are Edinburgh's highest-rated based on verified customer reviews.
+
+[WHAT TO LOOK FOR]
+<h2>What to look for in a ${category.name}</h2>
+A <ul> of 5–6 concrete things to check when choosing a ${category.name.toLowerCase()} in Scotland (qualifications, insurance, reviews, communication, pricing transparency, etc.)
+
+[CLOSING]
+A short paragraph (2 sentences): "Find more ${plural.toLowerCase()} in ${area.name}" with a link to <a href="/${area.slug}/${category.slug}">all ${plural.toLowerCase()} in ${area.name}</a>.
+${relatedLinks ? '\nThen a "Related guides" <h2> with <ul> links to the related articles.' : ''}
+
+No per-business writeups — those are handled by the page. No em dashes. British English.`;
 }
 
 function buildQuestionsPrompt(target, related) {
@@ -279,7 +281,7 @@ function buildCostsPrompt(target, related) {
     ? related.map(a => `- ${a.title}: /articles/${a.slug}`).join('\n')
     : '';
 
-  return `Write a practical cost guide titled "How Much Does a ${category.name} Cost in Scotland?" for Found Local, a local business directory covering Edinburgh and Scotland.
+  return `Write a practical cost guide titled "How Much Does a ${category.name} Cost in Edinburgh?" for Found Local, a local business directory covering Edinburgh and Scotland.
 
 ${relatedLinks ? `Related articles you can link to:\n${relatedLinks}\n` : ''}
 ${FORMATTING_RULES}
@@ -317,9 +319,9 @@ Do not start the article with an <h1> tag. The page already displays the title �
 function buildArticleSlug(type, category, area) {
   switch (type) {
     case 'top5':      return slugify(`top-5-${pluralize(category.name)}-in-${area.name}`);
-    case 'questions': return slugify(`questions-to-ask-when-choosing-a-${category.name}`);
-    case 'guide':     return slugify(`how-to-choose-a-${category.name}`);
-    case 'costs':     return slugify(`cost-of-${category.name}-in-scotland`);
+    case 'questions': return slugify(`questions-to-ask-when-choosing-a-${category.name}-in-edinburgh`);
+    case 'guide':     return slugify(`how-to-choose-a-${category.name}-in-edinburgh`);
+    case 'costs':     return slugify(`cost-of-${category.name}-in-edinburgh`);
     default:          return slugify(`${type}-${category.name}`);
   }
 }
@@ -327,9 +329,9 @@ function buildArticleSlug(type, category, area) {
 function buildTitle(type, category, area) {
   switch (type) {
     case 'top5':      return `Top 5 ${pluralize(category.name)} in ${area.name}`;
-    case 'questions': return `Questions to Ask When Choosing a ${category.name}`;
-    case 'guide':     return `How to Choose a ${category.name}`;
-    case 'costs':     return `How Much Does a ${category.name} Cost in Scotland?`;
+    case 'questions': return `Questions to Ask When Choosing a ${category.name} in Edinburgh`;
+    case 'guide':     return `How to Choose a ${category.name} in Edinburgh`;
+    case 'costs':     return `How Much Does a ${category.name} Cost in Edinburgh?`;
     default:          return `${TYPE_LABELS[type]}: ${category.name}`;
   }
 }
@@ -402,5 +404,66 @@ export async function runArticleAgent() {
   }
 
   console.log(`[Article Agent] Published: ${slug} (${readingTime} min read)`);
+  return { generated: true, slug, title };
+}
+
+// ── Forced-target generation (for batch runs) ─────────────────────────────────
+
+export async function generateForTarget({ type, categorySlug, areaSlug = null }) {
+  const { data: category } = await supabase
+    .from('categories').select('id, slug, name').eq('slug', categorySlug).single();
+  if (!category) return { generated: false, error: `Category not found: ${categorySlug}` };
+
+  let area = null;
+  if (areaSlug) {
+    const { data } = await supabase
+      .from('areas').select('id, slug, name').eq('slug', areaSlug).single();
+    area = data;
+    if (!area) return { generated: false, error: `Area not found: ${areaSlug}` };
+  }
+
+  const target = { type, category, area };
+  const title  = buildTitle(type, category, area);
+  const slug   = buildArticleSlug(type, category, area);
+
+  const { data: exists } = await supabase.from('fl_articles').select('id').eq('slug', slug).single();
+  if (exists) return { generated: false, slug, skipped: true };
+
+  console.log(`  → Writing: "${title}"`);
+
+  const related = await getRelatedArticles(target);
+  let prompt;
+
+  if (type === 'top5') {
+    if (!area) return { generated: false, error: 'top5 requires an area' };
+    const businesses = await getTop5Businesses(area, category);
+    if (businesses.length < 3) return { generated: false, error: `Only ${businesses.length} businesses for top5` };
+    prompt = buildTop5Prompt(target, businesses, related);
+    target.featuredSlugs = businesses.map(b => b.fl_slug).filter(Boolean);
+  } else if (type === 'questions') {
+    prompt = buildQuestionsPrompt(target, related);
+  } else if (type === 'guide') {
+    prompt = buildGuidePrompt(target, related);
+  } else {
+    prompt = buildCostsPrompt(target, related);
+  }
+
+  const bodyHtml   = await generateArticleHtml(prompt);
+  const excerpt    = extractExcerpt(bodyHtml);
+  const readingTime = estimateReadingTime(bodyHtml);
+
+  const { error } = await supabase.from('fl_articles').insert({
+    slug, title, excerpt,
+    body_html:               bodyHtml,
+    article_type:            type,
+    category_slug:           category.slug,
+    category_name:           category.name,
+    area_slug:               area?.slug  || null,
+    area_name:               area?.name  || null,
+    featured_business_slugs: target.featuredSlugs || [],
+    reading_time_mins:       readingTime,
+  });
+
+  if (error) return { generated: false, error: error.message };
   return { generated: true, slug, title };
 }
