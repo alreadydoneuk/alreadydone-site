@@ -2,7 +2,6 @@ import { supabase } from '../lib/db.js';
 import { agentCall } from '../lib/claude.js';
 import { eaBriefing, eaAlert } from '../lib/slack.js';
 import { getUndeliveredReports, markReportsDelivered, getRecentReports } from '../lib/reports.js';
-import { getUsageSummary } from '../lib/tokens.js';
 import 'dotenv/config';
 
 // EA morning briefing — runs at 8am
@@ -47,14 +46,7 @@ Keep it under 100 words. Format for Slack.`,
 }
 
 async function runEaBriefing(session) {
-  const tokenSummary = await getUsageSummary();
   const now = new Date();
-
-  const agentBreakdownText = Object.entries(tokenSummary.agentBreakdown)
-    .sort((a, b) => b[1].cost - a[1].cost)
-    .slice(0, 8)
-    .map(([a, s]) => `- ${a}: ${(s.input + s.output).toLocaleString()} tokens ($${s.cost.toFixed(4)})`)
-    .join('\n');
 
   // Pull recent pipeline snapshot
   const [{ data: pipelineSnap }, { data: recentActivity }] = await Promise.all([
@@ -73,19 +65,6 @@ async function runEaBriefing(session) {
     .map(i => `- [${i.direction}/${i.type}] ${i.content_summary}`)
     .join('\n');
 
-  // Token monitoring context
-  const tokenContext = `
-Token usage today:
-- Total tokens used: ${tokenSummary.daily.tokens.toLocaleString()} (~${tokenSummary.daily.pct}% of daily guide)
-- Cost today: $${tokenSummary.daily.cost.toFixed(4)} USD
-- Burn rate: ~$${tokenSummary.burnPerHour.toFixed(4)}/hour
-- Weekly spend so far: $${tokenSummary.weeklySpend.toFixed(4)} USD
-- Weekly budget remaining: ~$${tokenSummary.weeklyBudgetRemaining.toFixed(2)} USD
-
-Top agents by cost today:
-${agentBreakdownText || '(none yet)'}
-`;
-
   const pipelineContext = `
 Pipeline snapshot (${now.toDateString()}):
 ${Object.entries(statusCounts).map(([s, c]) => `- ${s}: ${c}`).join('\n') || '(no data)'}
@@ -97,20 +76,16 @@ ${activityList || '(none)'}
   const systemPrompt = `You are Dean Rougvie's Executive Assistant at Already Done, a one-person UK web design business.
 You produce ${session === 'morning' ? 'morning' : 'evening'} briefings delivered to Slack.
 ${session === 'morning' ? 'Morning briefing: focus on what needs attention today, pipeline status, and any anomalies overnight.' : 'Evening briefing: focus on what happened today, wins, outstanding items, and preparation for tomorrow.'}
-Keep under 500 words. Warm but efficient tone. Format for Slack with *bold* for key actions.
-Always include the token usage section — Dean wants to know compute consumption.`;
+Keep under 400 words. Warm but efficient tone. Format for Slack with *bold* for key actions.`;
 
   const userPrompt = `Produce the ${session === 'morning' ? '🌅 morning' : '🌆 evening'} briefing for ${now.toDateString()}.
-
-${tokenContext}
 
 ${pipelineContext}
 
 Structure:
 1. At a glance — 3 bullet points on the most important things right now
 2. Pipeline health — brief status of active deals and pipeline movement
-3. Token & cost monitoring — summarise today's compute usage, flag if unusually high
-4. ${session === 'morning' ? 'Today\'s priorities — top 3 actions for Dean to take today' : 'Today\'s wrap — what moved, what didn\'t, one thing to prep for tomorrow'}`;
+3. ${session === 'morning' ? 'Today\'s priorities — top 3 actions for Dean to take today' : 'Today\'s wrap — what moved, what didn\'t, one thing to prep for tomorrow'}`;
 
   const briefing = await agentCall('ea-agent', systemPrompt, userPrompt, 1500);
   await eaBriefing(briefing);

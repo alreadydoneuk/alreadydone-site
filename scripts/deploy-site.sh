@@ -32,3 +32,6 @@ CLOUDFLARE_ACCOUNT_ID="c663467f92484cce5de42806e1a1e868" \
 
 echo ""
 echo "Live at: https://alreadydone.uk"
+
+# Record successful deploy time — outreach agent checks this before sending emails
+date -u +%Y-%m-%dT%H:%M:%SZ > /home/brantley/alreadydone/.last_deploy_success

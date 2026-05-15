@@ -26,8 +26,12 @@ async function isPreviewContentLive(url, businessName) {
 
 // Sample up to N businesses from the batch and verify their preview pages are live.
 // Returns { ok: boolean, failures: string[] }
-async function preflightPreviewCheck(businesses, sampleSize = 3) {
-  const candidates = businesses.filter(b => b.preview_url && b.name).slice(0, sampleSize);
+// Sorts by updated_at DESC so we check the most recently built sites first —
+// those are the ones most likely to be undeployed if the deploy failed.
+async function preflightPreviewCheck(businesses, sampleSize = 5) {
+  const withPreview = businesses.filter(b => b.preview_url && b.name);
+  const sorted = [...withPreview].sort((a, b) => new Date(b.updated_at || 0) - new Date(a.updated_at || 0));
+  const candidates = sorted.slice(0, sampleSize);
   if (candidates.length === 0) return { ok: true, failures: [] };
 
   const results = await Promise.all(
