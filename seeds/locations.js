@@ -13,6 +13,7 @@ export const locations = [
   'Currie', 'Balerno', 'Restalrig', 'Granton', 'Muirhouse',
   'Pilton Edinburgh', 'Silverknowes', 'Juniper Green', 'Slateford',
   'Stenhouse', 'Longstone Edinburgh', 'Pilrig', 'Bonnington Edinburgh',
+  'Cramond', 'Seafield Edinburgh',
   // Edinburgh suburbs
   'Musselburgh', 'Dalkeith', 'Bonnyrigg', 'Penicuik', 'Loanhead',
   'Gorebridge', 'Tranent', 'Haddington', 'North Berwick', 'Dunbar',

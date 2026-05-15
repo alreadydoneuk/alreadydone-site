@@ -1,10 +1,10 @@
 import { supabase, logInteraction } from '../lib/db.js';
-import { checkDomain, registerDomain, pointToCloudflarePages, pollUntilLive } from '../lib/domains.js';
+import { checkDomain, registerDomain, getDnsRecords, pointToCloudflarePages, pollUntilLive } from '../lib/domains.js';
 import { addEmailDnsRecords, provisionEmailAddresses } from '../lib/email-provisioning.js';
 import { sendOnboardingStarted, sendOnboardingComplete, sendDomainTakenNotification } from '../lib/mailer.js';
 import { generateExtraPageSection } from '../lib/claude.js';
 import { captureSnapshot } from '../lib/report-data.js';
-import { alert } from '../lib/slack.js';
+import { alert, dm } from '../lib/slack.js';
 import { execSync } from 'child_process';
 import { mkdirSync, writeFileSync, rmSync } from 'fs';
 import 'dotenv/config';
@@ -84,8 +84,16 @@ async function provisionBusiness(business) {
       await alert(`⚠️ Domain taken — ${business.name}\n${domain} is no longer available. Customer emailed. Business set to escalated.`).catch(() => {});
       return; // Don't throw — customer has been contacted, no retry needed
     }
-    await registerDomain(domain, { costUsd: check.priceUsd });
-    console.log(`    Registered: ${domain}`);
+    try {
+      await registerDomain(domain, { costUsd: check.priceUsd });
+      console.log(`    Registered: ${domain}`);
+    } catch (err) {
+      if (err.code === 'FRAUD_BLOCK') {
+        await waitForManualRegistration(domain, business);
+      } else {
+        throw err;
+      }
+    }
   }
 
   // ── 2. Set email DNS records now (CNAME for the site set after deploy, once we have the hostname) ──
@@ -211,6 +219,37 @@ async function provisionBusiness(business) {
   const pagesNote = orderPages.length > 0 ? ` + ${orderPages.length} extra page(s)` : '';
   await alert(`🚀 Delivered — ${business.name}\nhttps://${domain}${emailNote}${pagesNote}`).catch(() => {});
   console.log(`    ✓ ${business.name} → https://${domain}`);
+}
+
+// Called when Porkbun blocks API registration from the server IP (FRAUD_BLOCK).
+// Pings Slack every 60s until the domain appears in the Porkbun account, then returns.
+// After registering on porkbun.com, also enable API access via the Details panel.
+async function waitForManualRegistration(domain, business) {
+  const porkbunUrl = `https://porkbun.com/checkout/register?q=${encodeURIComponent(domain)}`;
+  const baseMsg = `🔴 *ACTION REQUIRED — Register domain manually*\n\n*Domain:* \`${domain}\`\n*Customer:* ${business.name}\n\n1. Register at: ${porkbunUrl}\n2. In Domain Management → Details → enable API Access\n\n_Checking every 60s — will continue automatically once registered._`;
+
+  console.log(`    [manual-reg] FRAUD_BLOCK — waiting for manual registration of ${domain}`);
+  await dm(baseMsg);
+
+  const maxAttempts = 60; // wait up to 60 minutes
+  for (let i = 1; i <= maxAttempts; i++) {
+    await new Promise(r => setTimeout(r, 60000));
+    try {
+      await getDnsRecords(domain);
+      console.log(`    [manual-reg] ${domain} detected — continuing`);
+      await dm(`✅ *${domain}* detected in Porkbun — continuing provisioning for ${business.name}`);
+      return;
+    } catch (err) {
+      if (err.message?.includes('Invalid domain')) {
+        await dm(`🔴 *Still waiting (${i} min)* — please register \`${domain}\` on porkbun.com\n${porkbunUrl}`);
+        console.log(`    [manual-reg] ${domain} not yet registered (${i}/${maxAttempts})`);
+      } else {
+        throw err;
+      }
+    }
+  }
+
+  throw new Error(`Manual registration timeout: ${domain} not registered after ${maxAttempts} minutes`);
 }
 
 // No-domain path: deploy to Cloudflare Pages and deliver via the pages.dev hostname.

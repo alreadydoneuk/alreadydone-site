@@ -13,7 +13,7 @@ const args = process.argv.slice(2);
 function getArg(flag) { const i = args.indexOf(flag); return i !== -1 ? args[i + 1] : null; }
 
 const AREA_ARG     = getArg('--area') || null;
-const DELAY_MS     = parseInt(getArg('--delay-secs') || process.env.DELAY_SECS || '90') * 1000;
+const DELAY_MS     = parseInt(getArg('--delay-secs') || process.env.DELAY_SECS || '10') * 1000;
 // Places API Text Search Enterprise SKU: £0.026/req (£25.95/1,000) after first 1,000/month free.
 // Google Maps $200/month credit (~£160) covers ~6,150 more req/month after the free 1,000.
 // Total free per month: ~7,150 requests = ~238/day. Default 200 gives a safe buffer.

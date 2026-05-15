@@ -4,6 +4,9 @@
 # ── Already Done pipeline ─────────────────────────────────────────────────────
 0 2 * * * /usr/local/bin/cron-alert "AD-pipeline" bash -c 'cd /home/brantley/alreadydone && bash scripts/run-pipeline-cron.sh' >> /srv/media2/logs/alreadydone/pipeline.log 2>&1
 
+# Article generator — 1 article per day, 4am (after pipeline finishes)
+0 4 * * * cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-article.js >> /srv/media2/logs/alreadydone/articles.log 2>&1
+
 # Enrichment 3x/day
 0 9  * * * cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-enrichment.js  >> /srv/media2/logs/alreadydone/enrichment.log 2>&1
 0 13 * * * cd /home/brantley/alreadydone && /home/brantley/.nvm/versions/node/v24.13.0/bin/node scripts/run-enrichment.js  >> /srv/media2/logs/alreadydone/enrichment.log 2>&1
