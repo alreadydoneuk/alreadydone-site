@@ -4,6 +4,8 @@
 
 set -euo pipefail
 
+export PATH="/home/brantley/.nvm/versions/node/v24.13.0/bin:$PATH"
+
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 SITE_DIR="$ROOT_DIR/sites/alreadydone.uk"
