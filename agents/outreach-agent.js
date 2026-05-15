@@ -24,27 +24,6 @@ async function isPreviewContentLive(url, businessName) {
   }
 }
 
-// Sample up to N businesses from the batch and verify their preview pages are live.
-// Returns { ok: boolean, failures: string[] }
-// Sorts by updated_at DESC so we check the most recently built sites first —
-// those are the ones most likely to be undeployed if the deploy failed.
-async function preflightPreviewCheck(businesses, sampleSize = 5) {
-  const withPreview = businesses.filter(b => b.preview_url && b.name);
-  const sorted = [...withPreview].sort((a, b) => new Date(b.updated_at || 0) - new Date(a.updated_at || 0));
-  const candidates = sorted.slice(0, sampleSize);
-  if (candidates.length === 0) return { ok: true, failures: [] };
-
-  const results = await Promise.all(
-    candidates.map(async b => ({
-      url: b.preview_url,
-      name: b.name,
-      live: await isPreviewContentLive(b.preview_url, b.name),
-    }))
-  );
-
-  const failures = results.filter(r => !r.live).map(r => `${r.name}: ${r.url}`);
-  return { ok: failures.length === 0, failures };
-}
 
 const PLACEHOLDER_EMAIL_PATTERNS = [/^your@/, /^test@/, /^example@/, /^email@email/, /^noreply@/, /^no-reply@/];
 const isPlaceholderEmail = email => PLACEHOLDER_EMAIL_PATTERNS.some(p => p.test(email.toLowerCase()));
@@ -97,38 +76,36 @@ export async function runOutreachAgent({ force = false } = {}) {
     return { sent: 0 };
   }
 
-  // Preflight: verify preview pages contain real business content, not the CF Pages
-  // fallback homepage. Samples 3 businesses — a status=200 check alone is not enough
-  // because CF Pages serves the root index.html (200) for every unmatched path.
-  const { ok: preflightOk, failures } = await preflightPreviewCheck(businesses, 3);
-  if (!preflightOk) {
-    const msg = `Outreach aborted — preview pages not serving business content (deploy likely failed):\n${failures.join('\n')}`;
-    console.error(msg);
-    await alert('⛔ Outreach aborted — preview deploy check failed', msg);
-    return { sent: 0, aborted: true };
-  }
-  console.log(`  Preflight OK — ${Math.min(businesses.length, 3)} preview pages verified live`);
-
   const batch = businesses.slice(0, BATCH_SIZE);
-  console.log(`\nSending outreach for ${batch.length} businesses`);
+  console.log(`\nOutreach batch: ${batch.length} businesses`);
 
   let sent = 0;
+  const blocked = [];
 
   for (const business of batch) {
     try {
       const result = await sendOutreachForBusiness(business);
-      if (result) sent++;
+      if (result === true) sent++;
+      else if (result === 'blocked') blocked.push(business);
     } catch (err) {
       console.error(`  Failed for ${business.name}: ${err.message}`);
       await logInteraction(business.id, 'error', 'internal', `Outreach failed: ${err.message}`, err.stack);
     }
 
-    // Rate limit: don't hammer the mail server
     await sleep(2000);
   }
 
-  console.log(`\nSent ${sent}/${batch.length} emails\n`);
-  return { sent };
+  console.log(`\nSent ${sent}/${batch.length} | Blocked (deploy): ${blocked.length}\n`);
+
+  if (blocked.length > 0) {
+    const lines = blocked.map(b => `• *${b.name}* — ${b.preview_url}`).join('\n');
+    await alert(
+      `⏸ ${blocked.length} outreach email(s) held — preview not live`,
+      `These businesses are ready to email but their preview site isn't serving content yet. They will retry automatically on the next outreach run once the deploy is confirmed.\n\n${lines}`,
+    );
+  }
+
+  return { sent, blocked: blocked.length };
 }
 
 export async function sendOutreachForBusiness(business) {
@@ -143,6 +120,19 @@ export async function sendOutreachForBusiness(business) {
       drop_reason: `not_emailable_${business.website_status}`,
     });
     return false;
+  }
+
+  // Deploy gate: verify this specific preview is live before sending.
+  // Stays at template_built if blocked — retried automatically on the next run.
+  if (business.preview_url) {
+    const live = await isPreviewContentLive(business.preview_url, business.name);
+    if (!live) {
+      console.log(`    ⏸  Preview not live — holding: ${business.preview_url}`);
+      await logInteraction(business.id, 'deploy_blocked', 'internal',
+        `Outreach held — preview not live at ${business.preview_url}`);
+      return 'blocked';
+    }
+    console.log(`    ✓  Preview live`);
   }
 
   // Expiry timing gate — only applies to parked/coming_soon where urgency is tied to renewal date.
