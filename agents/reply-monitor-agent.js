@@ -54,32 +54,37 @@ export async function runReplyMonitorAgent() {
 
   console.log(`Reply monitor: processing ${messages.length} message(s)`);
   let processed = 0;
-  const seenUids = [];
+  const seenSeqnos = []; // sequence numbers (not UIDs) — same session numbers used by imap.search
 
   for (const msg of messages) {
     try {
       await processReply(msg);
       processed++;
-      if (msg.uid) seenUids.push(msg.uid); // mark seen only on success
+      // Mark read for anything that processed cleanly — system skips, matched replies, escalations
+      if (msg.seqno) seenSeqnos.push(msg.seqno);
     } catch (err) {
       console.error(`  Error processing reply from ${msg.from}: ${err.message}`);
       // Leave unseen — will be retried next run rather than lost
     }
   }
 
-  if (seenUids.length) await markUidsSeen(seenUids).catch(() => {});
+  if (seenSeqnos.length) await markSeqnosSeen(seenSeqnos);
 
   return { processed };
 }
 
 async function processReply(msg) {
+  // Already identified as system email in fetchUnseenReplies — skip, mark read
+  if (msg._system) return;
+
   const senderEmail = extractEmail(msg.from);
-  if (!senderEmail) return;
+  if (!senderEmail) return; // malformed — mark read, don't escalate
 
   // ── Match business using cascade: In-Reply-To → sender email → domain ──────
   const business = await findBusiness(msg, senderEmail);
   if (!business) {
-    console.log(`  No match for ${senderEmail} (In-Reply-To: ${msg.inReplyTo || 'none'}) — skipping`);
+    console.log(`  No match for ${senderEmail} (In-Reply-To: ${msg.inReplyTo || 'none'}) — escalating`);
+    await escalateUnmatchedEmail(msg, senderEmail);
     return;
   }
 
@@ -257,6 +262,50 @@ async function findBusiness(msg, senderEmail) {
   return null;
 }
 
+// ── System / automated sender detection ──────────────────────────────────────
+// Emails from these domains are automated reports — mark read and skip, never escalate.
+const SYSTEM_SENDER_DOMAINS = new Set([
+  'google.com', 'googlemail.com',          // DMARC aggregate reports
+  'microsoft.com',                         // DMARC aggregate reports
+  'fastmaildmarc.com',                     // DMARC aggregate reports
+  'secureserver.net',                      // GoDaddy DMARC reports
+  'dmarcanalyzer.com',                     // DMARC SaaS reports
+  'stripe.com',                            // Payment processor notifications
+  'porkbun.com',                           // Domain registrar notifications
+  'zoho.com', 'zohomail.com',              // Our own mail provider
+  'resend.com',                            // Email delivery receipts
+  'amazonses.com',                         // SES delivery notifications
+  'mailer-daemon.googlemail.com',          // Bounce notifications
+]);
+
+const SYSTEM_SUBJECT_PATTERNS = [
+  /^Report\s+[Dd]omain:/i,                // DMARC report subject lines
+  /DMARC\s+(Aggregate|Report)/i,
+  /^(Automatic\s+)?[Aa]uto-?[Rr]eply/,
+  /^Out\s+of\s+(Office|the\s+Office)/i,
+  /^(Undeliverable|Delivery\s+(Status|Failed|Failure))/i,
+  /^Mailer-Daemon/i,
+  /noreply-dmarc-support@/i,
+];
+
+function isSystemSender(msg, senderEmail) {
+  const domain = (senderEmail || '').split('@')[1]?.toLowerCase() || '';
+  if (SYSTEM_SENDER_DOMAINS.has(domain)) return true;
+  const subject = msg.subject || '';
+  const from = msg.from || '';
+  return SYSTEM_SUBJECT_PATTERNS.some(p => p.test(subject) || p.test(from));
+}
+
+// ── Unmatched real email escalation ──────────────────────────────────────────
+async function escalateUnmatchedEmail(msg, senderEmail) {
+  const { alert } = await import('../lib/slack.js');
+  const snippet = (msg.text || '').replace(/\s+/g, ' ').trim().slice(0, 600);
+  await alert(
+    `📬 Unmatched email — review needed`,
+    `*From:* ${senderEmail}\n*Subject:* ${msg.subject || '(no subject)'}\n\n${snippet || '(no body)'}\n\n_No matching prospect found. May be a reply from a different address — check manually._`,
+  ).catch(() => {});
+}
+
 // Well-known personal email domains — skip domain matching for these
 const PERSONAL_DOMAINS = new Set([
   'gmail.com','googlemail.com','yahoo.com','yahoo.co.uk','hotmail.com','hotmail.co.uk',
@@ -306,69 +355,122 @@ function imapConfig() {
   return { user: IMAP_USER, password: IMAP_PASS, host: IMAP_HOST, port: IMAP_PORT, tls: true, tlsOptions: { rejectUnauthorized: false } };
 }
 
-// Fetch unseen messages WITHOUT marking them seen — we mark individually after successful processing.
+// Two-stage IMAP fetch to avoid parsing large DMARC/XML bodies:
+// Stage 1 — headers only for all UNSEEN messages (fast, identifies system senders).
+// Stage 2 — full body only for non-system messages (prospect candidates).
+// seqno (from imap.search) is stored on every message for reliable mark-seen.
 function fetchUnseenReplies() {
   return new Promise((resolve, reject) => {
-    const imap = new Imap(imapConfig());
-    const messages = [];
-    const pending = [];
+    let settled = false;
+    const done = (val) => { if (!settled) { settled = true; resolve(val); } };
+    const fail = (err) => { if (!settled) { settled = true; reject(err); } };
+
+    const imap = new Imap({ ...imapConfig(), connTimeout: 15000, authTimeout: 10000 });
+    imap.once('error', fail);
+    imap.once('end', () => done([])); // safety net if connection closes before we resolve
 
     imap.once('ready', () => {
       imap.openBox('INBOX', false, (err) => {
-        if (err) { imap.end(); return reject(err); }
+        if (err) { imap.end(); return fail(err); }
 
-        imap.search(['UNSEEN'], (err, uids) => {
-          if (err || !uids.length) { imap.end(); return resolve([]); }
+        imap.search(['UNSEEN'], (err, seqnos) => {
+          if (err || !seqnos.length) { imap.end(); return done([]); }
 
-          // Do NOT markSeen here — we mark per-message after successful processing
-          const f = imap.fetch(uids, { bodies: '', struct: false });
+          // Stage 1: headers only
+          const headerMap = {};
+          const pending1 = [];
+          const hf = imap.fetch(seqnos, {
+            bodies: 'HEADER.FIELDS (FROM SUBJECT MESSAGE-ID IN-REPLY-TO REFERENCES)',
+            markSeen: false,
+          });
 
-          f.on('message', (msg) => {
-            let buffer = '';
-            let uid = null;
-            msg.once('attributes', (attrs) => { uid = attrs.uid; });
+          hf.on('message', (msg, seqno) => {
+            let buf = '';
             msg.on('body', (stream) => {
-              stream.on('data', (chunk) => { buffer += chunk.toString('utf8'); });
+              stream.on('data', c => { buf += c.toString('utf8'); });
               stream.once('end', () => {
-                const p = simpleParser(buffer).then(parsed => {
-                  messages.push({
-                    uid,
+                const p = simpleParser(buf).then(parsed => {
+                  headerMap[seqno] = {
+                    seqno,
                     from: parsed.from?.text || '',
                     subject: parsed.subject || '',
-                    text: parsed.text || '',
                     messageId: parsed.messageId || null,
                     inReplyTo: parsed.inReplyTo || null,
                     references: parsed.references || null,
-                  });
-                }).catch(() => {});
-                pending.push(p);
+                  };
+                }).catch(() => { headerMap[seqno] = { seqno, from: '', subject: '' }; });
+                pending1.push(p);
               });
             });
           });
 
-          f.once('end', () => { Promise.all(pending).then(() => imap.end()); });
+          hf.once('end', () => Promise.all(pending1).then(() => {
+            const allHeaders = Object.values(headerMap);
+            const systemMsgs = allHeaders.filter(h => isSystemSender(h, extractEmail(h.from)));
+            const prospectHdrs = allHeaders.filter(h => !isSystemSender(h, extractEmail(h.from)));
+
+            if (systemMsgs.length) {
+              console.log(`  ${systemMsgs.length} system email(s) found — will mark read`);
+            }
+
+            if (!prospectHdrs.length) {
+              // Only system mail — wait for connection to close before resolving
+              // so markSeqnosSeen doesn't race with a closing connection
+              const result = systemMsgs.map(h => ({ ...h, text: '', _system: true }));
+              imap.once('end', () => done(result));
+              imap.end();
+              return;
+            }
+
+            // Stage 2: full body for prospect candidates only
+            const messages = systemMsgs.map(h => ({ ...h, text: '', _system: true }));
+            const prospectSeqnos = prospectHdrs.map(h => h.seqno);
+            const pending2 = [];
+
+            const bf = imap.fetch(prospectSeqnos, { bodies: 'TEXT', markSeen: false });
+            bf.on('message', (msg, seqno) => {
+              let buf = '';
+              msg.on('body', (stream) => {
+                stream.on('data', c => { buf += c.toString('utf8'); });
+                stream.once('end', () => {
+                  const p = simpleParser(buf)
+                    .then(parsed => { messages.push({ ...headerMap[seqno], text: parsed.text || '' }); })
+                    .catch(() => { messages.push({ ...headerMap[seqno], text: '' }); });
+                  pending2.push(p);
+                });
+              });
+            });
+            bf.once('end', () => Promise.all(pending2).then(() => {
+              imap.once('end', () => done(messages));
+              imap.end();
+            }));
+          }));
         });
       });
     });
 
-    imap.once('end', () => resolve(messages));
-    imap.once('error', reject);
     imap.connect();
   });
 }
 
-// Mark specific UIDs as \Seen in a separate IMAP session after successful processing.
-function markUidsSeen(uids) {
+// Mark messages as \Seen using sequence numbers (from imap.search).
+// Sequence numbers are stable within a session — using them in a fresh session
+// is safe as long as no messages were expunged between the two connections.
+function markSeqnosSeen(seqnos) {
   return new Promise((resolve) => {
+    if (!seqnos.length) return resolve();
     const imap = new Imap(imapConfig());
     imap.once('ready', () => {
       imap.openBox('INBOX', false, (err) => {
         if (err) { imap.end(); return resolve(); }
-        imap.addFlags(uids, ['\\Seen'], () => imap.end());
+        imap.addFlags(seqnos, ['\\Seen'], (err) => {
+          if (err) console.error('  Mark-seen error:', err.message);
+          imap.end();
+        });
       });
     });
     imap.once('end', resolve);
-    imap.once('error', resolve);
+    imap.once('error', (err) => { console.error('  Mark-seen IMAP error:', err.message); resolve(); });
     imap.connect();
   });
 }
