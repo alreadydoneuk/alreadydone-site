@@ -38,7 +38,7 @@ export async function onRequestGet(context) {
     const [bizArr, interactions] = await Promise.all([
       sb('businesses', `?select=id,name,category,location,email,pipeline_status,preview_url,`
         + `first_email_sent_at,email_opened_at,email_link_clicked_at,last_reply_at,`
-        + `reply_classification,follow_up_sent_at&id=eq.${encodeURIComponent(id)}`),
+        + `response_sentiment,follow_up_sent_at&id=eq.${encodeURIComponent(id)}`),
       sb('interactions', `?select=created_at,type,direction,content_summary,raw_content,metadata`
         + `&business_id=eq.${encodeURIComponent(id)}`
         + `&type=not.in.(research,skip,email_enriched,expiry_watch)`

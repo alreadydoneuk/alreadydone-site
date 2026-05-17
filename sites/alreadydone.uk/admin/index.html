@@ -836,7 +836,7 @@ function renderThread({ business: b, interactions }) {
   document.getElementById('drawer-badges').innerHTML = [
     `<span class="badge ${scls}">${esc(b.pipeline_status)}</span>`,
     b.preview_url ? `<a class="lnk" href="${esc(b.preview_url)}" target="_blank" style="font-size:10px">Preview →</a>` : '',
-    b.reply_classification ? `<span class="badge b-grey">${esc(b.reply_classification)}</span>` : '',
+    b.response_sentiment ? `<span class="badge b-grey">${esc(b.response_sentiment)}</span>` : '',
   ].filter(Boolean).join('');
 
   const collapsed = collapseOpenEvents(interactions || []);
