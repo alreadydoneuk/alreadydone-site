@@ -394,12 +394,19 @@
 
   <!-- EMAILS -->
   <div class="panel" id="panel-emails">
-    <div class="section-head">In outreach pipeline</div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+      <input id="emails-search" type="text" placeholder="Search by name or email…"
+        style="background:var(--bg2);border:1px solid var(--border2);border-radius:4px;
+               padding:7px 12px;font-size:12px;font-family:inherit;color:var(--text);
+               outline:none;width:260px;"
+        oninput="filterEmails(this.value)">
+      <span id="emails-count" style="color:var(--muted);font-size:11px"></span>
+    </div>
     <div class="table-wrap">
       <table>
         <thead><tr>
           <th class="n">#</th><th>Business</th><th>Email</th>
-          <th>Status</th><th>Engage</th><th>Sent</th><th>Replied</th><th>Preview</th>
+          <th>Status</th><th>Engage</th><th>Sent</th><th>Last open</th><th>Preview</th>
         </tr></thead>
         <tbody id="emails-tbody"></tbody>
       </table>
@@ -654,9 +661,30 @@ function qRow(b, i) {
 }
 
 // ── Emails ────────────────────────────────────────────────────────────────────
+let _allEmailed = [];
+
 function renderEmails(d) {
-  const rows = d.emailed || [];
+  _allEmailed = d.emailed || [];
+  const search = document.getElementById('emails-search');
+  if (search) search.value = '';
+  renderEmailRows(_allEmailed);
+}
+
+function filterEmails(q) {
+  const term = q.trim().toLowerCase();
+  const filtered = term
+    ? _allEmailed.filter(b =>
+        (b.name||'').toLowerCase().includes(term) ||
+        (b.email||'').toLowerCase().includes(term) ||
+        (b.location||'').toLowerCase().includes(term))
+    : _allEmailed;
+  renderEmailRows(filtered);
+}
+
+function renderEmailRows(rows) {
   const el = document.getElementById('emails-tbody');
+  const countEl = document.getElementById('emails-count');
+  if (countEl) countEl.textContent = rows.length + ' of ' + _allEmailed.length;
   if (!rows.length) {
     el.innerHTML = '<tr class="empty-row"><td colspan="8">—</td></tr>';
     return;
@@ -667,10 +695,11 @@ function renderEmails(d) {
       <span class="ei${b.email_link_clicked_at?' on':''}" title="Clicked ${b.email_link_clicked_at?fmtFull(b.email_link_clicked_at):'not yet'}">🔗</span>
       <span class="ei${b.last_reply_at?' on':''}" title="Replied ${b.last_reply_at?fmtFull(b.last_reply_at):'not yet'}">💬</span>
     </div>`;
-    const scls = {'emailed':'b-emailed','follow_up_sent':'b-built','engaged':'b-hot','payment_pending':'b-paid'}[b.pipeline_status]||'b-grey';
+    const scls = {'emailed':'b-emailed','follow_up_sent':'b-built','engaged':'b-hot','payment_pending':'b-paid','nurturing':'b-warm'}[b.pipeline_status]||'b-grey';
     const preview = b.preview_url
       ? `<a class="lnk" href="${esc(b.preview_url)}" target="_blank" style="font-size:11px" onclick="event.stopPropagation()">View →</a>`
       : '<span style="color:var(--muted2)">—</span>';
+    const lastOpen = b.email_opened_at ? `<span style="color:var(--blue)">${fmtDate(b.email_opened_at)}</span>` : '<span style="color:var(--muted2)">—</span>';
     return `<tr class="clickable" onclick="openThread('${esc(b.id)}')">
       <td class="n">${i+1}</td>
       <td><div class="nm">${esc(b.name)}</div><div class="cat">${esc(b.category||'')}${b.location?', '+esc(b.location):''}</div></td>
@@ -678,7 +707,7 @@ function renderEmails(d) {
       <td><span class="badge ${scls}">${esc(b.pipeline_status)}</span></td>
       <td>${ei}</td>
       <td class="dt">${b.first_email_sent_at ? fmtDate(b.first_email_sent_at) : '—'}</td>
-      <td class="dt">${b.last_reply_at ? fmtDate(b.last_reply_at) : '—'}</td>
+      <td class="dt">${lastOpen}</td>
       <td>${preview}</td>
     </tr>`;
   }).join('');

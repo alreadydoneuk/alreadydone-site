@@ -118,9 +118,9 @@ export async function onRequestGet(context) {
 
     sb('businesses', [
       '?select=id,name,category,location,email,lead_temperature,pipeline_status,preview_url,',
-      'first_email_sent_at,email_opened_at,email_link_clicked_at,last_reply_at',
+      'first_email_sent_at,email_opened_at,email_link_clicked_at,last_reply_at,follow_up_sent_at',
       '&pipeline_status=in.(emailed,follow_up_sent,engaged,nurturing,payment_pending)',
-      '&order=first_email_sent_at.desc.nullslast&limit=100',
+      '&order=email_opened_at.desc.nullslast,last_reply_at.desc.nullslast,first_email_sent_at.desc.nullslast&limit=200',
     ].join('')),
 
     sb('businesses', [
