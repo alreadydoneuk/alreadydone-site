@@ -413,7 +413,7 @@
       <table>
         <thead><tr>
           <th class="n">#</th><th>Business</th><th>Email</th>
-          <th>Status</th><th>Engage</th><th>Sent</th><th>Last open</th><th>Preview</th>
+          <th>Status</th><th>Engage</th><th>Sent</th><th>Follow-up</th><th>Preview</th>
         </tr></thead>
         <tbody id="emails-tbody"></tbody>
       </table>
@@ -699,7 +699,6 @@ function renderEmailRows(rows) {
   }
   el.innerHTML = rows.map((b, i) => {
     const ei = `<div class="ei-row">
-      <span class="ei${b.email_opened_at?' on':''}" title="Opened ${b.email_opened_at?fmtFull(b.email_opened_at):'not yet'}">👁</span>
       <span class="ei${b.email_link_clicked_at?' on':''}" title="Clicked ${b.email_link_clicked_at?fmtFull(b.email_link_clicked_at):'not yet'}">🔗</span>
       <span class="ei${b.last_reply_at?' on':''}" title="Replied ${b.last_reply_at?fmtFull(b.last_reply_at):'not yet'}">💬</span>
     </div>`;
@@ -707,7 +706,7 @@ function renderEmailRows(rows) {
     const preview = b.preview_url
       ? `<a class="lnk" href="${esc(b.preview_url)}" target="_blank" style="font-size:11px" onclick="event.stopPropagation()">View →</a>`
       : '<span style="color:var(--muted2)">—</span>';
-    const lastOpen = b.email_opened_at ? `<span style="color:var(--blue)">${fmtDate(b.email_opened_at)}</span>` : '<span style="color:var(--muted2)">—</span>';
+    const lastOpen = b.follow_up_sent_at ? `<span style="color:var(--purple)">${fmtDate(b.follow_up_sent_at)}</span>` : '<span style="color:var(--muted2)">—</span>';
     return `<tr class="clickable" onclick="openThread('${esc(b.id)}')">
       <td class="n">${i+1}</td>
       <td><div class="nm">${esc(b.name)}</div><div class="cat">${esc(b.category||'')}${b.location?', '+esc(b.location):''}</div></td>
