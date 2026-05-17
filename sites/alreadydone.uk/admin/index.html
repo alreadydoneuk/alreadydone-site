@@ -14,8 +14,8 @@
       --border:  #1f1f1f;
       --border2: #2a2a2a;
       --text:    #e0e0e0;
-      --muted:   #555555;
-      --muted2:  #333333;
+      --muted:   #808080;
+      --muted2:  #444444;
       --green:   #4ade80;
       --red:     #f87171;
       --yellow:  #facc15;
@@ -241,11 +241,19 @@
     a.lnk { color: var(--blue); text-decoration: none; }
     a.lnk:hover { text-decoration: underline; }
 
+    @media (max-width: 600px) {
+      .topbar-brand   { display: none; }
+      .topbar-time    { display: none; }
+      .topbar-meta    { padding: 0 8px; min-width: 0; border-left: 1px solid var(--border); }
+      .topbar-refresh { padding: 4px 8px; }
+      .tab            { font-size: 10px; padding: 0 10px; }
+      #thread-drawer  { width: 100%; }
+    }
+
     @media (max-width: 480px) {
       .panel { padding: 10px; }
       .kpi-value { font-size: 22px; }
       .pill-val  { font-size: 18px; }
-      .topbar-brand small { display: none; }
     }
 
     /* ── Thread drawer ────────────────────────────────────────── */
@@ -283,7 +291,7 @@
     .ix-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 6px; margin-bottom: 3px; }
     .ix-label { font-size: 11px; font-weight: bold; color: #ccc; white-space: nowrap; }
     .ix-time  { font-size: 9px; color: var(--muted); white-space: nowrap; }
-    .ix-summary { font-size: 11px; color: #777; word-break: break-word; line-height: 1.45; }
+    .ix-summary { font-size: 11px; color: #aaa; word-break: break-word; line-height: 1.45; }
     .ix-expand { font-size: 10px; color: var(--blue); cursor: pointer; margin-top: 5px; display: inline-block; user-select: none; }
     .ix-expand:hover { text-decoration: underline; }
     .ix-body {
@@ -299,7 +307,6 @@
     .ix-purple { color: var(--purple); }
     .ix-muted  { color: var(--muted);  }
     tr.clickable { cursor: pointer; }
-    @media (max-width: 600px) { #thread-drawer { width: 100%; } }
   </style>
 </head>
 <body>
@@ -398,7 +405,7 @@
       <input id="emails-search" type="text" placeholder="Search by name or email…"
         style="background:var(--bg2);border:1px solid var(--border2);border-radius:4px;
                padding:7px 12px;font-size:12px;font-family:inherit;color:var(--text);
-               outline:none;width:260px;"
+               outline:none;flex:1;min-width:0;max-width:300px;"
         oninput="filterEmails(this.value)">
       <span id="emails-count" style="color:var(--muted);font-size:11px"></span>
     </div>
@@ -537,6 +544,7 @@ document.getElementById('tabs').addEventListener('click', e => {
   document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === activeTab));
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.getElementById('panel-' + activeTab).classList.add('active');
+  tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
   if (cachedData) renderActive();
 });
 
