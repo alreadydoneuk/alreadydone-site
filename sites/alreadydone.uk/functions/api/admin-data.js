@@ -29,6 +29,27 @@ export async function onRequestGet(context) {
       },
     }).then(r => r.json());
 
+  // ── Thread view: returns full interaction history for one business ──────────
+  if (url.searchParams.get('action') === 'thread') {
+    const id = url.searchParams.get('id');
+    if (!id) return new Response(JSON.stringify({ error: 'id required' }), {
+      status: 400, headers: { 'Content-Type': 'application/json' },
+    });
+    const [bizArr, interactions] = await Promise.all([
+      sb('businesses', `?select=id,name,category,location,email,pipeline_status,preview_url,`
+        + `first_email_sent_at,email_opened_at,email_link_clicked_at,last_reply_at,`
+        + `reply_classification,follow_up_sent_at&id=eq.${encodeURIComponent(id)}`),
+      sb('interactions', `?select=created_at,type,direction,content_summary,raw_content,metadata`
+        + `&business_id=eq.${encodeURIComponent(id)}`
+        + `&type=not.in.(research,skip,email_enriched,expiry_watch)`
+        + `&order=created_at.asc&limit=200`),
+    ]);
+    return new Response(JSON.stringify({
+      business: bizArr?.[0] || null,
+      interactions: interactions || [],
+    }), { status: 200, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
+  }
+
   const sbCount = async (path, params = '') => {
     const r = await fetch(
       `${env.SUPABASE_URL}/rest/v1/${path}?select=id&limit=1${params ? '&' + params : ''}`,

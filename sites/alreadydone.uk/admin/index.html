@@ -247,6 +247,59 @@
       .pill-val  { font-size: 18px; }
       .topbar-brand small { display: none; }
     }
+
+    /* ── Thread drawer ────────────────────────────────────────── */
+    #drawer-overlay {
+      display: none; position: fixed; inset: 0; z-index: 30;
+      background: rgba(0,0,0,0.55);
+    }
+    #thread-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0; width: 500px; z-index: 31;
+      background: var(--bg1); border-left: 1px solid var(--border2);
+      display: flex; flex-direction: column;
+      transform: translateX(100%); transition: transform 0.2s ease;
+    }
+    #thread-drawer.open { transform: translateX(0); }
+    .drawer-head {
+      padding: 14px 16px 12px; border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-shrink: 0;
+    }
+    .drawer-head-info { flex: 1; min-width: 0; }
+    .drawer-biz-name { font-size: 14px; font-weight: bold; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .drawer-biz-meta { color: var(--muted); font-size: 11px; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .drawer-biz-badges { display: flex; gap: 8px; align-items: center; margin-top: 7px; flex-wrap: wrap; }
+    .drawer-close {
+      background: none; border: none; color: var(--muted); font-size: 18px;
+      cursor: pointer; padding: 0 0 0 12px; line-height: 1; font-family: inherit; flex-shrink: 0;
+    }
+    .drawer-close:hover { color: #fff; }
+    .drawer-scroll { flex: 1; overflow-y: auto; }
+    /* interaction timeline */
+    .ix-row { display: flex; gap: 10px; padding: 10px 16px; border-bottom: 1px solid var(--border); }
+    .ix-row:last-child { border-bottom: none; }
+    .ix-icon { font-size: 13px; font-weight: bold; width: 18px; flex-shrink: 0; padding-top: 2px; text-align: center; }
+    .ix-content { flex: 1; min-width: 0; }
+    .ix-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 6px; margin-bottom: 3px; }
+    .ix-label { font-size: 11px; font-weight: bold; color: #ccc; white-space: nowrap; }
+    .ix-time  { font-size: 9px; color: var(--muted); white-space: nowrap; }
+    .ix-summary { font-size: 11px; color: #777; word-break: break-word; line-height: 1.45; }
+    .ix-expand { font-size: 10px; color: var(--blue); cursor: pointer; margin-top: 5px; display: inline-block; user-select: none; }
+    .ix-expand:hover { text-decoration: underline; }
+    .ix-body {
+      font-size: 11px; color: #bbb; background: var(--bg2);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 10px; margin-top: 6px; white-space: pre-wrap; word-break: break-word;
+      font-family: inherit; line-height: 1.5; max-height: 380px; overflow-y: auto;
+    }
+    .ix-blue   { color: var(--blue);   }
+    .ix-yellow { color: var(--yellow); }
+    .ix-green  { color: var(--green);  }
+    .ix-red    { color: var(--red);    }
+    .ix-purple { color: var(--purple); }
+    .ix-muted  { color: var(--muted);  }
+    tr.clickable { cursor: pointer; }
+    @media (max-width: 600px) { #thread-drawer { width: 100%; } }
   </style>
 </head>
 <body>
@@ -396,6 +449,20 @@
   </div>
 
 </div><!-- #dashboard -->
+
+<!-- Thread drawer -->
+<div id="drawer-overlay" onclick="closeDrawer()"></div>
+<div id="thread-drawer">
+  <div class="drawer-head">
+    <div class="drawer-head-info">
+      <div class="drawer-biz-name" id="drawer-name">—</div>
+      <div class="drawer-biz-meta" id="drawer-meta"></div>
+      <div class="drawer-biz-badges" id="drawer-badges"></div>
+    </div>
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-scroll" id="drawer-scroll"></div>
+</div>
 
 <script>
 const TOKEN_KEY = 'ad_admin_token_v2';
@@ -588,14 +655,23 @@ function qRow(b, i) {
 
 // ── Emails ────────────────────────────────────────────────────────────────────
 function renderEmails(d) {
-  tbody('emails-tbody', d.emailed||[], (b, i) => {
+  const rows = d.emailed || [];
+  const el = document.getElementById('emails-tbody');
+  if (!rows.length) {
+    el.innerHTML = '<tr class="empty-row"><td colspan="8">—</td></tr>';
+    return;
+  }
+  el.innerHTML = rows.map((b, i) => {
     const ei = `<div class="ei-row">
       <span class="ei${b.email_opened_at?' on':''}" title="Opened ${b.email_opened_at?fmtFull(b.email_opened_at):'not yet'}">👁</span>
       <span class="ei${b.email_link_clicked_at?' on':''}" title="Clicked ${b.email_link_clicked_at?fmtFull(b.email_link_clicked_at):'not yet'}">🔗</span>
       <span class="ei${b.last_reply_at?' on':''}" title="Replied ${b.last_reply_at?fmtFull(b.last_reply_at):'not yet'}">💬</span>
     </div>`;
     const scls = {'emailed':'b-emailed','follow_up_sent':'b-built','engaged':'b-hot','payment_pending':'b-paid'}[b.pipeline_status]||'b-grey';
-    return `
+    const preview = b.preview_url
+      ? `<a class="lnk" href="${esc(b.preview_url)}" target="_blank" style="font-size:11px" onclick="event.stopPropagation()">View →</a>`
+      : '<span style="color:var(--muted2)">—</span>';
+    return `<tr class="clickable" onclick="openThread('${esc(b.id)}')">
       <td class="n">${i+1}</td>
       <td><div class="nm">${esc(b.name)}</div><div class="cat">${esc(b.category||'')}${b.location?', '+esc(b.location):''}</div></td>
       <td class="em">${esc(b.email||'—')}</td>
@@ -603,8 +679,9 @@ function renderEmails(d) {
       <td>${ei}</td>
       <td class="dt">${b.first_email_sent_at ? fmtDate(b.first_email_sent_at) : '—'}</td>
       <td class="dt">${b.last_reply_at ? fmtDate(b.last_reply_at) : '—'}</td>
-      <td>${b.preview_url ? '<a class="lnk" href="'+esc(b.preview_url)+'" target="_blank" style="font-size:11px">View →</a>' : '<span style="color:var(--muted2)">—</span>'}</td>`;
-  }, 8);
+      <td>${preview}</td>
+    </tr>`;
+  }).join('');
 }
 
 // ── Enrichment ────────────────────────────────────────────────────────────────
@@ -718,6 +795,149 @@ function fmtTime(d) {
 
 function esc(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Thread drawer ─────────────────────────────────────────────────────────────
+async function openThread(id) {
+  const drawer = document.getElementById('thread-drawer');
+  document.getElementById('drawer-scroll').innerHTML = '<div style="padding:20px;color:var(--muted);font-size:12px">Loading…</div>';
+  document.getElementById('drawer-name').textContent = '—';
+  document.getElementById('drawer-meta').textContent = '';
+  document.getElementById('drawer-badges').innerHTML = '';
+  document.getElementById('drawer-overlay').style.display = 'block';
+  drawer.classList.add('open');
+
+  try {
+    const res = await fetch(`/api/admin-data?action=thread&id=${encodeURIComponent(id)}&token=${encodeURIComponent(savedToken)}`);
+    const data = await res.json();
+    renderThread(data);
+  } catch (e) {
+    document.getElementById('drawer-scroll').innerHTML = `<div style="padding:20px;color:var(--red);font-size:12px">Error: ${esc(e.message)}</div>`;
+  }
+}
+
+function closeDrawer() {
+  document.getElementById('thread-drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').style.display = 'none';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+function renderThread({ business: b, interactions }) {
+  if (!b) {
+    document.getElementById('drawer-scroll').innerHTML = '<div style="padding:20px;color:var(--red);font-size:12px">Business not found.</div>';
+    return;
+  }
+
+  document.getElementById('drawer-name').textContent = b.name;
+  document.getElementById('drawer-meta').textContent = [b.email, b.category, b.location].filter(Boolean).join(' · ');
+
+  const scls = {'emailed':'b-emailed','follow_up_sent':'b-built','engaged':'b-hot','payment_pending':'b-paid','nurturing':'b-warm'}[b.pipeline_status]||'b-grey';
+  document.getElementById('drawer-badges').innerHTML = [
+    `<span class="badge ${scls}">${esc(b.pipeline_status)}</span>`,
+    b.preview_url ? `<a class="lnk" href="${esc(b.preview_url)}" target="_blank" style="font-size:10px">Preview →</a>` : '',
+    b.reply_classification ? `<span class="badge b-grey">${esc(b.reply_classification)}</span>` : '',
+  ].filter(Boolean).join('');
+
+  const collapsed = collapseOpenEvents(interactions || []);
+  if (!collapsed.length) {
+    document.getElementById('drawer-scroll').innerHTML = '<div style="padding:20px;color:var(--muted2);font-size:12px">No interactions recorded.</div>';
+    return;
+  }
+  document.getElementById('drawer-scroll').innerHTML = collapsed.map(ix => renderInteraction(ix)).join('');
+}
+
+function collapseOpenEvents(ixs) {
+  const out = [];
+  let openGroup = null, clickGroup = null;
+  for (const ix of ixs) {
+    if (ix.type === 'email_opened') {
+      if (!openGroup) { openGroup = { ...ix, _count: 1 }; out.push(openGroup); }
+      else { openGroup._count++; openGroup._lastAt = ix.created_at; }
+    } else if (ix.type === 'email_clicked') {
+      if (!clickGroup) {
+        clickGroup = { ...ix, _count: 1, _urls: ix.metadata?.url ? [ix.metadata.url] : [] };
+        out.push(clickGroup);
+      } else {
+        clickGroup._count++;
+        clickGroup._lastAt = ix.created_at;
+        if (ix.metadata?.url && !clickGroup._urls.includes(ix.metadata.url)) clickGroup._urls.push(ix.metadata.url);
+      }
+    } else {
+      out.push(ix);
+    }
+  }
+  return out;
+}
+
+const IX_CFG = {
+  email_sent:      { icon: '→', cls: 'ix-blue',   label: 'Outreach sent'  },
+  follow_up_sent:  { icon: '→', cls: 'ix-purple', label: 'Follow-up'      },
+  auto_reply_sent: { icon: '→', cls: 'ix-muted',  label: 'Auto-reply'     },
+  reply_received:  { icon: '←', cls: 'ix-yellow', label: 'Reply received' },
+  email_opened:    { icon: '←', cls: 'ix-muted',  label: 'Opened'         },
+  email_clicked:   { icon: '←', cls: 'ix-blue',   label: 'Clicked'        },
+  email_bounced:   { icon: '!', cls: 'ix-red',    label: 'Bounced'        },
+  site_built:      { icon: '○', cls: 'ix-green',  label: 'Site built'     },
+  domain_lapsed:   { icon: '!', cls: 'ix-yellow', label: 'Domain lapsed'  },
+  deploy_blocked:  { icon: '⏸', cls: 'ix-yellow', label: 'Deploy held'    },
+  dropped:         { icon: '✕', cls: 'ix-red',    label: 'Dropped'        },
+};
+
+let _ixCounter = 0;
+function renderInteraction(ix) {
+  const cfg = IX_CFG[ix.type] || { icon: '·', cls: 'ix-muted', label: ix.type };
+  const uid = 'ix' + (++_ixCounter);
+
+  let summary = esc(ix.content_summary || '');
+  let extra = '';
+
+  if (ix.type === 'email_opened') {
+    const count = ix._count || 1;
+    summary = count > 1
+      ? `Opened ${count}× &mdash; last ${fmtFull(ix._lastAt || ix.created_at)}`
+      : 'Opened';
+  } else if (ix.type === 'email_clicked') {
+    const count = ix._count || 1;
+    const urls = (ix._urls || (ix.metadata?.url ? [ix.metadata.url] : []));
+    summary = count > 1 ? `Clicked ${count}×` : 'Clicked preview';
+    if (urls.length) extra = urls.map(u => `<div style="margin-top:4px"><a class="lnk" href="${esc(u)}" target="_blank" style="font-size:10px;word-break:break-all">${esc(u)}</a></div>`).join('');
+  } else if (ix.type === 'email_sent' || ix.type === 'follow_up_sent') {
+    const subj = ix.metadata?.subject || (ix.content_summary||'').match(/Subject: (.+)$/)?.[1] || '';
+    if (subj) summary = `<span style="color:#999">Subj:</span> ${esc(subj)}`;
+  } else if (ix.type === 'email_bounced') {
+    const btype = (ix.content_summary||'').includes('Permanent') ? 'Permanent' : 'Transient';
+    summary = `${btype} bounce`;
+  } else if (ix.type === 'reply_received') {
+    const code = ix.metadata?.classification?.classification || '';
+    if (code) summary = `<span class="badge b-grey" style="margin-right:4px">${esc(code)}</span>` + esc(ix.metadata?.classification?.summary || ix.content_summary || '');
+  }
+
+  const hasBody = ix.raw_content && ['email_sent','follow_up_sent','auto_reply_sent','reply_received'].includes(ix.type);
+  const bodyToggle = hasBody ? `
+    <div class="ix-expand" onclick="toggleIxBody('${uid}')">Show message ▾</div>
+    <pre class="ix-body" id="${uid}" style="display:none">${esc(ix.raw_content||'')}</pre>` : '';
+
+  return `<div class="ix-row">
+    <div class="ix-icon ${cfg.cls}">${cfg.icon}</div>
+    <div class="ix-content">
+      <div class="ix-meta">
+        <span class="ix-label">${cfg.label}</span>
+        <span class="ix-time">${fmtFull(ix.created_at)}</span>
+      </div>
+      <div class="ix-summary">${summary}</div>
+      ${extra}
+      ${bodyToggle}
+    </div>
+  </div>`;
+}
+
+function toggleIxBody(id) {
+  const el = document.getElementById(id);
+  const btn = el.previousElementSibling;
+  const hidden = el.style.display === 'none';
+  el.style.display = hidden ? 'block' : 'none';
+  btn.textContent = hidden ? 'Hide message ▴' : 'Show message ▾';
 }
 </script>
 </body>
